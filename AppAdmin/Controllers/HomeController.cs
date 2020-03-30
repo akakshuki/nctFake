@@ -13,10 +13,5 @@ namespace AppAdmin.Controllers
             return View();
         }
 
-        public PartialViewResult NavigateMenu()
-        {
-            return View();
-        }
-
     }
 }
