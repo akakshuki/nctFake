@@ -45,10 +45,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -127,6 +134,8 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Client\ClientAreaRegistration.cs" />
     <Compile Include="Areas\HelpPage\ApiDescriptionExtensions.cs" />
     <Compile Include="Areas\HelpPage\App_Start\HelpPageConfig.cs" />
     <Compile Include="Areas\HelpPage\Controllers\HelpController.cs" />
@@ -160,6 +169,72 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\EF\Category.cs">
+      <DependentUpon>NTCentityModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EF\HistoryUser.cs">
+      <DependentUpon>NTCentityModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EF\LyricsMusic.cs">
+      <DependentUpon>NTCentityModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EF\Music.cs">
+      <DependentUpon>NTCentityModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EF\NTCentityModels.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>NTCentityModels.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EF\NTCentityModels.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>NTCentityModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EF\NTCentityModels.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>NTCentityModels.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EF\OrderVip.cs">
+      <DependentUpon>NTCentityModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EF\PackageVip.cs">
+      <DependentUpon>NTCentityModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EF\Partner.cs">
+      <DependentUpon>NTCentityModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EF\Payment.cs">
+      <DependentUpon>NTCentityModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EF\Playlist.cs">
+      <DependentUpon>NTCentityModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EF\PlaylistMusic.cs">
+      <DependentUpon>NTCentityModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EF\Quality.cs">
+      <DependentUpon>NTCentityModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EF\QualityMusic.cs">
+      <DependentUpon>NTCentityModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EF\RankMusic.cs">
+      <DependentUpon>NTCentityModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EF\Role.cs">
+      <DependentUpon>NTCentityModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EF\SingerMusic.cs">
+      <DependentUpon>NTCentityModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EF\User.cs">
+      <DependentUpon>NTCentityModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EF\ViewMusic.cs">
+      <DependentUpon>NTCentityModels.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -171,6 +246,16 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="Models\EF\NTCentityModels.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>NTCentityModels.Context.cs</LastGenOutput>
+      <DependentUpon>NTCentityModels.edmx</DependentUpon>
+    </Content>
+    <Content Include="Models\EF\NTCentityModels.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>NTCentityModels.edmx</DependentUpon>
+      <LastGenOutput>NTCentityModels.cs</LastGenOutput>
+    </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Areas\HelpPage\Views\Web.config" />
@@ -192,6 +277,15 @@
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\CollectionModelDescription.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ApiGroup.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
+    <EntityDeploy Include="Models\EF\NTCentityModels.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>NTCentityModels.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\EF\NTCentityModels.edmx.diagram">
+      <DependentUpon>NTCentityModels.edmx</DependentUpon>
+    </Content>
+    <Content Include="Areas\Admin\Views\web.config" />
+    <Content Include="Areas\Client\Views\web.config" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -215,7 +309,23 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\EF\" />
+    <Folder Include="Areas\Admin\Controllers\" />
+    <Folder Include="Areas\Admin\Data\" />
+    <Folder Include="Areas\Admin\Models\Daos\" />
+    <Folder Include="Areas\Admin\Models\DTOs\" />
+    <Folder Include="Areas\Admin\Models\Mappers\" />
+    <Folder Include="Areas\Admin\Models\Respositorties\" />
+    <Folder Include="Areas\Admin\Views\Shared\" />
+    <Folder Include="Areas\Client\Controllers\" />
+    <Folder Include="Areas\Client\Data\" />
+    <Folder Include="Areas\Client\Models\Daos\" />
+    <Folder Include="Areas\Client\Models\DTOs\" />
+    <Folder Include="Areas\Client\Models\Mappers\" />
+    <Folder Include="Areas\Client\Models\Respositorties\" />
+    <Folder Include="Areas\Client\Views\Shared\" />
+    <Folder Include="Models\DTOs\" />
+    <Folder Include="Models\Mappers\" />
+    <Folder Include="Models\Respositorties\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -245,6 +355,9 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.4.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

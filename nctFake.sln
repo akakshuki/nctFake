@@ -5,9 +5,9 @@ VisualStudioVersion = 16.0.29806.167
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api", "Api\Api.csproj", "{894E15F7-88A8-4F1B-AB52-6410C7E9FA35}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppAdmin", "AppAdmin\AppAdmin.csproj", "{6D25FC96-85EB-41D5-A4FF-988C33CA3788}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Admin", "AppAdmin\Admin.csproj", "{6D25FC96-85EB-41D5-A4FF-988C33CA3788}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppClient", "AppClient\AppClient.csproj", "{6EDF343B-B3A6-4E67-ABB1-3E1C98CE6085}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client", "AppClient\Client.csproj", "{6EDF343B-B3A6-4E67-ABB1-3E1C98CE6085}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
