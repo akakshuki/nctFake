@@ -284,7 +284,6 @@
     <Content Include="Models\EF\NTCentityModels.edmx.diagram">
       <DependentUpon>NTCentityModels.edmx</DependentUpon>
     </Content>
-    <Content Include="Areas\Admin\Views\web.config" />
     <Content Include="Areas\Client\Views\web.config" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
@@ -311,17 +310,8 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Controllers\" />
     <Folder Include="Areas\Admin\Data\" />
-    <Folder Include="Areas\Admin\Models\Daos\" />
-    <Folder Include="Areas\Admin\Models\DTOs\" />
-    <Folder Include="Areas\Admin\Models\Mappers\" />
-    <Folder Include="Areas\Admin\Models\Respositorties\" />
-    <Folder Include="Areas\Admin\Views\Shared\" />
     <Folder Include="Areas\Client\Controllers\" />
     <Folder Include="Areas\Client\Data\" />
-    <Folder Include="Areas\Client\Models\Daos\" />
-    <Folder Include="Areas\Client\Models\DTOs\" />
-    <Folder Include="Areas\Client\Models\Mappers\" />
-    <Folder Include="Areas\Client\Models\Respositorties\" />
     <Folder Include="Areas\Client\Views\Shared\" />
     <Folder Include="Models\DTOs\" />
     <Folder Include="Models\Mappers\" />
