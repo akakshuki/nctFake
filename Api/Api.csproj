@@ -179,72 +179,77 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\DTOs\Pagination.cs" />
     <Compile Include="Models\EF\Category.cs">
-      <DependentUpon>NTCentityModels.tt</DependentUpon>
+      <DependentUpon>NCTModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\EF\HistoryUser.cs">
-      <DependentUpon>NTCentityModels.tt</DependentUpon>
+      <DependentUpon>NCTModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\EF\LyricsMusic.cs">
-      <DependentUpon>NTCentityModels.tt</DependentUpon>
+      <DependentUpon>NCTModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\EF\Music.cs">
-      <DependentUpon>NTCentityModels.tt</DependentUpon>
+      <DependentUpon>NCTModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\EF\NTCentityModels.Context.cs">
+    <Compile Include="Models\EF\NCTModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>NTCentityModels.Context.tt</DependentUpon>
+      <DependentUpon>NCTModel.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\EF\NTCentityModels.cs">
+    <Compile Include="Models\EF\NCTModel.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>NTCentityModels.tt</DependentUpon>
+      <DependentUpon>NCTModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\EF\NTCentityModels.Designer.cs">
+    <Compile Include="Models\EF\NCTModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>NTCentityModels.edmx</DependentUpon>
+      <DependentUpon>NCTModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\EF\OrderVip.cs">
-      <DependentUpon>NTCentityModels.tt</DependentUpon>
+      <DependentUpon>NCTModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\EF\PackageVip.cs">
-      <DependentUpon>NTCentityModels.tt</DependentUpon>
+      <DependentUpon>NCTModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\EF\Partner.cs">
-      <DependentUpon>NTCentityModels.tt</DependentUpon>
+      <DependentUpon>NCTModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\EF\Payment.cs">
-      <DependentUpon>NTCentityModels.tt</DependentUpon>
+      <DependentUpon>NCTModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\EF\Playlist.cs">
-      <DependentUpon>NTCentityModels.tt</DependentUpon>
+      <DependentUpon>NCTModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\EF\PlaylistMusic.cs">
-      <DependentUpon>NTCentityModels.tt</DependentUpon>
+      <DependentUpon>NCTModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\EF\Quality.cs">
-      <DependentUpon>NTCentityModels.tt</DependentUpon>
+      <DependentUpon>NCTModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\EF\QualityMusic.cs">
-      <DependentUpon>NTCentityModels.tt</DependentUpon>
+      <DependentUpon>NCTModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\EF\RankMusic.cs">
-      <DependentUpon>NTCentityModels.tt</DependentUpon>
+      <DependentUpon>NCTModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\EF\Role.cs">
-      <DependentUpon>NTCentityModels.tt</DependentUpon>
+      <DependentUpon>NCTModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\EF\SingerMusic.cs">
-      <DependentUpon>NTCentityModels.tt</DependentUpon>
+      <DependentUpon>NCTModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\EF\User.cs">
-      <DependentUpon>NTCentityModels.tt</DependentUpon>
+      <DependentUpon>NCTModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\EF\ViewMusic.cs">
-      <DependentUpon>NTCentityModels.tt</DependentUpon>
+      <DependentUpon>NCTModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Repositories\BaseRepository.cs" />
+    <Compile Include="Models\Repositories\IRepository.cs" />
+    <Compile Include="Models\Repositories\IUnitOfWork.cs" />
+    <Compile Include="Models\Repositories\UnitOfWork .cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -257,16 +262,6 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
-    <Content Include="Models\EF\NTCentityModels.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>NTCentityModels.Context.cs</LastGenOutput>
-      <DependentUpon>NTCentityModels.edmx</DependentUpon>
-    </Content>
-    <Content Include="Models\EF\NTCentityModels.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>NTCentityModels.edmx</DependentUpon>
-      <LastGenOutput>NTCentityModels.cs</LastGenOutput>
-    </Content>
     <Content Include="Areas\HelpPage\Views\Web.config" />
     <Content Include="Areas\HelpPage\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\ResourceModel.cshtml" />
@@ -286,14 +281,17 @@
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\CollectionModelDescription.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ApiGroup.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
-    <EntityDeploy Include="Models\EF\NTCentityModels.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>NTCentityModels.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\EF\NTCentityModels.edmx.diagram">
-      <DependentUpon>NTCentityModels.edmx</DependentUpon>
-    </Content>
     <Content Include="Areas\Client\Views\web.config" />
+    <Content Include="Models\EF\NCTModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>NCTModel.edmx</DependentUpon>
+      <LastGenOutput>NCTModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\EF\NCTModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>NCTModel.edmx</DependentUpon>
+      <LastGenOutput>NCTModel.cs</LastGenOutput>
+    </Content>
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -317,6 +315,13 @@
     <Content Include="Scripts\esm\popper.js.map" />
     <Content Include="Scripts\esm\popper-utils.min.js.map" />
     <Content Include="Scripts\esm\popper-utils.js.map" />
+    <EntityDeploy Include="Models\EF\NCTModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>NCTModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\EF\NCTModel.edmx.diagram">
+      <DependentUpon>NCTModel.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -426,9 +431,7 @@
     <Folder Include="Areas\Client\Data\" />
     <Folder Include="Areas\Client\Views\Shared\" />
     <Folder Include="Models\Dao\" />
-    <Folder Include="Models\DTOs\" />
     <Folder Include="Models\Mappers\" />
-    <Folder Include="Models\Respositorties\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
