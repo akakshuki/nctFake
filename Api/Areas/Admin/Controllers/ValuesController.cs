@@ -5,8 +5,9 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 
-namespace Api.Controllers
+namespace Api.Areas.Admin.Controllers
 {
+    [RoutePrefix("api/{Controller}")]
     public class ValuesController : ApiController
     {
         // GET api/values
