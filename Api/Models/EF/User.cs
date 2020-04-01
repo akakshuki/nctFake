@@ -31,6 +31,7 @@ namespace Api.Models.EF
         public string UserPwd { get; set; }
         public string UserDescription { get; set; }
         public string UserNameUnsigned { get; set; }
+        public string UserImage { get; set; }
         public System.DateTime UserDayCreate { get; set; }
         public int RoleID { get; set; }
         public bool UserActive { get; set; }
