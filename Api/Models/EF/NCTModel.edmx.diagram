@@ -4,6 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
+
       <Diagram DiagramId="035d2564f29744e0a798e47e3710c8a7" Name="Diagram1">
         <EntityTypeShape EntityType="ProjectNCTModel.Category" Width="1.5" PointX="3.75" PointY="2.375" />
         <EntityTypeShape EntityType="ProjectNCTModel.HistoryUser" Width="1.5" PointX="10.5" PointY="6.875" />
