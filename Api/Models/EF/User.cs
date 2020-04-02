@@ -31,12 +31,12 @@ namespace Api.Models.EF
         public string UserPwd { get; set; }
         public string UserDescription { get; set; }
         public string UserNameUnsigned { get; set; }
+        public string UserImage { get; set; }
         public System.DateTime UserDayCreate { get; set; }
         public int RoleID { get; set; }
         public bool UserActive { get; set; }
         public System.DateTime DayVipEnd { get; set; }
         public string TokenUser { get; set; }
-        public string UserImage { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Music> Musics { get; set; }
