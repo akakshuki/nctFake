@@ -216,8 +216,11 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Bus\MusicBus.cs" />
+    <Compile Include="Models\Dao\MusicDao.cs" />
+    <Compile Include="Models\Dao\QualityMusicDao.cs" />
+    <Compile Include="Models\Dao\QualityDao.cs" />
     <Compile Include="Models\Dao\RolesDao.cs" />
-    <Compile Include="Models\DTOs\Pagination.cs" />
     <Compile Include="Models\EF\Category.cs">
       <DependentUpon>NCTModel.tt</DependentUpon>
     </Compile>
@@ -278,15 +281,13 @@
     <Compile Include="Models\EF\SingerMusic.cs">
       <DependentUpon>NCTModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\EF\sysdiagram.cs">
-      <DependentUpon>NCTModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\EF\User.cs">
       <DependentUpon>NCTModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\EF\ViewMusic.cs">
       <DependentUpon>NCTModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Mappers\MapperConfig.cs" />
     <Compile Include="Models\Repositories.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -468,8 +469,6 @@
     <Folder Include="Areas\Client\Controllers\" />
     <Folder Include="Areas\Client\Data\" />
     <Folder Include="Areas\Client\Views\Shared\" />
-    <Folder Include="Models\Bus\" />
-    <Folder Include="Models\Mappers\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -482,6 +481,12 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\index.d.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ModelViews\ModelViews.csproj">
+      <Project>{B858E174-1730-496B-B610-22753DF96436}</Project>
+      <Name>ModelViews</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

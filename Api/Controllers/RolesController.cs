@@ -17,14 +17,16 @@ namespace Api.Controllers
    
     public class RolesController : ApiController
     {
-     
+        
+        private ProjectNCTEntities db = new ProjectNCTEntities();
+
         // GET: api/Roles
         public IEnumerable<Role> GetRoles()
         {
             try
             {
-                
-                return null;
+                   
+                return db.Roles;
             }
             catch (Exception e)
             {
