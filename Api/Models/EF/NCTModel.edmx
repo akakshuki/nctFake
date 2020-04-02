@@ -152,16 +152,6 @@
           <Property Name="MusicID" Type="int" Nullable="false" />
           <Property Name="SingerID" Type="int" Nullable="false" />
         </EntityType>
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="principal_id" Type="int" Nullable="false" />
-          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="version" Type="int" />
-          <Property Name="definition" Type="varbinary(max)" />
-        </EntityType>
         <EntityType Name="User">
           <Key>
             <PropertyRef Name="ID" />
@@ -350,7 +340,6 @@
           <EntitySet Name="RankMusic" EntityType="Self.RankMusic" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SingerMusic" EntityType="Self.SingerMusic" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ViewMusic" EntityType="Self.ViewMusic" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_HistoryUser_Music" Association="Self.FK_HistoryUser_Music">
@@ -674,6 +663,7 @@
           <NavigationProperty Name="OrderVips" Relationship="ProjectNCTModel.FK_OrderVip_User" FromRole="User" ToRole="OrderVip" />
           <NavigationProperty Name="Role" Relationship="ProjectNCTModel.FK_User_Role" FromRole="User" ToRole="Role" />
           <NavigationProperty Name="SingerMusics" Relationship="ProjectNCTModel.FK_SingerMusic_User" FromRole="User" ToRole="SingerMusic" />
+
         </EntityType>
         <EntityType Name="ViewMusic">
           <Key>
@@ -827,6 +817,73 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityContainer Name="ProjectNCTEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Categories" EntityType="Self.Category" />
+          <EntitySet Name="HistoryUsers" EntityType="Self.HistoryUser" />
+          <EntitySet Name="LyricsMusics" EntityType="Self.LyricsMusic" />
+          <EntitySet Name="Musics" EntityType="Self.Music" />
+          <EntitySet Name="OrderVips" EntityType="Self.OrderVip" />
+          <EntitySet Name="PackageVips" EntityType="Self.PackageVip" />
+          <EntitySet Name="Partners" EntityType="Self.Partner" />
+          <EntitySet Name="Payments" EntityType="Self.Payment" />
+          <EntitySet Name="Playlists" EntityType="Self.Playlist" />
+          <EntitySet Name="PlaylistMusics" EntityType="Self.PlaylistMusic" />
+          <EntitySet Name="Qualities" EntityType="Self.Quality" />
+          <EntitySet Name="QualityMusics" EntityType="Self.QualityMusic" />
+          <EntitySet Name="RankMusics" EntityType="Self.RankMusic" />
+          <EntitySet Name="Roles" EntityType="Self.Role" />
+          <EntitySet Name="SingerMusics" EntityType="Self.SingerMusic" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <EntitySet Name="ViewMusics" EntityType="Self.ViewMusic" />
+          <AssociationSet Name="FK_RankMusic_Category" Association="Self.FK_RankMusic_Category">
+            <End Role="Category" EntitySet="Categories" />
+            <End Role="RankMusic" EntitySet="RankMusics" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HistoryUser_Music" Association="Self.FK_HistoryUser_Music">
+            <End Role="Music" EntitySet="Musics" />
+            <End Role="HistoryUser" EntitySet="HistoryUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LyricsMusic_Music" Association="Self.FK_LyricsMusic_Music">
+            <End Role="Music" EntitySet="Musics" />
+            <End Role="LyricsMusic" EntitySet="LyricsMusics" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Music_RankMusic" Association="Self.FK_Music_RankMusic">
+            <End Role="RankMusic" EntitySet="RankMusics" />
+            <End Role="Music" EntitySet="Musics" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Music_User" Association="Self.FK_Music_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Music" EntitySet="Musics" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PlaylistMusic_Music" Association="Self.FK_PlaylistMusic_Music">
+            <End Role="Music" EntitySet="Musics" />
+            <End Role="PlaylistMusic" EntitySet="PlaylistMusics" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderVip_PackageVip" Association="Self.FK_OrderVip_PackageVip">
+            <End Role="PackageVip" EntitySet="PackageVips" />
+            <End Role="OrderVip" EntitySet="OrderVips" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderVip_User" Association="Self.FK_OrderVip_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="OrderVip" EntitySet="OrderVips" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PackageVip_Payment" Association="Self.FK_PackageVip_Payment">
+            <End Role="Payment" EntitySet="Payments" />
+            <End Role="PackageVip" EntitySet="PackageVips" />
+          </AssociationSet>
+          <AssociationSet Name="FK_QualityMusic_Quality" Association="Self.FK_QualityMusic_Quality">
+            <End Role="Quality" EntitySet="Qualities" />
+            <End Role="QualityMusic" EntitySet="QualityMusics" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Role" Association="Self.FK_User_Role">
+            <End Role="Role" EntitySet="Roles" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SingerMusic_User" Association="Self.FK_SingerMusic_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="SingerMusic" EntitySet="SingerMusics" />
+          </AssociationSet>
+        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
