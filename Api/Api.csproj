@@ -209,6 +209,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Common\TokenGenerator.cs" />
     <Compile Include="Configure\ConfigAutoFact.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
@@ -221,6 +222,20 @@
     <Compile Include="Models\Dao\QualityMusicDao.cs" />
     <Compile Include="Models\Dao\QualityDao.cs" />
     <Compile Include="Models\Dao\RolesDao.cs" />
+    <Compile Include="Models\Bus\CategoryBus.cs" />
+    <Compile Include="Models\Bus\PartnerBus.cs" />
+    <Compile Include="Models\Bus\PlaylistBus.cs" />
+    <Compile Include="Models\Bus\RoleBus.cs" />
+    <Compile Include="Models\Bus\UserBus.cs" />
+    <Compile Include="Models\Dao\CategoryDao.cs" />
+    <Compile Include="Models\Dao\PartnerDao.cs" />
+    <Compile Include="Models\Dao\PlaylistDao.cs" />
+    <Compile Include="Models\Dao\RoleDao.cs" />
+    <Compile Include="Models\Dao\UserDao.cs" />
+    <Compile Include="Models\DTOs\CategoryDTO.cs" />
+    <Compile Include="Models\DTOs\Pagination.cs" />
+    <Compile Include="Models\DTOs\RoleDTO.cs" />
+
     <Compile Include="Models\EF\Category.cs">
       <DependentUpon>NCTModel.tt</DependentUpon>
     </Compile>
@@ -469,6 +484,7 @@
     <Folder Include="Areas\Client\Controllers\" />
     <Folder Include="Areas\Client\Data\" />
     <Folder Include="Areas\Client\Views\Shared\" />
+    <Folder Include="Models\Mappers\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
