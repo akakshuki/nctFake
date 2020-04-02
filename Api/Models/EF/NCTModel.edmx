@@ -165,6 +165,7 @@
           <Property Name="UserPwd" Type="varchar" MaxLength="20" />
           <Property Name="UserDescription" Type="nvarchar(max)" />
           <Property Name="UserNameUnsigned" Type="nvarchar" MaxLength="500" />
+          <Property Name="UserImage" Type="nvarchar" MaxLength="500" />
           <Property Name="UserDayCreate" Type="datetime" Nullable="false" />
           <Property Name="RoleID" Type="int" Nullable="false" />
           <Property Name="UserActive" Type="bit" Nullable="false" />
@@ -575,6 +576,7 @@
           <Property Name="UserPwd" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="UserDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="UserNameUnsigned" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="UserImage" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="UserDayCreate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="RoleID" Type="Int32" Nullable="false" />
           <Property Name="UserActive" Type="Boolean" Nullable="false" />
@@ -984,6 +986,7 @@
                 <ScalarProperty Name="UserPwd" ColumnName="UserPwd" />
                 <ScalarProperty Name="UserDescription" ColumnName="UserDescription" />
                 <ScalarProperty Name="UserNameUnsigned" ColumnName="UserNameUnsigned" />
+                <ScalarProperty Name="UserImage" ColumnName="UserImage" />
                 <ScalarProperty Name="UserDayCreate" ColumnName="UserDayCreate" />
                 <ScalarProperty Name="RoleID" ColumnName="RoleID" />
                 <ScalarProperty Name="UserActive" ColumnName="UserActive" />

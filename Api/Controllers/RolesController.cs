@@ -8,27 +8,25 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
+using Api.Models.Dao;
 using Api.Models.EF;
+
 
 namespace Api.Controllers
 {
+   
     public class RolesController : ApiController
     {
-        private ProjectNCTEntities db = null;
-
-
-        public RolesController()
-        {
-            db = new ProjectNCTEntities();
-        }
+        
+        private ProjectNCTEntities db = new ProjectNCTEntities();
 
         // GET: api/Roles
         public IEnumerable<Role> GetRoles()
         {
             try
             {
-                var data = db.Roles.ToList();
-                return data;
+                   
+                return db.Roles;
             }
             catch (Exception e)
             {
