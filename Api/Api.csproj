@@ -227,9 +227,6 @@
     <Compile Include="Models\Dao\PlaylistDao.cs" />
     <Compile Include="Models\Dao\RoleDao.cs" />
     <Compile Include="Models\Dao\UserDao.cs" />
-    <Compile Include="Models\DTOs\CategoryDTO.cs" />
-    <Compile Include="Models\DTOs\Pagination.cs" />
-    <Compile Include="Models\DTOs\RoleDTO.cs" />
     <Compile Include="Models\EF\Category.cs">
       <DependentUpon>NCTModel.tt</DependentUpon>
     </Compile>
