@@ -55,7 +55,7 @@ namespace Api.Controllers
 
         // PUT api/<controller>/5
         [Route("UpdateCate")]
-        public IHttpActionResult UpdateCate(User user)
+        public IHttpActionResult UpdateUser(User user)
         {
             if (new Repositories().UpdateUser(user))
             {
@@ -66,9 +66,9 @@ namespace Api.Controllers
 
         // DELETE api/<controller>/5
         [Route("DeleteCate/{id}")]
-        public IHttpActionResult DeleteCate(int id)
+        public IHttpActionResult DeleteUser(int id)
         {
-            if (new Repositories().DeleteCate(id))
+            if (new Repositories().DeleteUser(id))
             {
                 return Ok();
             }
