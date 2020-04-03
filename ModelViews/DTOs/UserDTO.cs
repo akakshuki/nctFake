@@ -9,8 +9,8 @@ namespace ModelViews.DTOs
     {
         public int ID { get; set; }
         public string UserName { get; set; }
-        public DateTime UserDOB { get; set; }
-        public bool UserGender { get; set; }
+        public DateTime? UserDOB { get; set; }
+        public bool? UserGender { get; set; }
         public bool UserVIP { get; set; }
         public string UserEmail { get; set; }
         public string UserPwd { get; set; }

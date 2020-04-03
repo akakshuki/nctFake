@@ -9,17 +9,41 @@ namespace Api.Models.Bus
 {
     public class PlaylistBus
     {
-        public List<Playlist> GetAllPlaylist()
+        public IEnumerable<Playlist> GetAllPlaylist()
         {
-            return new PlaylistDao().GetAllPlaylist();
+            var data = new PlaylistDao().GetAllPlaylist().Select(s => new Playlist
+            {
+                PlaylistName = s.PlaylistName,
+                PlaylistDescription = s.PlaylistDescription,
+                PlaylistImage = s.PlaylistImage,
+                CateID = s.CateID,
+                UserID = s.UserID
+            });
+            return data;
         }
         public Playlist GetPlaylistById(int id)
         {
-            return new PlaylistDao().GetPlaylistById(id);
+            var data = new PlaylistDao().GetPlaylistById(id);
+            return new Playlist 
+            {
+                PlaylistName = data.PlaylistName,
+                PlaylistDescription = data.PlaylistDescription,
+                PlaylistImage = data.PlaylistImage,
+                CateID = data.CateID,
+                UserID = data.UserID
+            };
         }
-        public List<Playlist> GetPlaylistByIdUser(int id)
+        public IEnumerable<Playlist> GetPlaylistByIdUser(int id)
         {
-            return new PlaylistDao().GetPlaylistByIdUser(id);
+            var data = new PlaylistDao().GetPlaylistByIdUser(id).Select(s => new Playlist
+            {
+                PlaylistName = s.PlaylistName,
+                PlaylistDescription = s.PlaylistDescription,
+                PlaylistImage = s.PlaylistImage,
+                CateID = s.CateID,
+                UserID = s.UserID
+            });
+            return data;
         }
         public bool CreatePlaylist(Playlist playlist)
         {

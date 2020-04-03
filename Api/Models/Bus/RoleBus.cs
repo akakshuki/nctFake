@@ -11,7 +11,11 @@ namespace Api.Models.Bus
     {
         public Role GetRoleByID(int id)
         {
-            return new RoleDao().GetRoleById(id);
+            var data = new RoleDao().GetRoleById(id);
+            return new Role 
+            {
+                RoleName = data.RoleName
+            };
         }
     }
 }

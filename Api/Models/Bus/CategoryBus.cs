@@ -1,5 +1,6 @@
 ﻿using Api.Models.Dao;
 using Api.Models.EF;
+using ModelViews.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,16 +10,28 @@ namespace Api.Models.Bus
 {
     public class CategoryBus
     {
-        public List<Category> GetAllCate()
+        public IEnumerable<Category> GetAllCate()
         {
-            return new CategoryDao().GetAllCate();
+            var data = new CategoryDao().GetAllCate().Select(s => new Category
+            {
+                ID = s.ID,
+                CateName = s.CateName,
+                ID_root = s.ID_root
+            });
+            return data;
         }
         public Category GetCateById(int id)
         {
-            return new CategoryDao().GetCateById(id);
+            var data = new CategoryDao().GetCateById(id);
+            return new Category
+            {
+                ID = data.ID,
+                CateName = data.CateName,
+                ID_root = data.ID_root
+            };
         }
         public bool CreateCate(Category category)
-        {
+        {       
             if (new CategoryDao().CreateCate(category))
             {
                 return true;

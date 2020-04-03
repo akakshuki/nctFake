@@ -30,8 +30,6 @@ namespace Api.Models.Dao
         }
         public bool CreateUser(User user)
         {
-            user.TokenUser = TokenGenerator.Generate(64);
-            user.UserDayCreate = DateTime.Now;
             db.Users.Add(user);
             if (db.SaveChanges() > 0)
             {

@@ -1,5 +1,6 @@
 ﻿using Api.Models.Bus;
 using Api.Models.EF;
+using ModelViews.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,7 @@ namespace Api.Models
     public class Repositories
     {
         #region Category
-        public List<Category> GetAllCate()
+        public IEnumerable<Category> GetAllCate()
         {
             return new CategoryBus().GetAllCate();
         }
@@ -50,7 +51,7 @@ namespace Api.Models
         }
         #endregion
         #region User
-        public List<User> GetAllUser()
+        public IEnumerable<User> GetAllUser()
         {
             return new UserBus().GetAllUser();
         }
@@ -58,7 +59,7 @@ namespace Api.Models
         {
             return new UserBus().GetUserById(id);
         }
-        public List<User> GetUserByIdRole(int id)
+        public IEnumerable<User> GetUserByIdRole(int id)
         {
             return new UserBus().GetUserByIdRole(id);
         }
@@ -96,7 +97,7 @@ namespace Api.Models
         }
         #endregion
         #region Playlist
-        public List<Playlist> GetAllPlaylist()
+        public IEnumerable<Playlist> GetAllPlaylist()
         {
             return new PlaylistBus().GetAllPlaylist();
         }
@@ -104,7 +105,7 @@ namespace Api.Models
         {
             return new PlaylistBus().GetPlaylistById(id);
         }
-        public List<Playlist> GetPlaylistByIdUser(int id)
+        public IEnumerable<Playlist> GetPlaylistByIdUser(int id)
         {
             return new PlaylistBus().GetPlaylistByIdUser(id);
         }
@@ -133,5 +134,27 @@ namespace Api.Models
             return false;
         }
         #endregion
+        #region Partner
+        public IEnumerable<Partner> GetAllPartner()
+        {
+            return new PartnerBus().GetAllPartner();
+        }
+        public bool CreatePartner(Partner partner)
+        {
+            if (new PartnerBus().CreatePartner(partner))
+            {
+                return true;
+            }
+            return false;
+        }
+        public bool UpdatePartner(Partner partner)
+        {
+            if (new PartnerBus().UpdatePartner(partner))
+            {
+                return true;
+            }
+            return false;
+        }
     }
+    #endregion
 }
