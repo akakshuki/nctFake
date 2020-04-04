@@ -1,10 +1,6 @@
 ﻿using Api.Models;
 using Api.Models.EF;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 
 namespace Api.Controllers
@@ -17,6 +13,7 @@ namespace Api.Controllers
         {
             return new Repositories().GetAllPartner();
         }
+
         // POST api/<controller>
         [Route("CreatePartner")]
         public IHttpActionResult CreatePartner(Partner partner)
@@ -27,6 +24,7 @@ namespace Api.Controllers
             }
             return InternalServerError();
         }
+
         // PUT api/<controller>/5
         [Route("UpdatePartner")]
         public IHttpActionResult UpdatePartner(Partner partner)
@@ -37,6 +35,5 @@ namespace Api.Controllers
             }
             return InternalServerError();
         }
-
     }
 }

@@ -1,10 +1,8 @@
-﻿using System;
+﻿using Api.Models.EF;
+using ModelViews.DTOs;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Web;
-using Api.Models.EF;
-using ModelViews.DTOs;
 
 namespace Api.Models.Dao
 {
@@ -17,7 +15,7 @@ namespace Api.Models.Dao
             db = new ProjectNCTEntities();
         }
 
-        //create 
+        //create
         public Quality Create(Quality quality)
         {
             db.Qualities.Add(quality);
@@ -26,8 +24,8 @@ namespace Api.Models.Dao
                 return quality;
             };
             return null;
-
         }
+
         //delete
         public void Delete(int id)
         {
@@ -41,8 +39,8 @@ namespace Api.Models.Dao
 
         public void Unactive(int id)
         {
-
         }
+
         //update
         public void Update(Quality quality)
         {
@@ -61,13 +59,13 @@ namespace Api.Models.Dao
         {
             return db.Qualities.ToList();
         }
-        //get paging 
+
+        //get paging
         public IEnumerable<Quality> GetPageQuality(Pagination page)
         {
-            var data = db.Qualities.ToList().Skip(page.Index * page.Size).Take(page.Size); 
-            
+            var data = db.Qualities.ToList().Skip(page.Index * page.Size).Take(page.Size);
+
             return data;
         }
-
     }
 }

@@ -1,20 +1,17 @@
-﻿using System;
+﻿using Api.Models.EF;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Security.Cryptography;
-using System.Web;
-using Api.Models.EF;
-using ModelViews.DTOs;
 
 namespace Api.Models.Dao
 {
     public class PackageVipDao
     {
         private ProjectNCTEntities db = null;
+
         public PackageVipDao()
         {
-            db= new ProjectNCTEntities();
+            db = new ProjectNCTEntities();
         }
 
         public PackageVip CreatePackageVip(PackageVip packageVip)
@@ -51,7 +48,5 @@ namespace Api.Models.Dao
         {
             return db.PackageVips.Find(id);
         }
-
-
     }
 }

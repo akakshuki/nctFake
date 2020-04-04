@@ -1,10 +1,7 @@
-﻿using System;
+﻿using Api.Models.EF;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Web;
-using Api.Models.EF;
-using ModelViews.DTOs;
 
 namespace Api.Models.Dao
 {
@@ -17,7 +14,7 @@ namespace Api.Models.Dao
             db = new ProjectNCTEntities();
         }
 
-        //create 
+        //create
         public Payment Create(Payment payment)
         {
             db.Payments.Add(payment);
@@ -27,7 +24,6 @@ namespace Api.Models.Dao
             }
 
             return null;
-
         }
 
         //delete
@@ -43,7 +39,6 @@ namespace Api.Models.Dao
 
         public void Unactive(int id)
         {
-
         }
 
         //update
@@ -53,12 +48,10 @@ namespace Api.Models.Dao
             db.SaveChanges();
         }
 
-
         public List<Payment> GetAll()
         {
             return db.Payments.ToList();
         }
-
 
         public Payment GetById(int id)
         {

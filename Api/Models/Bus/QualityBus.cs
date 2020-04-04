@@ -1,16 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Api.Models.Dao;
+﻿using Api.Models.Dao;
 using Api.Models.EF;
 using ModelViews.DTOs;
+using System;
+using System.Collections.Generic;
 
 namespace Api.Models.Bus
 {
     public class QualityBus
     {
         #region Admin
+
         //Get All  quality
         public List<QualityDTO> GetAllQuality()
         {
@@ -29,6 +28,7 @@ namespace Api.Models.Bus
 
             return list;
         }
+
         //create
         public bool CreateQuality(QualityDTO quality)
         {
@@ -47,12 +47,13 @@ namespace Api.Models.Bus
                 return false;
             }
         }
+
         //Update
         public bool UpdateQuality(QualityDTO quality)
         {
             try
             {
-                 new QualityDao().Update(new Quality()
+                new QualityDao().Update(new Quality()
                 {
                     ID = quality.ID,
                     QualityName = quality.QualityName,
@@ -82,19 +83,19 @@ namespace Api.Models.Bus
             }
         }
 
-        #endregion
+        #endregion Admin
 
         public QualityDTO GetQualityById(int id)
         {
             try
             {
-               var data = new QualityDao().FindById(id);
-               return new QualityDTO()
-               {
-                   ID = data.ID,
-                   QualityVip = data.QualityVip,
-                   QualityName = data.QualityName
-               };
+                var data = new QualityDao().FindById(id);
+                return new QualityDTO()
+                {
+                    ID = data.ID,
+                    QualityVip = data.QualityVip,
+                    QualityName = data.QualityName
+                };
             }
             catch (Exception e)
             {

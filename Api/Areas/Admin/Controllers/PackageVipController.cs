@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Web.Http;
-using Api.Models;
+﻿using Api.Models;
 using ModelViews.DTOs;
+using System.Collections.Generic;
+using System.Web.Http;
 
 namespace Api.Areas.Admin.Controllers
 {
@@ -33,13 +29,12 @@ namespace Api.Areas.Admin.Controllers
             }
 
             return InternalServerError();
-
         }
 
         // PUT: api/PackageVip/5
         public IHttpActionResult Put(int id, [FromBody]PackageVipDTO packageVip)
         {
-            var res=  new Repositories().UpdatePackageVip(packageVip);
+            var res = new Repositories().UpdatePackageVip(packageVip);
             if (res)
             {
                 return Ok();

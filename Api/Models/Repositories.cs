@@ -1,28 +1,24 @@
 ﻿using Api.Models.Bus;
 using Api.Models.EF;
 using ModelViews.DTOs;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Api.Models.Bus;
-using Api.Models.Dao;
-using ModelViews.DTOs;
 
 namespace Api.Models
 {
     public class Repositories
     {
-
         #region Category
+
         public IEnumerable<Category> GetAllCate()
         {
             return new CategoryBus().GetAllCate();
         }
+
         public Category GetCateById(int id)
         {
             return new CategoryBus().GetCateById(id);
         }
+
         public bool CreateCate(Category category)
         {
             if (new CategoryBus().CreateCate(category))
@@ -31,6 +27,7 @@ namespace Api.Models
             }
             return false;
         }
+
         public bool UpdateCate(Category category)
         {
             if (new CategoryBus().UpdateCate(category))
@@ -39,6 +36,7 @@ namespace Api.Models
             }
             return false;
         }
+
         public bool DeleteCate(int id)
         {
             if (new CategoryBus().DeleteCate(id))
@@ -47,26 +45,35 @@ namespace Api.Models
             }
             return false;
         }
-        #endregion
+
+        #endregion Category
+
         #region Role
+
         public Role GetRoleById(int id)
         {
             return new RoleBus().GetRoleByID(id);
         }
-        #endregion
+
+        #endregion Role
+
         #region User
+
         public IEnumerable<User> GetAllUser()
         {
             return new UserBus().GetAllUser();
         }
+
         public User GetUserById(int id)
         {
             return new UserBus().GetUserById(id);
         }
+
         public IEnumerable<User> GetUserByIdRole(int id)
         {
             return new UserBus().GetUserByIdRole(id);
         }
+
         public bool CreateSinger(User user)
         {
             if (new UserBus().UpdateUser(user))
@@ -75,6 +82,7 @@ namespace Api.Models
             }
             return false;
         }
+
         public bool CreateUser(User user)
         {
             if (new UserBus().UpdateUser(user))
@@ -83,6 +91,7 @@ namespace Api.Models
             }
             return false;
         }
+
         public bool UpdateUser(User user)
         {
             if (new UserBus().UpdateUser(user))
@@ -91,6 +100,7 @@ namespace Api.Models
             }
             return false;
         }
+
         public bool DeleteUser(int id)
         {
             if (new UserBus().DeleteUser(id))
@@ -99,20 +109,26 @@ namespace Api.Models
             }
             return false;
         }
-        #endregion
+
+        #endregion User
+
         #region Playlist
+
         public IEnumerable<Playlist> GetAllPlaylist()
         {
             return new PlaylistBus().GetAllPlaylist();
         }
+
         public Playlist GetPlaylistById(int id)
         {
             return new PlaylistBus().GetPlaylistById(id);
         }
+
         public IEnumerable<Playlist> GetPlaylistByIdUser(int id)
         {
             return new PlaylistBus().GetPlaylistByIdUser(id);
         }
+
         public bool CreatePlaylist(Playlist playlist)
         {
             if (new PlaylistBus().CreatePlaylist(playlist))
@@ -121,6 +137,7 @@ namespace Api.Models
             }
             return false;
         }
+
         public bool UpdatePlaylist(Playlist playlist)
         {
             if (new PlaylistBus().UpdatePlaylist(playlist))
@@ -129,6 +146,7 @@ namespace Api.Models
             }
             return false;
         }
+
         public bool DeletePlaylist(int id)
         {
             if (new PlaylistBus().DeletePlaylist(id))
@@ -137,12 +155,16 @@ namespace Api.Models
             }
             return false;
         }
-        #endregion
+
+        #endregion Playlist
+
         #region Partner
+
         public IEnumerable<Partner> GetAllPartner()
         {
             return new PartnerBus().GetAllPartner();
         }
+
         public bool CreatePartner(Partner partner)
         {
             if (new PartnerBus().CreatePartner(partner))
@@ -151,6 +173,7 @@ namespace Api.Models
             }
             return false;
         }
+
         public bool UpdatePartner(Partner partner)
         {
             if (new PartnerBus().UpdatePartner(partner))
@@ -176,6 +199,7 @@ namespace Api.Models
         {
             return new MusicBus().AdminUpdateMusic(music);
         }
+
         public bool DeleteMusic(int id)
         {
             return new MusicBus().AdminDeleteMusic(id);
@@ -201,7 +225,7 @@ namespace Api.Models
             return new MusicBus().SearchMusic(key);
         }
 
-        #endregion
+        #endregion Musics
 
         #region PackedVip
 
@@ -230,7 +254,7 @@ namespace Api.Models
             return new PackageVipBus().DeletePackageVip(id);
         }
 
-        #endregion
+        #endregion PackedVip
 
         #region Payment
 
@@ -239,11 +263,9 @@ namespace Api.Models
             return new PaymentBus().GetAllPayment();
         }
 
-
         public PaymentDTO GetPaymentById(int id)
         {
             return new PaymentBus().GetPaynemtById(id);
-
         }
 
         public bool CreatePayment(PaymentDTO payment)
@@ -261,23 +283,21 @@ namespace Api.Models
             return new PaymentBus().DeletePayment(id);
         }
 
-        #endregion
-
-
+        #endregion Payment
 
         #region Quality
 
         public IEnumerable<QualityDTO> GetAllQuality()
         {
-           return  new QualityBus().GetAllQuality();
+            return new QualityBus().GetAllQuality();
         }
 
-        public QualityDTO  GetQualityById(int id)
+        public QualityDTO GetQualityById(int id)
         {
             return new QualityBus().GetQualityById(id);
         }
 
-        #endregion
+        #endregion Quality
 
         public bool CreateQuality(QualityDTO quality)
         {
@@ -288,11 +308,12 @@ namespace Api.Models
         {
             return new QualityBus().UpdateQuality(quality);
         }
+
         public bool DeleteQuality(int id)
         {
             return new QualityBus().DeleteQuality(id);
         }
+    }
 
-   }
-    #endregion
+    #endregion Partner
 }

@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Api.Models.Dao;
+﻿using Api.Models.Dao;
 using Api.Models.EF;
 using ModelViews.DTOs;
+using System;
+using System.Collections.Generic;
 
 namespace Api.Models.Bus
 {
@@ -12,21 +10,20 @@ namespace Api.Models.Bus
     {
         public bool CreateNewPayment(PaymentDTO payment)
         {
-			try
+            try
             {
-              var data=  new PaymentDao().Create(new Payment()
+                var data = new PaymentDao().Create(new Payment()
                 {
-                  PaymentName = payment.PaymentName
+                    PaymentName = payment.PaymentName
                 });
                 return true;
             }
-			catch (Exception e)
-			{
-				Console.WriteLine(e);
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
                 return false;
             }
         }
-
 
         public bool DeletePayment(int id)
         {
@@ -46,7 +43,6 @@ namespace Api.Models.Bus
         {
             try
             {
-                
                 new PaymentDao().Update(new Payment()
                 {
                     PaymentName = payment.PaymentName
@@ -67,7 +63,7 @@ namespace Api.Models.Bus
             {
                 var res = new PaymentDTO()
                 {
-                    ID =payment.ID,
+                    ID = payment.ID,
                     PaymentName = payment.PaymentName
                 };
                 list.Add(res);
@@ -81,7 +77,7 @@ namespace Api.Models.Bus
             try
             {
                 var data = new PaymentDao().GetById(id);
-                return  new PaymentDTO()
+                return new PaymentDTO()
                 {
                     ID = data.ID,
                     PaymentName = data.PaymentName

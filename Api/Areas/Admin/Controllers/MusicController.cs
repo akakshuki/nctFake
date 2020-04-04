@@ -1,11 +1,8 @@
-﻿using System;
+﻿using Api.Models;
+using ModelViews.DTOs;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
-using Api.Models;
-using ModelViews.DTOs;
 
 namespace Api.Areas.Admin.Controllers
 {
@@ -16,7 +13,6 @@ namespace Api.Areas.Admin.Controllers
         public IEnumerable<MusicDTO> Get()
         {
             return new Repositories().GetAllMusic().ToList();
-
         }
 
         // GET: api/Music/5
@@ -43,6 +39,7 @@ namespace Api.Areas.Admin.Controllers
         {
             new Repositories().DeleteMusic(id);
         }
+
         //// DELETE: api/Music/GetMusicByName/Godzila
         [Route("GetMusicByName/{key}")]
         public IHttpActionResult GetMusicByName(string key)
@@ -54,12 +51,11 @@ namespace Api.Areas.Admin.Controllers
             }
             return Ok(data);
         }
+
         [HttpGet, Route("GetMusicPaging")]
         public IEnumerable<MusicDTO> GetMusicPaging([FromBody]Pagination pagination)
         {
             return new Repositories().GetListMusicByPage(pagination).ToList();
-
         }
-
     }
 }

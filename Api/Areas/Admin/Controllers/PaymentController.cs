@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Web.Http;
-using Api.Models;
+﻿using Api.Models;
 using ModelViews.DTOs;
+using System.Collections.Generic;
+using System.Web.Http;
 
 namespace Api.Areas.Admin.Controllers
 {
@@ -20,7 +16,7 @@ namespace Api.Areas.Admin.Controllers
         // GET: api/Payment/5
         public PaymentDTO Get(int id)
         {
-           return new Repositories().GetPaymentById(id);
+            return new Repositories().GetPaymentById(id);
         }
 
         // POST: api/Payment
@@ -35,7 +31,7 @@ namespace Api.Areas.Admin.Controllers
         }
 
         // PUT: api/Payment/5
-        public IHttpActionResult Put(int id,[FromBody]PaymentDTO payment)
+        public IHttpActionResult Put(int id, [FromBody]PaymentDTO payment)
         {
             var res = new Repositories().UpdatePayment(payment);
             if (res)

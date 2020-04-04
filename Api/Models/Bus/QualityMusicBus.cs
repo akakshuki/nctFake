@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Api.Models.Dao;
+﻿using Api.Models.Dao;
 using Api.Models.EF;
 using ModelViews.DTOs;
+using System;
 
 namespace Api.Models.Bus
 {
@@ -20,7 +17,7 @@ namespace Api.Models.Bus
                 {
                     QMusicApproved = false,
                     QualityID = quality.QualityID,
-                    NewFile =  true,
+                    NewFile = true,
                     MusicID = quality.MusicID,
                 });
                 return true;
@@ -46,6 +43,6 @@ namespace Api.Models.Bus
             }
         }
 
-        #endregion
+        #endregion Admin
     }
 }

@@ -1,17 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Api.Models.Dao;
-
+﻿using Api.Models.Dao;
 using Api.Models.EF;
 using ModelViews.DTOs;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Api.Models.Bus
 {
     public class MusicBus
     {
         #region Admin
+
         //admin create new
         public void AdminCreateMusic(MusicDTO music)
         {
@@ -28,14 +27,12 @@ namespace Api.Models.Bus
             try
             {
                 var res = new MusicDao().Create(data);
-                
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
                 throw;
             }
-
         }
 
         //update music
@@ -52,12 +49,11 @@ namespace Api.Models.Bus
                 MusicImage = music.MusicImage,
                 MusicRelated = music.MusicRelated,
                 MusicNameUnsigned = music.MusicNameUnsigned,
-                
             };
             try
             {
-                 new MusicDao().Update(data);
-                 return true;
+                new MusicDao().Update(data);
+                return true;
             }
             catch (Exception e)
             {
@@ -65,6 +61,7 @@ namespace Api.Models.Bus
                 return false;
             }
         }
+
         //delete
         public bool AdminDeleteMusic(int id)
         {
@@ -79,6 +76,7 @@ namespace Api.Models.Bus
                 return false;
             }
         }
+
         //getListMusic have page
         public List<MusicDTO> GetListMusicWithPage(Pagination page)
         {
@@ -90,18 +88,18 @@ namespace Api.Models.Bus
             {
                 var newMusic = new MusicDTO()
                 {
-                     UserID =  music.UserID,
-                     MusicName = music.MusicName,
-                     MusicImage = music.MusicImage,
-                     SongOrMV = music.SongOrMV,
-                     MusicDownloadAllowed = music.MusicDownloadAllowed,
-                     MusicRelated = music.MusicRelated,
-                     MusicDayCreate = music.MusicDayCreate,
-                     MusicNameUnsigned = music.MusicNameUnsigned,
-                     MusicView = music.MusicView,
-                     ID = music.ID,
-                     //need User
-                     UserDto = null,
+                    UserID = music.UserID,
+                    MusicName = music.MusicName,
+                    MusicImage = music.MusicImage,
+                    SongOrMV = music.SongOrMV,
+                    MusicDownloadAllowed = music.MusicDownloadAllowed,
+                    MusicRelated = music.MusicRelated,
+                    MusicDayCreate = music.MusicDayCreate,
+                    MusicNameUnsigned = music.MusicNameUnsigned,
+                    MusicView = music.MusicView,
+                    ID = music.ID,
+                    //need User
+                    UserDto = null,
                 };
                 list.Add(newMusic);
             }
@@ -130,26 +128,25 @@ namespace Api.Models.Bus
                     ID = music.ID,
                     //need User
                     UserDto = null,
-
                 };
                 list.Add(newMusic);
             }
             return list;
         }
 
-        //select by name 
+        //select by name
 
         public List<MusicDTO> SearchMusic(string namekey)
         {
-            var list= new List<MusicDTO>();
+            var list = new List<MusicDTO>();
             var dataList = new MusicDao()
                 .GetAll()
-                .Where(x=>x.MusicName==namekey|| x.MusicNameUnsigned == namekey)
+                .Where(x => x.MusicName == namekey || x.MusicNameUnsigned == namekey)
                 .ToList();
             foreach (var music in dataList)
             {
-                    var newMusic = new MusicDTO()
-                    {
+                var newMusic = new MusicDTO()
+                {
                     UserID = music.UserID,
                     MusicName = music.MusicName,
                     MusicImage = music.MusicImage,
@@ -167,7 +164,6 @@ namespace Api.Models.Bus
             }
             return list;
         }
-
 
         public MusicDTO MusicById(int id)
         {
@@ -197,17 +193,6 @@ namespace Api.Models.Bus
             }
         }
 
-        #endregion
-
-
-
-        #region Client
-
-
-
-
-        #endregion
-
-
+        #endregion Admin
     }
-}   
+}

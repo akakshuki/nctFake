@@ -1,10 +1,7 @@
 ﻿using Api.Models.Dao;
 using Api.Models.EF;
-using ModelViews.DTOs;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 
 namespace Api.Models.Bus
 {
@@ -20,6 +17,7 @@ namespace Api.Models.Bus
             });
             return data;
         }
+
         public Category GetCateById(int id)
         {
             var data = new CategoryDao().GetCateById(id);
@@ -30,14 +28,16 @@ namespace Api.Models.Bus
                 ID_root = data.ID_root
             };
         }
+
         public bool CreateCate(Category category)
-        {       
+        {
             if (new CategoryDao().CreateCate(category))
             {
                 return true;
             }
             return false;
         }
+
         public bool UpdateCate(Category category)
         {
             if (new CategoryDao().UpdateCate(category))
@@ -46,6 +46,7 @@ namespace Api.Models.Bus
             }
             return false;
         }
+
         public bool DeleteCate(int id)
         {
             if (new CategoryDao().DeleteCate(id))

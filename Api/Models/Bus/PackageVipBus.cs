@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Api.Models.Dao;
+﻿using Api.Models.Dao;
 using Api.Models.EF;
 using ModelViews.DTOs;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Api.Models.Bus
 {
@@ -29,6 +28,7 @@ namespace Api.Models.Bus
                 return false;
             }
         }
+
         public bool UpdatePackageVip(PackageVipDTO packageVip)
         {
             try
@@ -72,7 +72,7 @@ namespace Api.Models.Bus
                     .Select(packageVip => new PackageVipDTO()
                     {
                         ID = packageVip.ID,
-                        PVipName = packageVip.PVipName, 
+                        PVipName = packageVip.PVipName,
                         PVipPrice = packageVip.PVipPrice,
                         PVipMonths = packageVip.PVipMonths,
                     })
@@ -90,14 +90,13 @@ namespace Api.Models.Bus
             try
             {
                 var data = new PackageVipDao().GetById(id);
-               return new PackageVipDTO()
-               {
-                   ID = data.ID,
-                   PVipName = data.PVipName,
-                   PVipPrice = data.PVipPrice,
-                   PVipMonths = data.PVipMonths 
-               } ;
-
+                return new PackageVipDTO()
+                {
+                    ID = data.ID,
+                    PVipName = data.PVipName,
+                    PVipPrice = data.PVipPrice,
+                    PVipMonths = data.PVipMonths
+                };
             }
             catch (Exception e)
             {
