@@ -214,10 +214,15 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Common\TokenGenerator.cs" />
     <Compile Include="Configure\ConfigAutoFact.cs" />
+    <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PartnerController.cs" />
+    <Compile Include="Controllers\PlaylistController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Areas\Admin\Controllers\ValuesController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -485,10 +490,12 @@
     <Folder Include="Areas\Client\Controllers\" />
     <Folder Include="Areas\Client\Data\" />
     <Folder Include="Areas\Client\Views\Shared\" />
+    <Folder Include="Models\Mappers\" />
     <Folder Include="File\ImageMusic\" />
     <Folder Include="File\ImageUser\" />
     <Folder Include="File\mp3\" />
     <Folder Include="File\mp4\" />
+
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -504,7 +511,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ModelViews\ModelViews.csproj">
-      <Project>{B858E174-1730-496B-B610-22753DF96436}</Project>
+      <Project>{b858e174-1730-496b-b610-22753df96436}</Project>
       <Name>ModelViews</Name>
     </ProjectReference>
   </ItemGroup>
