@@ -21,7 +21,7 @@ namespace Api.Models.Dao
         public Music Create(Music music)
         {
             db.Musics.Add(music);
-            if (db.SaveChanges()>0)
+            if (db.SaveChanges() > 0)
             {
                 return music;
             };
@@ -33,7 +33,7 @@ namespace Api.Models.Dao
         {
             var data = db.Musics.Find(id);
             if (data != null)
-            {   
+            {
                 db.Musics.Remove(data);
                 db.SaveChanges();
             }
@@ -41,7 +41,7 @@ namespace Api.Models.Dao
 
         public void Unactive(int id)
         {
-            
+
         }
         //update
         public void Update(Music music)
@@ -64,10 +64,13 @@ namespace Api.Models.Dao
         //get paging 
         public IEnumerable<Music> GetPageMusic(Pagination page)
         {
-            var data = db.Musics.ToList().Skip(page.Index*page.Size).Take(page.Size);
+            var data = db.Musics.OrderBy(x => x.MusicDayCreate)
+                .ToList()
+                .Skip(page.Index * page.Size)
+                .Take(page.Size);
             return data;
         }
 
-      
+
     }
 }

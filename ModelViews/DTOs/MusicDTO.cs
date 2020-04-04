@@ -16,7 +16,7 @@ namespace ModelViews.DTOs
         public string MusicImage { get; set; }
         public DateTime MusicDayCreate { get; set; }
         public string MusicNameUnsigned { get; set; }
-        public int MusicRelated { get; set; }
+        public int? MusicRelated { get; set; }
 
 
         public UserDTO UserDto { get; set; }

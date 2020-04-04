@@ -98,6 +98,7 @@
     <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.ValueTuple.4.5.0\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
     </Reference>
+    <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -180,6 +181,10 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\MusicController.cs" />
+    <Compile Include="Areas\Admin\Controllers\PackageVipController.cs" />
+    <Compile Include="Areas\Admin\Controllers\PaymentController.cs" />
+    <Compile Include="Areas\Admin\Controllers\QualityController.cs" />
     <Compile Include="Areas\Client\ClientAreaRegistration.cs" />
     <Compile Include="Areas\HelpPage\ApiDescriptionExtensions.cs" />
     <Compile Include="Areas\HelpPage\App_Start\HelpPageConfig.cs" />
@@ -217,7 +222,13 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Bus\MusicBus.cs" />
+    <Compile Include="Models\Bus\PackageVipBus.cs" />
+    <Compile Include="Models\Bus\PaymentBus.cs" />
+    <Compile Include="Models\Bus\QualityBus.cs" />
+    <Compile Include="Models\Bus\QualityMusicBus.cs" />
     <Compile Include="Models\Dao\MusicDao.cs" />
+    <Compile Include="Models\Dao\PackageVipDao.cs" />
+    <Compile Include="Models\Dao\PaymentDao.cs" />
     <Compile Include="Models\Dao\QualityMusicDao.cs" />
     <Compile Include="Models\Dao\QualityDao.cs" />
     <Compile Include="Models\Dao\RolesDao.cs" />
@@ -287,7 +298,6 @@
     <Compile Include="Models\EF\ViewMusic.cs">
       <DependentUpon>NCTModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Mappers\MapperConfig.cs" />
     <Compile Include="Models\Repositories.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -469,6 +479,10 @@
     <Folder Include="Areas\Client\Controllers\" />
     <Folder Include="Areas\Client\Data\" />
     <Folder Include="Areas\Client\Views\Shared\" />
+    <Folder Include="File\ImageMusic\" />
+    <Folder Include="File\ImageUser\" />
+    <Folder Include="File\mp3\" />
+    <Folder Include="File\mp4\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
