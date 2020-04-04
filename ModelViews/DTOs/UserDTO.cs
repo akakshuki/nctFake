@@ -29,7 +29,7 @@ namespace ModelViews.DTOs
         public List<MusicDTO> MusicDtos { get; set; }
         public List<SingerMusicDTO> SingerMusicDtos { get; set; }
         public List<PlaylistDTO> PlaylistDtos { get; set; }
-
+        public List<OrderVipDTO> OrderVipDtos { get; set; }
 
 
 

@@ -17,10 +17,12 @@ namespace Api.Models.EF
         public int ID { get; set; }
         public int UserID { get; set; }
         public Nullable<int> PVipID { get; set; }
+        public int PaymentID { get; set; }
         public Nullable<int> OrdPrice { get; set; }
         public System.DateTime OrdDayCreate { get; set; }
     
         public virtual PackageVip PackageVip { get; set; }
+        public virtual Payment Payment { get; set; }
         public virtual User User { get; set; }
     }
 }

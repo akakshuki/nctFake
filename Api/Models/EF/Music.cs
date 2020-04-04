@@ -20,6 +20,7 @@ namespace Api.Models.EF
             this.HistoryUsers = new HashSet<HistoryUser>();
             this.LyricsMusics = new HashSet<LyricsMusic>();
             this.PlaylistMusics = new HashSet<PlaylistMusic>();
+            this.RankMusics = new HashSet<RankMusic>();
         }
     
         public int ID { get; set; }
@@ -37,9 +38,10 @@ namespace Api.Models.EF
         public virtual ICollection<HistoryUser> HistoryUsers { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LyricsMusic> LyricsMusics { get; set; }
-        public virtual RankMusic RankMusic { get; set; }
         public virtual User User { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PlaylistMusic> PlaylistMusics { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<RankMusic> RankMusics { get; set; }
     }
 }

@@ -13,6 +13,7 @@ namespace ModelViews.DTOs
         public int QualityID { get; set; }
         public bool QMusicApproved { get; set; }
         public bool NewFile { get; set; }
+        public string File { get; set; }
 
         public MusicDTO MusicDto { get; set; }
         public QualityDTO QualityDto { get; set; }
