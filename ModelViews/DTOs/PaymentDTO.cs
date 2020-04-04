@@ -9,7 +9,7 @@ namespace ModelViews.DTOs {
         public int ID { get; set; }
         public string PaymentName { get; set; }
 
-        public List<PackageVipDTO> PackageVipDtos { get; set; }
+        public List<OrderVipDTO> OrderVipDtos { get; set; }
 
     }
 }

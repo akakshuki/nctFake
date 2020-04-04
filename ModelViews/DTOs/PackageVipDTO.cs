@@ -11,9 +11,9 @@ namespace ModelViews.DTOs
         public string PVipName { get; set; }
         public int PVipMonths { get; set; }
         public int PVipPrice { get; set; }
-        public int PaymentID { get; set; }
 
-        public PaymentDTO PaymentDto { get; set; }
+
+        public List<OrderVipDTO> OrderVipDtos { get; set; }
 
     }
 }

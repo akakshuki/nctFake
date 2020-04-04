@@ -24,10 +24,8 @@ namespace Api.Models.EF
         public string PVipName { get; set; }
         public int PVipMonths { get; set; }
         public int PVipPrice { get; set; }
-        public int PaymentID { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrderVip> OrderVips { get; set; }
-        public virtual Payment Payment { get; set; }
     }
 }
