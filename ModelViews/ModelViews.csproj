@@ -45,6 +45,7 @@
     <Compile Include="DTOs\HistoryUserDTO.cs" />
     <Compile Include="DTOs\LyricsMusicDTO.cs" />
     <Compile Include="DTOs\MusicDTO.cs" />
+    <Compile Include="DTOs\OrderVipDTO.cs" />
     <Compile Include="DTOs\PackageVipDTO.cs" />
     <Compile Include="DTOs\Pagination.cs" />
     <Compile Include="DTOs\PartnerDTO.cs" />

@@ -1,22 +1,23 @@
 ﻿using Api.Models.EF;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 
 namespace Api.Models.Dao
 {
     public class CategoryDao
     {
         private ProjectNCTEntities db = null;
+
         public CategoryDao()
         {
             db = new ProjectNCTEntities();
         }
+
         public List<Category> GetAllCate()
         {
             return db.Categories.ToList();
         }
+
         public Category GetCateById(int id)
         {
             var data = db.Categories.SingleOrDefault(s => s.ID == id);
@@ -36,6 +37,7 @@ namespace Api.Models.Dao
             }
             return false;
         }
+
         public bool UpdateCate(Category category)
         {
             var data = db.Categories.SingleOrDefault(s => s.ID == category.ID);
@@ -47,6 +49,7 @@ namespace Api.Models.Dao
             }
             return false;
         }
+
         public bool DeleteCate(int id)
         {
             var data = db.Categories.SingleOrDefault(s => s.ID == id);

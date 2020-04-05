@@ -1,10 +1,6 @@
 ﻿using Api.Models;
 using Api.Models.EF;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 
 namespace Api.Controllers
@@ -24,11 +20,13 @@ namespace Api.Controllers
         {
             return new Repositories().GetPlaylistById(id);
         }
+
         [Route("GetPlaylistByIdUser/{id}")]
         public IEnumerable<Playlist> GetPlaylistByIdUser(int id)
         {
             return new Repositories().GetPlaylistByIdUser(id);
         }
+
         // POST api/<controller>
         [Route("CreatePlaylist")]
         public IHttpActionResult CreatePlaylist(Playlist playlist)
@@ -39,6 +37,7 @@ namespace Api.Controllers
             }
             return InternalServerError();
         }
+
         // PUT api/<controller>/5
         [Route("UpdatePlaylist")]
         public IHttpActionResult UpdatePlaylist(Playlist playlist)

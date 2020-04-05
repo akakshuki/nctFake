@@ -1,9 +1,7 @@
 ﻿using Api.Models.Dao;
 using Api.Models.EF;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 
 namespace Api.Models.Bus
 {
@@ -21,10 +19,11 @@ namespace Api.Models.Bus
             });
             return data;
         }
+
         public Playlist GetPlaylistById(int id)
         {
             var data = new PlaylistDao().GetPlaylistById(id);
-            return new Playlist 
+            return new Playlist
             {
                 PlaylistName = data.PlaylistName,
                 PlaylistDescription = data.PlaylistDescription,
@@ -33,6 +32,7 @@ namespace Api.Models.Bus
                 UserID = data.UserID
             };
         }
+
         public IEnumerable<Playlist> GetPlaylistByIdUser(int id)
         {
             var data = new PlaylistDao().GetPlaylistByIdUser(id).Select(s => new Playlist
@@ -45,6 +45,7 @@ namespace Api.Models.Bus
             });
             return data;
         }
+
         public bool CreatePlaylist(Playlist playlist)
         {
             if (new PlaylistDao().CreatePlaylist(playlist))
@@ -53,6 +54,7 @@ namespace Api.Models.Bus
             }
             return false;
         }
+
         public bool UpdatePlaylist(Playlist playlist)
         {
             if (new PlaylistDao().UpdatePlaylist(playlist))
@@ -61,6 +63,7 @@ namespace Api.Models.Bus
             }
             return false;
         }
+
         public bool DeletePlaylist(int id)
         {
             if (new PlaylistDao().DeletePlaylist(id))

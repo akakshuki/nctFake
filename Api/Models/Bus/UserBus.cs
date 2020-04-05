@@ -1,10 +1,8 @@
 ﻿using Api.Models.Dao;
 using Api.Models.EF;
-using ModelViews.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 
 namespace Api.Models.Bus
 {
@@ -12,7 +10,7 @@ namespace Api.Models.Bus
     {
         public IEnumerable<User> GetAllUser()
         {
-            var data = new UserDao().GetAllUser().Select(s=> new User
+            var data = new UserDao().GetAllUser().Select(s => new User
             {
                 ID = s.ID,
                 UserName = s.UserName,
@@ -37,10 +35,11 @@ namespace Api.Models.Bus
             });
             return data;
         }
+
         public User GetUserById(int id)
         {
             var data = new UserDao().GetUserById(id);
-            return new User 
+            return new User
             {
                 ID = data.ID,
                 UserName = data.UserName,
@@ -64,9 +63,10 @@ namespace Api.Models.Bus
                 }
             };
         }
+
         public IEnumerable<User> GetUserByIdRole(int id)
         {
-            var data = new UserDao().GetUserByIdRole(id).Select(s => new User 
+            var data = new UserDao().GetUserByIdRole(id).Select(s => new User
             {
                 ID = s.ID,
                 UserName = s.UserName,
@@ -86,6 +86,7 @@ namespace Api.Models.Bus
             });
             return data;
         }
+
         public bool CreateSinger(User user)
         {
             user.RoleID = 2;
@@ -96,6 +97,7 @@ namespace Api.Models.Bus
             }
             return false;
         }
+
         public bool CreateUser(User user)
         {
             user.RoleID = 3;
@@ -106,6 +108,7 @@ namespace Api.Models.Bus
             }
             return false;
         }
+
         public bool UpdateUser(User user)
         {
             if (new UserDao().UpdateUser(user))
@@ -114,6 +117,7 @@ namespace Api.Models.Bus
             }
             return false;
         }
+
         public bool DeleteUser(int id)
         {
             if (new UserDao().DeleteUser(id))

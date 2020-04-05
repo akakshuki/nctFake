@@ -1,23 +1,12 @@
-﻿using System;
+﻿using Api.Models.EF;
+using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
-using System.Web.Http.Description;
-using Api.Models.Dao;
-using Api.Models.EF;
-
 
 namespace Api.Controllers
 {
-   
     public class RolesController : ApiController
     {
-        
         private ProjectNCTEntities db = new ProjectNCTEntities();
 
         // GET: api/Roles
@@ -25,7 +14,6 @@ namespace Api.Controllers
         {
             try
             {
-                   
                 return db.Roles;
             }
             catch (Exception e)
@@ -34,7 +22,5 @@ namespace Api.Controllers
                 throw;
             }
         }
-
-
     }
 }
