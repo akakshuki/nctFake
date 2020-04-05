@@ -29,9 +29,9 @@ namespace Api.Models.EF
         public bool UserVIP { get; set; }
         public string UserEmail { get; set; }
         public string UserPwd { get; set; }
+        public string UserImage { get; set; }
         public string UserDescription { get; set; }
         public string UserNameUnsigned { get; set; }
-        public string UserImage { get; set; }
         public System.DateTime UserDayCreate { get; set; }
         public int RoleID { get; set; }
         public bool UserActive { get; set; }

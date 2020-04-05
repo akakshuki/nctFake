@@ -282,6 +282,9 @@
     <Compile Include="Models\EF\QualityMusic.cs">
       <DependentUpon>NCTModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\EF\Rank.cs">
+      <DependentUpon>NCTModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\EF\RankMusic.cs">
       <DependentUpon>NCTModel.tt</DependentUpon>
     </Compile>

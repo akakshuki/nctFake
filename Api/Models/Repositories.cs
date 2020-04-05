@@ -19,6 +19,10 @@ namespace Api.Models
         {
             return new CategoryBus().GetCateById(id);
         }
+        public IEnumerable<Category> GetCateByIdRoot(int id) 
+        {
+            return new CategoryBus().GetCateByIdRoot(id);       
+        }
         public bool CreateCate(Category category)
         {
             if (new CategoryBus().CreateCate(category))

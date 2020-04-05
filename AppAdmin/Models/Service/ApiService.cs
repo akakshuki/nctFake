@@ -17,7 +17,7 @@ namespace AppAdmin.Models.Service
         {
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri("https://localhost:44386/api/User/GetAllUser/");
+                client.BaseAddress = new Uri("https://localhost:44384/api/User/GetAllUser/");
                 var responseTask = client.GetAsync(client.BaseAddress);
                 responseTask.Wait();
                 var result = responseTask.Result;
@@ -33,7 +33,7 @@ namespace AppAdmin.Models.Service
         {
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri("https://localhost:44386/api/User/GetUserById/" + id.ToString());
+                client.BaseAddress = new Uri("https://localhost:44384/api/User/GetUserById/" + id.ToString());
                 var responseTask = client.GetAsync(client.BaseAddress);
                 responseTask.Wait();
                 var result = responseTask.Result;
@@ -49,7 +49,7 @@ namespace AppAdmin.Models.Service
         {
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri("https://localhost:44386/api/User/GetUserByIdRole/" + id.ToString());
+                client.BaseAddress = new Uri("https://localhost:44384/api/User/GetUserByIdRole/" + id.ToString());
                 var responseTask = client.GetAsync(client.BaseAddress);
                 responseTask.Wait();
                 var result = responseTask.Result;
@@ -66,7 +66,7 @@ namespace AppAdmin.Models.Service
             using (HttpClient client = new HttpClient())
             {
                 client.DefaultRequestHeaders.Accept.Clear();
-                var response = client.PostAsync("https://localhost:44386/api/User/CreateSinger/", new StringContent(
+                var response = client.PostAsync("https://localhost:44384/api/User/CreateSinger/", new StringContent(
                     new JavaScriptSerializer().Serialize(userDTO), Encoding.UTF8, "application/json")).Result;
                 if (response.StatusCode == System.Net.HttpStatusCode.OK)
                 {
@@ -80,7 +80,7 @@ namespace AppAdmin.Models.Service
             using (HttpClient client = new HttpClient())
             {
                 client.DefaultRequestHeaders.Accept.Clear();
-                var response = client.PostAsync("https://localhost:44386/api/User/CreateUser/", new StringContent(
+                var response = client.PostAsync("https://localhost:44384/api/User/CreateUser/", new StringContent(
                     new JavaScriptSerializer().Serialize(userDTO), Encoding.UTF8, "application/json")).Result;
                 if (response.StatusCode == System.Net.HttpStatusCode.OK)
                 {
@@ -94,7 +94,7 @@ namespace AppAdmin.Models.Service
             using (HttpClient client = new HttpClient())
             {
                 client.DefaultRequestHeaders.Accept.Clear();
-                var response = client.PostAsync("https://localhost:44386/api/User/UpdateUser/", new StringContent(
+                var response = client.PostAsync("https://localhost:44384/api/User/UpdateUser/", new StringContent(
                     new JavaScriptSerializer().Serialize(userDTO), Encoding.UTF8, "application/json")).Result;
                 if (response.StatusCode == System.Net.HttpStatusCode.OK)
                 {
@@ -108,7 +108,7 @@ namespace AppAdmin.Models.Service
             using (HttpClient client = new HttpClient())
             {
                 client.DefaultRequestHeaders.Accept.Clear();
-                var response = client.DeleteAsync("https://localhost:44386/api/User/DeleteUser/" + id.ToString()).Result;
+                var response = client.DeleteAsync("https://localhost:44384/api/User/DeleteUser/" + id.ToString()).Result;
                 if (response.StatusCode == System.Net.HttpStatusCode.OK)
                 {
                     return true;
@@ -122,7 +122,7 @@ namespace AppAdmin.Models.Service
         {
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri("https://localhost:44386/api/Category/GetAllCate/");
+                client.BaseAddress = new Uri("https://localhost:44384/api/Category/GetAllCate/");
                 var responseTask = client.GetAsync(client.BaseAddress);
                 responseTask.Wait();
                 var result = responseTask.Result;
@@ -138,7 +138,7 @@ namespace AppAdmin.Models.Service
         {
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri("https://localhost:44386/api/Category/GetCateById/" + id.ToString());
+                client.BaseAddress = new Uri("https://localhost:44384/api/Category/GetCateById/" + id.ToString());
                 var responseTask = client.GetAsync(client.BaseAddress);
                 responseTask.Wait();
                 var result = responseTask.Result;
@@ -154,7 +154,7 @@ namespace AppAdmin.Models.Service
         {
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri("https://localhost:44386/api/Category/GetRoleById/" + id.ToString());
+                client.BaseAddress = new Uri("https://localhost:44384/api/Category/GetRoleById/" + id.ToString());
                 var responseTask = client.GetAsync(client.BaseAddress);
                 responseTask.Wait();
                 var result = responseTask.Result;
@@ -166,12 +166,28 @@ namespace AppAdmin.Models.Service
             }
             return null;
         }
+        public static List<CategoryDTO> GetCateByIdRoot(int id)
+        {
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("https://localhost:44384/api/Category/GetCateByIdRoot/" + id.ToString());
+                var responseTask = client.GetAsync(client.BaseAddress);
+                responseTask.Wait();
+                var result = responseTask.Result;
+                if (result.IsSuccessStatusCode)
+                {
+                    var readTask = JsonConvert.DeserializeObject<List<CategoryDTO>>(result.Content.ReadAsStringAsync().Result);
+                    return readTask;
+                }
+            }
+            return null;
+        }
         public static CategoryDTO CreateCate(CategoryDTO categoryDTO)
         {
             using (HttpClient client = new HttpClient())
             {
                 client.DefaultRequestHeaders.Accept.Clear();
-                var response = client.PostAsync("https://localhost:44386/api/Category/CreateCate/", new StringContent(
+                var response = client.PostAsync("https://localhost:44384/api/Category/CreateCate/", new StringContent(
                     new JavaScriptSerializer().Serialize(categoryDTO), Encoding.UTF8, "application/json")).Result;
                 if (response.StatusCode == System.Net.HttpStatusCode.OK)
                 {
@@ -185,7 +201,7 @@ namespace AppAdmin.Models.Service
             using (HttpClient client = new HttpClient())
             {
                 client.DefaultRequestHeaders.Accept.Clear();
-                var response = client.PostAsync("https://localhost:44386/api/Category/UpdateCate/", new StringContent(
+                var response = client.PostAsync("https://localhost:44384/api/Category/UpdateCate/", new StringContent(
                     new JavaScriptSerializer().Serialize(categoryDTO), Encoding.UTF8, "application/json")).Result;
                 if (response.StatusCode == System.Net.HttpStatusCode.OK)
                 {
@@ -199,7 +215,7 @@ namespace AppAdmin.Models.Service
             using (HttpClient client = new HttpClient())
             {
                 client.DefaultRequestHeaders.Accept.Clear();
-                var response = client.DeleteAsync("https://localhost:44386/api/Category/DeleteCate/" + id.ToString()).Result;
+                var response = client.DeleteAsync("https://localhost:44384/api/Category/DeleteCate/" + id.ToString()).Result;
                 if (response.StatusCode == System.Net.HttpStatusCode.OK)
                 {
                     return true;
@@ -213,7 +229,7 @@ namespace AppAdmin.Models.Service
         {
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri("https://localhost:44386/api/Playlist/GetAllPlaylist/");
+                client.BaseAddress = new Uri("https://localhost:44384/api/Playlist/GetAllPlaylist/");
                 var responseTask = client.GetAsync(client.BaseAddress);
                 responseTask.Wait();
                 var result = responseTask.Result;
@@ -229,7 +245,7 @@ namespace AppAdmin.Models.Service
         {
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri("https://localhost:44386/api/Playlist/GetPlaylistById/" + id.ToString());
+                client.BaseAddress = new Uri("https://localhost:44384/api/Playlist/GetPlaylistById/" + id.ToString());
                 var responseTask = client.GetAsync(client.BaseAddress);
                 responseTask.Wait();
                 var result = responseTask.Result;
@@ -245,7 +261,7 @@ namespace AppAdmin.Models.Service
         {
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri("https://localhost:44386/api/Playlist/GetPlaylistByIdUser/" + id.ToString());
+                client.BaseAddress = new Uri("https://localhost:44384/api/Playlist/GetPlaylistByIdUser/" + id.ToString());
                 var responseTask = client.GetAsync(client.BaseAddress);
                 responseTask.Wait();
                 var result = responseTask.Result;
@@ -262,7 +278,7 @@ namespace AppAdmin.Models.Service
             using (HttpClient client = new HttpClient())
             {
                 client.DefaultRequestHeaders.Accept.Clear();
-                var response = client.PostAsync("https://localhost:44386/api/Playlist/CreatePlaylist/", new StringContent(
+                var response = client.PostAsync("https://localhost:44384/api/Playlist/CreatePlaylist/", new StringContent(
                     new JavaScriptSerializer().Serialize(playlistDTO), Encoding.UTF8, "application/json")).Result;
                 if (response.StatusCode == System.Net.HttpStatusCode.OK)
                 {
@@ -276,7 +292,7 @@ namespace AppAdmin.Models.Service
             using (HttpClient client = new HttpClient())
             {
                 client.DefaultRequestHeaders.Accept.Clear();
-                var response = client.PostAsync("https://localhost:44386/api/Playlist/UpdatePlaylist/", new StringContent(
+                var response = client.PostAsync("https://localhost:44384/api/Playlist/UpdatePlaylist/", new StringContent(
                     new JavaScriptSerializer().Serialize(playlistDTO), Encoding.UTF8, "application/json")).Result;
                 if (response.StatusCode == System.Net.HttpStatusCode.OK)
                 {
@@ -290,7 +306,7 @@ namespace AppAdmin.Models.Service
             using (HttpClient client = new HttpClient())
             {
                 client.DefaultRequestHeaders.Accept.Clear();
-                var response = client.DeleteAsync("https://localhost:44386/api/Playlist/DeletePlaylist/" + id.ToString()).Result;
+                var response = client.DeleteAsync("https://localhost:44384/api/Playlist/DeletePlaylist/" + id.ToString()).Result;
                 if (response.StatusCode == System.Net.HttpStatusCode.OK)
                 {
                     return true;
@@ -304,7 +320,7 @@ namespace AppAdmin.Models.Service
         {
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri("https://localhost:44386/api/Playlist/GetAllPlaylist/");
+                client.BaseAddress = new Uri("https://localhost:44384/api/Playlist/GetAllPlaylist/");
                 var responseTask = client.GetAsync(client.BaseAddress);
                 responseTask.Wait();
                 var result = responseTask.Result;
@@ -321,7 +337,7 @@ namespace AppAdmin.Models.Service
             using (HttpClient client = new HttpClient())
             {
                 client.DefaultRequestHeaders.Accept.Clear();
-                var response = client.PostAsync("https://localhost:44386/api/Playlist/CreatePlaylist/", new StringContent(
+                var response = client.PostAsync("https://localhost:44384/api/Playlist/CreatePlaylist/", new StringContent(
                     new JavaScriptSerializer().Serialize(partnerDTO), Encoding.UTF8, "application/json")).Result;
                 if (response.StatusCode == System.Net.HttpStatusCode.OK)
                 {
@@ -335,7 +351,7 @@ namespace AppAdmin.Models.Service
             using (HttpClient client = new HttpClient())
             {
                 client.DefaultRequestHeaders.Accept.Clear();
-                var response = client.PostAsync("https://localhost:44386/api/Playlist/UpdatePlaylist/", new StringContent(
+                var response = client.PostAsync("https://localhost:44384/api/Playlist/UpdatePlaylist/", new StringContent(
                     new JavaScriptSerializer().Serialize(partnerDTO), Encoding.UTF8, "application/json")).Result;
                 if (response.StatusCode == System.Net.HttpStatusCode.OK)
                 {

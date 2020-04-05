@@ -37,6 +37,7 @@ namespace Api.Models.EF
         public virtual DbSet<PlaylistMusic> PlaylistMusics { get; set; }
         public virtual DbSet<Quality> Qualities { get; set; }
         public virtual DbSet<QualityMusic> QualityMusics { get; set; }
+        public virtual DbSet<Rank> Ranks { get; set; }
         public virtual DbSet<RankMusic> RankMusics { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<SingerMusic> SingerMusics { get; set; }

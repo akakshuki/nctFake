@@ -342,6 +342,10 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\NavigateMenu.cshtml" />
+    <Content Include="Views\Home\ViewCreateCate.cshtml" />
+    <Content Include="Views\Home\ViewCateIdRoot.cshtml" />
+    <Content Include="Views\Home\EditCate.cshtml" />
+    <Content Include="Views\Home\EditCateIdRoot.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

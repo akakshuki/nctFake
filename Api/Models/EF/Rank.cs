@@ -12,18 +12,15 @@ namespace Api.Models.EF
     using System;
     using System.Collections.Generic;
     
-    public partial class Payment
+    public partial class Rank
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Payment()
-        {
-            this.OrderVips = new HashSet<OrderVip>();
-        }
-    
         public int ID { get; set; }
-        public string PaymentName { get; set; }
+        public string RMusicName { get; set; }
+        public System.DateTime RMusicStart { get; set; }
+        public System.DateTime RMusicEnd { get; set; }
+        public int CateID { get; set; }
+        public Nullable<bool> SongOrMusic { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<OrderVip> OrderVips { get; set; }
+        public virtual Category Category { get; set; }
     }
 }

@@ -22,6 +22,11 @@ namespace Api.Models.Dao
             var data = db.Categories.SingleOrDefault(s => s.ID == id);
             return data;
         }
+        public List<Category> GetCateByIdRoot(int id)
+        {
+            var data = db.Categories.Where(s => s.ID_root == id).ToList();
+            return data;
+        }
         public bool CreateCate(Category category)
         {
             db.Categories.Add(category);
