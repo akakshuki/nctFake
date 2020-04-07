@@ -560,7 +560,7 @@ namespace AppAdmin.Models.Service
         {
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri("https://localhost:1433/api/music/");
+                client.BaseAddress = new Uri("https://localhost:44384/api/music/");
                 var responseTask = client.GetAsync(client.BaseAddress);
                 responseTask.Wait();
                 var result = responseTask.Result;

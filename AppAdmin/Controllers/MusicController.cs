@@ -37,7 +37,7 @@ namespace AppAdmin.Controllers
         // GET: Music/Create
         public ActionResult Create()
         {
-            ViewBag.Singers = ApiService.GetAllUser().Where(x => x.RoleID == 2).ToList();
+            ViewBag.Singers = ApiService.GetAllSinger();
          
             return View();
         }
@@ -68,7 +68,7 @@ namespace AppAdmin.Controllers
         // GET: Music/Edit/5
         public ActionResult Edit(int id)
         {
-            ViewBag.Singers = ApiService.GetAllUser().Where(x => x.RoleID == 2).ToList();
+            ViewBag.Singers = ApiService.GetAllSinger();
             var data = ApiService.GetMusicById(id);
             return View(data);
         }
