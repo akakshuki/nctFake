@@ -57,6 +57,12 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.4.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="Glimpse.AspNet, Version=1.9.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Glimpse.AspNet.1.9.2\lib\net45\Glimpse.AspNet.dll</HintPath>
+    </Reference>
+    <Reference Include="Glimpse.Core, Version=1.8.6.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Glimpse.1.8.6\lib\net45\Glimpse.Core.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Owin, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Owin.3.1.0\lib\net45\Microsoft.Owin.dll</HintPath>
@@ -182,6 +188,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\MusicController.cs" />
+    <Compile Include="Areas\Admin\Controllers\OrderVipController.cs" />
     <Compile Include="Areas\Admin\Controllers\PackageVipController.cs" />
     <Compile Include="Areas\Admin\Controllers\PaymentController.cs" />
     <Compile Include="Areas\Admin\Controllers\QualityController.cs" />
@@ -223,11 +230,13 @@
     <Compile Include="Areas\Admin\Controllers\RolesController.cs" />
     <Compile Include="Areas\Admin\Controllers\ValuesController.cs" />
     <Compile Include="Areas\Admin\Controllers\UserController.cs" />
+    <Compile Include="GlimpseSecurityPolicy.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Bus\CategoryBus.cs" />
     <Compile Include="Models\Bus\MusicBus.cs" />
+    <Compile Include="Models\Bus\OrderVipBus.cs" />
     <Compile Include="Models\Bus\PackageVipBus.cs" />
     <Compile Include="Models\Bus\PartnerBus.cs" />
     <Compile Include="Models\Bus\PaymentBus.cs" />
@@ -238,6 +247,7 @@
     <Compile Include="Models\Bus\UserBus.cs" />
     <Compile Include="Models\Dao\CategoryDao.cs" />
     <Compile Include="Models\Dao\MusicDao.cs" />
+    <Compile Include="Models\Dao\OrderVipDao.cs" />
     <Compile Include="Models\Dao\PackageVipDao.cs" />
     <Compile Include="Models\Dao\PartnerDao.cs" />
     <Compile Include="Models\Dao\PaymentDao.cs" />
@@ -307,6 +317,9 @@
       <DependentUpon>NCTModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\EF\SingerMusic.cs">
+      <DependentUpon>NCTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EF\sysdiagram.cs">
       <DependentUpon>NCTModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\EF\User.cs">

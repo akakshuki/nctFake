@@ -1,6 +1,11 @@
 ﻿using Api.Models.EF;
+using Glimpse.AspNet.Tab;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Web;
+using System.Web.Mvc;
 
 namespace Api.Models.Dao
 {
@@ -15,7 +20,8 @@ namespace Api.Models.Dao
 
         public List<User> GetAllUser()
         {
-            return db.Users.ToList();
+            var data = db.Users.ToList();
+            return data;
         }
 
         public User GetUserById(int id)
@@ -32,14 +38,37 @@ namespace Api.Models.Dao
 
         public bool CreateUser(User user)
         {
-            db.Users.Add(user);
+            try
+            {
+                db.Users.Add(user);
+                if (db.SaveChanges() > 0)
+                {
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
+            return false;
+        }
+
+        public bool UpdateSinger(User user)
+        {
+            var data = db.Users.SingleOrDefault(s => s.ID == user.ID);
+            data.UserName = user.UserName;
+            data.UserDOB = user.UserDOB;
+            //data.UserGender = user.UserGender;
+            data.UserDescription = user.UserDescription;
+            data.UserNameUnsigned = user.UserNameUnsigned;
+            data.UserImage = user.UserImage;
             if (db.SaveChanges() > 0)
             {
                 return true;
             }
             return false;
         }
-
         public bool UpdateUser(User user)
         {
             var data = db.Users.SingleOrDefault(s => s.ID == user.ID);

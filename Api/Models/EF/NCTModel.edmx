@@ -175,7 +175,7 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="UserName" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="500" />
           <Property Name="UserDOB" Type="date" />
           <Property Name="UserGender" Type="bit" />
           <Property Name="UserVIP" Type="bit" Nullable="false" />
@@ -187,8 +187,8 @@
           <Property Name="UserDayCreate" Type="datetime" Nullable="false" />
           <Property Name="RoleID" Type="int" Nullable="false" />
           <Property Name="UserActive" Type="bit" Nullable="false" />
-          <Property Name="DayVipEnd" Type="datetime" Nullable="false" />
-          <Property Name="TokenUser" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="DayVipEnd" Type="datetime" />
+          <Property Name="TokenUser" Type="nvarchar" MaxLength="20" />
         </EntityType>
         <EntityType Name="ViewMusic">
           <Key>
@@ -674,7 +674,7 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserName" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="UserName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="UserDOB" Type="DateTime" Precision="0" />
           <Property Name="UserGender" Type="Boolean" />
           <Property Name="UserVIP" Type="Boolean" Nullable="false" />
@@ -686,8 +686,8 @@
           <Property Name="UserDayCreate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="RoleID" Type="Int32" Nullable="false" />
           <Property Name="UserActive" Type="Boolean" Nullable="false" />
-          <Property Name="DayVipEnd" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="TokenUser" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="DayVipEnd" Type="DateTime" Precision="3" />
+          <Property Name="TokenUser" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Musics" Relationship="ProjectNCTModel.FK_Music_User" FromRole="User" ToRole="Music" />
           <NavigationProperty Name="OrderVips" Relationship="ProjectNCTModel.FK_OrderVip_User" FromRole="User" ToRole="OrderVip" />
           <NavigationProperty Name="Role" Relationship="ProjectNCTModel.FK_User_Role" FromRole="User" ToRole="Role" />

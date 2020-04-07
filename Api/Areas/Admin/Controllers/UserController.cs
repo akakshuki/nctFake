@@ -1,5 +1,6 @@
 ﻿using Api.Models;
 using Api.Models.EF;
+using ModelViews.DTOs;
 using System.Collections.Generic;
 using System.Web.Http;
 
@@ -9,20 +10,34 @@ namespace Api.Controllers
     public class UserController : ApiController
     {
         // GET api/<controller>
-        [Route("GetAllUser")]
-        public IEnumerable<User> GetAllUser()
+        [Route("GetAllUserNormal")]
+        public IEnumerable<User> GetAllUserNormal()
         {
-            return new Repositories().GetAllUser();
+            return new Repositories().GetAllUserNormal();
+        }
+        // GET api/<controller>
+        [Route("GetAllUserVip")]
+        public IEnumerable<User> GetAllUserVip()
+        {
+            return new Repositories().GetAllUserVip();
+        }
+
+        // GET api/<controller>
+        [Route("GetAllSinger")]
+        public IEnumerable<User> GetAllSinger()
+        {
+            var data = new Repositories().GetAllSinger();
+            return data;
         }
 
         // GET api/<controller>/5
-        [Route("GetUserById")]
+        [Route("GetUserById/{id}")]
         public User GetUserById(int id)
         {
             return new Repositories().GetUserById(id);
         }
 
-        [Route("GetUserByIdRole")]
+        [Route("GetUserByIdRole/{id}")]
         public IEnumerable<User> GetUserByIdRole(int id)
         {
             return new Repositories().GetUserByIdRole(id);
@@ -30,9 +45,9 @@ namespace Api.Controllers
 
         // POST api/<controller>
         [Route("CreateSinger")]
-        public IHttpActionResult CreateSinger(User user)
+        public IHttpActionResult CreateSinger(UserDTO userDTO)
         {
-            if (new Repositories().CreateSinger(user))
+            if (new Repositories().CreateSinger(userDTO))
             {
                 return Ok();
             }
@@ -41,9 +56,9 @@ namespace Api.Controllers
 
         // POST api/<controller>
         [Route("CreateUser")]
-        public IHttpActionResult CreateUser(User user)
+        public IHttpActionResult CreateUser(UserDTO userDTO)
         {
-            if (new Repositories().CreateUser(user))
+            if (new Repositories().CreateUser(userDTO))
             {
                 return Ok();
             }
@@ -51,7 +66,7 @@ namespace Api.Controllers
         }
 
         // PUT api/<controller>/5
-        [Route("UpdateCate")]
+        [Route("UpdateUser")]
         public IHttpActionResult UpdateUser(User user)
         {
             if (new Repositories().UpdateUser(user))
@@ -61,8 +76,18 @@ namespace Api.Controllers
             return InternalServerError();
         }
 
+        [Route("UpdateSinger")]
+        public IHttpActionResult UpdateSinger(User user)
+        {
+            if (new Repositories().UpdateSinger(user))
+            {
+                return Ok();
+            }
+            return InternalServerError();
+        }
+
         // DELETE api/<controller>/5
-        [Route("DeleteCate/{id}")]
+        [Route("DeleteUser/{id}")]
         public IHttpActionResult DeleteUser(int id)
         {
             if (new Repositories().DeleteUser(id))

@@ -18,9 +18,9 @@ namespace Api.Models
         {
             return new CategoryBus().GetCateById(id);
         }
-        public IEnumerable<Category> GetCateByIdRoot(int id) 
+        public IEnumerable<Category> GetCateByIdRoot(int id)
         {
-            return new CategoryBus().GetCateByIdRoot(id);       
+            return new CategoryBus().GetCateByIdRoot(id);
         }
         public bool CreateCate(Category category)
         {
@@ -62,11 +62,19 @@ namespace Api.Models
 
         #region User
 
-        public IEnumerable<User> GetAllUser()
+        public IEnumerable<User> GetAllUserNormal()
         {
-            return new UserBus().GetAllUser();
+            return new UserBus().GetAllUserNormal();
         }
-
+        public IEnumerable<User> GetAllUserVip()
+        {
+            return new UserBus().GetAllUserVip();
+        }
+        public IEnumerable<User> GetAllSinger()
+        {
+            var data = new UserBus().GetAllSinger();
+            return data;
+        }
         public User GetUserById(int id)
         {
             return new UserBus().GetUserById(id);
@@ -77,18 +85,27 @@ namespace Api.Models
             return new UserBus().GetUserByIdRole(id);
         }
 
-        public bool CreateSinger(User user)
+        public bool CreateSinger(UserDTO userDTO)
         {
-            if (new UserBus().UpdateUser(user))
+            if (new UserBus().CreateSinger(userDTO))
             {
                 return true;
             }
             return false;
         }
 
-        public bool CreateUser(User user)
+        public bool CreateUser(UserDTO userDTO)
         {
-            if (new UserBus().UpdateUser(user))
+            if (new UserBus().CreateUser(userDTO))
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public bool UpdateSinger(User user)
+        {
+            if (new UserBus().UpdateSinger(user))
             {
                 return true;
             }
@@ -316,7 +333,16 @@ namespace Api.Models
         {
             return new QualityBus().DeleteQuality(id);
         }
-    }
 
-    #endregion Partner
+
+        #endregion Partner
+
+        #region OrderVip
+        public IEnumerable<OrderVip> GetOrderVipByIdUser(int id) 
+        {
+            var data = new OrderVipBus().GetOrderVipByIdUser(id);
+            return data;
+        }
+        #endregion
+    }
 }
