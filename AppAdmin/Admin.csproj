@@ -133,6 +133,7 @@
     <Compile Include="Controllers\MusicController.cs" />
     <Compile Include="Controllers\PackageVipController.cs" />
     <Compile Include="Controllers\QualityController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -367,6 +368,11 @@
     <Content Include="Views\PackageVip\EditPackageVip.cshtml" />
     <Content Include="Views\Music\Edit.cshtml" />
     <Content Include="Views\Quality\Index.cshtml" />
+    <Content Include="Views\User\Edit.cshtml" />
+    <Content Include="Views\User\Index.cshtml" />
+    <Content Include="Views\User\ListSinger.cshtml" />
+    <Content Include="Views\User\ListUser.cshtml" />
+    <Content Include="Views\User\ViewDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

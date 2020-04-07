@@ -186,6 +186,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\MusicController.cs" />
+    <Compile Include="Areas\Admin\Controllers\OrderVipController.cs" />
     <Compile Include="Areas\Admin\Controllers\PackageVipController.cs" />
     <Compile Include="Areas\Admin\Controllers\PaymentController.cs" />
     <Compile Include="Areas\Admin\Controllers\QualityController.cs" />
@@ -232,6 +233,7 @@
     </Compile>
     <Compile Include="Models\Bus\CategoryBus.cs" />
     <Compile Include="Models\Bus\MusicBus.cs" />
+    <Compile Include="Models\Bus\OrderVipBus.cs" />
     <Compile Include="Models\Bus\PackageVipBus.cs" />
     <Compile Include="Models\Bus\PartnerBus.cs" />
     <Compile Include="Models\Bus\PaymentBus.cs" />
@@ -243,6 +245,7 @@
     <Compile Include="Models\Common\ConvertString.cs" />
     <Compile Include="Models\Dao\CategoryDao.cs" />
     <Compile Include="Models\Dao\MusicDao.cs" />
+    <Compile Include="Models\Dao\OrderVipDao.cs" />
     <Compile Include="Models\Dao\PackageVipDao.cs" />
     <Compile Include="Models\Dao\PartnerDao.cs" />
     <Compile Include="Models\Dao\PaymentDao.cs" />
@@ -312,6 +315,9 @@
       <DependentUpon>NCTModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\EF\SingerMusic.cs">
+      <DependentUpon>NCTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EF\sysdiagram.cs">
       <DependentUpon>NCTModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\EF\User.cs">

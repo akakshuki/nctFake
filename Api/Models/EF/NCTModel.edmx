@@ -84,7 +84,7 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID" Type="int" Nullable="false" />
           <Property Name="PaymentName" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="Playlist">
@@ -160,12 +160,22 @@
           <Property Name="MusicID" Type="int" Nullable="false" />
           <Property Name="SingerID" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
         <EntityType Name="User">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="UserName" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="500" />
           <Property Name="UserDOB" Type="date" />
           <Property Name="UserGender" Type="bit" />
           <Property Name="UserVIP" Type="bit" Nullable="false" />
@@ -177,8 +187,8 @@
           <Property Name="UserDayCreate" Type="datetime" Nullable="false" />
           <Property Name="RoleID" Type="int" Nullable="false" />
           <Property Name="UserActive" Type="bit" Nullable="false" />
-          <Property Name="DayVipEnd" Type="datetime" Nullable="false" />
-          <Property Name="TokenUser" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="DayVipEnd" Type="datetime" />
+          <Property Name="TokenUser" Type="nvarchar" MaxLength="20" />
         </EntityType>
         <EntityType Name="ViewMusic">
           <Key>
@@ -349,6 +359,7 @@
           <EntitySet Name="RankMusic" EntityType="Self.RankMusic" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SingerMusic" EntityType="Self.SingerMusic" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ViewMusic" EntityType="Self.ViewMusic" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_HistoryUser_Music" Association="Self.FK_HistoryUser_Music">
@@ -496,7 +507,7 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID" Type="Int32" Nullable="false" />
           <Property Name="PaymentName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="OrderVips" Relationship="Self.FK_OrderVip_Payment" FromRole="Payment" ToRole="OrderVip" />
         </EntityType>
@@ -580,12 +591,22 @@
           <Property Name="SingerID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="User" Relationship="Self.FK_SingerMusic_User" FromRole="SingerMusic" ToRole="User" />
         </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
         <EntityType Name="User">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="UserDOB" Type="DateTime" Precision="0" />
           <Property Name="UserGender" Type="Boolean" />
           <Property Name="UserVIP" Type="Boolean" Nullable="false" />
@@ -597,8 +618,8 @@
           <Property Name="UserDayCreate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="RoleID" Type="Int32" Nullable="false" />
           <Property Name="UserActive" Type="Boolean" Nullable="false" />
-          <Property Name="DayVipEnd" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="TokenUser" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DayVipEnd" Type="DateTime" Precision="3" />
+          <Property Name="TokenUser" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Musics" Relationship="Self.FK_Music_User" FromRole="User" ToRole="Music" />
           <NavigationProperty Name="OrderVips" Relationship="Self.FK_OrderVip_User" FromRole="User" ToRole="OrderVip" />
           <NavigationProperty Name="Role" Relationship="Self.FK_User_Role" FromRole="User" ToRole="Role" />
@@ -773,6 +794,7 @@
           <EntitySet Name="RankMusics" EntityType="Self.RankMusic" />
           <EntitySet Name="Roles" EntityType="Self.Role" />
           <EntitySet Name="SingerMusics" EntityType="Self.SingerMusic" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
           <EntitySet Name="Users" EntityType="Self.User" />
           <EntitySet Name="ViewMusics" EntityType="Self.ViewMusic" />
           <AssociationSet Name="FK_RankMusic_Category" Association="Self.FK_RankMusic_Category">
@@ -998,6 +1020,17 @@
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="MusicID" ColumnName="MusicID" />
                 <ScalarProperty Name="SingerID" ColumnName="SingerID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="ProjectNCTModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

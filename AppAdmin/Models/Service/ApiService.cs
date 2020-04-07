@@ -22,7 +22,7 @@ namespace AppAdmin.Models.Service
             _baseUrl = "https://localhost:44384/api/";
         }
 
-
+        #region an
         #region User
 
         public static List<UserDTO> GetAllUser()
@@ -47,6 +47,28 @@ namespace AppAdmin.Models.Service
                 }
             }
 
+            return null;
+        }
+        public static List<UserDTO> GetAllUserNormal()
+        {
+            //JavaScriptSerializer oJS2 = new JavaScriptSerializer();
+            var settings = new JsonSerializerSettings
+            {
+                NullValueHandling = NullValueHandling.Ignore,
+                MissingMemberHandling = MissingMemberHandling.Ignore
+            };
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("https://localhost:44384/api/User/GetAllUserNormal/");
+                var responseTask = client.GetAsync(client.BaseAddress);
+                responseTask.Wait();
+                var result = responseTask.Result;
+                if (result.IsSuccessStatusCode)
+                {
+                    var readTask = JsonConvert.DeserializeObject<List<UserDTO>>(result.Content.ReadAsStringAsync().Result, settings);
+                    return readTask;
+                }
+            }
             return null;
         }
         public static List<UserDTO> GetAllUserVip()
@@ -507,7 +529,27 @@ namespace AppAdmin.Models.Service
         }
 
         #endregion
+        #region OrderVip
+        public static List<OrderVipDTO> GetOrderVipByIdUser(int id)
+        {
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("https://localhost:44384/api/OrderVip/GetOrderVipByIdUser/" + id.ToString());
+                var responseTask = client.GetAsync(client.BaseAddress);
+                responseTask.Wait();
+                var result = responseTask.Result;
+                if (result.IsSuccessStatusCode)
+                {
+                    var readTask =
+                        JsonConvert.DeserializeObject<List<OrderVipDTO>>(result.Content.ReadAsStringAsync().Result);
+                    return readTask;
+                }
+            }
 
+            return null;
+        }
+        #endregion
+        #endregion
 
         #region hoang
 

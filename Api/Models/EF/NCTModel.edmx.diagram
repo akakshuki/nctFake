@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="17f39ef3f400451b9215090986fcc979" Name="Diagram1">
+      <Diagram DiagramId="fcf828fe0d5c41fab4276bf0ac2714cb" Name="Diagram1">
         <EntityTypeShape EntityType="ProjectNCTModel.Category" Width="1.5" PointX="0.75" PointY="1.25" IsExpanded="true" />
         <EntityTypeShape EntityType="ProjectNCTModel.HistoryUser" Width="1.5" PointX="7.5" PointY="3.375" IsExpanded="true" />
         <EntityTypeShape EntityType="ProjectNCTModel.LyricsMusic" Width="1.5" PointX="7.5" PointY="6" IsExpanded="true" />
@@ -21,8 +21,9 @@
         <EntityTypeShape EntityType="ProjectNCTModel.RankMusic" Width="1.5" PointX="7.5" PointY="12" IsExpanded="true" />
         <EntityTypeShape EntityType="ProjectNCTModel.Role" Width="1.5" PointX="0.75" PointY="9.125" IsExpanded="true" />
         <EntityTypeShape EntityType="ProjectNCTModel.SingerMusic" Width="1.5" PointX="5.25" PointY="18.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProjectNCTModel.sysdiagram" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
         <EntityTypeShape EntityType="ProjectNCTModel.User" Width="1.5" PointX="3" PointY="7.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="ProjectNCTModel.ViewMusic" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProjectNCTModel.ViewMusic" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
         <AssociationConnector Association="ProjectNCTModel.FK_RankMusic_Category" ManuallyRouted="false" />
         <AssociationConnector Association="ProjectNCTModel.FK_HistoryUser_Music" ManuallyRouted="false" />
         <AssociationConnector Association="ProjectNCTModel.FK_LyricsMusic_Music" ManuallyRouted="false" />
