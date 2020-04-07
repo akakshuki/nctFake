@@ -1,0 +1,109 @@
+﻿@using ModelViews.DTOs
+@model QualityDTO
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    List<QualityDTO> listQuality = ViewBag.QualityList;
+}
+
+@section js{
+    <script>
+        $('.qualityrow').on('click',
+            function () {
+                const id = $(this).attr("data-id");
+                $.ajax({
+                    url: 'https://localhost:44315/Quality/GetById/',
+                    type: 'GET',
+                    dataType: 'Json',
+                    data: {
+                        id: id
+                    },
+                    success: function (data) {
+                     $('#id').val(data.data.ID);
+                        $('#name').val(data.data.QualityName);
+                        $('#vip').val(data.data.QualityVip);
+                        if (data.data.QualityVip===true) { $('#vip').is(':checked');}
+
+                    }
+                });
+            });
+    </script>
+}
+<div class="container form-panel">
+    <h2>Quality</h2>
+    <div class="row">
+        <div class="col-md-4 m-1">
+            <h4>
+                List Quality
+            </h4>
+            <table class="table mx-1">
+                <thead>
+                    <tr>
+                        <th scope="col">QualityName</th>
+                        <th scope="col">Vip</th>
+                        <th scope="col">#</th>
+                        <th>
+
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in listQuality)
+                    {
+                        <tr data-id="@item.ID" class="qualityrow">
+                            <th>@item.QualityName</th>
+                            <td>
+                                @if (item.QualityVip)
+                                {
+                                    <p>Vip</p>
+                                }
+                            </td>
+                            <td>
+                                <a href="@Url.Action("Delete","Quality", new {id = item.ID})" class="btn btn-danger">
+                                    Delete
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <div class="col-md-6">
+            <h4>
+                List Quality
+            </h4>
+            @using (Html.BeginForm("Create", "Quality", FormMethod.Post, new { @class = "mt-5" }))
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-horizontal">
+                    <hr />
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.HiddenFor(model => model.ID, htmlAttributes: new { @id = "id", @value = 0 })
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.QualityName, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            <input type="text" name="QualityName" id="name" class="form-control" />
+                            @Html.ValidationMessageFor(model => model.QualityName, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.QualityVip, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.CheckBoxFor(model => model.QualityVip, new { htmlAttributes = new { @class = "form-control", @id = "vip" } })
+                            @Html.ValidationMessageFor(model => model.QualityVip, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Submit" class="btn btn-default" />
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

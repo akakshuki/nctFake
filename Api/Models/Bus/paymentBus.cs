@@ -12,7 +12,7 @@ namespace Api.Models.Bus
         {
             try
             {
-                var data = new PaymentDao().Create(new Payment()
+               new PaymentDao().Create(new Payment()
                 {
                     PaymentName = payment.PaymentName
                 });

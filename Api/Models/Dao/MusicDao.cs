@@ -17,7 +17,7 @@ namespace Api.Models.Dao
 
         //create
         public Music Create(Music music)
-        {
+            {
             db.Musics.Add(music);
             if (db.SaveChanges() > 0)
             {

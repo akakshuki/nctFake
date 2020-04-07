@@ -1,0 +1,114 @@
+﻿@using ModelViews.DTOs
+@model ModelViews.DTOs.MusicDTO
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    List<UserDTO> list = ViewBag.Singers;
+}
+
+@section js
+{
+    <script type="text/javascript" src="~/Content/Dashio/lib/bootstrap-fileupload/bootstrap-fileupload.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+
+    <script>
+        $('.select2').select2();
+    </script>
+}
+
+<h2>Update Music</h2>
+
+
+@using (Html.BeginForm("Edit", "Music", FormMethod.Post, new
+{
+    enctype = "multipart/form-data"
+}))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>MusicDTO</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.MusicName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.MusicName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.MusicName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.SongOrMV, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.SongOrMV)
+                    @Html.ValidationMessageFor(model => model.SongOrMV, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2">Singer</label>
+            <div class="col-md-10">
+                <div>
+                    <select name="UserId" id="UserId" class="form-control select2">
+                        @foreach (var item in list)
+                        {
+                            if (item.ID == Model.UserID)
+                            {
+                                <option selected="selected" value="@item.ID">@item.UserName</option>
+                            }
+                            else
+                            {
+                                <option value="@item.ID">@item.UserName</option>
+                            }
+                        }
+                    </select>
+                    @Html.ValidationMessageFor(model => model.UserID, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">Image Upload</label>
+            <div class="col-md-9">
+                <div class="fileupload fileupload-new" data-provides="fileupload">
+                    <div class="fileupload-new thumbnail" style="width: 200px; height: 150px;">
+                        <img src="@Model.LinkImage" alt="" />
+                    </div>
+                    <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 200px; max-height: 150px; line-height: 20px;"></div>
+                    <div>
+                        <span class="btn btn-theme02 btn-file">
+                            <span class="fileupload-new"><i class="fa fa-paperclip"></i> Select image</span>
+                            <span class="fileupload-exists"><i class="fa fa-undo"></i> Change</span>
+                            <input name="FileImage" type="file" class="default" />
+                        </span>
+                    </div>
+                </div>
+                <span class="label label-info">NOTE!</span>
+                <span>
+                    Attached image thumbnail is
+                    supported in Latest Firefox, Chrome, Opera,
+                    Safari and Internet Explorer 10 only
+                </span>
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.MusicRelated, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.MusicRelated, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.MusicRelated, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+

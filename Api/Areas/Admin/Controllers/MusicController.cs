@@ -1,12 +1,15 @@
-﻿using Api.Models;
+﻿using System;
+using Api.Models;
 using ModelViews.DTOs;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web;
 using System.Web.Http;
+
 
 namespace Api.Areas.Admin.Controllers
 {
-    [RoutePrefix("api/music")]
+    [System.Web.Http.RoutePrefix("api/music")]
     public class MusicController : ApiController
     {
         // GET: api/Music
@@ -23,9 +26,20 @@ namespace Api.Areas.Admin.Controllers
         }
 
         // POST: api/Music
-        public void Post([FromBody]MusicDTO music)
+        public IHttpActionResult Post([FromBody]MusicDTO music)
         {
-            new Repositories().CreateMusic(music);
+            var httpContext = HttpContext.Current;
+
+            try
+            {
+                new Repositories().CreateMusic(music);
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return InternalServerError();
+            }
         }
 
         // PUT: api/Music/5
@@ -41,7 +55,7 @@ namespace Api.Areas.Admin.Controllers
         }
 
         //// DELETE: api/Music/GetMusicByName/Godzila
-        [Route("GetMusicByName/{key}")]
+        [System.Web.Http.Route("GetMusicByName/{key}")]
         public IHttpActionResult GetMusicByName(string key)
         {
             var data = new Repositories().GetMusicByKey(key);
@@ -51,8 +65,8 @@ namespace Api.Areas.Admin.Controllers
             }
             return Ok(data);
         }
-
-        [HttpGet, Route("GetMusicPaging")]
+            
+        [System.Web.Http.HttpPost, System.Web.Http.Route("GetMusicPaging")]
         public IEnumerable<MusicDTO> GetMusicPaging([FromBody]Pagination pagination)
         {
             return new Repositories().GetListMusicByPage(pagination).ToList();

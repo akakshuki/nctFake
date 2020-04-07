@@ -3,6 +3,7 @@ using Api.Models.EF;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using ModelViews.DTOs;
 
 namespace Api.Models.Bus
 {
@@ -126,5 +127,37 @@ namespace Api.Models.Bus
             }
             return false;
         }
+
+
+
+        //user convert dto
+        public UserDTO GetUserDtoById(int id)
+        {
+            var data = new UserDao().GetUserById(id);
+            return new UserDTO
+            {
+                ID = data.ID,
+                UserName = data.UserName,
+                UserDOB = data.UserDOB,
+                UserGender = data.UserGender,
+                UserVIP = data.UserVIP,
+                UserEmail = data.UserEmail,
+                UserPwd = data.UserPwd,
+                UserDescription = data.UserDescription,
+                UserNameUnsigned = data.UserNameUnsigned,
+                UserImage = data.UserImage,
+                UserDayCreate = data.UserDayCreate,
+                UserActive = data.UserActive,
+                TokenUser = data.TokenUser,
+                DayVipEnd = data.DayVipEnd,
+                RoleID = data.RoleID,
+                RoleDto = new RoleDTO()
+                {
+                    ID = data.Role.ID,
+                    RoleName = data.Role.RoleName
+                }
+            };
+        }
     }
+
 }

@@ -57,6 +57,10 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.4.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="Glimpse.AspNet, Version=1.9.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Bin\Glimpse.AspNet.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Owin, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Owin.3.1.0\lib\net45\Microsoft.Owin.dll</HintPath>
@@ -236,6 +240,7 @@
     <Compile Include="Models\Bus\QualityMusicBus.cs" />
     <Compile Include="Models\Bus\RoleBus.cs" />
     <Compile Include="Models\Bus\UserBus.cs" />
+    <Compile Include="Models\Common\ConvertString.cs" />
     <Compile Include="Models\Dao\CategoryDao.cs" />
     <Compile Include="Models\Dao\MusicDao.cs" />
     <Compile Include="Models\Dao\PackageVipDao.cs" />

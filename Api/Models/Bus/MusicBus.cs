@@ -3,7 +3,9 @@ using Api.Models.EF;
 using ModelViews.DTOs;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using Api.Models.Common;
 
 namespace Api.Models.Bus
 {
@@ -14,19 +16,34 @@ namespace Api.Models.Bus
         //admin create new
         public void AdminCreateMusic(MusicDTO music)
         {
-            var data = new MusicDao().Create(new Music()
+            //Save the Byte Array as File.
+
+            string fileName = "";
+            ; if (music.FileData != null)
             {
-                MusicDayCreate = DateTime.Now,
-                MusicName = music.MusicName,
-                MusicDownloadAllowed = true,
-                SongOrMV = true,
-                UserID = music.UserID,
-                MusicImage = music.MusicImage,
-                MusicView = 0,
-            });
+                fileName = DateTime.Now.Ticks.ToString();
+                string filePath = "~/File/ImageMusic/" + Path.GetFileName(fileName + ".jpg");
+                File.WriteAllBytes(System.Web.HttpContext.Current.Server.MapPath(filePath), Convert.FromBase64String(music.FileData));
+                fileName = fileName + ".jpg";
+            }
+            else
+            {
+                fileName = "default";
+            }
             try
             {
-                var res = new MusicDao().Create(data);
+                var data = new MusicDao().Create(new Music()
+                {
+                    MusicDayCreate = DateTime.Now,
+                    MusicName = music.MusicName,
+                    MusicDownloadAllowed = true,
+                    SongOrMV = music.SongOrMV,
+                    MusicImage = fileName,
+                    MusicNameUnsigned = ConvertString.convertToUnSign2(music.MusicName),
+                    MusicView = 0,
+                    UserID = music.UserID,
+
+                });
             }
             catch (Exception e)
             {
@@ -38,6 +55,16 @@ namespace Api.Models.Bus
         //update music
         public bool AdminUpdateMusic(MusicDTO music)
         {
+
+            if (music.FileData != null)
+            {
+
+                string fileName = DateTime.Now.Ticks.ToString();
+                string filePath = "~/File/ImageMusic/" + Path.GetFileName(fileName + ".jpg");
+                File.WriteAllBytes(System.Web.HttpContext.Current.Server.MapPath(filePath), Convert.FromBase64String(music.FileData));
+                fileName = fileName + ".jpg";
+            }
+
             var data = new Music()
             {
                 ID = music.ID,
@@ -48,7 +75,7 @@ namespace Api.Models.Bus
                 UserID = music.UserID,
                 MusicImage = music.MusicImage,
                 MusicRelated = music.MusicRelated,
-                MusicNameUnsigned = music.MusicNameUnsigned,
+                MusicNameUnsigned = ConvertString.convertToUnSign2(music.MusicName),
             };
             try
             {
@@ -80,30 +107,25 @@ namespace Api.Models.Bus
         //getListMusic have page
         public List<MusicDTO> GetListMusicWithPage(Pagination page)
         {
-            var list = new List<MusicDTO>();
-
             var dataList = new MusicDao().GetPageMusic(page);
 
-            foreach (var music in dataList)
+            return dataList.Select(music => new MusicDTO()
             {
-                var newMusic = new MusicDTO()
-                {
-                    UserID = music.UserID,
-                    MusicName = music.MusicName,
-                    MusicImage = music.MusicImage,
-                    SongOrMV = music.SongOrMV,
-                    MusicDownloadAllowed = music.MusicDownloadAllowed,
-                    MusicRelated = music.MusicRelated,
-                    MusicDayCreate = music.MusicDayCreate,
-                    MusicNameUnsigned = music.MusicNameUnsigned,
-                    MusicView = music.MusicView,
-                    ID = music.ID,
-                    //need User
-                    UserDto = null,
-                };
-                list.Add(newMusic);
-            }
-            return list;
+                UserID = music.UserID,
+                MusicName = music.MusicName,
+                MusicImage = music.MusicImage,
+                SongOrMV = music.SongOrMV,
+                MusicDownloadAllowed = music.MusicDownloadAllowed,
+                MusicRelated = music.MusicRelated,
+                MusicDayCreate = music.MusicDayCreate,
+                MusicNameUnsigned = music.MusicNameUnsigned,
+                MusicView = music.MusicView,
+                ID = music.ID,
+
+                //need User
+                UserDto = new UserBus().GetUserDtoById(music.UserID)
+            })
+                .ToList();
         }
 
         public List<MusicDTO> GetListMusicAll()
@@ -127,7 +149,7 @@ namespace Api.Models.Bus
                     MusicView = music.MusicView,
                     ID = music.ID,
                     //need User
-                    UserDto = null,
+                    UserDto = new UserBus().GetUserDtoById(music.UserID),
                 };
                 list.Add(newMusic);
             }
@@ -158,7 +180,7 @@ namespace Api.Models.Bus
                     MusicView = music.MusicView,
                     ID = music.ID,
                     //need User
-                    UserDto = null,
+                    UserDto = new UserBus().GetUserDtoById(music.UserID),
                 };
                 list.Add(newMusic);
             }
@@ -182,8 +204,10 @@ namespace Api.Models.Bus
                     MusicNameUnsigned = music.MusicNameUnsigned,
                     MusicView = music.MusicView,
                     ID = music.ID,
-                    //need User
-                    UserDto = null
+                    //Edit later
+                    LinkImage = "https://localhost:44384/File/ImageMusic/" + music.MusicImage,
+                    
+                    UserDto = new UserBus().GetUserDtoById(music.UserID)
                 };
             }
             catch (Exception e)
