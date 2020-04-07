@@ -17,11 +17,13 @@ namespace ModelViews.DTOs
         public string UserDescription { get; set; }
         public string UserNameUnsigned { get; set; }
         public string UserImage { get; set; }
+        public HttpPostedFileBase FileImage { get; set; }
         public DateTime UserDayCreate { get; set; }
         public int RoleID { get; set; }
         public bool UserActive { get; set; }
         public DateTime DayVipEnd { get; set; }
         public string TokenUser { get; set; }
+
 
 
 

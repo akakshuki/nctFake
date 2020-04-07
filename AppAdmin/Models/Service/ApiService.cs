@@ -27,6 +27,12 @@ namespace AppAdmin.Models.Service
 
         public static List<UserDTO> GetAllUser()
         {
+            //JavaScriptSerializer oJS2 = new JavaScriptSerializer();
+            var settings = new JsonSerializerSettings
+            {
+                NullValueHandling = NullValueHandling.Ignore,
+                MissingMemberHandling = MissingMemberHandling.Ignore
+            };
             using (var client = new HttpClient())
             {
                 client.BaseAddress = new Uri("https://localhost:44384/api/User/GetAllUser/");
@@ -43,9 +49,58 @@ namespace AppAdmin.Models.Service
 
             return null;
         }
+        public static List<UserDTO> GetAllUserVip()
+        {
+            //JavaScriptSerializer oJS2 = new JavaScriptSerializer();
+            var settings = new JsonSerializerSettings
+            {
+                NullValueHandling = NullValueHandling.Ignore,
+                MissingMemberHandling = MissingMemberHandling.Ignore
+            };
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("https://localhost:44384/api/User/GetAllUserVip/");
+                var responseTask = client.GetAsync(client.BaseAddress);
+                responseTask.Wait();
+                var result = responseTask.Result;
+                if (result.IsSuccessStatusCode)
+                {
+                    var readTask = JsonConvert.DeserializeObject<List<UserDTO>>(result.Content.ReadAsStringAsync().Result, settings);
+                    return readTask;
+                }
+            }
+            return null;
+        }
 
+        public static List<UserDTO> GetAllSinger()
+        {
+            //JavaScriptSerializer oJS2 = new JavaScriptSerializer();
+            var settings = new JsonSerializerSettings
+            {
+                NullValueHandling = NullValueHandling.Ignore,
+                MissingMemberHandling = MissingMemberHandling.Ignore
+            };
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("https://localhost:44384/api/User/GetAllSinger/");
+                var responseTask = client.GetAsync(client.BaseAddress);
+                responseTask.Wait();
+                var result = responseTask.Result;
+                if (result.IsSuccessStatusCode)
+                {
+                    var readTask = JsonConvert.DeserializeObject<List<UserDTO>>(result.Content.ReadAsStringAsync().Result,settings);
+                    return readTask;
+                }
+            }
+            return null;
+        }
         public static UserDTO GetUserById(int id)
         {
+            var settings = new JsonSerializerSettings
+            {
+                NullValueHandling = NullValueHandling.Ignore,
+                MissingMemberHandling = MissingMemberHandling.Ignore
+            };
             using (var client = new HttpClient())
             {
                 client.BaseAddress = new Uri("https://localhost:44384/api/User/GetUserById/" + id.ToString());
@@ -54,7 +109,7 @@ namespace AppAdmin.Models.Service
                 var result = responseTask.Result;
                 if (result.IsSuccessStatusCode)
                 {
-                    var readTask = JsonConvert.DeserializeObject<UserDTO>(result.Content.ReadAsStringAsync().Result);
+                    var readTask = JsonConvert.DeserializeObject<UserDTO>(result.Content.ReadAsStringAsync().Result,settings);
                     return readTask;
                 }
             }
@@ -112,7 +167,20 @@ namespace AppAdmin.Models.Service
 
             return null;
         }
-
+        public static UserDTO UpdateSinger(UserDTO userDTO)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Accept.Clear();
+                var response = client.PostAsync("https://localhost:44384/api/User/UpdateSinger/", new StringContent(
+                    new JavaScriptSerializer().Serialize(userDTO), Encoding.UTF8, "application/json")).Result;
+                if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    return userDTO;
+                }
+            }
+            return null;
+        }
         public static UserDTO UpdateUser(UserDTO userDTO)
         {
             using (HttpClient client = new HttpClient())
@@ -205,7 +273,22 @@ namespace AppAdmin.Models.Service
 
             return null;
         }
-
+        public static List<CategoryDTO> GetCateByIdRoot(int id)
+        {
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("https://localhost:44384/api/Category/GetCateByIdRoot/" + id.ToString());
+                var responseTask = client.GetAsync(client.BaseAddress);
+                responseTask.Wait();
+                var result = responseTask.Result;
+                if (result.IsSuccessStatusCode)
+                {
+                    var readTask = JsonConvert.DeserializeObject<List<CategoryDTO>>(result.Content.ReadAsStringAsync().Result);
+                    return readTask;
+                }
+            }
+            return null;
+        }
         public static CategoryDTO CreateCate(CategoryDTO categoryDTO)
         {
             using (HttpClient client = new HttpClient())

@@ -9,7 +9,7 @@ namespace Api.Controllers
     public class CategoryController : ApiController
     {
         // GET api/<controller>
-        [Route("GetAllRoom")]
+        [Route("GetAllCate")]
         public IEnumerable<Category> GetAllCate()
         {
             return new Repositories().GetAllCate();
@@ -26,6 +26,12 @@ namespace Api.Controllers
         public Role GetRoleById(int id)
         {
             return new Repositories().GetRoleById(id);
+        }
+
+        [Route("GetCateByIdRoot/{id}")]
+        public IEnumerable<Category> GetCateByIdRoot(int id)
+        {
+            return new Repositories().GetCateByIdRoot(id);
         }
 
         // POST api/<controller>

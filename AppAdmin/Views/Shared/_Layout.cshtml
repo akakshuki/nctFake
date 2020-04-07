@@ -12,6 +12,8 @@
     <!-- Favicons -->
     <link href="@Url.Content("~/Content/Dashio/")img/favicon.png" rel="icon">
     <link href="@Url.Content("~/Content/Dashio/")img/apple-touch-icon.png" rel="apple-touch-icon">
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/Dashio/")lib/bootstrap-fileupload/bootstrap-fileupload.css" />
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/Dashio/")lib/bootstrap-datepicker/css/datepicker.css" />
 
     <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/Dashio/")lib/bootstrap-fileupload/bootstrap-fileupload.css" />
 
@@ -49,7 +51,7 @@
                 <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
             </div>
             <!--logo start-->
-            <a href="index.html" class="logo"><b>DASH<span>IO</span></b></a>
+            <a href="index.html" class="logo"><b>NCT<span>eo</span></b></a>
             <!--logo end-->
             <div class="nav notify-row" id="top_menu">
                 <!--  notification start -->
@@ -285,6 +287,7 @@
     </section>
     <!-- js placed at the end of the document so the pages load faster -->
     <script src="@Url.Content("~/Content/Dashio/")lib/jquery/jquery.min.js"></script>
+    <script type="text/javascript" language="javascript" src="@Url.Content("~/Content/Dashio/")lib/advanced-datatable/js/jquery.js"></script>
     <script src="@Url.Content("~/Content/Dashio/")lib/bootstrap/js/bootstrap.min.js"></script>
     <script src="@Url.Content("~/Content/Dashio/")lib/jquery-ui-1.9.2.custom.min.js"></script>
     <script src="@Url.Content("~/Content/Dashio/")lib/jquery.ui.touch-punch.min.js"></script>
@@ -295,6 +298,7 @@
     <script src="@Url.Content("~/Content/Dashio/")lib/common-scripts.js"></script>
     <!--script for this page-->
     @RenderSection("js", false)
+
 </body>
 
 </html>
