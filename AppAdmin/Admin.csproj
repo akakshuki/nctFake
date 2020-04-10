@@ -373,10 +373,12 @@
     <Content Include="Views\User\ListSinger.cshtml" />
     <Content Include="Views\User\ListUser.cshtml" />
     <Content Include="Views\User\ViewDetails.cshtml" />
+    <Content Include="Views\Music\SingerOfMusic.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\DataTable\" />
+    <Folder Include="File\ImageMusic\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

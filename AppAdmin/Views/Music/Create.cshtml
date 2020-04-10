@@ -5,6 +5,7 @@
     ViewBag.Title = "Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
     List<UserDTO> list = ViewBag.Singers;
+    List<MusicDTO> listMusic = ViewBag.MusicRelated;
 }
 @section js
 {
@@ -34,7 +35,9 @@
             @Html.LabelFor(model => model.MusicName, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.MusicName, new { htmlAttributes = new { @class = "form-control" } })
+            
                 @Html.ValidationMessageFor(model => model.MusicName, "", new { @class = "text-danger" })
+
             </div>
         </div>
         <div class="form-group">
@@ -42,24 +45,14 @@
             <div class="col-md-10">
                 <div class="checkbox">
                     @Html.CheckBoxFor(model => model.SongOrMV, htmlAttributes: new { @class = "ml-5" })
+                    <small>
+                        If song then "Checked"
+                    </small>
                     @Html.ValidationMessageFor(model => model.SongOrMV, "", new { @class = "text-danger" })
                 </div>
             </div>
         </div>
-        <div class="form-group">
-            <label class="control-label col-md-2">Singer</label>
-            <div class="col-md-10">
-                <div>
-                    <select name="UserId" id="UserId" class="form-control select2">
-                        @foreach (var item in list)
-                        {
-                            <option value="@item.ID">@item.UserName</option>
-                        }
-                    </select>
-                    @Html.ValidationMessageFor(model => model.UserID, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
+
         <div class="form-group">
             <label class="control-label col-md-3">Image Upload</label>
             <div class="col-md-9">
@@ -87,7 +80,28 @@
         <div class="form-group">
             @Html.LabelFor(model => model.MusicRelated, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.MusicRelated, new { htmlAttributes = new { @class = "form-control" } })
+                <select name="MusicRelated" class="form-control select2">
+
+                    <option selected="selected" value="0"> have no related </option>
+                    @foreach (var item in listMusic)
+                    {
+
+                        <option value="@item.ID">
+                            @item.MusicName ( @{
+                                if (item.SongOrMV)
+                                {
+                                    <p>Mv</p>
+                                }
+                                else
+                                {   
+                                    <p>Songs</p>
+                                }
+                            }
+                            )
+                        </option>
+
+                    }
+                </select>
                 @Html.ValidationMessageFor(model => model.MusicRelated, "", new { @class = "text-danger" })
             </div>
         </div>

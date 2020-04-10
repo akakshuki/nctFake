@@ -12,5 +12,6 @@ namespace ModelViews.DTOs
         public int SingerID { get; set; }
 
         public  UserDTO  UserDto { get; set; }
+        public MusicDTO MusicDto { get; set; }
     }
 }

@@ -215,6 +215,11 @@ namespace Api.Models
             new MusicBus().AdminCreateMusic(music);
         }
 
+        public void AddSingerToMusic(SingerMusicDTO singerMusic)
+        {
+            new MusicBus().AddSingerToMusic(singerMusic);
+        }
+
         public bool UpdateMusic(MusicDTO music)
         {
             return new MusicBus().AdminUpdateMusic(music);
@@ -233,6 +238,15 @@ namespace Api.Models
         public List<MusicDTO> GetAllMusic()
         {
             return new MusicBus().GetListMusicAll();
+        }
+
+        public List<SingerMusicDTO> SingerMusicByMusicId(int id)
+        {
+            return new MusicBus().GetListSingerMusicByMusicId(id);
+        }
+        public bool DeleteSingerMusic(int id)
+        {
+            return new MusicBus().DeleteSingerToMusic(id);
         }
 
         public MusicDTO GetMusicById(int id)
@@ -344,5 +358,7 @@ namespace Api.Models
             return data;
         }
         #endregion
+
+      
     }
 }

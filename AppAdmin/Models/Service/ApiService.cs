@@ -94,6 +94,8 @@ namespace AppAdmin.Models.Service
             return null;
         }
 
+
+
         public static List<UserDTO> GetAllSinger()
         {
             //JavaScriptSerializer oJS2 = new JavaScriptSerializer();
@@ -110,7 +112,7 @@ namespace AppAdmin.Models.Service
                 var result = responseTask.Result;
                 if (result.IsSuccessStatusCode)
                 {
-                    var readTask = JsonConvert.DeserializeObject<List<UserDTO>>(result.Content.ReadAsStringAsync().Result,settings);
+                    var readTask = JsonConvert.DeserializeObject<List<UserDTO>>(result.Content.ReadAsStringAsync().Result, settings);
                     return readTask;
                 }
             }
@@ -131,7 +133,7 @@ namespace AppAdmin.Models.Service
                 var result = responseTask.Result;
                 if (result.IsSuccessStatusCode)
                 {
-                    var readTask = JsonConvert.DeserializeObject<UserDTO>(result.Content.ReadAsStringAsync().Result,settings);
+                    var readTask = JsonConvert.DeserializeObject<UserDTO>(result.Content.ReadAsStringAsync().Result, settings);
                     return readTask;
                 }
             }
@@ -591,14 +593,6 @@ namespace AppAdmin.Models.Service
         {
             using (var client = new HttpClient())
             {
-                var fileSizeInBytes = music.FileImage.ContentLength;
-
-                using (var br = new BinaryReader(music.FileImage.InputStream))
-                {
-                    music.FileData = Convert.ToBase64String(br.ReadBytes(fileSizeInBytes));
-                    music.FileImage = null;
-                }
-
                 var data = new StringContent(
                     new JavaScriptSerializer().Serialize(music), Encoding.UTF8, "application/json");
                 client.DefaultRequestHeaders.Accept.Clear();
@@ -614,29 +608,18 @@ namespace AppAdmin.Models.Service
             return false;
         }
 
-
         public static bool UpdateMusic(MusicDTO music)
         {
             //up load if file have upload
             using (HttpClient client = new HttpClient())
             {
-                if (music.FileImage != null)
-                {
-                    var fileSizeInBytes = music.FileImage.ContentLength;
-                    using var br = new BinaryReader(music.FileImage.InputStream);
-                    music.FileData = Convert.ToBase64String(br.ReadBytes(fileSizeInBytes));
-                    music.FileImage = null;
-                }
-
-
-
                 var data = new StringContent(
-                    new JavaScriptSerializer().Serialize(music), Encoding.UTF8, "application/json");
+                       new JavaScriptSerializer().Serialize(music), Encoding.UTF8, "application/json");
                 client.DefaultRequestHeaders.Accept.Clear();
 
-                var response = client.PutAsync("https://localhost:44384/api/music/"+ music.ID, data).Result;
+                var response = client.PutAsync("https://localhost:44384/api/music/" + music.ID, data).Result;
 
-                if (response.StatusCode == System.Net.HttpStatusCode.OK)    
+                if (response.StatusCode == System.Net.HttpStatusCode.OK)
                 {
                     return true;
                 }
@@ -671,6 +654,51 @@ namespace AppAdmin.Models.Service
             if (!result.IsSuccessStatusCode) return null;
             var readTask = JsonConvert.DeserializeObject<MusicDTO>(result.Content.ReadAsStringAsync().Result);
             return readTask;
+        }
+
+        public static List<SingerMusicDTO> GetSingerOfMusicByMusicId(int id)
+        {
+            using var client = new HttpClient();
+            client.BaseAddress = new Uri("https://localhost:44384/api/music/GetSingerMusicByMusicId/" + id.ToString());
+            var responseTask = client.GetAsync(client.BaseAddress);
+            responseTask.Wait();
+            var result = responseTask.Result;
+            if (!result.IsSuccessStatusCode) return null;
+            var readTask = JsonConvert.DeserializeObject<List<SingerMusicDTO>>(result.Content.ReadAsStringAsync().Result);
+            return readTask;
+        }
+
+        public static bool AddSingerToMusic(SingerMusicDTO singerMusic)
+        {
+            try
+            {
+                using var client = new HttpClient();
+                var data = new StringContent(
+                    new JavaScriptSerializer().Serialize(singerMusic), Encoding.UTF8, "application/json");
+                client.DefaultRequestHeaders.Accept.Clear();
+                var response = client.PostAsync("https://localhost:44384/api/music/AddSingerToMusic", data).Result;
+                return response.StatusCode == System.Net.HttpStatusCode.OK;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return false;
+            }
+        }
+
+        public static bool DeleteSingerToMusic(int id)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Accept.Clear();
+                var response = client.DeleteAsync("https://localhost:44384/api/music/DeleteSingerMusicByMusicId/" + id).Result;
+                if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         #endregion
@@ -943,6 +971,7 @@ namespace AppAdmin.Models.Service
         #endregion
 
         #endregion
+
 
 
     }

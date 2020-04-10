@@ -253,6 +253,7 @@
     <Compile Include="Models\Dao\QualityMusicDao.cs" />
     <Compile Include="Models\Dao\QualityDao.cs" />
     <Compile Include="Models\Dao\RoleDao.cs" />
+    <Compile Include="Models\Dao\SingerMusicDao.cs" />
     <Compile Include="Models\Dao\UserDao.cs" />
     <Compile Include="Models\EF\Category.cs">
       <DependentUpon>NCTModel.tt</DependentUpon>
@@ -315,9 +316,6 @@
       <DependentUpon>NCTModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\EF\SingerMusic.cs">
-      <DependentUpon>NCTModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\EF\sysdiagram.cs">
       <DependentUpon>NCTModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\EF\User.cs">

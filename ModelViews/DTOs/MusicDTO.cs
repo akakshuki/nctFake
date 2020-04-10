@@ -16,7 +16,6 @@ namespace ModelViews.DTOs
         public bool SongOrMV { get; set; }
         public string MusicImage { get; set; }
         public HttpPostedFileBase FileImage { get; set; }
-        public string FileData { get; set; }
         public string LinkImage { get; set; }
         public DateTime MusicDayCreate { get; set; }
         public string MusicNameUnsigned { get; set; }
@@ -26,7 +25,7 @@ namespace ModelViews.DTOs
         public UserDTO UserDto { get; set; }
         public List<QualityDTO> QualityDtos { get; set; }
         public List<HistoryUserDTO> HistoryUserDtos { get; set; }
-
+        public List<SingerMusicDTO> SingerMusicDtOs { get; set; }
 
     }
 }

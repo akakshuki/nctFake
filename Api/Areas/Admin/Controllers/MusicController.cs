@@ -55,7 +55,7 @@ namespace Api.Areas.Admin.Controllers
         }
 
         //// DELETE: api/Music/GetMusicByName/Godzila
-        [System.Web.Http.Route("GetMusicByName/{key}")]
+        [Route("GetMusicByName/{key}")]
         public IHttpActionResult GetMusicByName(string key)
         {
             var data = new Repositories().GetMusicByKey(key);
@@ -65,11 +65,41 @@ namespace Api.Areas.Admin.Controllers
             }
             return Ok(data);
         }
-            
-        [System.Web.Http.HttpPost, System.Web.Http.Route("GetMusicPaging")]
+
+        [HttpPost, Route("GetMusicPaging")]
         public IEnumerable<MusicDTO> GetMusicPaging([FromBody]Pagination pagination)
         {
             return new Repositories().GetListMusicByPage(pagination).ToList();
+        }
+        [HttpGet, Route("GetSingerMusicByMusicId/{id}")]
+        public IEnumerable<SingerMusicDTO> GetSingerMusicByMusicId(int id)
+        {
+            return new Repositories().SingerMusicByMusicId(id).ToList();
+        }
+        [HttpDelete, Route("DeleteSingerMusicByMusicId/{id}")]
+        public IHttpActionResult DeleteSingerMusicByMusicId(int id)
+        {
+            var res = new Repositories().DeleteSingerMusic(id);
+            if (res)
+            {
+                return Ok();
+            }
+
+            return NotFound();
+        }
+        [System.Web.Http.HttpPost, Route("AddSingerToMusic")]
+        public IHttpActionResult AddSingerToMusic([FromBody] SingerMusicDTO singerMusic)
+        {
+            try
+            {
+                new Repositories().AddSingerToMusic(singerMusic);
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return InternalServerError();
+            }
         }
     }
 }
