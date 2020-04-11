@@ -1,7 +1,9 @@
-﻿@model IEnumerable<ModelViews.DTOs.OrderVipDTO>
+﻿@using ModelViews.DTOs
+@model IEnumerable<ModelViews.DTOs.OrderVipDTO>
 @{
     ViewBag.Title = "ViewDetails";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    List<OrderVipDTO> list = ViewBag.Order;
 }
 @section js{
     <script type="text/javascript" language="javascript" src="@Url.Content("~/Content/Dashio/")lib/advanced-datatable/js/jquery.dataTables.js"></script>
@@ -182,12 +184,12 @@
                                 @*<th></th>*@
                             </tr>
                         </thead>
-                        @foreach (var item in Model)
+                        @foreach (var item in list)
                         {
                             <tbody>
                                 <tr class="gradeA odd">
-                                    <td>@Html.DisplayFor(s=> item.PackageVipDto.PVipName)</td>
-                                    <td>@Html.DisplayFor(s => item.OrdDayCreate)</td>
+                                    <td>@item.PackageVipDto.PVipName</td>
+                                    <td>@item.OrdDayCreate</td>
                                     @*<td>
                                             <a href="">
                                                 <button type="button" class="btn btn-round btn-info">Detail</button>

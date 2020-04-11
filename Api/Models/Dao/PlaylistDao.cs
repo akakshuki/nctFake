@@ -47,6 +47,7 @@ namespace Api.Models.Dao
             data.PlaylistImage = playlist.PlaylistImage;
             data.PlaylistDescription = playlist.PlaylistDescription;
             data.CateID = playlist.CateID;
+            data.UserID = playlist.UserID;
             if (db.SaveChanges() > 0)
             {
                 return true;

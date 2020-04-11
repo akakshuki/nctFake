@@ -76,14 +76,16 @@
 
 }
 
-<div class="container form-panel">
+<div class="container ">
     <h2>Music Management</h2>
-
-    <p>
-        @Html.ActionLink("Create New", "Create")
-    </p>
+    <a href="@Url.Action("ViewCreate","LyricsMusic")" class="btn btn-success">
+        Add lyrics
+    </a>
+    <a href="@Url.Action("Create","Music")" class="btn btn-success">
+        Add singer
+    </a>
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-12 form-panel">
             <div class="adv-table">
                 <table cellpadding="0" cellspacing="0" border="0" class="display table table-bordered" id="hidden-table-info">
                     <thead>
@@ -119,7 +121,12 @@
                                     <a href="@Url.Action("Delete","Music",new {id =@item.ID})" class="btn btn-danger">
                                         Delete
                                     </a>
-
+                                    <a href="@Url.Action("Index","LyricsMusic",new {id =@item.ID})" class="btn btn-success">
+                                        Lyrics Music
+                                    </a>
+                                    <a href="@Url.Action("ViewCreate","QualityMusic",new {id =@item.ID})" class="btn btn-danger">
+                                        Add File
+                                    </a>
                                 </td>
                             </tr>
                         }

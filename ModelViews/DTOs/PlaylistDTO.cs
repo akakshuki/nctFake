@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace ModelViews.DTOs { 
+namespace ModelViews.DTOs
+{
     public class PlaylistDTO
     {
         public int ID { get; set; }
@@ -11,10 +12,12 @@ namespace ModelViews.DTOs {
         public int UserID { get; set; }
         public int CateID { get; set; }
         public string PlaylistImage { get; set; }
+        public HttpPostedFileBase FileImage { get; set; }
+        public string FileData { get; set; }
         public string PlaylistDescription { get; set; }
 
         public CategoryDTO CategoryDto { get; set; }
         public UserDTO UserDto { get; set; }
-        
+
     }
 }

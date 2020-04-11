@@ -14,7 +14,12 @@ namespace Api.Models.Dao
         {
             db = new ProjectNCTEntities();
         }
-
+        //getFileByIdMusic
+        public List<QualityMusic> GetFileByIdMusic(int id)
+        {
+            var data = db.QualityMusics.Where(s => s.MusicID == id).ToList();
+            return data;
+        }
         //create
         public QualityMusic Create(QualityMusic qualityMusic)
         {

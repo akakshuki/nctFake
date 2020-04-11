@@ -5,7 +5,7 @@ using System.Web;
 
 namespace ModelViews.DTOs
 {
-    
+
     public class MusicDTO
     {
         public int ID { get; set; }
@@ -21,11 +21,12 @@ namespace ModelViews.DTOs
         public DateTime MusicDayCreate { get; set; }
         public string MusicNameUnsigned { get; set; }
         public int? MusicRelated { get; set; }
-        
+
 
         public UserDTO UserDto { get; set; }
         public List<QualityDTO> QualityDtos { get; set; }
         public List<HistoryUserDTO> HistoryUserDtos { get; set; }
+        public List<SingerMusicDTO> SingerMusicDtOs { get; set; }
 
 
     }

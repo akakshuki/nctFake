@@ -1,5 +1,6 @@
 ﻿using Api.Models.Dao;
 using Api.Models.EF;
+using ModelViews.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,9 +10,9 @@ namespace Api.Models.Bus
 {
     public class OrderVipBus
     {
-        public IEnumerable<OrderVip> GetOrderVipByIdUser(int id)
+        public IEnumerable<OrderVipDTO> GetOrderVipByIdUser(int id)
         {
-            var data = new OrderVipDao().GetOrderVipByIdUser(id).OrderByDescending(s => s.OrdDayCreate).Select(s => new OrderVip 
+            var data = new OrderVipDao().GetOrderVipByIdUser(id).OrderByDescending(s => s.OrdDayCreate).Select(s => new OrderVipDTO 
             {
                 ID = s.ID,
                 UserID = s.UserID,
@@ -19,7 +20,7 @@ namespace Api.Models.Bus
                 PaymentID = s.PaymentID,
                 OrdPrice = s.OrdPrice,
                 OrdDayCreate = s.OrdDayCreate,
-                PackageVip = new PackageVip()
+                PackageVipDto = new PackageVipDTO()
                 {
                     ID = s.PackageVip.ID,
                     PVipName = s.PackageVip.PVipName

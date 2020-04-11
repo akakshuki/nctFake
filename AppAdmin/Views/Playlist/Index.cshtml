@@ -1,0 +1,200 @@
+﻿@using ModelViews.DTOs
+@model ModelViews.DTOs.PlaylistDTO
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    List<PlaylistDTO> listPl = ViewBag.ListPlaylist;
+    List<CategoryDTO> listCate = ViewBag.GetCate;
+}
+@section js{
+    <script src="@Url.Content("~/Content/Dashio/")lib/jquery-ui-1.9.2.custom.min.js"></script>
+    <script type="text/javascript" src="@Url.Content("~/Content/Dashio/")lib/bootstrap-fileupload/bootstrap-fileupload.js"></script>
+    <script src="@Url.Content("~/Content/Dashio/")lib/advanced-form-components.js"></script>
+    <script type="text/javascript" src="@Url.Content("~/Content/Dashio/")lib/bootstrap-fileupload/bootstrap-fileupload.js"></script>
+    <script type="text/javascript" language="javascript" src="@Url.Content("~/Content/Dashio/")lib/advanced-datatable/js/jquery.dataTables.js"></script>
+    <script type="text/javascript" src="@Url.Content("~/Content/Dashio/")lib/advanced-datatable/js/DT_bootstrap.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+    <script>
+        $('.select2').select2();
+    </script>
+    <script type="text/javascript">
+        /* Formating function for row details */
+        //function fnFormatDetails(oTable, nTr) {
+        //    var aData = oTable.fnGetData(nTr);
+        //    var sOut = '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">';
+        //    sOut += '<tr><td>Rendering engine:</td><td>' + aData[1] + ' ' + aData[4] + '</td></tr>';
+        //    sOut += '<tr><td>Link to source:</td><td>Could provide a link here</td></tr>';
+        //    sOut += '<tr><td>Extra info:</td><td>And any further details here (images etc)</td></tr>';
+        //    sOut += '</table>';
+
+        //    return sOut;
+        //}
+
+        $(document).ready(function () {
+            /*
+             * Insert a 'details' column to the table
+             */
+            var nCloneTh = document.createElement('th');
+            var nCloneTd = document.createElement('td');
+            nCloneTd.innerHTML = '';
+            nCloneTd.className = "center";
+
+            $('#hidden-table-info thead tr').each(function () {
+                this.insertBefore(nCloneTh, this.childNodes[0]);
+            });
+
+            $('#hidden-table-info tbody tr').each(function () {
+                this.insertBefore(nCloneTd.cloneNode(true), this.childNodes[0]);
+            });
+
+            /*
+             * Initialse DataTables, with no sorting on the 'details' column
+             */
+            var oTable = $('#hidden-table-info').dataTable({
+                "aoColumnDefs": [{
+                    "bSortable": false,
+                    "aTargets": [0]
+                }],
+                "aaSorting": [
+                    [1, 'asc']
+                ]
+            });
+
+            /* Add event listener for opening and closing details
+             * Note that the indicator for showing which row is open is not controlled by DataTables,
+             * rather it is done here
+             */
+            $('#hidden-table-info tbody td img').live('click', function () {
+                var nTr = $(this).parents('tr')[0];
+                if (oTable.fnIsOpen(nTr)) {
+                    /* This row is already open - close it */
+                    this.src = "lib/advanced-datatable/media/images/details_open.png";
+                    oTable.fnClose(nTr);
+                } else {
+                    /* Open this row */
+                    this.src = "lib/advanced-datatable/images/details_close.png";
+                    oTable.fnOpen(nTr, fnFormatDetails(oTable, nTr), 'details');
+                }
+            });
+        });
+    </script>
+}
+<div class="">
+    <section>
+        <div class="row mt">
+            <div class="col-lg-12">
+                <h4><i class="fa fa-angle-right"></i> Create Playlist</h4>
+                <div class="form-panel">
+                    <div class=" form">
+                        <form class="cmxform form-horizontal style-form" id="commentForm" method="post" action="@Url.Action("Create","Playlist")">
+                            <div class="form-group ">
+                                <label for="cname" class="control-label col-lg-2">Name Playlist</label>
+                                <div class="col-lg-10">
+                                    <input type="hidden" name="UserId" value="@Session["id"]" />
+                                    <input class=" form-control" id="cname" name="PlaylistName" minlength="2" type="text" required />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2">Category</label>
+                                <div class="col-md-10">
+                                    <div>
+                                        <select name="CateId" id="UserId" class="form-control select2">
+                                            @foreach (var item in listCate)
+                                            {
+                                                <option value="@item.ID">@item.CateName</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group ">
+                                <label for="ccomment" class="control-label col-lg-2">Description</label>
+                                <div class="col-lg-10">
+                                    <textarea class="form-control " id="ccomment" name="PlaylistDescription" required></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group last">
+                                <label class="control-label col-lg-2">Image Upload</label>
+                                <div class="col-md-9">
+                                    <div class="fileupload fileupload-new" data-provides="fileupload">
+                                        <div class="fileupload-new thumbnail" style="width: 200px; height: 150px;">
+                                            <img src="http://www.placehold.it/200x150/efefef/aaaaaa&text=no+image" alt="" />
+                                        </div>
+                                        <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 200px; max-height: 150px; line-height: 20px;"></div>
+                                        <div>
+                                            <span class="btn btn-theme02 btn-file">
+                                                <span class="fileupload-new"><i class="fa fa-paperclip"></i> Select image</span>
+                                                <span class="fileupload-exists"><i class="fa fa-undo"></i> Change</span>
+                                                <input name="FileImage" type="file" class="default" />
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-lg-offset-2 col-lg-10">
+                                    <button class="btn btn-theme" type="submit"><i class="fa fa-heart"></i> Add</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <!-- /form-panel -->
+            </div>
+            <!-- /col-lg-12 -->
+        </div>
+    </section>
+    <section id="">
+        <section class="wrapper">
+            <h3><i class="fa fa-angle-right"></i> List</h3>
+            <div class="row mb">
+                <!-- page start-->
+                <div class="content-panel">
+                    <div class="adv-table">
+                        <table cellpadding="0" cellspacing="0" border="0" class="display table table-bordered" id="hidden-table-info">
+                            <thead>
+                                <tr>
+                                    <th>Playlist Name</th>
+                                    @*<th>Category</th>*@
+                                    <th class="hidden-phone">Description</th>
+                                    <th class="hidden-phone">Image</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in listPl)
+                                {
+                                    <tr class="gradeA odd">
+                                        <td>@item.PlaylistName</td>
+                                        @*<td>@item.CateID</td>*@
+                                        <td class="center hidden-phone">@item.PlaylistDescription</td>
+                                        <td class="center hidden-phone">@item.PlaylistImage</td>
+                                        <td>
+                                            <a href="@Url.Action("","", new { id = item.ID})">
+                                                <button type="button" class="btn btn-round btn-info">Detail</button>
+                                            </a>
+                                            <a href="@Url.Action("Edit","Playlist", new { id = item.ID})">
+                                                <button type="button" class="btn btn-round btn-warning">Edit</button>
+                                            </a>
+                                            <a href="@Url.Action("Delete","Playlist", new { id = item.ID})">
+                                                <button type="button" class="btn btn-round btn-danger">Delete</button>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- page end-->
+            </div>
+            <!-- /row -->
+        </section>
+        <!-- /wrapper -->
+    </section>
+</div>
+<div>
+    @Html.ActionLink("Back to List", "ListSinger", "User")
+</div>
+

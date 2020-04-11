@@ -185,11 +185,13 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\LyricsMusicController.cs" />
     <Compile Include="Areas\Admin\Controllers\MusicController.cs" />
     <Compile Include="Areas\Admin\Controllers\OrderVipController.cs" />
     <Compile Include="Areas\Admin\Controllers\PackageVipController.cs" />
     <Compile Include="Areas\Admin\Controllers\PaymentController.cs" />
     <Compile Include="Areas\Admin\Controllers\QualityController.cs" />
+    <Compile Include="Areas\Admin\Controllers\QualityMusicController.cs" />
     <Compile Include="Areas\Client\ClientAreaRegistration.cs" />
     <Compile Include="Areas\HelpPage\ApiDescriptionExtensions.cs" />
     <Compile Include="Areas\HelpPage\App_Start\HelpPageConfig.cs" />
@@ -232,6 +234,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Bus\CategoryBus.cs" />
+    <Compile Include="Models\Bus\LyricsMusicBus.cs" />
     <Compile Include="Models\Bus\MusicBus.cs" />
     <Compile Include="Models\Bus\OrderVipBus.cs" />
     <Compile Include="Models\Bus\PackageVipBus.cs" />
@@ -244,6 +247,7 @@
     <Compile Include="Models\Bus\UserBus.cs" />
     <Compile Include="Models\Common\ConvertString.cs" />
     <Compile Include="Models\Dao\CategoryDao.cs" />
+    <Compile Include="Models\Dao\LyricsMusicDao.cs" />
     <Compile Include="Models\Dao\MusicDao.cs" />
     <Compile Include="Models\Dao\OrderVipDao.cs" />
     <Compile Include="Models\Dao\PackageVipDao.cs" />

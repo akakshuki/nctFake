@@ -130,9 +130,13 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LyricsMusicController.cs" />
     <Compile Include="Controllers\MusicController.cs" />
     <Compile Include="Controllers\PackageVipController.cs" />
+    <Compile Include="Controllers\PartnerController.cs" />
+    <Compile Include="Controllers\PlaylistController.cs" />
     <Compile Include="Controllers\QualityController.cs" />
+    <Compile Include="Controllers\QualityMusicController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -358,7 +362,6 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\NavigateMenu.cshtml" />
     <Content Include="Views\Music\Index.cshtml" />
     <Content Include="Views\Music\Create.cshtml" />
@@ -373,6 +376,22 @@
     <Content Include="Views\User\ListSinger.cshtml" />
     <Content Include="Views\User\ListUser.cshtml" />
     <Content Include="Views\User\ViewDetails.cshtml" />
+    <Content Include="Views\Playlist\Index.cshtml" />
+    <Content Include="Views\Home\ViewCateIdRoot.cshtml" />
+    <Content Include="Views\Home\ViewCreateCate.cshtml" />
+    <Content Include="Views\Home\EditCate.cshtml" />
+    <Content Include="Views\Home\EditCateIdRoot.cshtml" />
+    <Content Include="Views\Playlist\Edit.cshtml" />
+    <Content Include="Views\Partner\Index.cshtml" />
+    <Content Include="Views\Partner\Edit.cshtml" />
+    <Content Include="Views\LyricsMusic\Index.cshtml" />
+    <Content Include="Views\LyricsMusic\NullView.cshtml" />
+    <Content Include="Views\LyricsMusic\ViewCreate.cshtml" />
+    <Content Include="Views\LyricsMusic\Edit.cshtml" />
+    <Content Include="Views\QualityMusic\ViewCreate.cshtml" />
+    <Content Include="Views\QualityMusic\Edit.cshtml" />
+    <Content Include="Views\QualityMusic\ListFile.cshtml" />
+    <Content Include="Views\QualityMusic\EditFile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

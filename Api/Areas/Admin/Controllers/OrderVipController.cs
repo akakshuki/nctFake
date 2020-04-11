@@ -1,5 +1,6 @@
 ﻿using Api.Models;
 using Api.Models.EF;
+using ModelViews.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +15,7 @@ namespace Api.Areas.Admin.Controllers
     {
         // GET api/<controller>
         [Route("GetOrderVipByIdUser/{id}")]
-        public IEnumerable<OrderVip> GetOrderVipByIdUser(int id)
+        public IEnumerable<OrderVipDTO> GetOrderVipByIdUser(int id)
         {
             var data = new Repositories().GetOrderVipByIdUser(id);
             return data;

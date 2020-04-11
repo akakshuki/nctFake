@@ -140,18 +140,28 @@ namespace Api.Models.Bus
 
         public bool CreateSinger(UserDTO userDTO)
         {
+            string fileName = "";
+            if (userDTO.FileData != null)
+            {
+                fileName = DateTime.Now.Ticks.ToString();
+                string filePath = "~/File/ImageUser/" + Path.GetFileName(fileName + ".jpg");
+                File.WriteAllBytes(System.Web.HttpContext.Current.Server.MapPath(filePath), Convert.FromBase64String(userDTO.FileData));
+                fileName = fileName + ".jpg";
+            }
+            else
+            {
+                fileName = "default";
+            }
             try
             {
-                //string fileName = Path.GetFileNameWithoutExtension(userDTO.FileImage.FileName);
-                //userDTO.UserImage = "~/File/ImageUser/" + fileName;
-                //fileName = Path.Combine(Server.MapPath("~/File/ImageUser/"),fileName);
-                //userDTO.FileImage.SaveAs(fileName);
+                
                 var data = new UserDao().CreateUser(new User()
                 {
                     UserNameUnsigned = userDTO.UserNameUnsigned,
                     UserDescription = userDTO.UserDescription,
                     UserPwd = userDTO.UserPwd,
                     UserEmail = userDTO.UserEmail,
+                    UserImage = fileName,
                     UserGender = userDTO.UserGender,
                     UserDOB = userDTO.UserDOB,
                     UserName = userDTO.UserName,
@@ -172,13 +182,25 @@ namespace Api.Models.Bus
 
         public bool CreateUser(UserDTO userDTO)
         {
+            string fileName = "";
+            if (userDTO.FileData != null)
+            {
+                fileName = DateTime.Now.Ticks.ToString();
+                string filePath = "~/File/ImageUser/" + Path.GetFileName(fileName + ".jpg");
+                File.WriteAllBytes(System.Web.HttpContext.Current.Server.MapPath(filePath), Convert.FromBase64String(userDTO.FileData));
+                fileName = fileName + ".jpg";
+            }
+            else
+            {
+                fileName = "default";
+            }
             try
             {
                 var data = new UserDao().CreateUser(new User()
                 {
                     UserNameUnsigned = userDTO.UserNameUnsigned,
                     UserDescription = userDTO.UserDescription,
-                    UserImage = userDTO.UserImage,
+                    UserImage = fileName,
                     UserPwd = userDTO.UserPwd,
                     UserEmail = userDTO.UserEmail,
                     UserGender = userDTO.UserGender,

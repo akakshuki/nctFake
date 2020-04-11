@@ -1,0 +1,50 @@
+﻿@model ModelViews.DTOs.LyricsMusicDTO
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <h4>Lyrics Detail</h4>
+    <hr />
+    <div class="form-panel">
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.MusicID)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.MusicDto.MusicName)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.LMusicDetail)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.LMusicDetail)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.UserID)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.UserID)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.LMusicDayCreate)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.LMusicDayCreate)
+            </dd>
+
+        </dl>
+        <p>
+            @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+            @Html.ActionLink("Back to List", "Index","Music")
+        </p>
+    </div>
+

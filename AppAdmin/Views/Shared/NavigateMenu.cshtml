@@ -10,6 +10,12 @@
                     <span>Category</span>
                 </a>
             </li>
+            <li>
+                <a href="@Url.Action("ListFile","QualityMusic")">
+                    <i class="fa fa-map-marker"></i>
+                    <span>File wait for approval </span>
+                </a>
+            </li>
             <li class="sub-menu">
                 <a href="javascript:;">
                     <i class="fa fa-desktop"></i>
@@ -48,7 +54,7 @@
                     <li><a href="lock_screen.html">Lock Screen</a></li>
                     <li><a href="profile.html">Profile</a></li>
                     <li><a href="invoice.html">Invoice</a></li>
-                    <li><a href="pricing_table.html">Pricing Table</a></li>
+                    <li><a href="@Url.Action("Index","Quality")">Quality</a></li>
                     <li><a href="@Url.Action("Index","PackageVip")">Manage Package vip </a></li>
                     <li><a href="404.html">404 Error</a></li>
                     <li><a href="500.html">500 Error</a></li>
@@ -78,9 +84,9 @@
                 </ul>
             </li>
             <li>
-                <a href="inbox.html">
+                <a href="@Url.Action("Index","Partner")">
                     <i class="fa fa-envelope"></i>
-                    <span>Mail </span>
+                    <span>Partner </span>
                     <span class="label label-theme pull-right mail-info">2</span>
                 </a>
             </li>
@@ -106,12 +112,7 @@
                     <li><a href="chat_room.html"> Chat Room</a></li>
                 </ul>
             </li>
-            <li>
-                <a href="google_maps.html">
-                    <i class="fa fa-map-marker"></i>
-                    <span>Google Maps </span>
-                </a>
-            </li>
+
         </ul>
         <!-- sidebar menu end-->
     </div>

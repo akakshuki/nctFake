@@ -150,9 +150,10 @@
                                     <th></th>
                                 </tr>
                             </thead>
-                            @foreach (var item in ViewBag.ListUser)
-                            {
-                                <tbody>
+                            <tbody>
+                                @foreach (var item in ViewBag.ListUser)
+                                {
+
                                     <tr class="gradeA odd">
                                         <td>@item.UserName</td>
                                         <td>@item.UserEmail</td>
@@ -175,8 +176,9 @@
                                             </a>
                                         </td>
                                     </tr>
-                                </tbody>
-                            }
+
+                                }
+                            </tbody>
                         </table>
 
                     </div>
@@ -202,9 +204,10 @@
                                     <th class="hidden-phone"></th>
                                 </tr>
                             </thead>
-                            @foreach (var item in ViewBag.ListUserVip)
-                            {
-                                <tbody>
+                            <tbody>
+                                @foreach (var item in ViewBag.ListUserVip)
+                                {
+
                                     <tr class="gradeA odd">
                                         <td>@item.UserName</td>
                                         <td>@item.UserEmail</td>
@@ -227,8 +230,9 @@
                                             </a>
                                         </td>
                                     </tr>
-                                </tbody>
-                            }
+
+                                }
+                            </tbody>
                         </table>
                     </div>
                 </div>

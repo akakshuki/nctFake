@@ -1,0 +1,65 @@
+﻿@model ModelViews.DTOs.QualityMusicDTO
+@using ModelViews.DTOs
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    List<QualityDTO> list = ViewBag.getQuanlity;
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm("Update", "QualityMusic", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal form-panel">
+        <hr />
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.MusicFile, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-9">
+                <div class="fileupload fileupload-new" data-provides="fileupload">
+                    <span class="btn btn-theme02 btn-file">
+                        <span class="fileupload-new"><i class="fa fa-paperclip"></i> Select file</span>
+                        <span class="fileupload-exists"><i class="fa fa-undo"></i> Change</span>
+                        <input type="file" class="default" />
+                    </span>
+                    <span class="fileupload-preview" style="margin-left:5px;"></span>
+                    <a href="advanced_form_components.html#" class="close fileupload-exists" data-dismiss="fileupload" style="float: none; margin-left:5px;"></a>
+                </div>
+                @Html.ValidationMessageFor(model => model.MusicFile, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.QualityID, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-9">
+                <div>
+                    <input type="hidden" name="MusicID" value="@Session["idQ"]" />
+                    <select  name="QualityID" id="UserId" class="form-control select2">
+                        @foreach (var item in list)
+                        {
+                            if (item.ID == Model.QualityID)
+                            {
+                                <option selected="selected" value="@item.ID">@item.QualityName</option>
+                            }
+                            else
+                            {
+                                <option value="@item.ID">@item.QualityName</option>
+                            }
+                        }
+                    </select>
+                </div>
+                @Html.ValidationMessageFor(model => model.QualityID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-lg-offset-2 col-lg-10">
+                <button class="btn btn-theme" type="submit"><i class="fa fa-heart"></i> Save</button>
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index","Music")
+</div>

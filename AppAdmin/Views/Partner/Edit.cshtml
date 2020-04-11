@@ -1,0 +1,72 @@
+﻿@model ModelViews.DTOs.PartnerDTO
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section js
+{
+    <script src="@Url.Content("~/Content/Dashio/")lib/jquery-ui-1.9.2.custom.min.js"></script>
+    <script type="text/javascript" src="@Url.Content("~/Content/Dashio/")lib/bootstrap-fileupload/bootstrap-fileupload.js"></script>
+    <script src="@Url.Content("~/Content/Dashio/")lib/advanced-form-components.js"></script>
+}
+<h2>Edit</h2>
+
+@using (Html.BeginForm("Update","Partner",FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <hr />
+        <div class="form-panel">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.ID)
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.PartnerName, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <input type="hidden" name="ID" value="@Model.ID" />
+                    @Html.EditorFor(model => model.PartnerName, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.PartnerName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group last">
+                <label class="control-label col-lg-2">Image Upload</label>
+                <div class="col-md-9">
+                    <div class="fileupload fileupload-new" data-provides="fileupload">
+                        <div class="fileupload-new thumbnail" style="width: 200px; height: 150px;">
+                            <img src="http://www.placehold.it/200x150/efefef/aaaaaa&text=no+image" alt="" />
+                        </div>
+                        <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 200px; max-height: 150px; line-height: 20px;"></div>
+                        <div>
+                            <span class="btn btn-theme02 btn-file">
+                                <span class="fileupload-new"><i class="fa fa-paperclip"></i> Select image</span>
+                                <span class="fileupload-exists"><i class="fa fa-undo"></i> Change</span>
+                                <input value="@Model.PartnerImage" name="FileImage" type="file" class="default" />
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.PartnerLink, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.PartnerLink, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.PartnerLink, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-lg-offset-2 col-lg-10">
+                    <button class="btn btn-theme" type="submit"><i class="fa fa-heart"></i> Save</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

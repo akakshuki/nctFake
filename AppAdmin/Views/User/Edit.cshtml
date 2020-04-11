@@ -34,8 +34,16 @@
                             <label for="curl" class="control-label col-lg-2">Gender</label>
                             <div class="col-lg-10">
                                 <div>
-                                    <div><input type="radio" name="UserGender" value="@Model.UserGender"> Male<br></div>
-                                    <div style="margin-top: 10px;"><input type="radio" name="@Model.UserGender" value="false"> Female<br></div>
+                                    @if (Model.UserGender == true)
+                                    {
+                                        <div><input checked="checked" type="radio" name="UserGender" value="@Model.UserGender"> Male<br></div>
+                                        <div style="margin-top: 10px;"><input type="radio" name="@Model.UserGender" value="false"> Female<br></div>
+                                    }
+                                    else
+                                    {
+                                        <div><input type="radio" name="UserGender" value="@Model.UserGender"> Male<br></div>
+                                        <div style="margin-top: 10px;"><input checked="checked" type="radio" name="@Model.UserGender" value="false"> Female<br></div>
+                                    }
                                 </div>
                             </div>
                         </div>
@@ -90,3 +98,6 @@
     </div>
 </div>
 
+<div>
+    @Html.ActionLink("Back to List", "ListSinger", "User")
+</div>

@@ -1,5 +1,6 @@
 ﻿using Api.Models;
 using Api.Models.EF;
+using ModelViews.DTOs;
 using System.Collections.Generic;
 using System.Web.Http;
 
@@ -29,7 +30,7 @@ namespace Api.Controllers
 
         // POST api/<controller>
         [Route("CreatePlaylist")]
-        public IHttpActionResult CreatePlaylist(Playlist playlist)
+        public IHttpActionResult CreatePlaylist(PlaylistDTO playlist)
         {
             if (new Repositories().CreatePlaylist(playlist))
             {

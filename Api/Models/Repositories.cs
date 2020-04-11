@@ -14,6 +14,11 @@ namespace Api.Models
             return new CategoryBus().GetAllCate();
         }
 
+        public IEnumerable<Category> GetAllCateCon()
+        {
+            return new CategoryBus().GetAllCateCon();
+        }
+
         public Category GetCateById(int id)
         {
             return new CategoryBus().GetCateById(id);
@@ -149,7 +154,7 @@ namespace Api.Models
             return new PlaylistBus().GetPlaylistByIdUser(id);
         }
 
-        public bool CreatePlaylist(Playlist playlist)
+        public bool CreatePlaylist(PlaylistDTO playlist)
         {
             if (new PlaylistBus().CreatePlaylist(playlist))
             {
@@ -185,7 +190,12 @@ namespace Api.Models
             return new PartnerBus().GetAllPartner();
         }
 
-        public bool CreatePartner(Partner partner)
+        public Partner GetPartnerById(int id)
+        {
+            return new PartnerBus().GetPartnerById(id);
+        }
+
+        public bool CreatePartner(PartnerDTO partner)
         {
             if (new PartnerBus().CreatePartner(partner))
             {
@@ -194,7 +204,7 @@ namespace Api.Models
             return false;
         }
 
-        public bool UpdatePartner(Partner partner)
+        public bool UpdatePartner(PartnerDTO partner)
         {
             if (new PartnerBus().UpdatePartner(partner))
             {
@@ -202,6 +212,16 @@ namespace Api.Models
             }
             return false;
         }
+        public bool DeletePartner(int id)
+        {
+            if (new PartnerBus().DeletePartner(id))
+            {
+                return true;
+            }
+            return false;
+        }
+
+        #endregion Partner
 
         #region Musics
 
@@ -317,7 +337,7 @@ namespace Api.Models
             return new QualityBus().GetQualityById(id);
         }
 
-        #endregion Quality
+
 
         public bool CreateQuality(QualityDTO quality)
         {
@@ -333,15 +353,89 @@ namespace Api.Models
         {
             return new QualityBus().DeleteQuality(id);
         }
-
-
-        #endregion Partner
+        #endregion
 
         #region OrderVip
-        public IEnumerable<OrderVip> GetOrderVipByIdUser(int id) 
+        public IEnumerable<OrderVipDTO> GetOrderVipByIdUser(int id) 
         {
             var data = new OrderVipBus().GetOrderVipByIdUser(id);
             return data;
+        }
+        #endregion
+
+        #region LyricsMusic
+        public LyricsMusicDTO GetLyricByIdMusic(int id)
+        {
+            var data = new LyricsMusicBus().GetLyricByIdMusic(id);
+            return data;
+        }
+        public LyricsMusicDTO GetLyricById(int id)
+        {
+            var data = new LyricsMusicBus().GetLyricById(id);
+            return data;
+        }
+        public bool CreateLyrics(LyricsMusic lyricsMusic)
+        {
+            if (new LyricsMusicBus().Create(lyricsMusic))
+            {
+                return true;
+            }
+            return false;
+        }
+        public bool UpdateLyrics(LyricsMusic lyricsMusic)
+        {
+            if (new LyricsMusicBus().Update(lyricsMusic))
+            {
+                return true;
+            }
+            return false;
+        }
+        #endregion
+
+        #region QualityMusic
+        public QualityMusicDTO GetQualityMusicById(int id)
+        {
+            return new QualityMusicBus().GetQualityMusicById(id);
+        }
+        public IEnumerable<QualityMusicDTO> GetFileByIdMusic(int id)
+        {
+            return new QualityMusicBus().GetFileByIdMusic(id);
+        }
+        public IEnumerable<QualityMusicDTO> GetAllQM()
+        {
+            return new QualityMusicBus().GetAllQM();
+        }
+        public bool CreateQualityMusic(QualityMusicDTO qualityMusicDTO)
+        {
+            if (new QualityMusicBus().CreateQualityMusic(qualityMusicDTO))
+            {
+                return true;
+            }
+            return false;
+        }
+        public bool UpdateFile(QualityMusicDTO qualityMusicDTO)
+        {
+            if (new QualityMusicBus().UpdateFile(qualityMusicDTO))
+            {
+                return true;
+            }
+            return false;
+        }
+        public bool UpdateQualityMusic(QualityMusicDTO qualityMusicDTO)
+        {
+            if (new QualityMusicBus().UpdateQualityMusic(qualityMusicDTO))
+            {
+                return true;
+            }
+            return false;
+        }
+        public bool DeleteQualityMusic(int id)
+        {
+            if (new QualityMusicBus().DeleteQualityMusic(id))
+            {
+                return true;
+            }
+            return false;
         }
         #endregion
     }

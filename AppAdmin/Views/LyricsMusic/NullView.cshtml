@@ -1,0 +1,22 @@
+﻿
+@{
+    ViewBag.Title = "NullView";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-lg-6 col-lg-offset-3 p404 centered">
+        <img src="img/404.png" alt="">
+        <h1>This song has no lyrics!!</h1>     
+        <br>
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <a href="@Url.Action("ViewCreate","LyricsMusic")" class="">
+                    <button class="btn btn-theme mt">Add lyrics</button>
+                </a>
+            </div>
+        </div>
+        <h5 class="mt">Back to pages:</h5>
+        <p><a href="@Url.Action("Index","Music")">Music Management</a></p>
+    </div>
+</div>

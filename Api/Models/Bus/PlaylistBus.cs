@@ -1,6 +1,9 @@
 ﻿using Api.Models.Dao;
 using Api.Models.EF;
+using ModelViews.DTOs;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 
 namespace Api.Models.Bus
@@ -25,6 +28,7 @@ namespace Api.Models.Bus
             var data = new PlaylistDao().GetPlaylistById(id);
             return new Playlist
             {
+                ID = data.ID,
                 PlaylistName = data.PlaylistName,
                 PlaylistDescription = data.PlaylistDescription,
                 PlaylistImage = data.PlaylistImage,
@@ -37,22 +41,48 @@ namespace Api.Models.Bus
         {
             var data = new PlaylistDao().GetPlaylistByIdUser(id).Select(s => new Playlist
             {
+                ID= s.ID,
                 PlaylistName = s.PlaylistName,
                 PlaylistDescription = s.PlaylistDescription,
                 PlaylistImage = s.PlaylistImage,
                 CateID = s.CateID,
-                UserID = s.UserID
+                UserID = s.UserID,            
             });
             return data;
         }
 
-        public bool CreatePlaylist(Playlist playlist)
+        public bool CreatePlaylist(PlaylistDTO playlistDTO)
         {
-            if (new PlaylistDao().CreatePlaylist(playlist))
+            string fileName = "";
+            if (playlistDTO.FileData != null)
             {
+                fileName = DateTime.Now.Ticks.ToString();
+                string filePath = "~/File/ImageUser/" + Path.GetFileName(fileName + ".jpg");
+                File.WriteAllBytes(System.Web.HttpContext.Current.Server.MapPath(filePath), Convert.FromBase64String(playlistDTO.FileData));
+                fileName = fileName + ".jpg";
+            }
+            else
+            {
+                fileName = "default";
+            }
+            try
+            {
+
+                var data = new PlaylistDao().CreatePlaylist(new Playlist()
+                {
+                    PlaylistName = playlistDTO.PlaylistName,
+                    UserID = playlistDTO.UserID,
+                    CateID = playlistDTO.CateID,
+                    PlaylistImage = fileName,
+                    PlaylistDescription = playlistDTO.PlaylistDescription
+                });
                 return true;
             }
-            return false;
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return false;
+            }
         }
 
         public bool UpdatePlaylist(Playlist playlist)

@@ -64,8 +64,8 @@ namespace AppAdmin.Controllers
         public ActionResult ViewDetails(int id)
         {
             ViewBag.PlaylistUser = ApiService.GetPlaylistByIdUser(id);
-            var data = ApiService.GetOrderVipByIdUser(id);
-            return View(data);
+            ViewBag.Order = ApiService.GetOrderVipByIdUser(id);
+            return View();
         }
         #endregion
     }

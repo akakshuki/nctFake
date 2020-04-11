@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Web;
 
@@ -11,6 +12,7 @@ namespace ModelViews.DTOs
         public int MusicID { get; set; }
         public string MusicFile { get; set; }
         public int QualityID { get; set; }
+        [DisplayName("Approved")]
         public bool QMusicApproved { get; set; }
         public bool NewFile { get; set; }
         public string File { get; set; }

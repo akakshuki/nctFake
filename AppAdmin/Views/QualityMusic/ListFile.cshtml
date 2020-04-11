@@ -1,7 +1,8 @@
-﻿@model ModelViews.DTOs.UserDTO
+﻿@using ModelViews.DTOs
 @{
-    ViewBag.Title = "ListSinger";
+    ViewBag.Title = "ListFile";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    List<QualityMusicDTO> list = ViewBag.listFile;
 }
 @section js{
     <script type="text/javascript" language="javascript" src="~/Content/Dashio/lib/advanced-datatable/js/jquery.dataTables.js"></script>
@@ -69,55 +70,44 @@
         });
     </script>
 }
-
 <div class="">
     <section id="">
         <section class="wrapper">
-            <h3><i class="fa fa-angle-right"></i> List Singer</h3>
+            <h3><i class="fa fa-angle-right"></i> List File</h3>
             <div class="row mb">
                 <!-- page start-->
                 <div class="content-panel">
                     <div class="adv-table">
-                        <a href="@Url.Action("Index","User")"><h4>Create Singer</h4></a>
                         <table cellpadding="0" cellspacing="0" border="0" class="display table table-bordered" id="hidden-table-info">
                             <thead>
                                 <tr>
-                                    <th>Name Singer</th>
-                                    <th>Name Unsigned</th>
-                                    <th class="hidden-phone">DOB</th>
-                                    <th class="hidden-phone">Gender</th>
-                                    <th class="hidden-phone">Description</th>
-                                    <th class="hidden-phone">Image</th>
+                                    <th>File Name</th>
+                                    <th class="hidden-phone">Quality</th>
+                                    <th class="hidden-phone">Approved</th>
                                     <th></th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach (var item in ViewBag.GetSinger)
+                                @foreach (var item in list)
                                 {
-                                    <tr>
-                                        <td>@item.UserName</td>
-                                        <td>@item.UserNameUnsigned</td>
-                                        <td>@item.UserDOB</td>
-                                        <td>
-                                            @if (@item.UserGender == true)
+                                    <tr class="gradeA odd">
+                                        <td>@item.MusicFile</td>
+                                        <td class="center hidden-phone">@item.QualityDto.QualityName</td>
+                                        <td class="center hidden-phone">
+                                            @if (item.QMusicApproved == true)
                                             {
-                                                <label>Male</label>
+                                                <label>Approved</label>
                                             }
                                             else
                                             {
-                                                <label>Female</label>
+                                                <label>Not approved</label>
                                             }
                                         </td>
-                                        <td>@item.UserDescription</td>
-                                        <td>@item.UserImage</td>
                                         <td>
-                                            <a href="@Url.Action("Index","Playlist", new { id = item.ID})">
-                                                <button type="button" class="btn btn-round btn-info">Playlist</button>
-                                            </a>
-                                            <a href="@Url.Action("Edit","User", new { id = item.ID})">
+                                            <a href="@Url.Action("EditFile","QualityMusic", new { id = item.ID})">
                                                 <button type="button" class="btn btn-round btn-warning">Edit</button>
                                             </a>
-                                            <a href="@Url.Action("DeleteUser","User", new { id = item.ID})">
+                                            <a href="@Url.Action("Delete","QualityMusic", new { id = item.ID})">
                                                 <button type="button" class="btn btn-round btn-danger">Delete</button>
                                             </a>
                                         </td>
@@ -134,3 +124,4 @@
         <!-- /wrapper -->
     </section>
 </div>
+

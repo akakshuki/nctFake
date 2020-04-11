@@ -1,5 +1,6 @@
 ﻿using Api.Models;
 using Api.Models.EF;
+using ModelViews.DTOs;
 using System.Collections.Generic;
 using System.Web.Http;
 
@@ -13,10 +14,15 @@ namespace Api.Controllers
         {
             return new Repositories().GetAllPartner();
         }
+        [Route("GetPartnerById/{id}")]
+        public Partner GetPartnerById(int id)
+        {
+            return new Repositories().GetPartnerById(id);
+        }
 
         // POST api/<controller>
         [Route("CreatePartner")]
-        public IHttpActionResult CreatePartner(Partner partner)
+        public IHttpActionResult CreatePartner(PartnerDTO partner)
         {
             if (new Repositories().CreatePartner(partner))
             {
@@ -27,9 +33,19 @@ namespace Api.Controllers
 
         // PUT api/<controller>/5
         [Route("UpdatePartner")]
-        public IHttpActionResult UpdatePartner(Partner partner)
+        public IHttpActionResult UpdatePartner(PartnerDTO partner)
         {
             if (new Repositories().UpdatePartner(partner))
+            {
+                return Ok();
+            }
+            return InternalServerError();
+        }
+
+        [Route("DeletePartner/{id}")]
+        public IHttpActionResult DeletePartner(int id)
+        {
+            if (new Repositories().DeletePartner(id))
             {
                 return Ok();
             }

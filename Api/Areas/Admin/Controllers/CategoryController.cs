@@ -15,6 +15,13 @@ namespace Api.Controllers
             return new Repositories().GetAllCate();
         }
 
+        // GET api/<controller>
+        [Route("GetAllCateCon")]
+        public IEnumerable<Category> GetAllCateCon()
+        {
+            return new Repositories().GetAllCateCon();
+        }
+
         // GET api/<controller>/5
         [Route("GetCateById/{id}")]
         public Category GetCateById(int id)
