@@ -46,7 +46,7 @@ namespace AppAdmin.Controllers
         // GET: Music/Create
         public ActionResult Create()
         {
-            ViewBag.Singers = ApiService.GetAllSinger();
+            ViewBag.Categories = ApiService.GetAllListCategories().Where(x=>x.ID_root != null).ToList();
             ViewBag.MusicRelated = ApiService.GetAllMusic();
             return View();
         }
@@ -89,7 +89,7 @@ namespace AppAdmin.Controllers
         // GET: Music/Edit/5
         public ActionResult Edit(int id)
         {
-            ViewBag.Singers = ApiService.GetAllSinger();
+            ViewBag.Categories = ApiService.GetAllListCategories().Where(x => x.ID_root != null).ToList();
             ViewBag.MusicRelateds = ApiService.GetAllMusic();
             var data = ApiService.GetMusicById(id);
             return View(data);
@@ -158,8 +158,21 @@ namespace AppAdmin.Controllers
         // GET: Music/Delete/5
         public ActionResult Delete(int id)
         {
-            var res = ApiService.DeleteMusic(id);
+          
             var musics = new List<MusicDTO>();
+            //get Image have exist
+            var currentFileName = ApiService.GetMusicById(id).MusicImage;
+            //check name have deafault if exist ==> dont delete
+            if (currentFileName != "default.png")
+            {
+                //delete file
+                var filePath = Server.MapPath(path + currentFileName);
+                if (System.IO.File.Exists(filePath))
+                {
+                    System.IO.File.Delete(filePath);
+                }
+            }
+            var res = ApiService.DeleteMusic(id);
             if (res)
             {
                 musics = ApiService.GetAllMusic();

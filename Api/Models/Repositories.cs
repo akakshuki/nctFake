@@ -13,7 +13,10 @@ namespace Api.Models
         {
             return new CategoryBus().GetAllCate();
         }
-
+        public IEnumerable<CategoryDTO> GetAllListCate()
+        {
+            return new CategoryBus().GetAllListCategories();
+        }
         public Category GetCateById(int id)
         {
             return new CategoryBus().GetCateById(id);

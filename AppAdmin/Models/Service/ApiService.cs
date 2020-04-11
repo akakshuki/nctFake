@@ -258,6 +258,23 @@ namespace AppAdmin.Models.Service
             }
 
             return null;
+        }  public static List<CategoryDTO> GetAllListCategories()
+        {
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("https://localhost:44384/api/Category/GetAllListCate/");
+                var responseTask = client.GetAsync(client.BaseAddress);
+                responseTask.Wait();
+                var result = responseTask.Result;
+                if (result.IsSuccessStatusCode)
+                {
+                    var readTask =
+                        JsonConvert.DeserializeObject<List<CategoryDTO>>(result.Content.ReadAsStringAsync().Result);
+                    return readTask;
+                }
+            }
+
+            return null;
         }
 
         public static CategoryDTO GetCateById(int id)

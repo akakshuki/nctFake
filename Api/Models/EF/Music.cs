@@ -26,6 +26,7 @@ namespace Api.Models.EF
         public int ID { get; set; }
         public string MusicName { get; set; }
         public int UserID { get; set; }
+        public int CategoryId { get; set; }
         public bool MusicDownloadAllowed { get; set; }
         public int MusicView { get; set; }
         public bool SongOrMV { get; set; }

@@ -374,6 +374,10 @@
     <Content Include="Views\User\ListUser.cshtml" />
     <Content Include="Views\User\ViewDetails.cshtml" />
     <Content Include="Views\Music\SingerOfMusic.cshtml" />
+    <Content Include="Views\Home\EditCate.cshtml" />
+    <Content Include="Views\Home\EditCateIdRoot.cshtml" />
+    <Content Include="Views\Home\ViewCateIdRoot.cshtml" />
+    <Content Include="Views\Home\ViewCreateCate.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

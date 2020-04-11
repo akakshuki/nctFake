@@ -20,7 +20,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.CateName, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.hi(model => model.CateName, new { htmlAttributes = new { @class = "form-control", required = "" } })
+                    @Html.HiddenFor(model => model.CateName, new { htmlAttributes = new { @class = "form-control", required = "" } })
                     @Html.ValidationMessageFor(model => model.CateName, "", new { @class = "text-danger" })
                 </div>
             </div>
