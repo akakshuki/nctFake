@@ -19,6 +19,10 @@ namespace Api.Models
             return new CategoryBus().GetAllCateCon();
         }
 
+        public IEnumerable<CategoryDTO> GetAllListCate()
+        {
+            return new CategoryBus().GetAllListCategories();
+        }
         public Category GetCateById(int id)
         {
             return new CategoryBus().GetCateById(id);
@@ -235,6 +239,11 @@ namespace Api.Models
             new MusicBus().AdminCreateMusic(music);
         }
 
+        public void AddSingerToMusic(SingerMusicDTO singerMusic)
+        {
+            new MusicBus().AddSingerToMusic(singerMusic);
+        }
+
         public bool UpdateMusic(MusicDTO music)
         {
             return new MusicBus().AdminUpdateMusic(music);
@@ -253,6 +262,15 @@ namespace Api.Models
         public List<MusicDTO> GetAllMusic()
         {
             return new MusicBus().GetListMusicAll();
+        }
+
+        public List<SingerMusicDTO> SingerMusicByMusicId(int id)
+        {
+            return new MusicBus().GetListSingerMusicByMusicId(id);
+        }
+        public bool DeleteSingerMusic(int id)
+        {
+            return new MusicBus().DeleteSingerToMusic(id);
         }
 
         public MusicDTO GetMusicById(int id)

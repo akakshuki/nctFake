@@ -2,6 +2,7 @@
 using Api.Models.EF;
 using System.Collections.Generic;
 using System.Linq;
+using ModelViews.DTOs;
 
 namespace Api.Models.Bus
 {
@@ -22,6 +23,18 @@ namespace Api.Models.Bus
             {
                 ID = s.ID,
                 CateName = s.CateName,
+            });
+            return data;
+        }
+
+        public IEnumerable<CategoryDTO> GetAllListCategories()
+        {
+            var data = new CategoryDao().GetAllCate().Select(s => new CategoryDTO()
+            {
+                ID = s.ID,
+                CateName = s.CateName,
+                ID_root = s.ID_root,
+  //              CategoryRootName = new CategoryDao().GetCateById(s.ID_root).CateName
             });
             return data;
         }

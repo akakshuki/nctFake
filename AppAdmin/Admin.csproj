@@ -392,10 +392,16 @@
     <Content Include="Views\QualityMusic\Edit.cshtml" />
     <Content Include="Views\QualityMusic\ListFile.cshtml" />
     <Content Include="Views\QualityMusic\EditFile.cshtml" />
+    <Content Include="Views\Music\SingerOfMusic.cshtml" />
+    <Content Include="Views\Home\EditCate.cshtml" />
+    <Content Include="Views\Home\EditCateIdRoot.cshtml" />
+    <Content Include="Views\Home\ViewCateIdRoot.cshtml" />
+    <Content Include="Views\Home\ViewCreateCate.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\DataTable\" />
+    <Folder Include="File\ImageMusic\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

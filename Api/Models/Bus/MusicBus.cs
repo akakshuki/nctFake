@@ -5,31 +5,26 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.Policy;
 using Api.Models.Common;
 
 namespace Api.Models.Bus
 {
     public class MusicBus
     {
+        private string baseUrl = "";
+
+        public MusicBus()
+        {
+            baseUrl = "https://localhost:44315/File/ImageMusic/";
+        }
+
         #region Admin
 
         //admin create new
         public void AdminCreateMusic(MusicDTO music)
         {
             //Save the Byte Array as File.
-
-            string fileName = "";
-            ; if (music.FileData != null)
-            {
-                fileName = DateTime.Now.Ticks.ToString();
-                string filePath = "~/File/ImageMusic/" + Path.GetFileName(fileName + ".jpg");
-                File.WriteAllBytes(System.Web.HttpContext.Current.Server.MapPath(filePath), Convert.FromBase64String(music.FileData));
-                fileName = fileName + ".jpg";
-            }
-            else
-            {
-                fileName = "default";
-            }
             try
             {
                 var data = new MusicDao().Create(new Music()
@@ -38,10 +33,12 @@ namespace Api.Models.Bus
                     MusicName = music.MusicName,
                     MusicDownloadAllowed = true,
                     SongOrMV = music.SongOrMV,
-                    MusicImage = fileName,
+                    CategoryId = music.CategoryId,
+                    MusicImage = music.MusicImage,
                     MusicNameUnsigned = ConvertString.convertToUnSign2(music.MusicName),
                     MusicView = 0,
                     UserID = music.UserID,
+                    MusicRelated = music.MusicRelated
 
                 });
             }
@@ -56,15 +53,6 @@ namespace Api.Models.Bus
         public bool AdminUpdateMusic(MusicDTO music)
         {
 
-            if (music.FileData != null)
-            {
-
-                string fileName = DateTime.Now.Ticks.ToString();
-                string filePath = "~/File/ImageMusic/" + Path.GetFileName(fileName + ".jpg");
-                File.WriteAllBytes(System.Web.HttpContext.Current.Server.MapPath(filePath), Convert.FromBase64String(music.FileData));
-                fileName = fileName + ".jpg";
-            }
-
             var data = new Music()
             {
                 ID = music.ID,
@@ -73,6 +61,7 @@ namespace Api.Models.Bus
                 MusicDownloadAllowed = music.MusicDownloadAllowed,
                 SongOrMV = music.SongOrMV,
                 UserID = music.UserID,
+                CategoryId = music.CategoryId,
                 MusicImage = music.MusicImage,
                 MusicRelated = music.MusicRelated,
                 MusicNameUnsigned = ConvertString.convertToUnSign2(music.MusicName),
@@ -110,21 +99,21 @@ namespace Api.Models.Bus
             var dataList = new MusicDao().GetPageMusic(page);
 
             return dataList.Select(music => new MusicDTO()
-            {
-                UserID = music.UserID,
-                MusicName = music.MusicName,
-                MusicImage = music.MusicImage,
-                SongOrMV = music.SongOrMV,
-                MusicDownloadAllowed = music.MusicDownloadAllowed,
-                MusicRelated = music.MusicRelated,
-                MusicDayCreate = music.MusicDayCreate,
-                MusicNameUnsigned = music.MusicNameUnsigned,
-                MusicView = music.MusicView,
-                ID = music.ID,
+                {
+                    UserID = music.UserID,
+                    MusicName = music.MusicName,
+                    MusicImage = music.MusicImage,
+                    SongOrMV = music.SongOrMV,
+                    MusicDownloadAllowed = music.MusicDownloadAllowed,
+                    MusicRelated = music.MusicRelated,
+                    MusicDayCreate = music.MusicDayCreate,
+                    MusicNameUnsigned = music.MusicNameUnsigned,
+                    MusicView = music.MusicView,
+                    ID = music.ID,
 
-                //need User
-                UserDto = new UserBus().GetUserDtoById(music.UserID)
-            })
+                    //need User
+                    UserDto = new UserBus().GetUserDtoById(music.UserID)
+                })
                 .ToList();
         }
 
@@ -150,9 +139,20 @@ namespace Api.Models.Bus
                     ID = music.ID,
                     //need User
                     UserDto = new UserBus().GetUserDtoById(music.UserID),
+                    SingerMusicDtOs = new SingerMusicDao()
+                        .GetAll()
+                        .Where(x => x.MusicID == music.ID)
+                        .Select(x => new SingerMusicDTO()
+                        {
+                            ID = x.ID,
+                            MusicID = x.MusicID,
+                            SingerID = x.SingerID,
+                            UserDto = new UserBus().GetUserDtoById(x.SingerID)
+                        }).ToList()
                 };
                 list.Add(newMusic);
             }
+
             return list;
         }
 
@@ -180,12 +180,39 @@ namespace Api.Models.Bus
                     MusicView = music.MusicView,
                     ID = music.ID,
                     //need User
+                    SingerMusicDtOs = new SingerMusicDao()
+                        .GetAll()
+                        .Where(x => x.MusicID == music.ID)
+                        .Select(x => new SingerMusicDTO()
+                        {
+                            ID = x.ID,
+                            MusicID = x.MusicID,
+                            SingerID = x.SingerID,
+                            UserDto = new UserBus().GetUserDtoById(x.SingerID)
+                        }).ToList(),
                     UserDto = new UserBus().GetUserDtoById(music.UserID),
                 };
                 list.Add(newMusic);
             }
+
             return list;
         }
+
+
+        public List<SingerMusicDTO> GetListSingerMusicByMusicId(int id)
+        {
+            return new SingerMusicDao()
+                .GetAll()
+                .Where(x => x.MusicID == id)
+                .Select(x => new SingerMusicDTO()
+                {
+                    ID = x.ID,
+                    MusicID = x.MusicID,
+                    SingerID = x.SingerID,
+                    UserDto = new UserBus().GetUserDtoById(x.SingerID)
+                }).ToList();
+        }
+
 
         public MusicDTO MusicById(int id)
         {
@@ -205,9 +232,21 @@ namespace Api.Models.Bus
                     MusicView = music.MusicView,
                     ID = music.ID,
                     //Edit later
-                    LinkImage = "https://localhost:44384/File/ImageMusic/" + music.MusicImage,
-                    
-                    UserDto = new UserBus().GetUserDtoById(music.UserID)
+                    LinkImage = baseUrl + music.MusicImage,
+                    UserDto = new UserBus().GetUserDtoById(music.UserID),
+
+
+
+                    SingerMusicDtOs = new SingerMusicDao()
+                        .GetAll()
+                        .Where(x => x.MusicID == music.ID)
+                        .Select(x => new SingerMusicDTO()
+                        {
+                            ID = x.ID,
+                            MusicID = x.MusicID,
+                            SingerID = x.SingerID,
+                            UserDto = new UserBus().GetUserDtoById(x.SingerID)
+                        }).ToList()
                 };
             }
             catch (Exception e)
@@ -218,5 +257,30 @@ namespace Api.Models.Bus
         }
 
         #endregion Admin
+
+        public void AddSingerToMusic(SingerMusicDTO singerMusic)
+        {
+            new SingerMusicDao().Create(new SingerMusic()
+            {
+                MusicID = singerMusic.MusicID,
+                SingerID = singerMusic.SingerID
+            });
+        }
+
+        public bool DeleteSingerToMusic(int id)
+        {
+
+            try
+            {
+                new SingerMusicDao().Delete(id);
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return false;
+            }
+
+        }
     }
 }

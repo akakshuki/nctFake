@@ -18,7 +18,7 @@ namespace Api.Models.Dao
             return db.Categories.ToList();
         }
 
-        public Category GetCateById(int id)
+        public Category GetCateById(int? id)
         {
             var data = db.Categories.SingleOrDefault(s => s.ID == id);
             return data;

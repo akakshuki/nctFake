@@ -4,7 +4,8 @@
 @{
     ViewBag.Title = "Edit";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    List<UserDTO> list = ViewBag.Singers;
+    List<CategoryDTO> list = ViewBag.Categories;
+    List<MusicDTO> listMusic = ViewBag.MusicRelateds;
 }
 
 @section js
@@ -32,6 +33,8 @@
         <h4>MusicDTO</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <input type="hidden" name="ID" value="@Model.ID" />
+        <input type="hidden" name="UserID" value="@Model.UserID" />
         <div class="form-group">
             @Html.LabelFor(model => model.MusicName, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -49,23 +52,23 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="control-label col-md-2">Singer</label>
+            <label class="control-label col-md-2">singer</label>
             <div class="col-md-10">
                 <div>
-                    <select name="UserId" id="UserId" class="form-control select2">
+                    <select name="userid" id="userid" class="form-control select2">
                         @foreach (var item in list)
                         {
-                            if (item.ID == Model.UserID)
+                            if (item.ID == Model.CategoryId)
                             {
-                                <option selected="selected" value="@item.ID">@item.UserName</option>
+                                <option selected="selected" value="@item.ID">@item.CateName</option>
                             }
                             else
                             {
-                                <option value="@item.ID">@item.UserName</option>
+                                <option value="@item.ID">@item.CateName</option>
                             }
                         }
                     </select>
-                    @Html.ValidationMessageFor(model => model.UserID, "", new { @class = "text-danger" })
+                    @Html.ValidationMessageFor(model => model.CategoryId, "", new { @class = "text-danger" })
                 </div>
             </div>
         </div>
@@ -96,7 +99,49 @@
         <div class="form-group">
             @Html.LabelFor(model => model.MusicRelated, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.MusicRelated, new { htmlAttributes = new { @class = "form-control" } })
+                <select name="MusicRelated" class="form-control select2">
+                    @if (Model.MusicRelated == 0)
+                    {
+                        <option selected="selected" value="0">Have no related</option>
+                    }
+                    @foreach (var item in listMusic)
+                    {
+
+                        if (item.ID == Model.MusicRelated)
+                        {
+                            <option selected="selected" value="@item.ID">
+                                @item.MusicName ( @{
+                                    if (item.SongOrMV)
+                                    {
+                                        <p>Mv</p>
+                                    }
+                                    else
+                                    {
+                                        <p>Songs</p>
+                                    }
+                                }
+                                )
+                            </option>
+                        }
+                        else
+                        {
+                            <option value="@item.ID">
+                                @item.MusicName ( @{
+                                    if (item.SongOrMV)
+                                    {
+                                        <p>Mv</p>
+                                    }
+                                    else
+                                    {
+                                        <p>Songs</p>
+                                    }
+                                }
+                                )
+                            </option>
+
+                        }
+                    }
+                </select>
                 @Html.ValidationMessageFor(model => model.MusicRelated, "", new { @class = "text-danger" })
             </div>
         </div>

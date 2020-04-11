@@ -2,6 +2,7 @@
 using Api.Models.EF;
 using System.Collections.Generic;
 using System.Web.Http;
+using ModelViews.DTOs;
 
 namespace Api.Controllers
 {
@@ -13,6 +14,11 @@ namespace Api.Controllers
         public IEnumerable<Category> GetAllCate()
         {
             return new Repositories().GetAllCate();
+        }
+        [Route("GetAllListCate")]
+        public IEnumerable<CategoryDTO> GetAllListCate()
+        {
+            return new Repositories().GetAllListCate();
         }
 
         // GET api/<controller>

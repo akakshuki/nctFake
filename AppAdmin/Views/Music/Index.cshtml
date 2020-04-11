@@ -91,6 +91,7 @@
                     <thead>
                         <tr>
                             <th>Songs</th>
+                            <th>User</th>
                             <th>Singer</th>
                             <th>Date Create</th>
                             <th>Mp3/Mp4</th>
@@ -103,6 +104,16 @@
                             <tr>
                                 <td>@item.MusicName</td>
                                 <td>@item.UserDto.UserName</td>
+                                <th>
+                                    <span>
+                                        @foreach (var singer in item.SingerMusicDtOs)
+                                        {
+                                            <p>
+                                                @singer.UserDto.UserName
+                                            </p>
+                                        }
+                                    </span>
+                                </th>
                                 <td>@item.MusicDayCreate</td>
                                 <td>
                                     @{if (item.SongOrMV)
@@ -115,10 +126,10 @@
 
                                 </td>
                                 <td>
-                                    <a href="@Url.Action("Edit","Music",new {id = item.ID})" class="btn btn-success">
+                                    <a href="@Url.Action("Edit","Music",new {id = item.ID})" class="btn btn-round btn-success">
                                         Edit Info
                                     </a>
-                                    <a href="@Url.Action("Delete","Music",new {id =@item.ID})" class="btn btn-danger">
+                                    <a href="@Url.Action("Delete","Music",new {id =@item.ID})" class="btn btn-round btn-danger">
                                         Delete
                                     </a>
                                     <a href="@Url.Action("Index","LyricsMusic",new {id =@item.ID})" class="btn btn-success">
@@ -128,6 +139,10 @@
                                         Add File
                                     </a>
                                 </td>
+                                    <a href="@Url.Action("SingerOfMusic","Music",new {id =@item.ID})" class="btn btn-round btn-warning">
+                                        Add Singer
+                                    </a>
+                                 </td>
                             </tr>
                         }
                     </tbody>
