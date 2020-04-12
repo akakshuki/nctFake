@@ -258,7 +258,8 @@ namespace AppAdmin.Models.Service
             }
 
             return null;
-        }  public static List<CategoryDTO> GetAllListCategories()
+        }
+        public static List<CategoryDTO> GetAllListCategories()
         {
             using (var client = new HttpClient())
             {
@@ -621,7 +622,7 @@ namespace AppAdmin.Models.Service
                 if (result.IsSuccessStatusCode)
                 {
                     var readTask =
-                        JsonConvert.DeserializeObject<List<OrderVipDTO>>(result.Content.ReadAsStringAsync().Result,settings);
+                        JsonConvert.DeserializeObject<List<OrderVipDTO>>(result.Content.ReadAsStringAsync().Result, settings);
                     return readTask;
                 }
             }
@@ -1252,9 +1253,142 @@ namespace AppAdmin.Models.Service
 
         #endregion
 
+        #region Rank
+
+        public static bool CreateNewRank(RankDTO rank)
+        {
+
+            using (HttpClient client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Accept.Clear();
+                var response = client.PostAsync("https://localhost:44384/api/Rank/CreateRank", new StringContent(
+                    new JavaScriptSerializer().Serialize(rank), Encoding.UTF8, "application/json")).Result;
+                if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+            //
+        }
+
+        public static List<RankDTO> GetAllRank()
+        {
+            using (var client = new HttpClient())
+            {
+                //GetAllRank
+                client.BaseAddress = new Uri("https://localhost:44384/api/Rank/GetAllRank");
+                var responseTask = client.GetAsync(client.BaseAddress);
+                responseTask.Wait();
+                var result = responseTask.Result;
+                if (!result.IsSuccessStatusCode) return null;
+                var readTask =
+                    JsonConvert.DeserializeObject<List<RankDTO>>(result.Content.ReadAsStringAsync().Result);
+                return readTask.ToList();
+            }
+        }
+
+        public static bool DeleteRank(int id)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Accept.Clear();
+                var response = client.DeleteAsync("https://localhost:44384/api/Rank/DeleteRank/" + id).Result;
+                if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        public static bool UpdateRank(RankDTO rank)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Accept.Clear();
+                var response = client.PutAsync("https://localhost:44384/api/Rank/UpdateRank/" + @rank.ID, new StringContent(
+                    new JavaScriptSerializer().Serialize(rank), Encoding.UTF8, "application/json")).Result;
+                if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+            //
+        }
+
+        public static List<RankDTO> GetListRankThisWeek()
+        {
+            using (var client = new HttpClient())
+            {
+                //GetAllRank
+                client.BaseAddress = new Uri("https://localhost:44384/api/Rank/GetListRankThisWeek");
+                var responseTask = client.GetAsync(client.BaseAddress);
+                responseTask.Wait();
+                var result = responseTask.Result;
+                if (!result.IsSuccessStatusCode) return null;
+                var readTask =
+                    JsonConvert.DeserializeObject<List<RankDTO>>(result.Content.ReadAsStringAsync().Result);
+                return readTask.ToList();
+            }
+        }
+
+        public static List<RankDTO> GetAllLastWeekRank()
+        {
+            using (var client = new HttpClient())
+            {
+                //GetAllRank
+                client.BaseAddress = new Uri("https://localhost:44384/api/Rank/GetAllThisWeekRank");
+                var responseTask = client.GetAsync(client.BaseAddress);
+                responseTask.Wait();
+                var result = responseTask.Result;
+                if (!result.IsSuccessStatusCode) return null;
+                var readTask =
+                    JsonConvert.DeserializeObject<List<RankDTO>>(result.Content.ReadAsStringAsync().Result);
+                return readTask.ToList();
+            }
+        }
+
+        public static IEnumerable<RankMusicDTO> GetOldRank(int id)
+        {
+            using var client = new HttpClient
+            {
+                BaseAddress = new Uri("https://localhost:44384/api/Rank/GetRankMusicOld/" + id)
+            };
+            var responseTask = client.GetAsync(client.BaseAddress);
+            responseTask.Wait();
+            var result = responseTask.Result;
+            if (!result.IsSuccessStatusCode) return null;
+            var readTask =
+                JsonConvert.DeserializeObject<List<RankMusicDTO>>(result.Content.ReadAsStringAsync().Result);
+            return readTask.ToList();
+        }
+
+        #endregion
+
         #endregion
 
 
 
+
+        public static List<OrderVipDTO> GetAllListOrderVip()
+        {
+            using var client = new HttpClient
+            {
+                BaseAddress = new Uri("https://localhost:44384/api/OrderVip/GetAllOrderVip")
+            };
+            //GetAllRank
+            var responseTask = client.GetAsync(client.BaseAddress);
+            responseTask.Wait();
+            var result = responseTask.Result;
+            if (!result.IsSuccessStatusCode) return null;
+            var readTask =
+                JsonConvert.DeserializeObject<List<OrderVipDTO>>(result.Content.ReadAsStringAsync().Result);
+            return readTask.ToList();
+        }
     }
 }

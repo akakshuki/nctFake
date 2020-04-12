@@ -192,6 +192,7 @@
     <Compile Include="Areas\Admin\Controllers\PaymentController.cs" />
     <Compile Include="Areas\Admin\Controllers\QualityController.cs" />
     <Compile Include="Areas\Admin\Controllers\QualityMusicController.cs" />
+    <Compile Include="Areas\Admin\Controllers\RankController.cs" />
     <Compile Include="Areas\Client\ClientAreaRegistration.cs" />
     <Compile Include="Areas\HelpPage\ApiDescriptionExtensions.cs" />
     <Compile Include="Areas\HelpPage\App_Start\HelpPageConfig.cs" />
@@ -243,6 +244,7 @@
     <Compile Include="Models\Bus\PlaylistBus.cs" />
     <Compile Include="Models\Bus\QualityBus.cs" />
     <Compile Include="Models\Bus\QualityMusicBus.cs" />
+    <Compile Include="Models\Bus\RankBus.cs" />
     <Compile Include="Models\Bus\RoleBus.cs" />
     <Compile Include="Models\Bus\UserBus.cs" />
     <Compile Include="Models\Common\ConvertString.cs" />
@@ -256,6 +258,8 @@
     <Compile Include="Models\Dao\PlaylistDao.cs" />
     <Compile Include="Models\Dao\QualityMusicDao.cs" />
     <Compile Include="Models\Dao\QualityDao.cs" />
+    <Compile Include="Models\Dao\RankDao.cs" />
+    <Compile Include="Models\Dao\RankMusicDao.cs" />
     <Compile Include="Models\Dao\RoleDao.cs" />
     <Compile Include="Models\Dao\SingerMusicDao.cs" />
     <Compile Include="Models\Dao\UserDao.cs" />
@@ -320,6 +324,9 @@
       <DependentUpon>NCTModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\EF\SingerMusic.cs">
+      <DependentUpon>NCTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EF\sysdiagram.cs">
       <DependentUpon>NCTModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\EF\User.cs">
@@ -506,6 +513,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Data\" />
+    <Folder Include="Areas\Admin\Views\Rank\" />
     <Folder Include="Areas\Client\Controllers\" />
     <Folder Include="Areas\Client\Data\" />
     <Folder Include="Areas\Client\Views\Shared\" />

@@ -55,7 +55,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.MusicRelated, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            <select name="MusicRelated" class="form-control select2">
+            <select name="CategoryId" class="form-control select2">
                 @foreach (var item in list)
                 {
                     <option value="@item.ID">

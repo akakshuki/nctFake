@@ -1,0 +1,54 @@
+﻿@using ModelViews.DTOs
+
+@{
+    ViewBag.Title = "GetOldRank";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    RankDTO rankDetail = ViewBag.OldRankDetail;
+    List<RankMusicDTO> listRank = ViewBag.OldRanks;
+}
+
+<div class="form-panel">
+    <div class="container">
+        <h3>List Old ranks </h3>
+        <p>
+          List @rankDetail.CategoryDto.CateName @rankDetail.RMusicName  From @rankDetail.RMusicStart to @rankDetail.RMusicEnd
+        </p>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Rank</th>
+                    <th>Name Song</th>
+                    <th>Singer Name</th>
+                    <th>Song or Mv</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var data in listRank.OrderBy(x => x.RMusicGrade))
+                {
+                    <tr>
+                        <td>
+                            @data.RMusicGrade
+                        </td>
+                        <td>@data.MusicDto.MusicName</td>
+                        <td>
+                            @foreach (var item in data.MusicDto.SingerMusicDtOs)
+                            {
+                                <p>@item.UserDto.UserName</p>
+                            }
+                        </td>
+                        <td>
+                            @if (data.MusicDto.SongOrMV)
+                            {
+                                <p> Song </p>
+                            }
+                            else
+                            {
+                                <p> Mv </p>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

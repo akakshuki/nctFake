@@ -19,7 +19,8 @@ namespace Api.Models.EF
         public System.DateTime RMusicStart { get; set; }
         public System.DateTime RMusicEnd { get; set; }
         public int CateID { get; set; }
-        public Nullable<bool> SongOrMusic { get; set; }
+        public bool SongOrMusic { get; set; }
+        public int OldWeekRankId { get; set; }
     
         public virtual Category Category { get; set; }
     }

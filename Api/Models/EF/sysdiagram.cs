@@ -12,17 +12,12 @@ namespace Api.Models.EF
     using System;
     using System.Collections.Generic;
     
-    public partial class LyricsMusic
+    public partial class sysdiagram
     {
-        public int ID { get; set; }
-        public string LMusicDetail { get; set; }
-        public int MusicID { get; set; }
-        public int UserID { get; set; }
-        public bool WaitApproval { get; set; }
-        public bool NotApproved { get; set; }
-        public bool NewNotice { get; set; }
-        public System.DateTime LMusicDayCreate { get; set; }
-    
-        public virtual Music Music { get; set; }
+        public string name { get; set; }
+        public int principal_id { get; set; }
+        public int diagram_id { get; set; }
+        public Nullable<int> version { get; set; }
+        public byte[] definition { get; set; }
     }
 }

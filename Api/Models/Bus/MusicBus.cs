@@ -39,7 +39,6 @@ namespace Api.Models.Bus
                     MusicView = 0,
                     UserID = music.UserID,
                     MusicRelated = music.MusicRelated
-
                 });
             }
             catch (Exception e)
@@ -135,6 +134,7 @@ namespace Api.Models.Bus
                     MusicRelated = music.MusicRelated,
                     MusicDayCreate = music.MusicDayCreate,
                     MusicNameUnsigned = music.MusicNameUnsigned,
+                    CategoryId = music.CategoryId,
                     MusicView = music.MusicView,
                     ID = music.ID,
                     //need User
@@ -148,8 +148,10 @@ namespace Api.Models.Bus
                             MusicID = x.MusicID,
                             SingerID = x.SingerID,
                             UserDto = new UserBus().GetUserDtoById(x.SingerID)
-                        }).ToList()
+                        }).ToList(),
+                    CategoryDto = new CategoryBus().GetAllListCategories().SingleOrDefault(x=>x.ID == music.CategoryId)
                 };
+                
                 list.Add(newMusic);
             }
 
@@ -213,7 +215,6 @@ namespace Api.Models.Bus
                 }).ToList();
         }
 
-
         public MusicDTO MusicById(int id)
         {
             try
@@ -227,6 +228,7 @@ namespace Api.Models.Bus
                     SongOrMV = music.SongOrMV,
                     MusicDownloadAllowed = music.MusicDownloadAllowed,
                     MusicRelated = music.MusicRelated,
+                    CategoryId = music.CategoryId,
                     MusicDayCreate = music.MusicDayCreate,
                     MusicNameUnsigned = music.MusicNameUnsigned,
                     MusicView = music.MusicView,

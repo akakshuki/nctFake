@@ -29,6 +29,9 @@
           <Property Name="LMusicDetail" Type="nvarchar(max)" Nullable="false" />
           <Property Name="MusicID" Type="int" Nullable="false" />
           <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="WaitApproval" Type="bit" Nullable="false" />
+          <Property Name="NotApproved" Type="bit" Nullable="false" />
+          <Property Name="NewNotice" Type="bit" Nullable="false" />
           <Property Name="LMusicDayCreate" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="Music">
@@ -38,6 +41,7 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="MusicName" Type="nvarchar" MaxLength="1000" Nullable="false" />
           <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="CategoryId" Type="int" Nullable="false" />
           <Property Name="MusicDownloadAllowed" Type="bit" Nullable="false" />
           <Property Name="MusicView" Type="int" Nullable="false" />
           <Property Name="SongOrMV" Type="bit" Nullable="false" />
@@ -81,7 +85,7 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="PaymentName" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="Playlist">
@@ -131,7 +135,8 @@
           <Property Name="RMusicStart" Type="date" Nullable="false" />
           <Property Name="RMusicEnd" Type="date" Nullable="false" />
           <Property Name="CateID" Type="int" Nullable="false" />
-          <Property Name="SongOrMusic" Type="bit" />
+          <Property Name="SongOrMusic" Type="bit" Nullable="false" />
+          <Property Name="OldWeekRankId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="RankMusic">
           <Key>
@@ -172,7 +177,7 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="UserName" Type="nvarchar" MaxLength="500" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="500" Nullable="false" />
           <Property Name="UserDOB" Type="date" />
           <Property Name="UserGender" Type="bit" />
           <Property Name="UserVIP" Type="bit" Nullable="false" />
@@ -507,6 +512,9 @@
           <Property Name="LMusicDetail" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="MusicID" Type="Int32" Nullable="false" />
           <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="WaitApproval" Type="Boolean" Nullable="false" />
+          <Property Name="NotApproved" Type="Boolean" Nullable="false" />
+          <Property Name="NewNotice" Type="Boolean" Nullable="false" />
           <Property Name="LMusicDayCreate" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="Music" Relationship="ProjectNCTModel.FK_LyricsMusic_Music" FromRole="LyricsMusic" ToRole="Music" />
         </EntityType>
@@ -517,6 +525,7 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="MusicName" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="true" />
           <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="CategoryId" Type="Int32" Nullable="false" />
           <Property Name="MusicDownloadAllowed" Type="Boolean" Nullable="false" />
           <Property Name="MusicView" Type="Int32" Nullable="false" />
           <Property Name="SongOrMV" Type="Boolean" Nullable="false" />
@@ -569,7 +578,7 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="PaymentName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="OrderVips" Relationship="ProjectNCTModel.FK_OrderVip_Payment" FromRole="Payment" ToRole="OrderVip" />
         </EntityType>
@@ -623,7 +632,8 @@
           <Property Name="RMusicStart" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="RMusicEnd" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="CateID" Type="Int32" Nullable="false" />
-          <Property Name="SongOrMusic" Type="Boolean" />
+          <Property Name="SongOrMusic" Type="Boolean" Nullable="false" />
+          <Property Name="OldWeekRankId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Category" Relationship="ProjectNCTModel.FK_RankMusic_Category" FromRole="Rank" ToRole="Category" />
         </EntityType>
         <EntityType Name="RankMusic">
@@ -668,7 +678,7 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="UserDOB" Type="DateTime" Precision="0" />
           <Property Name="UserGender" Type="Boolean" />
           <Property Name="UserVIP" Type="Boolean" Nullable="false" />
@@ -867,6 +877,9 @@
             <EntityTypeMapping TypeName="ProjectNCTModel.LyricsMusic">
               <MappingFragment StoreEntitySet="LyricsMusic">
                 <ScalarProperty Name="LMusicDayCreate" ColumnName="LMusicDayCreate" />
+                <ScalarProperty Name="NewNotice" ColumnName="NewNotice" />
+                <ScalarProperty Name="NotApproved" ColumnName="NotApproved" />
+                <ScalarProperty Name="WaitApproval" ColumnName="WaitApproval" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="MusicID" ColumnName="MusicID" />
                 <ScalarProperty Name="LMusicDetail" ColumnName="LMusicDetail" />
@@ -884,6 +897,7 @@
                 <ScalarProperty Name="SongOrMV" ColumnName="SongOrMV" />
                 <ScalarProperty Name="MusicView" ColumnName="MusicView" />
                 <ScalarProperty Name="MusicDownloadAllowed" ColumnName="MusicDownloadAllowed" />
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="MusicName" ColumnName="MusicName" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
@@ -977,6 +991,7 @@
           <EntitySetMapping Name="Ranks">
             <EntityTypeMapping TypeName="ProjectNCTModel.Rank">
               <MappingFragment StoreEntitySet="Rank">
+                <ScalarProperty Name="OldWeekRankId" ColumnName="OldWeekRankId" />
                 <ScalarProperty Name="SongOrMusic" ColumnName="SongOrMusic" />
                 <ScalarProperty Name="CateID" ColumnName="CateID" />
                 <ScalarProperty Name="RMusicEnd" ColumnName="RMusicEnd" />

@@ -21,7 +21,7 @@ namespace ModelViews.DTOs
         public DateTime MusicDayCreate { get; set; }
         public string MusicNameUnsigned { get; set; }
         public int? MusicRelated { get; set; }
-
+        public int  GradeRank { get; set; }
 
         public UserDTO UserDto { get; set; }
         public List<QualityDTO> QualityDtos { get; set; }

@@ -82,7 +82,7 @@
         Add lyrics
     </a>
     <a href="@Url.Action("Create","Music")" class="btn btn-success">
-        Add singer
+        Add Music
     </a>
     <div class="row">
         <div class="col-md-12 form-panel">
@@ -117,7 +117,7 @@
                                 <td>@item.MusicDayCreate</td>
                                 <td>
                                     @{if (item.SongOrMV)
-                                        { <p>Songs</p>}
+                                            { <p>Songs</p>}
                                         else
                                         {
                                             <p>MV</p>
@@ -132,10 +132,10 @@
                                     <a href="@Url.Action("Delete","Music",new {id =@item.ID})" class="btn btn-round btn-danger">
                                         Delete
                                     </a>
-                                    <a href="@Url.Action("Index","LyricsMusic",new {id =@item.ID})" class="btn btn-success">
+                                    <a href="@Url.Action("Index","LyricsMusic",new {id =@item.ID})" class="btn btn-round  btn-success">
                                         Lyrics Music
                                     </a>
-                                    <a href="@Url.Action("ViewCreate","QualityMusic",new {id =@item.ID})" class="btn btn-danger">
+                                    <a href="@Url.Action("ViewCreate","QualityMusic",new {id =@item.ID})" class="btn btn-round  btn-danger">
                                         Add File
                                     </a>
                                     <a href="@Url.Action("SingerOfMusic","Music",new {id =@item.ID})" class="btn btn-round btn-warning">

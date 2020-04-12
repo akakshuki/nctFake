@@ -1,0 +1,122 @@
+﻿@using ModelViews.DTOs
+@model ModelViews.DTOs.RankDTO
+@{
+    ViewBag.Title = "EditRank";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    List<CategoryDTO> list = ViewBag.ListCategories;
+}
+
+@section js
+{
+    <script type="text/javascript" src="~/Content/Dashio/lib/bootstrap-fileupload/bootstrap-fileupload.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+    <script>
+        $('#RMusicStart').val(new Date());
+        $('#RMusicEnd').val(new Date());
+        $('#songOrMusic').change(function () {
+            if (this.checked)
+                $('#songOrMusic').val(true);
+            else
+                $('#songOrMusic').val(false);
+        });
+
+    </script>
+}
+
+<div class="form-panel">
+    <div class="container ">
+
+        @using (Html.BeginForm("EditRank", "MusicRank", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <h4>Form Create</h4>
+
+            <hr />
+            @Html.Hidden("ID", @Model.ID, new { id = "ID" })
+         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.RMusicName, htmlAttributes: new { @id = "", @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.RMusicName, new { htmlAttributes = new { @class = "form-control", @id = "RMusicName" } })
+                    @Html.ValidationMessageFor(model => model.RMusicName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            @*<div class="form-group">
+            @Html.LabelFor(model => model.RMusicStart, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(m => m.RMusicStart, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date" })
+                @Html.ValidationMessageFor(model => model.RMusicStart, "", new { @class = "text-danger" })
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.RMusicEnd, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(m => m.RMusicEnd, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date" })
+                @Html.ValidationMessageFor(model => model.RMusicEnd, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.CateID, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <select name="CateID" id="CateID" class="form-control select2">
+                        @foreach (var item in list)
+                        {
+                            if (item.ID == Model.CateID)
+                            {
+                                <option selected="selected" value="@item.ID">
+                                    @item.CateName
+                                </option>
+                            }
+                            else
+                            {
+                                <option value="@item.ID">
+                                    @item.CateName
+                                </option>
+
+                            }
+
+                        }
+                    </select>
+                </div>
+                @Html.ValidationMessageFor(model => model.CateID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.SongOrMusic, htmlAttributes: new { @class = "control-label col-md-2 m-5" })
+                <div class="col-md-10 m-3">
+                    <div class="checkbox  text-center">
+                        @if (Model.SongOrMusic)
+                        {
+                            <input type="checkbox" checked="checked" id="songOrMusic" value="true" name="SongOrMusic" />
+                        }
+                        else
+                        {
+                            <input type="checkbox"  id="songOrMusic" value="false" name="SongOrMusic" />
+                        }
+                        <span>
+                            if this is song check it
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Create" class="btn btn-success" />
+
+                </div>
+            </div>
+        }
+        <div>
+            @Html.ActionLink("Back to List", "ListRanks")
+        </div>
+    </div>
+</div>

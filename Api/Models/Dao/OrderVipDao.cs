@@ -19,5 +19,10 @@ namespace Api.Models.Dao
             var data = db.OrderVips.Where(s => s.UserID == id).ToList();
             return data;
         }
+
+        public IEnumerable<OrderVip> GetAll()
+        {
+            return db.OrderVips;
+        }
     }
 }
