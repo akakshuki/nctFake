@@ -10,6 +10,12 @@ namespace Api.Models.Bus
 {
     public class PlaylistBus
     {
+        private string baseUrl = "";
+
+        public PlaylistBus()
+        {
+            baseUrl = "https://localhost:44315/File/ImagePlaylist/";
+        }
         public IEnumerable<Playlist> GetAllPlaylist()
         {
             var data = new PlaylistDao().GetAllPlaylist().Select(s => new Playlist
@@ -23,17 +29,18 @@ namespace Api.Models.Bus
             return data;
         }
 
-        public Playlist GetPlaylistById(int id)
+        public PlaylistDTO GetPlaylistById(int id)
         {
             var data = new PlaylistDao().GetPlaylistById(id);
-            return new Playlist
+            return new PlaylistDTO
             {
                 ID = data.ID,
                 PlaylistName = data.PlaylistName,
                 PlaylistDescription = data.PlaylistDescription,
                 PlaylistImage = data.PlaylistImage,
                 CateID = data.CateID,
-                UserID = data.UserID
+                UserID = data.UserID,
+                LinkImage = baseUrl + data.PlaylistImage,
             };
         }
 
@@ -53,18 +60,6 @@ namespace Api.Models.Bus
 
         public bool CreatePlaylist(PlaylistDTO playlistDTO)
         {
-            string fileName = "";
-            if (playlistDTO.FileData != null)
-            {
-                fileName = DateTime.Now.Ticks.ToString();
-                string filePath = "~/File/ImageUser/" + Path.GetFileName(fileName + ".jpg");
-                File.WriteAllBytes(System.Web.HttpContext.Current.Server.MapPath(filePath), Convert.FromBase64String(playlistDTO.FileData));
-                fileName = fileName + ".jpg";
-            }
-            else
-            {
-                fileName = "default";
-            }
             try
             {
 
@@ -73,7 +68,7 @@ namespace Api.Models.Bus
                     PlaylistName = playlistDTO.PlaylistName,
                     UserID = playlistDTO.UserID,
                     CateID = playlistDTO.CateID,
-                    PlaylistImage = fileName,
+                    PlaylistImage = playlistDTO.PlaylistImage,
                     PlaylistDescription = playlistDTO.PlaylistDescription
                 });
                 return true;

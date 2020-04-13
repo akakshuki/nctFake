@@ -23,9 +23,8 @@
             <hr />
             <div class="form-group">
                 <input type="hidden" name="ID" value="@Model.ID" />
-                <label class="control-label col-md-2">Music</label>
                 <div class="col-md-10">
-                    <div>
+                    <div hidden="hidden">
                         <select name="MusicID" id="UserId" class="form-control select2">
                             @foreach (var item in list)
                             {

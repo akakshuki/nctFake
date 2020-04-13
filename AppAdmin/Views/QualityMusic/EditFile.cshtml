@@ -25,15 +25,16 @@
                 </div>
             </div>
             <div class="form-group">
-                <div class="col-md-10">
-                    <div class="checkbox" style="margin-left: 20px;">
-                        <div class="hidden">
-                            <select hidden="hidden" name="QualityID" id="UserId" class="form-control select2">
+                @Html.LabelFor(model => model.QualityID, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-8">
+                    <div class="default">
+                        <div disabled>
+                            <select disabled="disabled"  name="QualityID" id="UserId" class="form-control select2">
                                 @foreach (var item in list)
                                 {
                                     if (item.ID == Model.QualityID)
                                     {
-                                        <option selected="selected" value="@item.ID">@item.QualityName</option>
+                                        <option  selected="selected" value="@item.ID">@item.QualityName</option>
                                     }
                                     else
                                     {
@@ -42,7 +43,7 @@
                                 }
                             </select>
                         </div>
-                       
+
                         @Html.ValidationMessageFor(model => model.QMusicApproved, "", new { @class = "text-danger" })
                     </div>
                 </div>

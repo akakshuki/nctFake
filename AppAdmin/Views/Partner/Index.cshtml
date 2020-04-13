@@ -19,7 +19,7 @@
             <h4><i class="fa fa-angle-right"></i> Add Partner</h4>
             <div class="form-panel">
                 <div class=" form">
-                    <form class="cmxform form-horizontal style-form" id="commentForm" method="post" action="@Url.Action("Create","Partner")">
+                    <form class="cmxform form-horizontal style-form" id="commentForm" method="post" action="@Url.Action("Create","Partner")"  enctype = "multipart/form-data">
                         <div class="form-group ">
                             <label for="cname" class="control-label col-lg-2">Name Partner</label>
                             <div class="col-lg-10">
@@ -44,7 +44,7 @@
                                         <span class="btn btn-theme02 btn-file">
                                             <span class="fileupload-new"><i class="fa fa-paperclip"></i> Select image</span>
                                             <span class="fileupload-exists"><i class="fa fa-undo"></i> Change</span>
-                                            <input name="FileImage" type="file" class="default" />
+                                            <input name="FileImage" type="file" class="default" accept=".png,.jpg" />
                                         </span>
                                         <a href="@Url.Action("Index","Partner")" class="btn btn-theme04 fileupload-exists" data-dismiss="fileupload"><i class="fa fa-trash-o"></i> Remove</a>
                                     </div>

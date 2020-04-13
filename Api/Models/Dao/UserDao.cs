@@ -59,7 +59,7 @@ namespace Api.Models.Dao
             var data = db.Users.SingleOrDefault(s => s.ID == user.ID);
             data.UserName = user.UserName;
             data.UserDOB = user.UserDOB;
-            //data.UserGender = user.UserGender;
+            data.UserGender = user.UserGender;
             data.UserDescription = user.UserDescription;
             data.UserNameUnsigned = user.UserNameUnsigned;
             data.UserImage = user.UserImage;

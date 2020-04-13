@@ -87,7 +87,7 @@
                 <h4><i class="fa fa-angle-right"></i> Create Playlist</h4>
                 <div class="form-panel">
                     <div class=" form">
-                        <form class="cmxform form-horizontal style-form" id="commentForm" method="post" action="@Url.Action("Create","Playlist")">
+                        <form class="cmxform form-horizontal style-form" id="commentForm" method="post" action="@Url.Action("Create","Playlist")" enctype = "multipart/form-data">
                             <div class="form-group ">
                                 <label for="cname" class="control-label col-lg-2">Name Playlist</label>
                                 <div class="col-lg-10">
@@ -126,7 +126,7 @@
                                             <span class="btn btn-theme02 btn-file">
                                                 <span class="fileupload-new"><i class="fa fa-paperclip"></i> Select image</span>
                                                 <span class="fileupload-exists"><i class="fa fa-undo"></i> Change</span>
-                                                <input name="FileImage" type="file" class="default" />
+                                                <input name="FileImage" type="file" class="default" accept=".png,.jpg"/>
                                             </span>
                                         </div>
                                     </div>
@@ -179,6 +179,9 @@
                                             </a>
                                             <a href="@Url.Action("Delete","Playlist", new { id = item.ID})">
                                                 <button type="button" class="btn btn-round btn-danger">Delete</button>
+                                            </a>
+                                            <a href="@Url.Action("AddMusicForPlaylist","Playlist", new { id = item.ID})">
+                                                <button type="button" class="btn btn-round btn-info">Add Music</button>
                                             </a>
                                         </td>
                                     </tr>

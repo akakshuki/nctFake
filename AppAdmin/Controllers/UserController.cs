@@ -11,6 +11,11 @@ namespace AppAdmin.Controllers
 {
     public class UserController : Controller
     {
+        private string path = "";
+        public UserController()
+        {
+            path = "~/File/ImageUser/";
+        }
         // GET: User
         #region Singer
         public ActionResult Index()
@@ -23,24 +28,89 @@ namespace AppAdmin.Controllers
             var data = ApiService.GetUserById(id);
             return View(data);
         }
-
+        [HttpPost]
         public ActionResult CreateSinger(UserDTO userDTO)
         {
-            var data = ApiService.CreateSinger(userDTO);
-            if (data != null)
+            try
             {
-                return RedirectToAction("ListSinger");
+                if (userDTO.FileImage != null)
+                {
+                    userDTO.UserImage = DateTime.Now.Ticks + userDTO.UserImage + ".png";
+                    userDTO.FileImage.SaveAs(Server.MapPath(path + userDTO.UserImage));
+                    userDTO.FileImage = null;
+                }
+                else
+                {
+                    userDTO.UserImage = "default.png";
+                }
+                var data = ApiService.CreateSinger(userDTO);
+                if (data != null)
+                {
+                    return RedirectToAction("ListSinger");
+                }
+                return RedirectToAction("Index");
             }
-            return RedirectToAction("Index");
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return RedirectToAction("Index");
+            }
+
         }
+        [HttpPost]
         public ActionResult UpdateSinger(UserDTO userDTO)
         {
-            var data = ApiService.UpdateSinger(userDTO);
-            if (data != null)
+            try
             {
-                return RedirectToAction("ListSinger");
+                //get Image have exist
+                var currentFileName = ApiService.GetUserById(userDTO.ID).UserImage;
+                //check name have deafault if exist ==> dont delete
+                if (currentFileName == "default.png")
+                {
+                    if (userDTO.FileImage != null)
+                    {
+                        userDTO.UserImage = DateTime.Now.Ticks + userDTO.UserImage + ".png";
+                        userDTO.FileImage.SaveAs(Server.MapPath(path + userDTO.UserImage));
+                        userDTO.FileImage = null;
+                    }
+                    else
+                    {
+                        userDTO.UserImage = "default.png";
+                    }
+                }
+                else
+                {
+                    //delete file
+                    var filePath = Server.MapPath(path + currentFileName);
+                    if (System.IO.File.Exists(filePath))
+                    {
+                        System.IO.File.Delete(filePath);
+                    }
+
+                    if (userDTO.FileImage != null)
+                    {
+                        userDTO.UserImage = DateTime.Now.Ticks + userDTO.UserImage + ".png";
+                        userDTO.FileImage.SaveAs(Server.MapPath(path + userDTO.UserImage));
+                        userDTO.FileImage = null;
+                    }
+                    else
+                    {
+                        userDTO.UserImage = "default.png";
+                    }
+                }
+                var data = ApiService.UpdateSinger(userDTO);
+                if (data != null)
+                {
+                    return RedirectToAction("ListSinger");
+                }
+                return RedirectToAction("Edit", new { id = Session["id"] });
             }
-            return RedirectToAction("Edit",new {id = Session["id"] });
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return RedirectToAction("Edit", new { id = userDTO.ID });
+            }
+
         }
         public ActionResult DeleteUser(int id)
         {
@@ -53,6 +123,11 @@ namespace AppAdmin.Controllers
             ViewBag.GetSinger = ApiService.GetAllSinger();
             return View();
         }
+        public ActionResult MusicOfSinger(int id)
+        {
+            ViewBag.getMusicByUser = ApiService.GetAllMusic().Where(s => s.UserID == id).ToList();
+            return View();
+        }
         #endregion
         #region User Normal & Vip
         public ActionResult ListUser()
@@ -61,8 +136,15 @@ namespace AppAdmin.Controllers
             ViewBag.ListUserVip = ApiService.GetAllUserVip();
             return View();
         }
+        public ActionResult ListFile(int id)
+        {
+            ViewBag.getList = ApiService.GetFileByIdMusic(id);
+            return View();
+        }
+        
         public ActionResult ViewDetails(int id)
         {
+            ViewBag.getMusicByUser = ApiService.GetAllMusic().Where(s => s.UserID == id).ToList();
             ViewBag.PlaylistUser = ApiService.GetPlaylistByIdUser(id);
             ViewBag.Order = ApiService.GetOrderVipByIdUser(id);
             return View();

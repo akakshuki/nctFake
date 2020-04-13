@@ -32,7 +32,7 @@ namespace Api.Controllers
 
         // GET api/<controller>/5
         [Route("GetUserById/{id}")]
-        public User GetUserById(int id)
+        public UserDTO GetUserById(int id)
         {
             return new Repositories().GetUserById(id);
         }

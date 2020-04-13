@@ -8,8 +8,15 @@ using System.Linq;
 
 namespace Api.Models.Bus
 {
+
     public class PartnerBus
     {
+        private string baseUrl = "";
+
+        public PartnerBus()
+        {
+            baseUrl = "https://localhost:44315/File/ImagePartner/";
+        }
         public IEnumerable<Partner> GetAllPartner()
         {
             var data = new PartnerDao().GetAllPartner().Select(s => new Partner
@@ -24,13 +31,14 @@ namespace Api.Models.Bus
             return data;
         }
 
-        public Partner GetPartnerById(int id)
+        public PartnerDTO GetPartnerById(int id)
         {
             var data = new PartnerDao().GetPartnerById(id);
-            return new Partner
+            return new PartnerDTO
             {
                 ID = data.ID,
                 PartnerActive = data.PartnerActive,
+                LinkImage = baseUrl + data.PartnerImage,
                 PartnerImage = data.PartnerImage,
                 PartnerLink = data.PartnerLink,
                 PartnerName = data.PartnerName
@@ -39,18 +47,7 @@ namespace Api.Models.Bus
 
         public bool CreatePartner(PartnerDTO partner)
         {
-            string fileName = "";
-            if (partner.FileData != null)
-            {
-                fileName = DateTime.Now.Ticks.ToString();
-                string filePath = "~/File/ImageUser/" + Path.GetFileName(fileName + ".jpg");
-                File.WriteAllBytes(System.Web.HttpContext.Current.Server.MapPath(filePath), Convert.FromBase64String(partner.FileData));
-                fileName = fileName + ".jpg";
-            }
-            else
-            {
-                fileName = "default";
-            }
+
             try
             {
 
@@ -58,7 +55,7 @@ namespace Api.Models.Bus
                 {
                     PartnerActive = true,
                     PartnerDayCreate = DateTime.Now,
-                    PartnerImage = fileName,
+                    PartnerImage = partner.PartnerImage,
                     PartnerLink = partner.PartnerLink,
                     PartnerName = partner.PartnerName
                 });
@@ -73,18 +70,6 @@ namespace Api.Models.Bus
 
         public bool UpdatePartner(PartnerDTO partner)
         {
-            string fileName = "";
-            if (partner.FileData != null)
-            {
-                fileName = DateTime.Now.Ticks.ToString();
-                string filePath = "~/File/ImageUser/" + Path.GetFileName(fileName + ".jpg");
-                File.WriteAllBytes(System.Web.HttpContext.Current.Server.MapPath(filePath), Convert.FromBase64String(partner.FileData));
-                fileName = fileName + ".jpg";
-            }
-            else
-            {
-                fileName = "default";
-            }
             try
             {
 
@@ -93,7 +78,7 @@ namespace Api.Models.Bus
                     ID = partner.ID,
                     PartnerActive = true,
                     PartnerDayCreate = DateTime.Now,
-                    PartnerImage = fileName,
+                    PartnerImage = partner.PartnerImage,
                     PartnerLink = partner.PartnerLink,
                     PartnerName = partner.PartnerName
                 });

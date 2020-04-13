@@ -15,7 +15,7 @@ namespace Api.Controllers
             return new Repositories().GetAllPartner();
         }
         [Route("GetPartnerById/{id}")]
-        public Partner GetPartnerById(int id)
+        public PartnerDTO GetPartnerById(int id)
         {
             return new Repositories().GetPartnerById(id);
         }

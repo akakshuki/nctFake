@@ -1,5 +1,5 @@
 ﻿@model ModelViews.DTOs.PartnerDTO
-
+@using ModelViews.DTOs
 @{
     ViewBag.Title = "Edit";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -12,8 +12,13 @@
 }
 <h2>Edit</h2>
 
-@using (Html.BeginForm("Update","Partner",FormMethod.Post))
+@using (Html.BeginForm("Update", "Partner", FormMethod.Post, new
 {
+
+    enctype = "multipart/form-data"
+}))
+{
+
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
@@ -35,14 +40,14 @@
                 <div class="col-md-9">
                     <div class="fileupload fileupload-new" data-provides="fileupload">
                         <div class="fileupload-new thumbnail" style="width: 200px; height: 150px;">
-                            <img src="http://www.placehold.it/200x150/efefef/aaaaaa&text=no+image" alt="" />
+                            <img src="@Model.LinkImage" alt="" />
                         </div>
                         <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 200px; max-height: 150px; line-height: 20px;"></div>
                         <div>
                             <span class="btn btn-theme02 btn-file">
                                 <span class="fileupload-new"><i class="fa fa-paperclip"></i> Select image</span>
                                 <span class="fileupload-exists"><i class="fa fa-undo"></i> Change</span>
-                                <input value="@Model.PartnerImage" name="FileImage" type="file" class="default" />
+                                <input value="FileImage" name="FileImage" type="file" class="default" />
                             </span>
                         </div>
                     </div>

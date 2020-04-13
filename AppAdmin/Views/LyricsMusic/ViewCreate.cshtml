@@ -4,6 +4,7 @@
     ViewBag.Title = "ViewCreate";
     Layout = "~/Views/Shared/_Layout.cshtml";
     List<MusicDTO> list = ViewBag.Music;
+    MusicDTO music = ViewBag.getMusicId;
 }
 @section js
 {
@@ -22,16 +23,11 @@
         <div class="form-horizontal">
             <hr />
             <div class="form-group">
-                <label class="control-label col-md-2">Music</label>
+                <label class="control-label col-md-2">Music : @music.MusicName</label>
                 <div class="col-md-10">
                     <div>
-                        <select name="MusicID" id="UserId" class="form-control select2">
-                            @foreach (var item in list)
-                            {
-                                <option value="@item.ID">@item.MusicName</option>
-                            }
-                        </select>
-                        @Html.ValidationMessageFor(model => model.UserID, "", new { @class = "text-danger" })
+                        <input type="hidden" name="MusicID" value="@music.ID" />
+                        @Html.ValidationMessageFor(model => model.MusicID, "", new { @class = "text-danger" })
                     </div>
                 </div>
             </div>

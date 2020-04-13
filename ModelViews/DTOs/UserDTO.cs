@@ -18,7 +18,7 @@ namespace ModelViews.DTOs
         public string UserNameUnsigned { get; set; }
         public string UserImage { get; set; }
         public HttpPostedFileBase FileImage { get; set; }
-        public string FileData { get; set; }
+        public string LinkImage { get; set; }
         public DateTime UserDayCreate { get; set; }
         public int RoleID { get; set; }
         public bool UserActive { get; set; }

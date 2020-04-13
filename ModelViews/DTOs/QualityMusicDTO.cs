@@ -11,6 +11,8 @@ namespace ModelViews.DTOs
         public int ID { get; set; }
         public int MusicID { get; set; }
         public string MusicFile { get; set; }
+        public HttpPostedFileBase FileQ { get; set; }
+        public string LinkFile { get; set; }
         public int QualityID { get; set; }
         [DisplayName("Approved")]
         public bool QMusicApproved { get; set; }

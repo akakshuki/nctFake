@@ -6,8 +6,6 @@
 @section js{
     <script type="text/javascript" language="javascript" src="~/Content/Dashio/lib/advanced-datatable/js/jquery.dataTables.js"></script>
     <script type="text/javascript" src="~/Content/Dashio/lib/advanced-datatable/js/DT_bootstrap.js"></script>
-    @*<script type="text/javascript" language="javascript" src="@Url.Content("~/Content/Dashio/")lib/advanced-datatable/js/jquery.dataTables.js"></script>
-        <script type="text/javascript" src="@Url.Content("~/Content/Dashio/")lib/advanced-datatable/js/DT_bootstrap.js"></script>*@
     <script type="text/javascript">
         /* Formating function for row details */
         function fnFormatDetails(oTable, nTr) {
@@ -119,6 +117,9 @@
                                             </a>
                                             <a href="@Url.Action("DeleteUser","User", new { id = item.ID})">
                                                 <button type="button" class="btn btn-round btn-danger">Delete</button>
+                                            </a>
+                                            <a href="@Url.Action("MusicOfSinger","User", new { id = item.ID})">
+                                                <button type="button" class="btn btn-round btn-info">Music</button>
                                             </a>
                                         </td>
                                     </tr>

@@ -10,10 +10,10 @@ namespace ModelViews.DTOs
         public int ID { get; set; }
         public string PlaylistName { get; set; }
         public int UserID { get; set; }
-        public int CateID { get; set; }
+        public int? CateID { get; set; }
         public string PlaylistImage { get; set; }
         public HttpPostedFileBase FileImage { get; set; }
-        public string FileData { get; set; }
+        public string LinkImage { get; set; }
         public string PlaylistDescription { get; set; }
 
         public CategoryDTO CategoryDto { get; set; }

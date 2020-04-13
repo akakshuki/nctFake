@@ -83,7 +83,10 @@
 }
 <h2>Create Quality Music</h2>
 <div class="container">
-    @using (Html.BeginForm("Create", "QualityMusic", FormMethod.Post))
+    @using (Html.BeginForm("Create", "QualityMusic", FormMethod.Post, new 
+    {
+        enctype = "multipart/form-data"
+    }))
     {
         @Html.AntiForgeryToken()
         <div class="form-horizontal form-panel">
@@ -96,7 +99,7 @@
                         <span class="btn btn-theme02 btn-file">
                             <span class="fileupload-new"><i class="fa fa-paperclip"></i> Select file</span>
                             <span class="fileupload-exists"><i class="fa fa-undo"></i> Change</span>
-                            <input type="file" class="default" />
+                            <input name="FileQ" type="file" class="default" accept=".png,.jpg"/>
                         </span>
                         <span class="fileupload-preview" style="margin-left:5px;"></span>
                         <a href="advanced_form_components.html#" class="close fileupload-exists" data-dismiss="fileupload" style="float: none; margin-left:5px;"></a>

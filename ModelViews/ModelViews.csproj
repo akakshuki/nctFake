@@ -52,6 +52,7 @@
     <Compile Include="DTOs\PartnerDTO.cs" />
     <Compile Include="DTOs\PaymentDTO.cs" />
     <Compile Include="DTOs\PlaylistDTO.cs" />
+    <Compile Include="DTOs\PlaylistMusicDTO.cs" />
     <Compile Include="DTOs\QualityDTO.cs" />
     <Compile Include="DTOs\QualityMusicDTO.cs" />
     <Compile Include="DTOs\RankMusicDTO.cs" />

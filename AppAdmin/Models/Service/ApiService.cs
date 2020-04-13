@@ -398,6 +398,55 @@ namespace AppAdmin.Models.Service
 
         #endregion
 
+        #region PlaylistMusic
+        public static List<PlaylistMusicDTO> GetMusicByIdPlaylist(int id)
+        {
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("https://localhost:44384/api/PlaylistMusic/GetMusicByIdPlaylist/" + id.ToString());
+                var responseTask = client.GetAsync(client.BaseAddress);
+                responseTask.Wait();
+                var result = responseTask.Result;
+                if (result.IsSuccessStatusCode)
+                {
+                    var readTask = JsonConvert.DeserializeObject<List<PlaylistMusicDTO>>(result.Content.ReadAsStringAsync().Result);
+                    return readTask;
+                }
+            }
+            return null;
+        }
+        public static PlaylistMusicDTO CreatePlaylistMusic(PlaylistMusicDTO playlistMusic)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Accept.Clear();
+                var response = client.PostAsync("https://localhost:44384/api/PlaylistMusic/CreatePlaylistMusic/", new StringContent(
+                    new JavaScriptSerializer().Serialize(playlistMusic), Encoding.UTF8, "application/json")).Result;
+                if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    return playlistMusic;
+                }
+            }
+
+            return null;
+        }
+        public static bool DeletePlaylistMusic(int id)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Accept.Clear();
+                var response = client.DeleteAsync("https://localhost:44384/api/PlaylistMusic/DeletePlaylistMusic/" + id.ToString())
+                    .Result;
+                if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+        #endregion
+
         #region Playlist
 
         public static List<PlaylistDTO> GetAllPlaylist()

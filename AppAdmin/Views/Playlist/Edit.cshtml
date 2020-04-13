@@ -7,6 +7,9 @@
 }
 @section js
 {
+    <script src="@Url.Content("~/Content/Dashio/")lib/jquery-ui-1.9.2.custom.min.js"></script>
+    <script type="text/javascript" src="@Url.Content("~/Content/Dashio/")lib/bootstrap-fileupload/bootstrap-fileupload.js"></script>
+    <script src="@Url.Content("~/Content/Dashio/")lib/advanced-form-components.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
     <script>
@@ -18,7 +21,7 @@
         <h4><i class="fa fa-angle-right"></i> Edit</h4>
         <div class="form-panel">
             <div class=" form">
-                <form class="cmxform form-horizontal style-form" id="commentForm" method="post" action="@Url.Action("Update","Playlist")">
+                <form class="cmxform form-horizontal style-form" id="commentForm" method="post" action="@Url.Action("Update","Playlist")" enctype="multipart/form-data">
                     <div class="form-group ">
                         <label for="cname" class="control-label col-lg-2">Name Playlist</label>
                         <div class="col-lg-10">
@@ -59,7 +62,7 @@
                         <div class="col-md-9">
                             <div class="fileupload fileupload-new" data-provides="fileupload">
                                 <div class="fileupload-new thumbnail" style="width: 200px; height: 150px;">
-                                    <img src="http://www.placehold.it/200x150/efefef/aaaaaa&text=no+image" alt="" />
+                                    <img src="@Model.LinkImage" alt="" />
                                 </div>
                                 <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 200px; max-height: 150px; line-height: 20px;"></div>
                                 <div>

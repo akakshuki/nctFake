@@ -11,6 +11,12 @@ namespace Api.Models.Bus
 {
     public class UserBus
     {
+        private string baseUrl = "";
+
+        public UserBus()
+        {
+            baseUrl = "https://localhost:44315/File/ImageUser/";
+        }
         public IEnumerable<User> GetAllUserNormal()
         {
             var data = new UserDao().GetAllUser().Where(s=>s.UserVIP == false & s.RoleID == 3).OrderByDescending(s => s.UserDayCreate).Select(s => new User
@@ -87,10 +93,10 @@ namespace Api.Models.Bus
             return data;
         }
 
-        public User GetUserById(int id)
+        public UserDTO GetUserById(int id)
         {
             var data = new UserDao().GetUserById(id);
-            return new User
+            return new UserDTO
             {
                 ID = data.ID,
                 UserName = data.UserName,
@@ -107,11 +113,13 @@ namespace Api.Models.Bus
                 TokenUser = data.TokenUser,
                 DayVipEnd = data.DayVipEnd,
                 RoleID = data.RoleID,
-                Role = new Role()
+                LinkImage = baseUrl + data.UserImage,
+                RoleDto = new RoleDTO()
                 {
                     ID = data.Role.ID,
-                    RoleName = data.Role.RoleName
+                    RoleName = data.Role.RoleName,
                 }
+                
             };
         }
 
@@ -140,18 +148,6 @@ namespace Api.Models.Bus
 
         public bool CreateSinger(UserDTO userDTO)
         {
-            string fileName = "";
-            if (userDTO.FileData != null)
-            {
-                fileName = DateTime.Now.Ticks.ToString();
-                string filePath = "~/File/ImageUser/" + Path.GetFileName(fileName + ".jpg");
-                File.WriteAllBytes(System.Web.HttpContext.Current.Server.MapPath(filePath), Convert.FromBase64String(userDTO.FileData));
-                fileName = fileName + ".jpg";
-            }
-            else
-            {
-                fileName = "default";
-            }
             try
             {
                 
@@ -161,7 +157,7 @@ namespace Api.Models.Bus
                     UserDescription = userDTO.UserDescription,
                     UserPwd = userDTO.UserPwd,
                     UserEmail = userDTO.UserEmail,
-                    UserImage = fileName,
+                    UserImage = userDTO.UserImage,
                     UserGender = userDTO.UserGender,
                     UserDOB = userDTO.UserDOB,
                     UserName = userDTO.UserName,
@@ -182,25 +178,14 @@ namespace Api.Models.Bus
 
         public bool CreateUser(UserDTO userDTO)
         {
-            string fileName = "";
-            if (userDTO.FileData != null)
-            {
-                fileName = DateTime.Now.Ticks.ToString();
-                string filePath = "~/File/ImageUser/" + Path.GetFileName(fileName + ".jpg");
-                File.WriteAllBytes(System.Web.HttpContext.Current.Server.MapPath(filePath), Convert.FromBase64String(userDTO.FileData));
-                fileName = fileName + ".jpg";
-            }
-            else
-            {
-                fileName = "default";
-            }
+
             try
             {
                 var data = new UserDao().CreateUser(new User()
                 {
                     UserNameUnsigned = userDTO.UserNameUnsigned,
                     UserDescription = userDTO.UserDescription,
-                    UserImage = fileName,
+                    UserImage = userDTO.UserImage,
                     UserPwd = userDTO.UserPwd,
                     UserEmail = userDTO.UserEmail,
                     UserGender = userDTO.UserGender,

@@ -17,7 +17,7 @@ namespace Api.Controllers
 
         // GET api/<controller>/5
         [Route("GetPlaylistById/{id}")]
-        public Playlist GetPlaylistById(int id)
+        public PlaylistDTO GetPlaylistById(int id)
         {
             return new Repositories().GetPlaylistById(id);
         }

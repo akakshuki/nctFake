@@ -78,11 +78,9 @@
 
 <div class="container ">
     <h2>Music Management</h2>
-    <a href="@Url.Action("ViewCreate","LyricsMusic")" class="btn btn-success">
-        Add lyrics
-    </a>
+
     <a href="@Url.Action("Create","Music")" class="btn btn-success">
-        Add singer
+        Add music
     </a>
     <div class="row">
         <div class="col-md-12 form-panel">
@@ -127,22 +125,24 @@
                                 </td>
                                 <td>
                                     <a href="@Url.Action("Edit","Music",new {id = item.ID})" class="btn btn-round btn-success">
-                                        Edit Info
+                                        <i class="fa fa-pencil"></i>
                                     </a>
                                     <a href="@Url.Action("Delete","Music",new {id =@item.ID})" class="btn btn-round btn-danger">
-                                        Delete
+                                        <i class="fa fa-trash-o "></i>
                                     </a>
-                                    <a href="@Url.Action("Index","LyricsMusic",new {id =@item.ID})" class="btn btn-success">
+                                    <a href="@Url.Action("Index","LyricsMusic",new {id =@item.ID})" class="btn btn-round btn-success">
                                         Lyrics Music
                                     </a>
-                                    <a href="@Url.Action("ViewCreate","QualityMusic",new {id =@item.ID})" class="btn btn-danger">
+                                    <a href="@Url.Action("ViewCreate","QualityMusic",new {id =@item.ID})" class="btn btn-round btn-danger">
                                         Add File
                                     </a>
-                                </td>
                                     <a href="@Url.Action("SingerOfMusic","Music",new {id =@item.ID})" class="btn btn-round btn-warning">
                                         Add Singer
                                     </a>
-                                 </td>
+                                    <a href="@Url.Action("ViewCreate","LyricsMusic" ,new {id =@item.ID})" class="btn btn-round btn-success">
+                                        Add lyrics
+                                    </a>
+                                </td>
                             </tr>
                         }
                     </tbody>

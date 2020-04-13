@@ -84,7 +84,7 @@ namespace Api.Models
             var data = new UserBus().GetAllSinger();
             return data;
         }
-        public User GetUserById(int id)
+        public UserDTO GetUserById(int id)
         {
             return new UserBus().GetUserById(id);
         }
@@ -148,7 +148,7 @@ namespace Api.Models
             return new PlaylistBus().GetAllPlaylist();
         }
 
-        public Playlist GetPlaylistById(int id)
+        public PlaylistDTO GetPlaylistById(int id)
         {
             return new PlaylistBus().GetPlaylistById(id);
         }
@@ -194,7 +194,7 @@ namespace Api.Models
             return new PartnerBus().GetAllPartner();
         }
 
-        public Partner GetPartnerById(int id)
+        public PartnerDTO GetPartnerById(int id)
         {
             return new PartnerBus().GetPartnerById(id);
         }
@@ -450,6 +450,30 @@ namespace Api.Models
         public bool DeleteQualityMusic(int id)
         {
             if (new QualityMusicBus().DeleteQualityMusic(id))
+            {
+                return true;
+            }
+            return false;
+        }
+        #endregion
+
+        #region PLaylistMusic
+        public IEnumerable<PlaylistMusicDTO> GetMusicByIdPlaylist(int id)
+        {
+            var data = new PlaylistMusicBus().GetMusicByIdPlaylist(id);
+            return data;
+        }
+        public bool CreatePlaylistMusic(PlaylistMusic playlistMusic)
+        {
+            if (new PlaylistMusicBus().CreatePlaylistMusic(playlistMusic))
+            {
+                return true;
+            }
+            return false;
+        }
+        public bool DeletePlaylistMusic(int id)
+        {
+            if (new PlaylistMusicBus().DeletePlaylistMusic(id))
             {
                 return true;
             }

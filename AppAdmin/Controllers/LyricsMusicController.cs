@@ -22,12 +22,14 @@ namespace AppAdmin.Controllers
         }
         public ActionResult Edit(int id)
         {
+
             ViewBag.Music = ApiService.GetAllMusic();
             var data = ApiService.GetLyricById(id);
             return View(data);
         }
-        public ActionResult ViewCreate()
+        public ActionResult ViewCreate(int id)
         {
+            ViewBag.getMusicId = ApiService.GetMusicById(id);
             ViewBag.Music = ApiService.GetAllMusic();
             return View();
         }

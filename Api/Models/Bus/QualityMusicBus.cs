@@ -9,6 +9,12 @@ namespace Api.Models.Bus
 {
     public class QualityMusicBus
     {
+        private string baseUrl = "";
+
+        public QualityMusicBus()
+        {
+            baseUrl = "https://localhost:44315/File/mp3-mp4/";
+        }
         #region Admin
         public IEnumerable<QualityMusicDTO> GetAllQM()
         {
@@ -40,6 +46,7 @@ namespace Api.Models.Bus
                     QualityID = data.QualityID,
                     QMusicApproved = data.QMusicApproved,
                     NewFile = data.NewFile,
+                    LinkFile = baseUrl + data.MusicFile,
                     QualityDto = new QualityDTO
                     {
                         QualityName = data.Quality.QualityName
@@ -76,7 +83,7 @@ namespace Api.Models.Bus
             {
                 new QualityMusicDao().Create(new QualityMusic()
                 {
-                    MusicFile = "default",//co file sua sau
+                    MusicFile = quality.MusicFile,//co file sua sau
                     QMusicApproved = false,
                     QualityID = quality.QualityID,
                     NewFile = true,
@@ -100,7 +107,7 @@ namespace Api.Models.Bus
                     ID = quality.ID,
                     QMusicApproved = quality.QMusicApproved,
                     NewFile = false,
-                    MusicFile = "default",//co file sua sau
+                    MusicFile = quality.MusicFile,//co file sua sau
                     QualityID = quality.QualityID,
                     MusicID = quality.MusicID,
                 });
@@ -118,7 +125,7 @@ namespace Api.Models.Bus
             {
                 new QualityMusicDao().Update(new QualityMusic()
                 {
-                    MusicFile = "default",//co file sua sau
+                    MusicFile = quality.MusicFile,//co file sua sau
                     ID = quality.ID,
                     QMusicApproved = false,
                     QualityID = quality.QualityID,
