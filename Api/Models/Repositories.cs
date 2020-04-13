@@ -1,4 +1,5 @@
-﻿using Api.Models.Bus;
+﻿using System;
+using Api.Models.Bus;
 using Api.Models.EF;
 using ModelViews.DTOs;
 using System.Collections.Generic;
@@ -457,6 +458,51 @@ namespace Api.Models
         }
         #endregion
 
+        #region Rank
+
+        public void CreateNewRank(RankDTO rank)
+        {
+            new RankBus().CreateNewRank(rank);
+        }
+
+
+        public IEnumerable<RankDTO> GetAllRank()
+        {
+            return new RankBus().GetAllRank();
+        }
+
+        public void DeleteRank(int id)
+        {
+            new RankBus().DeleteRank(id);
+        }
+
+        public RankDTO GetRankById(int id)
+        {
+            return new RankBus().GetRankById(id);
+        }
+
+
+        public List<RankDTO> GetListRankThisWeek()
+        {
+            return  new RankBus().GetListRankThisWeek();
+        }
+
+        public void UpdateNewRank(RankDTO rank)
+        {
+            new RankBus().UpdateRank(rank);
+        }
+
+        public IEnumerable<RankDTO> GetAllThisWeekRank()
+        {
+            return new RankBus().GetAllThisWeekRank();
+        }
+
+        public List<RankMusicDTO> RankMusicOld(int id)
+        {
+            return new RankBus().RankMusicByRankId(id);
+        }
+        #endregion
+
         #region PLaylistMusic
         public IEnumerable<PlaylistMusicDTO> GetMusicByIdPlaylist(int id)
         {
@@ -480,5 +526,13 @@ namespace Api.Models
             return false;
         }
         #endregion
+
+
+
+
+        public List<OrderVipDTO> GetAllOrderVip()
+        {
+          return new OrderVipBus().GetAllOrderVip();
+        }
     }
 }

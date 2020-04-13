@@ -22,9 +22,10 @@ namespace Api.Areas.Admin.Controllers
         }
 
         // GET api/<controller>/5
-        public string Get(int id)
+        [HttpGet, Route("GetAllOrderVip")]
+        public List<OrderVipDTO> Get()
         {
-            return "value";
+            return new Repositories().GetAllOrderVip();
         }
 
         // POST api/<controller>

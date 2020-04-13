@@ -115,7 +115,7 @@
                                 <td>@item.MusicDayCreate</td>
                                 <td>
                                     @{if (item.SongOrMV)
-                                        { <p>Songs</p>}
+                                            { <p>Songs</p>}
                                         else
                                         {
                                             <p>MV</p>
@@ -131,9 +131,10 @@
                                         <i class="fa fa-trash-o "></i>
                                     </a>
                                     <a href="@Url.Action("Index","LyricsMusic",new {id =@item.ID})" class="btn btn-round btn-success">
+                                    <a href="@Url.Action("Index","LyricsMusic",new {id =@item.ID})" class="btn btn-round  btn-success">
                                         Lyrics Music
                                     </a>
-                                    <a href="@Url.Action("ViewCreate","QualityMusic",new {id =@item.ID})" class="btn btn-round btn-danger">
+                                    <a href="@Url.Action("ViewCreate","QualityMusic",new {id =@item.ID})" class="btn btn-round  btn-danger">
                                         Add File
                                     </a>
                                     <a href="@Url.Action("SingerOfMusic","Music",new {id =@item.ID})" class="btn btn-round btn-warning">

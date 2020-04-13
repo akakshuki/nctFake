@@ -46,7 +46,7 @@ namespace AppAdmin.Controllers
         // GET: Music/Create
         public ActionResult Create()
         {
-            ViewBag.Categories = ApiService.GetAllListCategories().Where(x=>x.ID_root != null).ToList();
+            ViewBag.Categories = ApiService.GetAllListCategories().Where(x => x.ID_root != null).ToList();
             ViewBag.MusicRelated = ApiService.GetAllMusic();
             return View();
         }
@@ -122,23 +122,23 @@ namespace AppAdmin.Controllers
                 }
                 else
                 {
-                    //delete file
-                    var filePath = Server.MapPath(path + currentFileName);
-                    if (System.IO.File.Exists(filePath))
-                    {
-                        System.IO.File.Delete(filePath);
-                    }
-
                     if (music.FileImage != null)
                     {
+                        //delete file
+                        var filePath = Server.MapPath(path + currentFileName);
+                        if (System.IO.File.Exists(filePath))
+                        {
+                            System.IO.File.Delete(filePath);
+                        }
                         music.MusicImage = DateTime.Now.Ticks + music.MusicName + ".png";
                         music.FileImage.SaveAs(Server.MapPath(path + music.MusicImage));
                         music.FileImage = null;
                     }
                     else
                     {
-                        music.MusicImage = "default.png";
+                        music.MusicImage = currentFileName;
                     }
+
                 }
 
                 var res = ApiService.UpdateMusic(music);
@@ -158,7 +158,7 @@ namespace AppAdmin.Controllers
         // GET: Music/Delete/5
         public ActionResult Delete(int id)
         {
-          
+
             var musics = new List<MusicDTO>();
             //get Image have exist
             var currentFileName = ApiService.GetMusicById(id).MusicImage;
@@ -194,9 +194,9 @@ namespace AppAdmin.Controllers
 
         public ActionResult AddSingerToMusic(SingerMusicDTO singerMusic)
         {
-            
+
             ApiService.AddSingerToMusic(singerMusic);
-            return RedirectToAction("SingerOfMusic","Music", new {id = singerMusic.MusicID});
+            return RedirectToAction("SingerOfMusic", "Music", new { id = singerMusic.MusicID });
         }
         public ActionResult DeleteSingerToMusic(int idValue, int idMusics)
         {

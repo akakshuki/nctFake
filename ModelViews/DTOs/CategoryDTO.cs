@@ -15,5 +15,6 @@ namespace ModelViews.DTOs {
 
         public List<PlaylistDTO> PlaylistDtos { get; set; }
         public List<MusicDTO> MusicDtos { get; set; }
+        public List<RankMusicDTO> RankMusicDtos { get; set; }
     }
 }

@@ -135,6 +135,8 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LyricsMusicController.cs" />
     <Compile Include="Controllers\MusicController.cs" />
+    <Compile Include="Controllers\MusicRankController.cs" />
+    <Compile Include="Controllers\OrderVipController.cs" />
     <Compile Include="Controllers\PackageVipController.cs" />
     <Compile Include="Controllers\PartnerController.cs" />
     <Compile Include="Controllers\PlaylistController.cs" />
@@ -577,6 +579,14 @@
     <Content Include="Views\Home\EditCate.cshtml" />
     <Content Include="Views\Home\EditCateIdRoot.cshtml" />
     <Content Include="Views\Home\ViewCateIdRoot.cshtml" />
+    <Content Include="Views\Home\ViewCreateCate.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\MusicRank\Index.cshtml" />
+    <Content Include="Views\MusicRank\CreateRank.cshtml" />
+    <Content Include="Views\MusicRank\ListRanks.cshtml" />
+    <Content Include="Views\MusicRank\EditRank.cshtml" />
+    <Content Include="Views\MusicRank\GetOldRank.cshtml" />
+    <Content Include="Views\OrderVip\Index.cshtml" />
     <Content Include="Views\User\MusicOfSinger.cshtml" />
   </ItemGroup>
   <ItemGroup>
