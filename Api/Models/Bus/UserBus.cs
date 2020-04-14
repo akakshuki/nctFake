@@ -262,6 +262,11 @@ namespace Api.Models.Bus
                 }
             };
         }
+
+        public void UserResetPassword(UserDTO userDto)
+        {
+            new UserDao().ResetPassword(userDto);
+        }
     }
 
 }

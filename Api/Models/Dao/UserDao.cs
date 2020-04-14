@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using ModelViews.DTOs;
 
 namespace Api.Models.Dao
 {
@@ -100,6 +101,13 @@ namespace Api.Models.Dao
                 return true;
             }
             return false;
+        }
+
+        public void ResetPassword(UserDTO userDto)
+        {
+            var data = db.Users.SingleOrDefault(x => x.UserEmail == userDto.UserEmail);
+            data.UserPwd = userDto.UserPwd;
+            db.SaveChanges();
         }
     }
 }

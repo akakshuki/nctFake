@@ -51,6 +51,8 @@
     <!-- modernizr JS
             ============================================ -->
     <script src="~/Content/ClientMusic/js/vendor/modernizr-2.8.3.min.js"></script>
+    <link href="~/Content/alertifyjs/alertify.min.css" rel="stylesheet" />
+    <link href="~/Content/alertifyjs/themes/default.min.css" rel="stylesheet" />
 </head>
 
 <body>
@@ -74,9 +76,13 @@
                     </div>
                     <input type="submit" value="Đăng Nhập" style="margin-top: 10px;height: 30px;color: black; background-color: #00c292;  border-radius: 10%; border: 3px solid white;  font-size: 18px;">
                 </form>
-                <a href="@Url.Action("LoginFacebook")" style="font-size: 18px;color: black;"><i class="fa fa-facebook-square" style="color: blue;"></i>  Đăng nhập bằng Facebook</a>
-                <br />
-                <a href="" style="font-size: 18px;color: black;"><i class="fa fa-google-plus-square" style="color: red;"></i> Đăng nhập bằng Google</a>
+                @*<a href="@Url.Action("LoginFacebook")" style="font-size: 18px;color: black;"><i class="fa fa-facebook-square" style="color: blue;"></i>  Đăng nhập bằng Facebook</a>
+        <br />
+        <a href="" style="font-size: 18px;color: black;"><i class="fa fa-google-plus-square" style="color: red;"></i> Đăng nhập bằng Google</a>*@
+                @if (TempData["success"] != null)
+                {<p class="text-center text-success">@TempData["success"]</p>}
+                @if (TempData["error"] != null)
+                {<p class="text-center text-danger">@TempData["error"]</p>}
                 <a href="#l-register" data-ma-action="nk-login-switch" data-ma-block="#l-register"
                    class="btn btn-login btn-success btn-float">
                     <i class="notika-icon notika-right-arrow right-arrow-ant"></i>
@@ -145,11 +151,11 @@
         <div class="nk-block" id="l-forget-password">
             <div class="nk-form">
                 <p class="text-left">Chúng tôi sẽ gửi thông tin qua email của bạn để giúp bạn thay đổi mật khẩu.</p>
-                <form action="changePwd.html" method="POST">
+                <form action="@Url.Action("CreateResetPassword")" method="POST">
                     <div class="input-group">
                         <span class="input-group-addon nk-ic-st-pro"><i class="notika-icon notika-mail"></i></span>
                         <div class="nk-int-st">
-                            <input type="text" class="form-control" placeholder="Email Address">
+                            <input type="text" name="email" class="form-control" placeholder="Email Address">
                         </div>
                     </div>
                     <input type="submit" value="Xác nhận" style="margin-top: 10px;height: 30px;color: white; background-color: cadetblue;font-size: 18px;">
@@ -170,7 +176,7 @@
     </div>
     <!-- Login Register area End-->
     <!-- jquery
-        ============================================ -->
+            ============================================ -->
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
             integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
             crossorigin="anonymous"></script>
@@ -246,27 +252,10 @@
     <!-- tawk chat JS
       ============================================ -->
     <script src="~/Content/ClientMusic/js/tawk-chat.js"></script>
-    <script>
-        window.fbAsyncInit = function () {
-            FB.init({
-                appId: '{your-app-id}',
-                cookie: true,
-                xfbml: true,
-                version: '{api-version}'
-            });
 
-            FB.AppEvents.logPageView();
+    <script src="~/Scripts/alertify.min.js"></script>
 
-        };
-
-        (function (d, s, id) {
-            var js, fjs = d.getElementsByTagName(s)[0];
-            if (d.getElementById(id)) { return; }
-            js = d.createElement(s); js.id = id;
-            js.src = "https://connect.facebook.net/en_US/sdk.js";
-            fjs.parentNode.insertBefore(js, fjs);
-        }(document, 'script', 'facebook-jssdk'));
-    </script>
+ 
 </body>
 
 </html>

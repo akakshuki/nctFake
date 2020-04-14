@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using ModelViews.DTOs;
 
 
 namespace AppAdmin.Areas.Client.Models.ServiceClient
@@ -13,7 +14,7 @@ namespace AppAdmin.Areas.Client.Models.ServiceClient
 
         public ApiService()
         {
-            _client = new HttpClient {BaseAddress = new Uri("https://localhost:5001/api/")};
+            _client = new HttpClient {BaseAddress = new Uri("https://localhost:44384/api/") };
         }
 
         public HttpClient ApiClient()
@@ -74,6 +75,21 @@ namespace AppAdmin.Areas.Client.Models.ServiceClient
                 if (postTask.IsSuccessStatusCode) return true;
                 return false;
 
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return false;
+            }
+        }
+
+        public static async Task<bool> UserChangePassword(UserDTO userDto)
+        {
+            try
+            {
+                var postTask = await _api.PostData<UserDTO>("UserClient/UserResetPassword", userDto);
+                if (postTask.IsSuccessStatusCode) return true;
+                return false;
             }
             catch (Exception e)
             {
