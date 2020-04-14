@@ -80,22 +80,21 @@ namespace AppAdmin.Controllers
                 }
                 else
                 {
-                    //delete file
-                    var filePath = Server.MapPath(path + currentFileName);
-                    if (System.IO.File.Exists(filePath))
-                    {
-                        System.IO.File.Delete(filePath);
-                    }
-
                     if (userDTO.FileImage != null)
                     {
+                        //delete file
+                        var filePath = Server.MapPath(path + currentFileName);
+                        if (System.IO.File.Exists(filePath))
+                        {
+                            System.IO.File.Delete(filePath);
+                        }
                         userDTO.UserImage = DateTime.Now.Ticks + userDTO.UserImage + ".png";
                         userDTO.FileImage.SaveAs(Server.MapPath(path + userDTO.UserImage));
                         userDTO.FileImage = null;
                     }
                     else
                     {
-                        userDTO.UserImage = "default.png";
+                        userDTO.UserImage = currentFileName;
                     }
                 }
                 var data = ApiService.UpdateSinger(userDTO);

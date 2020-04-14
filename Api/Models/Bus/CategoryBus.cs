@@ -19,10 +19,11 @@ namespace Api.Models.Bus
         }
         public IEnumerable<Category> GetAllCateCon()
         {
-            var data = new CategoryDao().GetAllCate().Where(s => s.ID_root != null).Select(s => new Category
+            var data = new CategoryDao().GetAllCate().Select(s => new Category
             {
                 ID = s.ID,
                 CateName = s.CateName,
+                ID_root = s.ID_root
             });
             return data;
         }

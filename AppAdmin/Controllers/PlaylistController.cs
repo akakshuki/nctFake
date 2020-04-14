@@ -81,22 +81,22 @@ namespace AppAdmin.Controllers
                 }
                 else
                 {
-                    //delete file
-                    var filePath = Server.MapPath(path + currentFileName);
-                    if (System.IO.File.Exists(filePath))
-                    {
-                        System.IO.File.Delete(filePath);
-                    }
-
+                  
                     if (playlistDTO.FileImage != null)
                     {
+                        //delete file
+                        var filePath = Server.MapPath(path + currentFileName);
+                        if (System.IO.File.Exists(filePath))
+                        {
+                            System.IO.File.Delete(filePath);
+                        }
                         playlistDTO.PlaylistImage = DateTime.Now.Ticks + playlistDTO.PlaylistImage + ".png";
                         playlistDTO.FileImage.SaveAs(Server.MapPath(path + playlistDTO.PlaylistImage));
                         playlistDTO.FileImage = null;
                     }
                     else
                     {
-                        playlistDTO.PlaylistImage = "default.png";
+                        playlistDTO.PlaylistImage = currentFileName;
                     }
                 }
                 var data = ApiService.UpdatePlaylist(playlistDTO);

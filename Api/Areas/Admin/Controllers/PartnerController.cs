@@ -10,7 +10,7 @@ namespace Api.Controllers
     public class PartnerController : ApiController
     {
         [Route("GetAllPartner")]
-        public IEnumerable<Partner> GetAllPartner()
+        public IEnumerable<PartnerDTO> GetAllPartner()
         {
             return new Repositories().GetAllPartner();
         }

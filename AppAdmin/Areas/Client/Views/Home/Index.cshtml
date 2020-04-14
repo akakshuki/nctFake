@@ -1,10 +1,13 @@
-﻿
+﻿@using ModelViews.DTOs
 @{
     ViewBag.Title = "Index";
     Layout = "~/Areas/Client/Views/Shared/_LayoutClient.cshtml";
-}
+    List<MusicDTO> listSong = ViewBag.GetTop10SongNew;
+    List<MusicDTO> listMV = ViewBag.GetTop10MVNew;
+    List<MusicDTO> SingerMusic = ViewBag.GetSinger;
+    List<PartnerDTO> listPartner = ViewBag.GetPartner;
 
-<h2>Index</h2>
+}
 
 <div class="gridMusic">
     <div class="gridLeft">
@@ -12,66 +15,30 @@
         <div>
             <label for="" class="lblMusic">Mới phát hành</label>
             <div class="listMusic">
-                <div class="itemMusic">
-                    <span class="viewMusic">
-                        <i class="fas fa-headphones"></i> 300.000
-                    </span>
-                    <a href="playMusic.html" style="font-size: 18px;"><img src="@Url.Content("~/Content/ClientMusic/")img/avt.png" alt="" class="imgMusic">Tên bài hát</a>
-                    <div class="nameSinger">
-                        <a href="PersonalSinger.html">Ca sĩ 1</a>,
-                        <a href="PersonalSinger.html">Ca sĩ 2</a>
+                @foreach (var item in listSong)
+                {
+                    <div class="itemMusic">
+                        <span class="viewMusic">
+                            <i class="fas fa-headphones"></i> @item.MusicView
+                        </span>
+
+                        <a href="playMusic.html" style="font-size: 18px;"><img src="@item.LinkImage" alt="" class="imgMusic">@item.MusicName</a>
+                        <div class="nameSinger">
+                            <a href="PersonalSinger.html">@item.UserDto.UserName</a>
+                            @foreach (var itemSinger in SingerMusic)
+                            {
+                                if (itemSinger.ID == item.ID)
+                                {
+                                    foreach (var singers in itemSinger.SingerMusicDtOs)
+                                    {
+                                        <a>,@singers.UserDto.UserName</a>
+                                    }
+                                }
+
+                            }
+                        </div>
                     </div>
-                </div>
-                <div class="itemMusic">
-                    <span class="viewMusic">
-                        <i class="fas fa-headphones"></i> 300.000
-                    </span>
-                    <a href="playMusic.html" style="font-size: 18px;"><img src="@Url.Content("~/Content/ClientMusic/")img/avt.png" alt="" class="imgMusic">Tên bài hát</a>
-                    <div class="nameSinger">
-                        <a href="PersonalSinger.html">Ca sĩ 1</a>,
-                        <a href="PersonalSinger.html">Ca sĩ 2</a>
-                    </div>
-                </div>
-                <div class="itemMusic">
-                    <span class="viewMusic">
-                        <i class="fas fa-headphones"></i> 300.000
-                    </span>
-                    <a href="" style="font-size: 18px;"><img src="@Url.Content("~/Content/ClientMusic/")img/avt.png" alt="" class="imgMusic">Tên bài hát</a>
-                    <div class="nameSinger">
-                        <a href="">Ca sĩ 1</a>,
-                        <a href="">Ca sĩ 2</a>
-                    </div>
-                </div>
-                <div class="itemMusic">
-                    <span class="viewMusic">
-                        <i class="fas fa-headphones"></i> 300.000
-                    </span>
-                    <a href="" style="font-size: 18px;"><img src="@Url.Content("~/Content/ClientMusic/")img/avt.png" alt="" class="imgMusic">Tên bài hát</a>
-                    <div class="nameSinger">
-                        <a href="">Ca sĩ 1</a>,
-                        <a href="">Ca sĩ 2</a>
-                    </div>
-                </div>
-                <div class="itemMusic">
-                    <span class="viewMusic">
-                        <i class="fas fa-headphones"></i> 300.000
-                    </span>
-                    <a href="" style="font-size: 18px;"><img src="@Url.Content("~/Content/ClientMusic/")img/avt.png" alt="" class="imgMusic">Tên bài hát</a>
-                    <div class="nameSinger">
-                        <a href="">Ca sĩ 1</a>,
-                        <a href="">Ca sĩ 2</a>
-                    </div>
-                </div>
-                <div class="itemMusic">
-                    <span class="viewMusic">
-                        <i class="fas fa-headphones"></i> 300.000
-                    </span>
-                    <a href="" style="font-size: 18px;"><img src="@Url.Content("~/Content/ClientMusic/")img/avt.png" alt="" class="imgMusic">Tên bài hát</a>
-                    <div class="nameSinger">
-                        <a href="">Ca sĩ 1</a>,
-                        <a href="">Ca sĩ 2</a>
-                    </div>
-                </div>
+                }
             </div>
         </div>
         <!--New Song-->
@@ -79,66 +46,22 @@
         <div style="margin-top: 10px;">
             <label for="" class="lblMusic">MV mới</label>
             <div class="listMusic">
-                <div class="itemMusic">
-                    <span class="viewMusic">
-                        <i class="fas fa-headphones"></i> 300.000
-                    </span>
-                    <a href="" style="font-size: 18px;"><img src="@Url.Content("~/Content/ClientMusic/")img/avt.png" alt="" class="imgMusic">Tên bài hát</a>
-                    <div class="nameSinger">
-                        <a href="">Ca sĩ 1</a>,
-                        <a href="">Ca sĩ 2</a>
+                @foreach (var item in listMV)
+                {
+                    <div class="itemMusic">
+                        <span class="viewMusic">
+                            <i class="fas fa-headphones"></i> @item.MusicView
+                        </span>
+
+                        <a href="" style="font-size: 18px;"><img src="@item.LinkImage" alt="" class="imgMusic">@item.MusicName</a>
+                        <div class="nameSinger">
+                            <a href="">@item.UserDto.UserName</a>,
+                            <a href=""></a>
+                        </div>
+
+
                     </div>
-                </div>
-                <div class="itemMusic">
-                    <span class="viewMusic">
-                        <i class="fas fa-headphones"></i> 300.000
-                    </span>
-                    <a href="" style="font-size: 18px;"><img src="@Url.Content("~/Content/ClientMusic/")img/avt.png" alt="" class="imgMusic">Tên bài hát</a>
-                    <div class="nameSinger">
-                        <a href="">Ca sĩ 1</a>,
-                        <a href="">Ca sĩ 2</a>
-                    </div>
-                </div>
-                <div class="itemMusic">
-                    <span class="viewMusic">
-                        <i class="fas fa-headphones"></i> 300.000
-                    </span>
-                    <a href="" style="font-size: 18px;"><img src="@Url.Content("~/Content/ClientMusic/")img/avt.png" alt="" class="imgMusic">Tên bài hát</a>
-                    <div class="nameSinger">
-                        <a href="">Ca sĩ 1</a>,
-                        <a href="">Ca sĩ 2</a>
-                    </div>
-                </div>
-                <div class="itemMusic">
-                    <span class="viewMusic">
-                        <i class="fas fa-headphones"></i> 300.000
-                    </span>
-                    <a href="" style="font-size: 18px;"><img src="@Url.Content("~/Content/ClientMusic/")img/avt.png" alt="" class="imgMusic">Tên bài hát</a>
-                    <div class="nameSinger">
-                        <a href="">Ca sĩ 1</a>,
-                        <a href="">Ca sĩ 2</a>
-                    </div>
-                </div>
-                <div class="itemMusic">
-                    <span class="viewMusic">
-                        <i class="fas fa-headphones"></i> 300.000
-                    </span>
-                    <a href="" style="font-size: 18px;"><img src="@Url.Content("~/Content/ClientMusic/")img/avt.png" alt="" class="imgMusic">Tên bài hát</a>
-                    <div class="nameSinger">
-                        <a href="">Ca sĩ 1</a>,
-                        <a href="">Ca sĩ 2</a>
-                    </div>
-                </div>
-                <div class="itemMusic">
-                    <span class="viewMusic">
-                        <i class="fas fa-headphones"></i> 300.000
-                    </span>
-                    <a href="" style="font-size: 18px;"><img src="@Url.Content("~/Content/ClientMusic/")img/avt.png" alt="" class="imgMusic">Tên bài hát</a>
-                    <div class="nameSinger">
-                        <a href="">Ca sĩ 1</a>,
-                        <a href="">Ca sĩ 2</a>
-                    </div>
-                </div>
+                }
             </div>
         </div>
         <!--New MV-->
@@ -161,13 +84,10 @@
     <label for="" style="font-size: 18px;text-transform: uppercase;">Liên kết và hợp tác</label>
     <div id="slideImg">
         <div id="owl-wrapper">
-            <img class="imgItem" src="@Url.Content("~/Content/ClientMusic/")img/logo-edit.png">
-            <img class="imgItem" src="@Url.Content("~/Content/ClientMusic/")img/avt.png">
-            <img class="imgItem" src="@Url.Content("~/Content/ClientMusic/")img/logo-edit.png">
-            <img class="imgItem" src="@Url.Content("~/Content/ClientMusic/")img/avt.png">
-            <img class="imgItem" src="@Url.Content("~/Content/ClientMusic/")img/logo-edit.png">
-            <img class="imgItem" src="@Url.Content("~/Content/ClientMusic/")img/avt.png">
-            <img class="imgItem" src="@Url.Content("~/Content/ClientMusic/")img/logo-edit.png">
+            @foreach (var item in listPartner)
+            {
+                <img class="imgItem" src="@item.LinkImage">            
+            }
         </div>
         <div id="controlImg">
             <div id="btnPrev">

@@ -1,4 +1,10 @@
-﻿<div class="header-top-area">
+﻿@using ModelViews.DTOs
+@{
+    List<CategoryDTO> listCate = ViewBag.getCate;
+    List<CategoryDTO> listSubCate = ViewBag.getSubCate;
+    List<CategoryDTO> listChuDe = ViewBag.getTheoChuDe;
+}
+<div class="header-top-area">
     <div class="container">
         <div class="row">
             <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
@@ -13,19 +19,26 @@
                                             <i class="fa fa-music"></i> Bài Hát
                                         </a>
                                         <ul class="dropdown-menu">
-                                            <li><a href="#">Level 1</a></li>
-                                            <li class="dropdown-submenu">
-                                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Hover ở đây</a>
-                                                <!-- Level 2 -->
-                                                <ul>
-                                                    <li><a href="playMusic.html">Click đây</a></li>
-                                                    <li><a href="#">Level 2</a></li>
-                                                    <li><a href="#">Level 2</a></li>
-                                                    <li><a href="#">Level 2</a></li>
-                                                    <li><a href="#">Level 2</a></li>
-                                                    <li><a href="#">Level 2</a></li>
-                                                </ul>
-                                            </li>
+                                            @foreach (var itemSub in listCate)
+                                            {
+                                                @*<li><a href="#">@itemSub.CateName</a></li>*@
+                                                <li class="dropdown-submenu">
+                                                    <a href="#" style="font-weight:600" class="dropdown-toggle" data-toggle="dropdown">@itemSub.CateName</a>
+                                                    <!-- Level 2 -->
+
+                                                    @foreach (var item in listSubCate)
+                                                    {
+                                                        if (item.ID_root == itemSub.ID)
+                                                        {
+                                                            <ul>
+                                                                <li><a href="playMusic.html">@item.CateName</a></li>
+
+                                                            </ul>
+                                                        }
+                                                    }
+
+                                                </li>
+                                            }
                                         </ul>
                                     </li>
                                     <li class="dropdown">
@@ -34,46 +47,51 @@
                                             Video
                                         </a></a>
                                         <ul class="dropdown-menu">
-                                            <li><a href="#">Level 1</a></li>
-                                            <li class="dropdown-submenu">
-                                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">HOver ở đây</a>
-                                                <!-- Level 2 -->
-                                                <ul>
-                                                    <li><a href="playMusic.html">Click đây</a></li>
-                                                    <li><a href="#">Level 2</a></li>
-                                                    <li><a href="#">Level 2</a></li>
-                                                    <li><a href="#">Level 2</a></li>
-                                                    <li><a href="#">Level 2</a></li>
-                                                    <li><a href="#">Level 2</a></li>
-                                                </ul>
-                                            </li>
+                                            @foreach (var item in listCate)
+                                            {
+                                                @*<li><a href="#">@itemSub.CateName</a></li>*@
+                                                <li class="dropdown-submenu">
+                                                    <a href="#" style="font-weight:600" class="dropdown-toggle" data-toggle="dropdown">@item.CateName</a>
+                                                    <!-- Level 2 -->
+
+                                                    @foreach (var itemSub in listSubCate)
+                                                    {
+                                                        if (itemSub.ID_root == item.ID)
+                                                        {
+                                                            <ul>
+                                                                <li><a href="playMusic.html">@itemSub.CateName</a></li>
+
+                                                            </ul>
+                                                        }
+                                                    }
+
+                                                </li>
+                                            }
                                         </ul>
                                     </li>
                                     <li class="dropdown">
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                             <i class="fa fa-th-list"></i> Chủ đề
                                         </a>
-                                        <ul class="dropdown-menu">
-                                            <li><a href="#">Level 1</a></li>
-                                            <li class="dropdown-submenu">
-                                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">HOver ở đây</a>
-                                                <!-- Level 2 -->
-                                                <ul>
-                                                    <li><a href="listPlaylistByCate.html">Click đây</a></li>
-                                                    <li><a href="#">Level 2</a></li>
-                                                    <li><a href="#">Level 2</a></li>
-                                                    <li><a href="#">Level 2</a></li>
-                                                </ul>
-                                            </li>
+                                        <ul class="dropdown-menu" style="height:250px;overflow:auto">
+                                            <!-- Level 2 -->
+                                            @foreach (var item in listChuDe)
+                                            {
+                                                <li><a href="#">@item.CateName</a></li>
+                                            }
+
                                         </ul>
                                     </li>
                                     <li class="dropdown">
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                             <i class="notika-icon notika-bar-chart"></i> BXH
                                         </a>
-                                        <ul class="dropdown-menu">
-                                            <li><a href="bxh.html"> Việt Nam</a></li>
-                                            <li><a href="#"> Âu Mỹ</a></li>
+                                        <ul class="dropdown-menu" style="height:250px;overflow:auto">
+                                            @foreach (var item in listCate)
+                                            {
+                                                <li><a href="bxh.html"> @item.CateName</a></li>       
+                                            }
+
                                         </ul>
                                     </li>
 

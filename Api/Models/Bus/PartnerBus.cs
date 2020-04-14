@@ -17,16 +17,17 @@ namespace Api.Models.Bus
         {
             baseUrl = "https://localhost:44315/File/ImagePartner/";
         }
-        public IEnumerable<Partner> GetAllPartner()
+        public IEnumerable<PartnerDTO> GetAllPartner()
         {
-            var data = new PartnerDao().GetAllPartner().Select(s => new Partner
+            var data = new PartnerDao().GetAllPartner().Select(s => new PartnerDTO
             {
                 ID = s.ID,
                 PartnerActive = s.PartnerActive,
                 PartnerDayCreate = s.PartnerDayCreate,
                 PartnerImage = s.PartnerImage,
                 PartnerLink = s.PartnerLink,
-                PartnerName = s.PartnerName
+                PartnerName = s.PartnerName,
+                LinkImage = baseUrl + s.PartnerImage,
             });
             return data;
         }

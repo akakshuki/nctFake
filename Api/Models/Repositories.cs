@@ -190,7 +190,7 @@ namespace Api.Models
 
         #region Partner
 
-        public IEnumerable<Partner> GetAllPartner()
+        public IEnumerable<PartnerDTO> GetAllPartner()
         {
             return new PartnerBus().GetAllPartner();
         }

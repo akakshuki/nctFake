@@ -86,22 +86,22 @@ namespace AppAdmin.Controllers
                 }
                 else
                 {
-                    //delete file
-                    var filePath = Server.MapPath(path + currentFileName);
-                    if (System.IO.File.Exists(filePath))
-                    {
-                        System.IO.File.Delete(filePath);
-                    }
-
+   
                     if (qualityMusic.FileQ != null)
                     {
+                        //delete file
+                        var filePath = Server.MapPath(path + currentFileName);
+                        if (System.IO.File.Exists(filePath))
+                        {
+                            System.IO.File.Delete(filePath);
+                        }
                         qualityMusic.MusicFile = DateTime.Now.Ticks + qualityMusic.MusicFile + ".png";
                         qualityMusic.FileQ.SaveAs(Server.MapPath(path + qualityMusic.MusicFile));
                         qualityMusic.FileQ = null;
                     }
                     else
                     {
-                        qualityMusic.MusicFile = "default.png";
+                        qualityMusic.MusicFile = currentFileName;
                     }
                 }
                 var data = ApiService.UpdateQualityMusic(qualityMusic);

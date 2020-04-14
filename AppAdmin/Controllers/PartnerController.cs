@@ -77,22 +77,24 @@ namespace AppAdmin.Controllers
                 }
                 else
                 {
-                    //delete file
-                    var filePath = Server.MapPath(path + currentFileName);
-                    if (System.IO.File.Exists(filePath))
-                    {
-                        System.IO.File.Delete(filePath);
-                    }
+             
+
 
                     if (partner.FileImage != null)
                     {
+                        //delete file
+                        var filePath = Server.MapPath(path + currentFileName);
+                        if (System.IO.File.Exists(filePath))
+                        {
+                            System.IO.File.Delete(filePath);
+                        }
                         partner.PartnerImage = DateTime.Now.Ticks + partner.PartnerImage + ".png";
                         partner.FileImage.SaveAs(Server.MapPath(path + partner.PartnerImage));
                         partner.FileImage = null;
                     }
                     else
                     {
-                        partner.PartnerImage = "default.png";
+                        partner.PartnerImage = currentFileName;
                     }
                 }
                 var data = ApiService.UpdatePartner(partner);

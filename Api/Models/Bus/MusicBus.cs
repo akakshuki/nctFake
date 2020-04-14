@@ -109,7 +109,7 @@ namespace Api.Models.Bus
                     MusicNameUnsigned = music.MusicNameUnsigned,
                     MusicView = music.MusicView,
                     ID = music.ID,
-
+                    LinkImage = baseUrl + music.MusicImage,
                     //need User
                     UserDto = new UserBus().GetUserDtoById(music.UserID)
                 })
@@ -137,6 +137,7 @@ namespace Api.Models.Bus
                     CategoryId = music.CategoryId,
                     MusicView = music.MusicView,
                     ID = music.ID,
+                    LinkImage = baseUrl + music.MusicImage,
                     //need User
                     UserDto = new UserBus().GetUserDtoById(music.UserID),
                     SingerMusicDtOs = new SingerMusicDao()
@@ -234,7 +235,7 @@ namespace Api.Models.Bus
                     MusicView = music.MusicView,
                     ID = music.ID,
                     //Edit later
-                    LinkImage = baseUrl + music.MusicImage,
+                    
                     UserDto = new UserBus().GetUserDtoById(music.UserID),
 
 
