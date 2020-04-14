@@ -534,5 +534,10 @@ namespace Api.Models
         {
           return new OrderVipBus().GetAllOrderVip();
         }
+
+        public void UserResetPassword(string email)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
