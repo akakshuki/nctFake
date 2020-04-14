@@ -56,7 +56,7 @@ namespace AppAdmin.Controllers
                 return RedirectToAction("ViewCreate", new { id = qualityMusic.MusicID });
             }
             catch (Exception e)
-            {               
+            {
                 Console.WriteLine(e.Message);
                 return RedirectToAction("Index");
             }
@@ -66,7 +66,7 @@ namespace AppAdmin.Controllers
         [HttpPost]
         public ActionResult Update(QualityMusicDTO qualityMusic)
         {
-              try
+            try
             {
                 //get Image have exist
                 var currentFileName = ApiService.GetQualityMusicById(qualityMusic.ID).MusicFile;

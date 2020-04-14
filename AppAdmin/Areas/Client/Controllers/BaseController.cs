@@ -3,16 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using AppAdmin.Models.Service;
 
-namespace AppAdmin.Controllers
+namespace AppAdmin.Areas.Client.Controllers
 {
-    public class OrderVipController : Controller
+    public class BaseController : Controller
     {
-        // GET: OrderVip
+        // GET: Client/Base
         public ActionResult Index()
         {
-            ViewBag.ListOrderVip = ApiService.GetAllListOrderVip();
             return View();
         }
     }

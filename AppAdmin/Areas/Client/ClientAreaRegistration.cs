@@ -18,6 +18,10 @@ namespace AppAdmin.Areas.Client
                 "Client_default",
                 "Client/{controller}/{action}/{id}",
                 new { action = "Index", id = UrlParameter.Optional }
+                //new[]
+                //{
+                //    ""
+                //}
             );
         }
     }

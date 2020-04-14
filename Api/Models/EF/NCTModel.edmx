@@ -29,6 +29,9 @@
           <Property Name="LMusicDetail" Type="nvarchar(max)" Nullable="false" />
           <Property Name="MusicID" Type="int" Nullable="false" />
           <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="WaitApproval" Type="bit" Nullable="false" />
+          <Property Name="NotApproved" Type="bit" Nullable="false" />
+          <Property Name="NewNotice" Type="bit" Nullable="false" />
           <Property Name="LMusicDayCreate" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="Music">
@@ -82,7 +85,7 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="PaymentName" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="Playlist">
@@ -174,7 +177,7 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="UserName" Type="nvarchar" MaxLength="500" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="500" Nullable="false" />
           <Property Name="UserDOB" Type="date" />
           <Property Name="UserGender" Type="bit" />
           <Property Name="UserVIP" Type="bit" Nullable="false" />
@@ -441,6 +444,9 @@
           <Property Name="LMusicDetail" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="MusicID" Type="Int32" Nullable="false" />
           <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="WaitApproval" Type="Boolean" Nullable="false" />
+          <Property Name="NotApproved" Type="Boolean" Nullable="false" />
+          <Property Name="NewNotice" Type="Boolean" Nullable="false" />
           <Property Name="LMusicDayCreate" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="Music" Relationship="Self.FK_LyricsMusic_Music" FromRole="LyricsMusic" ToRole="Music" />
         </EntityType>
@@ -504,7 +510,7 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="PaymentName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="OrderVips" Relationship="Self.FK_OrderVip_Payment" FromRole="Payment" ToRole="OrderVip" />
         </EntityType>
@@ -604,7 +610,7 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="UserName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="UserDOB" Type="DateTime" Precision="0" />
           <Property Name="UserGender" Type="Boolean" />
           <Property Name="UserVIP" Type="Boolean" Nullable="false" />
@@ -875,6 +881,9 @@
                 <ScalarProperty Name="LMusicDetail" ColumnName="LMusicDetail" />
                 <ScalarProperty Name="MusicID" ColumnName="MusicID" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="WaitApproval" ColumnName="WaitApproval" />
+                <ScalarProperty Name="NotApproved" ColumnName="NotApproved" />
+                <ScalarProperty Name="NewNotice" ColumnName="NewNotice" />
                 <ScalarProperty Name="LMusicDayCreate" ColumnName="LMusicDayCreate" />
               </MappingFragment>
             </EntityTypeMapping>

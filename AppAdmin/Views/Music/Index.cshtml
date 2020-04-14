@@ -115,13 +115,12 @@
                                 <td>@item.MusicDayCreate</td>
                                 <td>
                                     @{if (item.SongOrMV)
-                                            { <p>Songs</p>}
+                                        { <p>Songs</p>}
                                         else
                                         {
                                             <p>MV</p>
                                         }
                                     }
-
                                 </td>
                                 <td>
                                     <a href="@Url.Action("Edit","Music",new {id = item.ID})" class="btn btn-round btn-success">
@@ -130,7 +129,7 @@
                                     <a href="@Url.Action("Delete","Music",new {id =@item.ID})" class="btn btn-round btn-danger">
                                         <i class="fa fa-trash-o "></i>
                                     </a>
-                                    <a href="@Url.Action("Index","LyricsMusic",new {id =@item.ID})" class="btn btn-round btn-success">
+                                   
                                     <a href="@Url.Action("Index","LyricsMusic",new {id =@item.ID})" class="btn btn-round  btn-success">
                                         Lyrics Music
                                     </a>
