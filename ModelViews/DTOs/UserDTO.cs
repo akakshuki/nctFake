@@ -41,4 +41,16 @@ namespace ModelViews.DTOs
 
 
     }
+
+    public class ResetPassword
+    {
+        public string Email { get; set; }
+        [Required(ErrorMessage = "Chưa nhập mã số bí mật")]
+        public string SerectCode { get; set; }
+        [Required(ErrorMessage = "Hãy nhập mật khẩu mới")]
+        public string NewPassword { get; set; }
+        [Compare("Password", ErrorMessage = "Mật khẩu mới không khớp")]
+        [Required(ErrorMessage = "Hãy nhập mật khẩu mới")]
+        public string ConfirmNewPassword { get; set; }
+    }
 }
