@@ -19,7 +19,9 @@ namespace Api.Models.Bus
                 PlaylistID = s.PlaylistID,
                 MusicDto = new MusicDTO
                 {
+                    ID = s.Music.ID,
                     MusicName = s.Music.MusicName
+
                 }
             });
             return data;

@@ -194,7 +194,6 @@
     <Compile Include="Areas\Admin\Controllers\QualityController.cs" />
     <Compile Include="Areas\Admin\Controllers\QualityMusicController.cs" />
     <Compile Include="Areas\Admin\Controllers\RankController.cs" />
-    <Compile Include="Areas\Admin\Controllers\TestController.cs" />
     <Compile Include="Areas\Client\ClientAreaRegistration.cs" />
     <Compile Include="Areas\Client\Controllers\UserClientController.cs" />
     <Compile Include="Areas\HelpPage\ApiDescriptionExtensions.cs" />

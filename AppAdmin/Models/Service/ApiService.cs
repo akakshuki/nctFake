@@ -1458,16 +1458,15 @@ namespace AppAdmin.Models.Service
             return 0;
         }
         public static UserDTO GetIdLogin(string email)
-         {
+        {
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri("https://localhost:44384/api/User/GetIdLogin/" + email.ToString());
-                var responseTask = client.GetAsync(client.BaseAddress);
-                responseTask.Wait();
-                var result = responseTask.Result;
-                if (result.IsSuccessStatusCode)
+                client.DefaultRequestHeaders.Accept.Clear();
+                var response = client.PostAsync("https://localhost:44384/api/User/GetIdLogin", new StringContent(
+                    new JavaScriptSerializer().Serialize(email), Encoding.UTF8, "application/json")).Result;
+                if (response.StatusCode == System.Net.HttpStatusCode.OK)
                 {
-                    var readTask = JsonConvert.DeserializeObject<UserDTO>(result.Content.ReadAsStringAsync().Result);
+                    var readTask = JsonConvert.DeserializeObject<UserDTO>(response.Content.ReadAsStringAsync().Result);
                     return readTask;
                 }
             }

@@ -152,7 +152,7 @@ namespace Api.Models.Dao
         }
         public UserDTO GetIdLogin(string email)
         {
-            var data = db.Users.Select(x => new UserDTO { UserEmail = x.UserEmail, ID = x.ID, UserName = x.UserName }).SingleOrDefault(x => x.UserEmail == email);
+            var data = db.Users.Select(x => new UserDTO { UserEmail = x.UserEmail, ID = x.ID, UserName = x.UserName , DayVipEnd = x.DayVipEnd}).SingleOrDefault(x => x.UserEmail == email);
             return data;
         }
         #endregion

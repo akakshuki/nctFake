@@ -122,7 +122,7 @@ namespace AppAdmin.Areas.Client.Controllers
                     userSession.ID = user.ID;
                     userSession.UserEmail = user.UserEmail;
                     Session.Add(CommonConstants.USER_SESSION, userSession);
-                    return RedirectToAction("ListSinger", "User");
+                    return View("ViewCreateCate","User");
                 }
                 else if (result == -3)
                 {

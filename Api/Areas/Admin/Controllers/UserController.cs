@@ -10,8 +10,8 @@ namespace Api.Controllers
     [RoutePrefix("api/User")]
     public class UserController : ApiController
     {
-        [HttpGet]
-        [Route("{email:string}")]
+        [HttpPost]
+        [Route("GetIdLogin")]
         public UserDTO GetIdLogin([FromBody]string email)
         {
             var data = new UserDao().GetIdLogin(email);

@@ -16,8 +16,17 @@ namespace Api.Models.Dao
         }
         public LyricsMusic GetLyricByIdMusic(int id)
         {
-            var data = db.LyricsMusics.SingleOrDefault(s=>s.MusicID == id);
-            return data;
+            try
+            {
+                var data = db.LyricsMusics.SingleOrDefault(s => s.MusicID == id);
+                return data;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+
         }
         public LyricsMusic GetLyricById(int id)
         {
