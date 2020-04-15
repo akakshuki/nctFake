@@ -91,7 +91,7 @@ namespace AppAdmin.Areas.Client.Controllers
             }
             SetAlert("Email already exists!", "error");
             return RedirectToAction("Login");
-        }
+        }     
         [HttpPost]
         public async Task<ActionResult> CreateResetPassword(string email)
         {
@@ -136,7 +136,7 @@ namespace AppAdmin.Areas.Client.Controllers
                     await smtpServer.SendMailAsync(MyMailMessage);
 
 
-                    //   TempData["Sucees"] = "Gửi thành công";
+                 //   TempData["Sucees"] = "Gửi thành công";
                     return RedirectToAction("ResetPassword", "Login", new
                     {
                         email = email
@@ -145,7 +145,7 @@ namespace AppAdmin.Areas.Client.Controllers
                 else
                 {
                     TempData["error"] = "Email chưa có trong hệ thống";
-                    return RedirectToAction("Login");
+                    return   RedirectToAction("Login");
                 }
 
             }
@@ -153,10 +153,10 @@ namespace AppAdmin.Areas.Client.Controllers
             {
                 Console.WriteLine(e);
                 TempData["error"] = $"{e.Message}";
-                return RedirectToAction("Login");
+               return RedirectToAction("Login");
             }
 
-
+        
 
         }
 
@@ -220,7 +220,7 @@ namespace AppAdmin.Areas.Client.Controllers
                     SetAlert("No account or password has been entered!", "warning");
                     //ModelState.AddModelError("", "Đăng nhập không đúng!");
                 }
-            }
+            }   
             return RedirectToAction("Login");
         }
         public UserDTO GetIdLogin(string email)
@@ -242,9 +242,9 @@ namespace AppAdmin.Areas.Client.Controllers
                 return null;
             }
 
-            //ViewBag.email = email;
+            ViewBag.email = email;
 
-            //return View();
+            return View();
 
         }
         [HttpPost]
@@ -255,19 +255,18 @@ namespace AppAdmin.Areas.Client.Controllers
             if (data != null)
             {
                 if (!data.Value.Equals(serectCode))
-                    return RedirectToAction("ResetPassword", "Login", new { email = email });
+                    return RedirectToAction("CreateResetPassword", "Login", new { email = email });
                 if (await ApiServiceClient.UserChangePassword(new UserDTO()
                 {
                     UserPwd = newPassword,
                     UserEmail = email
                 }))
                 {
-                    Response.Cookies[email].Expires = DateTime.Now.AddDays(-1);
                     TempData["success"] = "Đổi mật khẩu thành công";
                     return RedirectToAction("Login");
                 }
 
-
+                
             }
 
             TempData["error"] = "Đổi mật khẩu không thành công";

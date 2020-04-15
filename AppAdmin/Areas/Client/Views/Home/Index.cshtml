@@ -3,8 +3,8 @@
     ViewBag.Title = "Index";
     Layout = "~/Areas/Client/Views/Shared/_LayoutClient.cshtml";
     List<MusicDTO> listSong = ViewBag.GetTop10SongNew;
-    List<MusicDTO> listMVs = ViewBag.GetTop10MVNew;
-    List<MusicDTO> singerMusic = ViewBag.GetSinger;
+    List<MusicDTO> listMV = ViewBag.GetTop10MVNew;
+    List<MusicDTO> SingerMusic = ViewBag.GetSinger;
     List<PartnerDTO> listPartner = ViewBag.GetPartner;
     List<CategoryDTO> randomCate = ViewBag.RandomTheoChuDe;
 
@@ -26,7 +26,7 @@
                         <a href="@Url.Action("Index","playMusic", new { id = item.ID})" style="font-size: 18px;"><img src="@item.LinkImage" alt="" class="imgMusic">@item.MusicName</a>
                         <div class="nameSinger">
                             <a href="PersonalSinger.html">@item.UserDto.UserName</a>
-                            @foreach (var itemSinger in singerMusic)
+                            @foreach (var itemSinger in SingerMusic)
                             {
                                 if (itemSinger.ID == item.ID)
                                 {
@@ -47,7 +47,7 @@
         <div style="margin-top: 10px;">
             <label for="" class="lblMusic">MV mới</label>
             <div class="listMusic">
-                @foreach (var item in listMVs)
+                @foreach (var item in listMV)
                 {
                     <div class="itemMusic">
                         <span class="viewMusic">

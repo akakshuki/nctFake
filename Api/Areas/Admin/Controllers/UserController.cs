@@ -5,13 +5,13 @@ using ModelViews.DTOs;
 using System.Collections.Generic;
 using System.Web.Http;
 
-namespace Api.Areas.Admin.Controllers
+namespace Api.Controllers
 {
     [RoutePrefix("api/User")]
     public class UserController : ApiController
     {
         [HttpGet]
-        [Route("GetIdLogin/{email}")]
+        [Route("{email:string}")]
         public UserDTO GetIdLogin([FromBody]string email)
         {
             var data = new UserDao().GetIdLogin(email);

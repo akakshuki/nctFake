@@ -135,9 +135,9 @@
                     </div>
                     <input type="submit" value="Đăng kí" style="margin-top: 10px;height: 30px;color: black; background-color: #00c292;  border-radius: 10%; border: 3px solid white;  font-size: 18px;">
                 </form>
-                @*<a href="" style="font-size: 18px;color: black;"><i class="fa fa-facebook-square" style="color: blue;"></i>  Đăng kí bằng Facebook</a>
-                <br/>
-                <a href="" style="font-size: 18px;color: black;"><i class="fa fa-google-plus-square" style="color: red;"></i> Đăng kí bằng Google</a>*@
+                <a href="" style="font-size: 18px;color: black;"><i class="fa fa-facebook-square" style="color: blue;"></i>  Đăng kí bằng Facebook</a>
+                <br />
+                <a href="" style="font-size: 18px;color: black;"><i class="fa fa-google-plus-square" style="color: red;"></i> Đăng kí bằng Google</a>
                 <a href="#l-login" data-ma-action="nk-login-switch" data-ma-block="#l-login"
                    class="btn btn-login btn-success btn-float"><i class="notika-icon notika-right-arrow"></i></a>
             </div>
@@ -163,10 +163,10 @@
                     <div class="input-group">
                         <span class="input-group-addon nk-ic-st-pro"><i class="notika-icon notika-mail"></i></span>
                         <div class="nk-int-st">
-                            <input type="email" name="email" class="form-control" placeholder="Email Address">
+                            <input type="text" name="email" class="form-control" placeholder="Email Address">
                         </div>
                     </div>
-                    <input type="submit" value="Xác nhận" style="margin-top: 10px;height: 30px;color: white; background-color: cadetblue;font-size: 18px;" required>
+                    <input type="submit" value="Xác nhận" style="margin-top: 10px;height: 30px;color: white; background-color: cadetblue;font-size: 18px;">
                 </form>
                 <a href="#l-login" data-ma-action="nk-login-switch" data-ma-block="#l-login"
                    class="btn btn-login btn-success btn-float"><i class="notika-icon notika-right-arrow"></i></a>
@@ -259,7 +259,7 @@
     <script src="~/Content/ClientMusic/js/login/login-action.js"></script>
     <!-- tawk chat JS
       ============================================ -->
-    
+    <script src="~/Content/ClientMusic/js/tawk-chat.js"></script>
 
     <script src="~/Scripts/alertify.min.js"></script>
         (function (d, s, id) {
@@ -276,17 +276,6 @@
             $('#AlertBox').delay(1000).slideUp(500);
         });
     </script>
-@{
-    <script>
-        $(function() {
-            var msg = '@TempData["success"]';
-            if (msg != '') {
-                alertify.success(msg);
-            }
-        })
-    </script>                                                
-    }
- 
 </body>
 
 </html>

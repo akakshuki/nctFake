@@ -237,7 +237,9 @@ namespace Api.Models.Bus
                     //Edit later
                     
                     UserDto = new UserBus().GetUserDtoById(music.UserID),
-                    
+
+
+
                     SingerMusicDtOs = new SingerMusicDao()
                         .GetAll()
                         .Where(x => x.MusicID == music.ID)
