@@ -162,13 +162,14 @@ namespace AppAdmin.Areas.Client.Controllers
             if (data != null)
             {
                 if (!data.Value.Equals(serectCode))
-                    return RedirectToAction("CreateResetPassword", "Login", new { email = email });
+                    return RedirectToAction("ResetPassword", "Login", new { email = email });
                 if (await ApiServiceClient.UserChangePassword(new UserDTO()
                 {
                     UserPwd = newPassword,
                     UserEmail = email
                 }))
                 {
+                    Response.Cookies[email].Expires = DateTime.Now.AddDays(-1);
                     TempData["success"] = "Đổi mật khẩu thành công";
                     return RedirectToAction("Login");
                 }
