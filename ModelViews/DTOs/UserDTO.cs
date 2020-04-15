@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -12,7 +13,10 @@ namespace ModelViews.DTOs
         public DateTime? UserDOB { get; set; }
         public bool? UserGender { get; set; }
         public bool UserVIP { get; set; }
+        [Required(ErrorMessage = "Hãy nhập email")]
         public string UserEmail { get; set; }
+        [Required(ErrorMessage = "Hãy nhập password")]
+        [DataType(DataType.Password)]
         public string UserPwd { get; set; }
         public string UserDescription { get; set; }
         public string UserNameUnsigned { get; set; }

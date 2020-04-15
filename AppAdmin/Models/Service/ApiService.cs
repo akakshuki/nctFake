@@ -1439,5 +1439,40 @@ namespace AppAdmin.Models.Service
                 JsonConvert.DeserializeObject<List<OrderVipDTO>>(result.Content.ReadAsStringAsync().Result);
             return readTask.ToList();
         }
+        #region Login
+        public static int Login(string email, string passWord)
+        {
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("https://localhost:44384/api/User/Login/" + email + "/" + passWord);
+                var responseTask = client.GetAsync(client.BaseAddress);
+                responseTask.Wait();
+                var result = responseTask.Result;
+                if (result.IsSuccessStatusCode)
+                {
+                    var readTask = JsonConvert.DeserializeObject<int>(result.Content.ReadAsStringAsync().Result);
+                    return readTask;
+                }
+            }
+
+            return 0;
+        }
+        public static UserDTO GetIdLogin(string email)
+         {
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("https://localhost:44384/api/User/GetIdLogin/" + email.ToString());
+                var responseTask = client.GetAsync(client.BaseAddress);
+                responseTask.Wait();
+                var result = responseTask.Result;
+                if (result.IsSuccessStatusCode)
+                {
+                    var readTask = JsonConvert.DeserializeObject<UserDTO>(result.Content.ReadAsStringAsync().Result);
+                    return readTask;
+                }
+            }
+            return null;
+        }
+        #endregion
     }
 }

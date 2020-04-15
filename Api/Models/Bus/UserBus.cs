@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using ModelViews.DTOs;
 
 namespace Api.Models.Bus
 {
@@ -181,23 +180,28 @@ namespace Api.Models.Bus
 
             try
             {
-                var data = new UserDao().CreateUser(new User()
+                ProjectNCTEntities db = new ProjectNCTEntities();
+                if (db.Users.Where(s => s.UserEmail == userDTO.UserEmail).Count() <= 0)
                 {
-                    UserNameUnsigned = userDTO.UserNameUnsigned,
-                    UserDescription = userDTO.UserDescription,
-                    UserImage = userDTO.UserImage,
-                    UserPwd = userDTO.UserPwd,
-                    UserEmail = userDTO.UserEmail,
-                    UserGender = userDTO.UserGender,
-                    UserDOB = userDTO.UserDOB,
-                    UserName = userDTO.UserName,
-                    UserVIP = false,
-                    UserActive = true,
-                    RoleID = 3,
-                    UserDayCreate = DateTime.Now,
-                    DayVipEnd = null
-                });
-                return true;
+                    var data = new UserDao().CreateUser(new User()
+                    {
+                        UserNameUnsigned = userDTO.UserNameUnsigned,
+                        UserDescription = userDTO.UserDescription,
+                        UserImage = userDTO.UserImage,
+                        UserPwd = userDTO.UserPwd,
+                        UserEmail = userDTO.UserEmail,
+                        UserGender = userDTO.UserGender,
+                        UserDOB = userDTO.UserDOB,
+                        UserName = userDTO.UserName,
+                        UserVIP = false,
+                        UserActive = true,
+                        RoleID = 3,
+                        UserDayCreate = DateTime.Now,
+                        DayVipEnd = null
+                    });
+                    return true;
+                }
+                return false;
             }
             catch (Exception e)
             {
