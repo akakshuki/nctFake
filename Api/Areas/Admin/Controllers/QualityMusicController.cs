@@ -25,6 +25,9 @@ namespace Api.Areas.Admin.Controllers
         {
             return new Repositories().GetQualityMusicById(id);
         }
+
+
+
         // GET api/<controller>/5
         [Route("GetFileByIdMusic/{id}")]
         public IEnumerable<QualityMusicDTO> GetFileByIdMusic(int id)
