@@ -6,10 +6,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using AppAdmin.Common;
 using AppAdmin.Areas.Client.Models.ServiceClient;
 using Facebook;
 using ModelViews.DTOs;
 using ApiService = AppAdmin.Models.Service.ApiService;
+
 
 namespace AppAdmin.Areas.Client.Controllers
 {
@@ -79,6 +81,17 @@ namespace AppAdmin.Areas.Client.Controllers
         {
             return View();
         }
+        public ActionResult CreateAccount(UserDTO userDTO)
+        {
+            var data = ApiService.CreateUser(userDTO);
+            if (data != null)
+            {
+                SetAlert("Register success!", "success");
+                return RedirectToAction("Login");
+            }
+            SetAlert("Email already exists!", "error");
+            return RedirectToAction("Login");
+        }     
         [HttpPost]
         public async Task<ActionResult> CreateResetPassword(string email)
         {
@@ -149,6 +162,86 @@ namespace AppAdmin.Areas.Client.Controllers
 
         public ActionResult ResetPassword(string email)
         {
+
+            return View();
+        }
+        protected void SetAlert(string message, string type)
+        {
+            TempData["AlertMessage"] = message;
+            if (type == "success")
+            {
+                TempData["AlertType"] = "alert-success";
+            }
+            else if (type == "warning")
+            {
+                TempData["AlertType"] = "alert-warning";
+            }
+            else if (type == "error")
+            {
+                TempData["AlertType"] = "alert-danger";
+            }
+        }
+        //Encryptor.MD5Hash(userDTO.UserPwd),
+        public ActionResult LoginUser(UserDTO userDTO)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = ApiService.Login(userDTO.UserEmail, userDTO.UserPwd);
+                if (result == 1)
+                {
+                    var user = GetIdLogin(userDTO.UserEmail);
+                    var userSession = new UserDTO();
+                    userSession.ID = user.ID;
+                    userSession.UserEmail = user.UserEmail;
+                    Session.Add(CommonConstants.USER_SESSION, userSession);
+                    return RedirectToAction("ListSinger", "User");
+                }
+                else if (result == -3)
+                {
+                    var user = GetIdLogin(userDTO.UserEmail);
+                    var userSession = new UserDTO();
+                    userSession.ID = user.ID;
+                    userSession.UserEmail = user.UserEmail;
+                    Session.Add(CommonConstants.USER_SESSION, userSession);
+                    return RedirectToAction("Index", "Home");
+                }
+                else if (result == 0)
+                {
+                    SetAlert("Account does not exist!", "error");
+                    //ModelState.AddModelError("", "Tài khoản không tồn tại!");
+                }
+                else if (result == -2)
+                {
+                    SetAlert("Incorrect password!", "error");
+                    //ModelState.AddModelError("", "Mật khẩu không đúng!");
+                }
+                else
+                {
+                    SetAlert("No account or password has been entered!", "warning");
+                    //ModelState.AddModelError("", "Đăng nhập không đúng!");
+                }
+            }   
+            return RedirectToAction("Login");
+        }
+        public UserDTO GetIdLogin(string email)
+        {
+            try
+            {
+                var data = ApiService.GetIdLogin(email);
+                var result = new UserDTO()
+                {
+                    ID = data.ID,
+                    UserEmail = data.UserEmail
+                };
+                return result;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                SetAlert("No account or password has been entered!", "warning");
+                return null;
+            }
+
             ViewBag.email = email;
 
             return View();
@@ -178,6 +271,7 @@ namespace AppAdmin.Areas.Client.Controllers
 
             TempData["error"] = "Đổi mật khẩu không thành công";
             return RedirectToAction("ResetPassword", "Login", new { email = email });
+
         }
     }
 }
