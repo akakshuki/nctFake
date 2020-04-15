@@ -12,6 +12,7 @@ namespace AppAdmin.Areas.Client.Controllers
         // GET: Client/Home
         public ActionResult Index()
         {
+            ViewBag.RandomTheoChuDe = ApiService.GetAllCateCon().Where(s => s.ID_root != null).Distinct().OrderBy(s=> Guid.NewGuid()).Take(5).ToList();
             ViewBag.GetPartner = ApiService.GetAllPartner();
             ViewBag.GetSinger = ApiService.GetAllMusic();
             ViewBag.GetTop10SongNew = ApiService.GetAllMusic().Where(s=> s.SongOrMV == true).OrderByDescending(s=>s.MusicDayCreate).Take(10).ToList();

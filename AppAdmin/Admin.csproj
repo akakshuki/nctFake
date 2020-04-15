@@ -154,7 +154,10 @@
     <Compile Include="Areas\Client\Controllers\BaseController.cs" />
     <Compile Include="Areas\Client\Controllers\HomeController.cs" />
     <Compile Include="Areas\Client\Controllers\LoginController.cs" />
+    <Compile Include="Areas\Client\Controllers\playMusicController.cs" />
     <Compile Include="Areas\Client\Models\ServiceClient\ApiServiceClient.cs" />
+    <Compile Include="Common\CommonConstants.cs" />
+    <Compile Include="Common\Encryptor.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LyricsMusicController.cs" />
     <Compile Include="Controllers\MusicController.cs" />
@@ -557,6 +560,7 @@
     <Content Include="Areas\Client\Views\Home\Index.cshtml" />
     <Content Include="Areas\Client\Views\Shared\NavigationMenu.cshtml" />
     <Content Include="Areas\Client\Views\Login\Login.cshtml" />
+    <Content Include="Areas\Client\Views\playMusic\Index.cshtml" />
     <Content Include="Areas\Client\Views\Login\ResetPassword.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
@@ -612,7 +616,6 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\ViewCreateCate.cshtml" />
     <Content Include="Views\Playlist\AddMusicForPlaylist.cshtml" />
-    <Content Include="Views\Playlist\ListPlaylisMusic.cshtml" />
     <Content Include="Views\User\ListFile.cshtml" />
     <Content Include="Views\Home\EditCate.cshtml" />
     <Content Include="Views\Home\EditCateIdRoot.cshtml" />

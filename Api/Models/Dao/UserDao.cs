@@ -1,5 +1,6 @@
 ﻿using Api.Models.EF;
 using Glimpse.AspNet.Tab;
+using ModelViews.DTOs;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -91,7 +92,6 @@ namespace Api.Models.Dao
             }
             return false;
         }
-
         public bool DeleteUser(int id)
         {
             var data = db.Users.SingleOrDefault(s => s.ID == id);
@@ -102,6 +102,63 @@ namespace Api.Models.Dao
             }
             return false;
         }
+ an/Client
+        #region Login
+        public int Login(string email, string passWord)
+        {
+            var result = db.Users.SingleOrDefault(x => x.UserEmail == email);
+            if (result == null)
+            {
+                return 0;
+            }
+            else
+            {
+
+                if (result.RoleID == CommonConstants.ADMIN_ROLE)
+                {
+                    if (result.UserPwd == passWord)
+                    {
+                        return 1;
+                    }
+                    else
+                    {
+                        return -2;
+                    }
+                }
+                else
+                {
+                    if (result.RoleID == CommonConstants.USER_ROLE)
+                    {
+
+                        if (result.UserPwd == passWord)
+                        {
+                            return -3;
+                        }
+                        else
+                        {
+                            return -2;
+                        }
+
+                    }
+                }
+                if (result.UserPwd == passWord)
+                {
+                    return 1;
+                }
+                else
+                {
+                    return -2;
+                }
+
+            }
+        }
+        public UserDTO GetIdLogin(string email)
+        {
+            var data = db.Users.Select(x => new UserDTO { UserEmail = x.UserEmail, ID = x.ID, UserName = x.UserName }).SingleOrDefault(x => x.UserEmail == email);
+            return data;
+        }
+        #endregion
+
 
         public void ResetPassword(UserDTO userDto)
         {
@@ -109,5 +166,6 @@ namespace Api.Models.Dao
             data.UserPwd = userDto.UserPwd;
             db.SaveChanges();
         }
+
     }
 }

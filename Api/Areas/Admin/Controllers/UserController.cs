@@ -1,4 +1,5 @@
 ﻿using Api.Models;
+using Api.Models.Dao;
 using Api.Models.EF;
 using ModelViews.DTOs;
 using System.Collections.Generic;
@@ -9,6 +10,19 @@ namespace Api.Controllers
     [RoutePrefix("api/User")]
     public class UserController : ApiController
     {
+        [HttpGet]
+        [Route("{email:string}")]
+        public UserDTO GetIdLogin([FromBody]string email)
+        {
+            var data = new UserDao().GetIdLogin(email);
+            return data;
+        }
+        [HttpGet,Route("Login/{email}/{passWord}")]
+        public int Login(string email, string passWord) 
+        {
+            var data = new UserDao().Login(email, passWord);
+            return data;
+        }
         // GET api/<controller>
         [Route("GetAllUserNormal")]
         public IEnumerable<User> GetAllUserNormal()
