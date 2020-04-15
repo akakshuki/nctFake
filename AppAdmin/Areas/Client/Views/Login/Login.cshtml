@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@model ModelViews.DTOs.UserDTO
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -56,34 +57,41 @@
 </head>
 
 <body>
+
     <!-- Login Register area Start-->
     <div class="login-content">
         <!-- Login -->
         <div class="nk-block toggled" id="l-login">
+            @if (TempData["AlertMessage"] != null)
+            {
+                <div id="AlertBox" class="alert @TempData["AlertType"]" hide>
+                    @TempData["AlertMessage"]
+                </div>
+            }
             <div class="nk-form">
-                <form action="" method="POST" style="margin-bottom: 10px;">
+                @using (Html.BeginForm("LoginUser", "Login", FormMethod.Post))
+                {
                     <div class="input-group">
+                        <div style="color:red;">                          
+                        </div>
                         <span class="input-group-addon nk-ic-st-pro"><i class="notika-icon notika-support"></i></span>
                         <div class="nk-int-st">
-                            <input type="text" class="form-control" placeholder="Your Email">
+                            <input name="UserEmail" type="text" class="form-control" placeholder="Your Email">
                         </div>
                     </div>
                     <div class="input-group mg-t-15 ">
                         <span class="input-group-addon nk-ic-st-pro"><i class="notika-icon notika-edit"></i></span>
                         <div class="nk-int-st mb-5">
-                            <input type="password" class="form-control" placeholder="Password">
+                            <input name="UserPwd" type="password" class="form-control" placeholder="Password">
                         </div>
                     </div>
                     <input type="submit" value="Đăng Nhập" style="margin-top: 10px;height: 30px;color: black; background-color: #00c292;  border-radius: 10%; border: 3px solid white;  font-size: 18px;">
-                </form>
+                }
+                        </form>
                 @*<a href="@Url.Action("LoginFacebook")" style="font-size: 18px;color: black;"><i class="fa fa-facebook-square" style="color: blue;"></i>  Đăng nhập bằng Facebook</a>
         <br />
         <a href="" style="font-size: 18px;color: black;"><i class="fa fa-google-plus-square" style="color: red;"></i> Đăng nhập bằng Google</a>*@
-                @if (TempData["success"] != null)
-                {<p class="text-center text-success">@TempData["success"]</p>}
-                @if (TempData["error"] != null)
-                {<p class="text-center text-danger">@TempData["error"]</p>}
-                <a href="#l-register" data-ma-action="nk-login-switch" data-ma-block="#l-register"
+               <a href="#l-register" data-ma-action="nk-login-switch" data-ma-block="#l-register"
                    class="btn btn-login btn-success btn-float">
                     <i class="notika-icon notika-right-arrow right-arrow-ant"></i>
                 </a>
@@ -105,24 +113,24 @@
         <!-- Register -->
         <div class="nk-block" id="l-register">
             <div class="nk-form">
-                <form action="" method="POST" style="margin-bottom: 10px;">
+                <form action="@Url.Action("CreateAccount","Login")" method="POST" style="margin-bottom: 10px;">
                     <div class="input-group">
                         <span class="input-group-addon nk-ic-st-pro"><i class="notika-icon notika-support"></i></span>
                         <div class="nk-int-st">
-                            <input type="text" class="form-control" placeholder="Your Name">
+                            <input name="UserName" type="text" class="form-control" placeholder="Your Name" required>
                         </div>
                     </div>
                     <div class="input-group mg-t-15">
                         <span class="input-group-addon nk-ic-st-pro"><i class="notika-icon notika-mail"></i></span>
                         <div class="nk-int-st">
-                            <input type="text" class="form-control" placeholder="Email Address">
+                            <input name="UserEmail" type="text" class="form-control" placeholder="Email Address" required>
                         </div>
                     </div>
 
                     <div class="input-group mg-t-15">
                         <span class="input-group-addon nk-ic-st-pro"><i class="notika-icon notika-edit"></i></span>
                         <div class="nk-int-st">
-                            <input type="password" class="form-control" placeholder="Password">
+                            <input name="UserPwd" type="password" class="form-control" placeholder="Password" required>
                         </div>
                     </div>
                     <input type="submit" value="Đăng kí" style="margin-top: 10px;height: 30px;color: black; background-color: #00c292;  border-radius: 10%; border: 3px solid white;  font-size: 18px;">
@@ -254,6 +262,20 @@
     
 
     <script src="~/Scripts/alertify.min.js"></script>
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) { return; }
+            js = d.createElement(s); js.id = id;
+            js.src = "https://connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    </script>
+    <script>
+        $(function () {
+            $('#AlertBox').removeClass('hide');
+            $('#AlertBox').delay(1000).slideUp(500);
+        });
+    </script>
 @{
     <script>
         $(function() {

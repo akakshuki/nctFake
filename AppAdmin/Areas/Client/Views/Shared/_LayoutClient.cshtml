@@ -57,6 +57,7 @@
     <!--My script-->
     <script src="https://kit.fontawesome.com/d93a4b936d.js" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="@Url.Content("~/Content/ClientMusic/")js/vendor/modernizr-2.8.3.min.js"></script>
 
 </head>
 
@@ -205,7 +206,7 @@
           ============================================ -->
     <script src="@Url.Content("~/Content/ClientMusic/")js/todo/jquery.todo.js"></script>
     <!-- plugins JS
-          ============================================ -->
+          ============================================ -->  
     <script src="@Url.Content("~/Content/ClientMusic/")js/plugins.js"></script>
     <!-- Login JS
           ============================================ -->
@@ -213,6 +214,7 @@
     <!-- main JS
           ============================================ -->
     <script src="@Url.Content("~/Content/ClientMusic/")js/main.js"></script>
+    @RenderSection("js",false)
     <script src="~/Scripts/alertify.min.js"></script>
 </body>
 

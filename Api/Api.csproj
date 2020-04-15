@@ -194,6 +194,7 @@
     <Compile Include="Areas\Admin\Controllers\QualityController.cs" />
     <Compile Include="Areas\Admin\Controllers\QualityMusicController.cs" />
     <Compile Include="Areas\Admin\Controllers\RankController.cs" />
+    <Compile Include="Areas\Admin\Controllers\TestController.cs" />
     <Compile Include="Areas\Client\ClientAreaRegistration.cs" />
     <Compile Include="Areas\Client\Controllers\UserClientController.cs" />
     <Compile Include="Areas\HelpPage\ApiDescriptionExtensions.cs" />
@@ -250,6 +251,7 @@
     <Compile Include="Models\Bus\RankBus.cs" />
     <Compile Include="Models\Bus\RoleBus.cs" />
     <Compile Include="Models\Bus\UserBus.cs" />
+    <Compile Include="Models\CommonConstants.cs" />
     <Compile Include="Models\Common\ConvertString.cs" />
     <Compile Include="Models\Dao\CategoryDao.cs" />
     <Compile Include="Models\Dao\LyricsMusicDao.cs" />
@@ -404,6 +406,7 @@
     <Content Include="Scripts\esm\popper.js.map" />
     <Content Include="Scripts\esm\popper-utils.min.js.map" />
     <Content Include="Scripts\esm\popper-utils.js.map" />
+    <Content Include="Areas\Client\Views\web.config" />
     <EntityDeploy Include="Models\EF\NCTModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>NCTModel.Designer.cs</LastGenOutput>
@@ -411,7 +414,6 @@
     <Content Include="Models\EF\NCTModel.edmx.diagram">
       <DependentUpon>NCTModel.edmx</DependentUpon>
     </Content>
-    <Content Include="Areas\Client\Views\web.config" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />

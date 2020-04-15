@@ -6,6 +6,7 @@
     List<MusicDTO> listMV = ViewBag.GetTop10MVNew;
     List<MusicDTO> SingerMusic = ViewBag.GetSinger;
     List<PartnerDTO> listPartner = ViewBag.GetPartner;
+    List<CategoryDTO> randomCate = ViewBag.RandomTheoChuDe;
 
 }
 
@@ -22,7 +23,7 @@
                             <i class="fas fa-headphones"></i> @item.MusicView
                         </span>
 
-                        <a href="playMusic.html" style="font-size: 18px;"><img src="@item.LinkImage" alt="" class="imgMusic">@item.MusicName</a>
+                        <a href="@Url.Action("Index","playMusic", new { id = item.ID})" style="font-size: 18px;"><img src="@item.LinkImage" alt="" class="imgMusic">@item.MusicName</a>
                         <div class="nameSinger">
                             <a href="PersonalSinger.html">@item.UserDto.UserName</a>
                             @foreach (var itemSinger in SingerMusic)
@@ -70,11 +71,10 @@
         <label for="" class="lblMusic">Chủ đề HOT</label>
         <div id="cateList">
             <ul>
-                <li><a href="listPlaylistByCate.html">Cate 1</a></li>
-                <li><a href="listPlaylistByCate.html">Cate 1</a></li>
-                <li><a href="listPlaylistByCate.html">Cate 1</a></li>
-                <li><a href="listPlaylistByCate.html">Cate 1</a></li>
-                <li><a href="listPlaylistByCate.html">Cate 1</a></li>
+                @foreach (var item in randomCate)
+                {
+                    <li><a href="listPlaylistByCate.html">@item.CateName</a></li>
+                }
             </ul>
         </div>
     </div>
