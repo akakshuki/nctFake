@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using Api.Models;
+using ModelViews.DTOs;
 
 namespace Api.Areas.Client.Controllers
 {
@@ -25,16 +26,18 @@ namespace Api.Areas.Client.Controllers
 
         // POST: api/User
         [HttpPost,Route("UserResetPassword")]
-        public void UserResetPassword([FromBody]string email)
+        public IHttpActionResult UserResetPassword([FromBody]UserDTO userDto)
         {
             try
             {
-                new Repositories().UserResetPassword(email);
+                new Repositories().UserResetPassword(userDto);
+
+                return Ok();
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
-                throw;
+                return NotFound();
             }
         }
 

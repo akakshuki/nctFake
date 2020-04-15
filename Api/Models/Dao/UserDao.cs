@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using ModelViews.DTOs;
 
 namespace Api.Models.Dao
 {
@@ -101,6 +102,7 @@ namespace Api.Models.Dao
             }
             return false;
         }
+ an/Client
         #region Login
         public int Login(string email, string passWord)
         {
@@ -156,5 +158,14 @@ namespace Api.Models.Dao
             return data;
         }
         #endregion
+
+
+        public void ResetPassword(UserDTO userDto)
+        {
+            var data = db.Users.SingleOrDefault(x => x.UserEmail == userDto.UserEmail);
+            data.UserPwd = userDto.UserPwd;
+            db.SaveChanges();
+        }
+
     }
 }
