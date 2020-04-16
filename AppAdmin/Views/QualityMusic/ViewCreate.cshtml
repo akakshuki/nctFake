@@ -134,6 +134,16 @@
                 </div>
             </div>
             <div class="form-group">
+                @if (TempData["error"] != null)
+                {
+                    <p class=" text-center  text-danger">@TempData["error"]</p>
+                }
+                @if (TempData["success"] != null)
+                {
+                    <p class=" text-center  text-success">@TempData["success"]</p>
+                }
+            </div>
+            <div class="form-group">
                 <div class="col-lg-offset-2 col-lg-10">
                     <button class="btn btn-theme" type="submit"><i class="fa fa-heart"></i> Add</button>
                 </div>

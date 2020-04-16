@@ -117,6 +117,22 @@ namespace AppAdmin.Areas.Client.Models.ServiceClient
                 return null;
             }
         }
+        public static List<RankDTO> GetListRankByIdCate(int categoryId)
+        {
+            try
+            {
+                var postTask =  _api.GetDataById("RankMusic", categoryId).Result;
+                if (!postTask.IsSuccessStatusCode) return null;
+                var readTask =
+                    JsonConvert.DeserializeObject<List<RankDTO>>(postTask.Content.ReadAsStringAsync().Result);
+                return readTask.ToList();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return null;
+            }
+        }
     }
 
 

@@ -29,7 +29,7 @@ namespace AppAdmin.Controllers
 
         public ActionResult CreateRank()
         {
-            ViewBag.ListOldRank = ApiService.GetAllLastWeekRank();
+            ViewBag.ListOldRank = ApiService.GetAllRank();
             ViewBag.ListCategories = ApiService.GetAllCate();
             return View();
         }

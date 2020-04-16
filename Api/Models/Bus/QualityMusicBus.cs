@@ -4,6 +4,7 @@ using ModelViews.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web;
 
 namespace Api.Models.Bus
 {
@@ -52,7 +53,8 @@ namespace Api.Models.Bus
                         QualityName = data.Quality.QualityName,
                         ID = data.QualityID,
                         QualityVip = data.Quality.QualityVip
-                    }
+                    },
+                    MusicDto = new MusicBus().MusicById(data.MusicID)
                 };
             }
             catch (Exception e)

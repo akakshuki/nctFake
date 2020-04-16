@@ -562,6 +562,8 @@
     <Content Include="Areas\Client\Views\Login\Login.cshtml" />
     <Content Include="Areas\Client\Views\playMusic\Index.cshtml" />
     <Content Include="Areas\Client\Views\Login\ResetPassword.cshtml" />
+    <Content Include="Areas\Client\Views\RankMusic\Index.cshtml" />
+    <Content Include="Areas\Client\Views\Home\RankMusicThisWeek.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />

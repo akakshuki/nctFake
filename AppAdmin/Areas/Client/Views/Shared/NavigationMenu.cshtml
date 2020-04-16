@@ -89,7 +89,7 @@
                                         <ul class="dropdown-menu" style="height:250px;overflow:auto">
                                             @foreach (var item in listCate)
                                             {
-                                                <li><a href="bxh.html"> @item.CateName</a></li>       
+                                                <li><a href="@Url.Action("RankMusicThisWeek","Home",new {id = item.ID})"> @item.CateName</a></li>       
                                             }
 
                                         </ul>
