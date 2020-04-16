@@ -242,10 +242,6 @@ namespace AppAdmin.Areas.Client.Controllers
                 return null;
             }
 
-            ViewBag.email = email;
-
-            return View();
-
         }
         [HttpPost]
         public async Task<ActionResult> ResetPassword(string serectCode, string newPassword, string email)

@@ -11,7 +11,7 @@ namespace Api.Controllers
     public class UserController : ApiController
     {
         [HttpGet]
-        [Route("{email:string}")]
+        [Route("{email}")]
         public UserDTO GetIdLogin([FromBody]string email)
         {
             var data = new UserDao().GetIdLogin(email);

@@ -49,7 +49,9 @@ namespace Api.Models.Bus
                     LinkFile = baseUrl + data.MusicFile,
                     QualityDto = new QualityDTO
                     {
-                        QualityName = data.Quality.QualityName
+                        QualityName = data.Quality.QualityName,
+                        ID = data.QualityID,
+                        QualityVip = data.Quality.QualityVip
                     }
                 };
             }
@@ -69,9 +71,12 @@ namespace Api.Models.Bus
                 QualityID = s.QualityID,
                 QMusicApproved = s.QMusicApproved,
                 NewFile = s.NewFile,
+                LinkFile = baseUrl + s.MusicFile,
                 QualityDto = new QualityDTO
                 {
-                    QualityName = s.Quality.QualityName
+                    QualityName = s.Quality.QualityName,
+                    ID = s.QualityID,
+                    QualityVip = s.Quality.QualityVip
                 }
             });
             return data;

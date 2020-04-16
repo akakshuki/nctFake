@@ -14,7 +14,20 @@ namespace AppAdmin.Areas.Client.Controllers
         {
             ViewBag.getMusicById = ApiService.GetMusicById(id);
             ViewBag.getLyrics = ApiService.GetLyricByIdMusic(id);
+            ViewBag.getListQualityMusic = ApiService.GetFileByIdMusic(id);
             return View();
+        }
+
+        public JsonResult DownLoadFile(int qualityId)
+        {
+            var data = ApiService.GetQualityMusicById(qualityId);
+
+            var linkFile = data.LinkFile;
+
+            return Json(new
+            {
+                data = linkFile
+            }, JsonRequestBehavior.AllowGet);
         }
     }
 }
