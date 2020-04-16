@@ -196,6 +196,7 @@
     <Compile Include="Areas\Admin\Controllers\RankController.cs" />
     <Compile Include="Areas\Admin\Controllers\TestController.cs" />
     <Compile Include="Areas\Client\ClientAreaRegistration.cs" />
+    <Compile Include="Areas\Client\Controllers\RankMusicClientController.cs" />
     <Compile Include="Areas\Client\Controllers\UserClientController.cs" />
     <Compile Include="Areas\HelpPage\ApiDescriptionExtensions.cs" />
     <Compile Include="Areas\HelpPage\App_Start\HelpPageConfig.cs" />
@@ -524,8 +525,6 @@
     <Folder Include="Areas\Client\Views\Shared\" />
     <Folder Include="File\ImageMusic\" />
     <Folder Include="File\ImageUser\" />
-    <Folder Include="File\mp3\" />
-    <Folder Include="File\mp4\" />
     <Folder Include="Models\Mappers\" />
   </ItemGroup>
   <ItemGroup>

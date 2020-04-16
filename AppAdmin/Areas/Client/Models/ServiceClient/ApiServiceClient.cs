@@ -15,7 +15,7 @@ namespace AppAdmin.Areas.Client.Models.ServiceClient
 
         public ApiService()
         {
-            _client = new HttpClient {BaseAddress = new Uri("https://localhost:44384/api/") };
+            _client = new HttpClient { BaseAddress = new Uri("https://localhost:44384/api/") };
         }
 
         public HttpClient ApiClient()
@@ -34,6 +34,7 @@ namespace AppAdmin.Areas.Client.Models.ServiceClient
             var res = await _client.PostAsJsonAsync(url, data);
             return res;
         }
+
         public async Task<HttpResponseMessage> PostDataItem(string url, object data)
         {
             var res = await _client.PostAsJsonAsync(url, data);
@@ -97,7 +98,42 @@ namespace AppAdmin.Areas.Client.Models.ServiceClient
                 Console.WriteLine(e);
                 return false;
             }
+
+        }
+        public static async Task<QualityMusicDTO> GetFileByQualityId(int qualityId)
+        {
+            try
+            {
+                var postTask = await _api.GetDataById("QualityMusic/GetQualityMusicById", qualityId);
+                if (!postTask.IsSuccessStatusCode) return null;
+                var readTask =
+                    JsonConvert.DeserializeObject<QualityMusicDTO>(postTask.Content.ReadAsStringAsync().Result);
+                return readTask;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return null;
+            }
+        }
+        public static List<RankDTO> GetListRankByIdCate(int categoryId)
+        {
+            try
+            {
+                var postTask =  _api.GetDataById("RankMusic", categoryId).Result;
+                if (!postTask.IsSuccessStatusCode) return null;
+                var readTask =
+                    JsonConvert.DeserializeObject<List<RankDTO>>(postTask.Content.ReadAsStringAsync().Result);
+                return readTask.ToList();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return null;
+            }
+
         }
     }
-   
+
+
 }

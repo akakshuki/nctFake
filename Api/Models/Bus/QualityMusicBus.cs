@@ -4,6 +4,7 @@ using ModelViews.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web;
 
 namespace Api.Models.Bus
 {
@@ -49,8 +50,11 @@ namespace Api.Models.Bus
                     LinkFile = baseUrl + data.MusicFile,
                     QualityDto = new QualityDTO
                     {
-                        QualityName = data.Quality.QualityName
-                    }
+                        QualityName = data.Quality.QualityName,
+                        ID = data.QualityID,
+                        QualityVip = data.Quality.QualityVip
+                    },
+                    MusicDto = new MusicBus().MusicById(data.MusicID)
                 };
             }
             catch (Exception e)
@@ -69,9 +73,12 @@ namespace Api.Models.Bus
                 QualityID = s.QualityID,
                 QMusicApproved = s.QMusicApproved,
                 NewFile = s.NewFile,
+                LinkFile = baseUrl + s.MusicFile,
                 QualityDto = new QualityDTO
                 {
-                    QualityName = s.Quality.QualityName
+                    QualityName = s.Quality.QualityName,
+                    ID = s.QualityID,
+                    QualityVip = s.Quality.QualityVip
                 }
             });
             return data;

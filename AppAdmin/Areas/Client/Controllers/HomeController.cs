@@ -1,9 +1,10 @@
-﻿using AppAdmin.Models.Service;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using AppAdmin.Areas.Client.Models.ServiceClient;
+using ApiService = AppAdmin.Models.Service.ApiService;
 
 namespace AppAdmin.Areas.Client.Controllers
 {
@@ -19,6 +20,16 @@ namespace AppAdmin.Areas.Client.Controllers
             ViewBag.GetTop10MVNew = ApiService.GetAllMusic().Where(s => s.SongOrMV == false).OrderByDescending(s => s.MusicDayCreate).Take(10).ToList();
             return View();
         }
+
+
+        public ActionResult RankMusicThisWeek(int id)
+        {
+            var data = ApiService.GetListRankThisWeek().Where(x=>x.CateID== id).ToList();
+            ViewBag.idCate = id;
+            ViewBag.ListRank = data;
+            return View();
+        }
+
         public ActionResult NavigationMenu()
         {
             ViewBag.getCate = ApiService.GetAllCate();

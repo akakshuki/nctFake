@@ -10,10 +10,10 @@ namespace AppAdmin.Controllers
 {
     public class QualityMusicController : Controller
     {
-        private string path = "";
+        private readonly string _path;
         public QualityMusicController()
         {
-            path = "~/File/mp3-mp4/";
+            _path = "~/File/mp3-mp4/";
         }
         // GET: QualityMusic
         public ActionResult Index()
@@ -36,23 +36,33 @@ namespace AppAdmin.Controllers
         [HttpPost]
         public ActionResult Create(QualityMusicDTO qualityMusic)
         {
+
+            var dataMusic = ApiService.GetMusicById(qualityMusic.MusicID);
+
+            if (ApiService.GetAllQM().Count(x =>
+                    x.QualityID == qualityMusic.QualityID && x.MusicID == qualityMusic.MusicID) >= 1)
+            {
+                TempData["error"] = "Have already quality file !  ";
+                return RedirectToAction("ViewCreate", new { id = qualityMusic.MusicID });
+            }
+
             try
             {
                 if (qualityMusic.FileQ != null)
                 {
-                    qualityMusic.MusicFile = DateTime.Now.Ticks + qualityMusic.MusicFile + ".png";
-                    qualityMusic.FileQ.SaveAs(Server.MapPath(path + qualityMusic.MusicFile));
+                    if (dataMusic.SongOrMV)
+                    {
+                        qualityMusic.MusicFile = DateTime.Now.Ticks + dataMusic.MusicName + ".mp3";
+                    }
+                    else
+                    {
+                        qualityMusic.MusicFile = DateTime.Now.Ticks + dataMusic.MusicName + ".mp4";
+                    }
+                    qualityMusic.FileQ.SaveAs(Server.MapPath(_path + qualityMusic.MusicFile));
                     qualityMusic.FileQ = null;
                 }
-                else
-                {
-                    qualityMusic.MusicFile = "default.png";
-                }
+
                 var data = ApiService.CreateQualityMusic(qualityMusic);
-                if (data != null)
-                {
-                    return RedirectToAction("ViewCreate", new { id = qualityMusic.MusicID });
-                }
                 return RedirectToAction("ViewCreate", new { id = qualityMusic.MusicID });
             }
             catch (Exception e)
@@ -62,64 +72,71 @@ namespace AppAdmin.Controllers
             }
 
 
+
         }
         [HttpPost]
         public ActionResult Update(QualityMusicDTO qualityMusic)
         {
             try
             {
-                //get Image have exist
-                var currentFileName = ApiService.GetQualityMusicById(qualityMusic.ID).MusicFile;
-                //check name have deafault if exist ==> dont delete
-                if (currentFileName == "default.png")
+                var dataMusic = ApiService.GetMusicById(qualityMusic.MusicID);
+                var checkQuality = ApiService.GetAllQM().SingleOrDefault(x => x.QualityID == qualityMusic.QualityID && x.MusicID == qualityMusic.MusicID);
+
+            
+                if (qualityMusic.FileQ != null)
                 {
-                    if (qualityMusic.FileQ != null)
+                    if (checkQuality != null)
                     {
-                        qualityMusic.MusicFile = DateTime.Now.Ticks + qualityMusic.MusicFile + ".png";
-                        qualityMusic.FileQ.SaveAs(Server.MapPath(path + qualityMusic.MusicFile));
-                        qualityMusic.FileQ = null;
-                    }
-                    else
-                    {
-                        qualityMusic.MusicFile = "default.png";
-                    }
-                }
-                else
-                {
-   
-                    if (qualityMusic.FileQ != null)
-                    {
-                        //delete file
-                        var filePath = Server.MapPath(path + currentFileName);
+                        var filePath = Server.MapPath(_path + checkQuality.MusicFile);
                         if (System.IO.File.Exists(filePath))
                         {
                             System.IO.File.Delete(filePath);
                         }
-                        qualityMusic.MusicFile = DateTime.Now.Ticks + qualityMusic.MusicFile + ".png";
-                        qualityMusic.FileQ.SaveAs(Server.MapPath(path + qualityMusic.MusicFile));
-                        qualityMusic.FileQ = null;
+                    }
+
+                    if (dataMusic.SongOrMV)
+                    {
+                        qualityMusic.MusicFile = DateTime.Now.Ticks + dataMusic.MusicName + ".mp3";
                     }
                     else
                     {
-                        qualityMusic.MusicFile = currentFileName;
+                        qualityMusic.MusicFile = DateTime.Now.Ticks + dataMusic.MusicName + ".mp4";
                     }
+                    qualityMusic.FileQ.SaveAs(Server.MapPath(_path + qualityMusic.MusicFile));
+                    qualityMusic.FileQ = null;
+
+
+                    TempData["success"] = "update new file success!";
                 }
-                var data = ApiService.UpdateQualityMusic(qualityMusic);
-                if (data != null)
+                else
                 {
-                    return RedirectToAction("ViewCreate", new { id = qualityMusic.MusicID });
+                    TempData["success"] = "update success!";
+                    if (checkQuality != null) qualityMusic.MusicFile = checkQuality.MusicFile;
                 }
-                return RedirectToAction("ViewCreate", new { id = qualityMusic.MusicID });
+
+                ApiService.UpdateQualityMusic(qualityMusic);
+
+
+
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
-                return RedirectToAction("ViewCreate", new { id = qualityMusic.MusicID });
+                Console.WriteLine(e);
+                TempData["error"] = "Cant update quality music";
+                throw;
             }
+
+            return RedirectToAction("ViewCreate", new { id = qualityMusic.MusicID });
 
         }
         public ActionResult Delete(int id)
         {
+            var checkQuality = ApiService.GetQualityMusicById(id);
+            var filePath = Server.MapPath(_path + checkQuality.MusicFile);
+            if (System.IO.File.Exists(filePath))
+            {
+                System.IO.File.Delete(filePath);
+            }
             ApiService.DeleteQualityMusic(id);
             return RedirectToAction("ViewCreate", new { id = Session["idQ"] });
         }

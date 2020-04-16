@@ -4,6 +4,7 @@
     Layout = "~/Areas/Client/Views/Shared/_LayoutClient.cshtml";
     MusicDTO getMusic = ViewBag.getMusicById;
     LyricsMusicDTO getLyrics = ViewBag.getLyrics;
+    List<QualityMusicDTO> listQuality = ViewBag.getListQualityMusic;
 }
 @section js {
     <script>
@@ -29,14 +30,14 @@
             });
             $('#selectQuality').change(function () {
                 var optionSelected = $("#selectQuality option:selected");
-                if (optionSelected.attr("data-vip") == userVip || (optionSelected.attr("data-vip") == "false" && userVip == "true")) {
+                if (optionSelected.attr("data-vip") === true || (optionSelected.attr("data-vip") === "true" && userVip === "true")) {
                     mainAudio.attr("src", optionSelected.val());
                 } else {
                     alert("not allow");
                 }
 
             })
-            if (mvFav == true) {
+            if (mvFav === true) {
                 $('#addFav').css('display', 'none');
             } else {
                 $('#removeFav').css('display', 'none');
@@ -52,24 +53,53 @@
 
             //Edit lyrics
             $('#editLyrics').click(function () {
-                if ($('#editLyrics').attr("data-hide") == "0") {
+                if ($('#editLyrics').attr("data-hide") === "0") {
                     $('#containLyrics').text($('#lyrics').text());
                     $('#lyrics').hide();
-                    $('#editLyrics').attr("data-hide", "1")
+                    $('#editLyrics').attr("data-hide", "1");
                 } else {
                     $('#lyrics').show();
-                    $('#editLyrics').attr("data-hide", "0")
+                    $('#editLyrics').attr("data-hide", "0");
                 }
 
             });
             //Download file
-            $('#downFile>a').click(function () {
-                var downAccept = $(this).attr("data-vip");
-                if (downAccept == "true" && userVip == "false") {
-                    alert("not allow");
-                }
-            });
+            $('.buttondownload').on('click',
+                function () {
+                    const id = $(this).attr('data-id');
+
+                    $.ajax({
+                        url: 'https://localhost:44315/Client/playMusic/DownLoadFile',
+                        type: 'GET',
+                        dataType: 'json',
+                        data: {
+                            qualityId: id
+                        },
+                        success: function (res) {
+
+                            saveAs(res.data);
+                        }, error: function (err) {
+                            alertify.error(err.message);
+                        }
+                    });
+                });
         });
+        function saveAs(url) {
+            var filename = url.substring(url.lastIndexOf("/") + 1).split("?")[0];
+            var xhr = new XMLHttpRequest();
+            xhr.responseType = 'blob';
+            xhr.onload = function () {
+                var a = document.createElement('a');
+                a.href = window.URL.createObjectURL(xhr.response);
+                a.download = filename;
+                a.style.display = 'none';
+                document.body.appendChild(a);
+                a.click();
+                delete a;
+            };
+            xhr.open('GET', url);
+            xhr.send();
+        }
 
     </script>
     <!-- jquery
@@ -150,7 +180,7 @@
                 <!--song-->
                 <!--mv-->
                 <video autoplay controls id="myAudio">
-                    <source src="@Url.Content("~/Content/ClientMusic/")mv-demo.mp4" type="audio/mpeg">
+                    <source src="@listQuality.SingleOrDefault(x=>x.QualityID == 2).LinkFile" type="audio/mpeg">
                 </video>
                 <!--mv-->
                 <div class="menuMusic">
@@ -188,8 +218,21 @@
                             <option value="nhac-demo-2.mp3" data-vip="true">320kbps</option> -->
                             <!--song-->
                             <!--mv-->
-                            <option value="mv-demo.mp4" data-vip="false">360p</option>
-                            <option value="mv-demo-2.mp4" data-vip="true">480p</option>
+                            @if (listQuality != null)
+                            {
+                                foreach (var qualityMusicDto in listQuality)
+                                {
+                                    <option value="@qualityMusicDto.LinkFile" data-vip="@qualityMusicDto.QualityDto.QualityVip">
+                                        @qualityMusicDto.QualityDto.QualityName   @if (qualityMusicDto.QualityDto.QualityVip)
+                                        {
+                                        <p>
+                                            <i class="fas fa-crown"></i>
+                                        </p>
+                                        }
+                                    </option>
+                                    //    <option value="@qualityMusicDto.LinkFile" data-vip="@qualityMusicDto.QualityDto.QualityVip">@qualityMusicDto.QualityDto.QualityName</option>
+                                }
+                            }
                             <!--mv-->
                         </select><br>
                         <a data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false"
@@ -204,8 +247,39 @@
                 </div>
                 <div class="collapse multi-collapse" id="multiCollapseExample1">
                     <div class="card card-body" id="downFile">
-                        <a href="#" data-vip="false"><button>360p</button></a>
-                        <a href="#" data-vip="true"><button>480p</button></a>
+                        @if (listQuality != null)
+                        {
+                            foreach (var quality in listQuality)
+                            {
+                                // so sanh user vip o day uservip == quality.qualitydto.vip
+                                if (quality.QualityDto.QualityVip)
+                                {
+                                    <button disabled="disabled" class="buttondownload btn btn-default" data-id="@quality.ID">
+                                        @quality.QualityDto.QualityName
+                                        @if (quality.QualityDto.QualityVip)
+                                        {
+                                            <i class="fas fa-crown"></i>
+                                        }
+                                    </button>
+                                }
+                                else
+                                {
+                                    <button class="buttondownload btn btn-default" data-id="@quality.ID">
+                                        @quality.QualityDto.QualityName
+                                        @if (quality.QualityDto.QualityVip)
+                                        {
+                                            <i class="fas fa-crown"></i>
+                                        }
+                                    </button>
+                                }
+
+
+                            }
+                        }
+                        else
+                        {
+                            <p>Chua co file</p>
+                        }
                     </div>
                 </div>
             </div>
@@ -220,7 +294,7 @@
                 <div style="border: 1px solid #00c292;margin-top: 10px;margin-bottom: 20px;"></div>
                 <!--Lyrics-->
                 <p id="lyrics">
-                   
+
                     [Intro]<br>
                     What you do for love? Do for love <br>
                     What you do, what you do, what you do for love?<br>
