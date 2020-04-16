@@ -34,6 +34,7 @@ namespace AppAdmin.Areas.Client.Controllers
                 data = linkFile
             }, JsonRequestBehavior.AllowGet);
 
+        }
         public ActionResult UpdateMusicView(MusicDTO music)
         {
             var data = ApiService.UpdateMusicView(music);

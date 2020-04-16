@@ -187,7 +187,7 @@
                 {
                     <!--mv-->
                     <video autoplay controls id="myAudio">
-                        <source src="@Url.Content("~/Content/ClientMusic/")mv-demo.mp4" type="audio/mpeg">
+                        <source src="@listQuality.SingleOrDefault(x=>x.QualityID == 2).LinkFile" type="audio/mpeg">
                     </video>
                     <!--mv-->
                 }
@@ -195,14 +195,11 @@
 
                 <!--song-->
                 <!-- <img src="img/avt.png" alt="">
-                <audio autoplay controls id="myAudio">
-                    <source src="nhac-demo.mp3" type="audio/mpeg">
-                </audio> -->
+    <audio autoplay controls id="myAudio">
+        <source src="nhac-demo.mp3" type="audio/mpeg">
+    </audio> -->
                 <!--song-->
                 <!--mv-->
-                <video autoplay controls id="myAudio">
-                    <source src="@listQuality.SingleOrDefault(x=>x.QualityID == 2).LinkFile" type="audio/mpeg">
-                </video>
                 <!--mv-->
                 <div class="menuMusic">
                     <img src="@Url.Content("~/Content/ClientMusic/")img/avt.png" alt="">
@@ -215,13 +212,13 @@
                         <input type="checkbox" name="" id="checkAuto" checked><br>
                         <!--song-->
                         <!-- <span class="addPlaylist" style="cursor: pointer;"><i class="fas fa-plus-circle"></i> Thêm
-                            vào
-                            <ul>
-                                <li>Bài hát yêu thích</li>
-                                <li>Test 1</li>
-                                <li>Test2</li>
-                            </ul>
-                        </span> -->
+                vào
+                <ul>
+                    <li>Bài hát yêu thích</li>
+                    <li>Test 1</li>
+                    <li>Test2</li>
+                </ul>
+            </span> -->
                         <!--song-->
                         <!--mv-->
                         <span style="cursor: pointer;" id="removeFav">
@@ -236,7 +233,7 @@
                         <select name="" id="selectQuality">
                             <!--song-->
                             <!-- <option value="nhac-demo.mp3" data-vip="false">128kbps</option>
-                            <option value="nhac-demo-2.mp3" data-vip="true">320kbps</option> -->
+                <option value="nhac-demo-2.mp3" data-vip="true">320kbps</option> -->
                             <!--song-->
                             <!--mv-->
                             @if (listQuality != null)
@@ -246,9 +243,9 @@
                                     <option value="@qualityMusicDto.LinkFile" data-vip="@qualityMusicDto.QualityDto.QualityVip">
                                         @qualityMusicDto.QualityDto.QualityName   @if (qualityMusicDto.QualityDto.QualityVip)
                                         {
-                                        <p>
-                                            <i class="fas fa-crown"></i>
-                                        </p>
+                                            <p>
+                                                <i class="fas fa-crown"></i>
+                                            </p>
                                         }
                                     </option>
                                     //    <option value="@qualityMusicDto.LinkFile" data-vip="@qualityMusicDto.QualityDto.QualityVip">@qualityMusicDto.QualityDto.QualityName</option>
