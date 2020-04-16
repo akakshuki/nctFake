@@ -40,7 +40,7 @@ namespace AppAdmin.Controllers
             {
                 if (qualityMusic.FileQ != null)
                 {
-                    qualityMusic.MusicFile = DateTime.Now.Ticks + qualityMusic.MusicFile + ".png";
+                    qualityMusic.MusicFile = DateTime.Now.Ticks + qualityMusic.MusicFile + ".mp3";
                     qualityMusic.FileQ.SaveAs(Server.MapPath(path + qualityMusic.MusicFile));
                     qualityMusic.FileQ = null;
                 }
@@ -75,7 +75,7 @@ namespace AppAdmin.Controllers
                 {
                     if (qualityMusic.FileQ != null)
                     {
-                        qualityMusic.MusicFile = DateTime.Now.Ticks + qualityMusic.MusicFile + ".png";
+                        qualityMusic.MusicFile = DateTime.Now.Ticks + qualityMusic.MusicFile + ".mp3";
                         qualityMusic.FileQ.SaveAs(Server.MapPath(path + qualityMusic.MusicFile));
                         qualityMusic.FileQ = null;
                     }
@@ -95,7 +95,7 @@ namespace AppAdmin.Controllers
                         {
                             System.IO.File.Delete(filePath);
                         }
-                        qualityMusic.MusicFile = DateTime.Now.Ticks + qualityMusic.MusicFile + ".png";
+                        qualityMusic.MusicFile = DateTime.Now.Ticks + qualityMusic.MusicFile + ".mp3";
                         qualityMusic.FileQ.SaveAs(Server.MapPath(path + qualityMusic.MusicFile));
                         qualityMusic.FileQ = null;
                     }

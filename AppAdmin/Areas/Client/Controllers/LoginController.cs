@@ -242,9 +242,6 @@ namespace AppAdmin.Areas.Client.Controllers
                 return null;
             }
 
-            ViewBag.email = email;
-
-            return View();
 
         }
         [HttpPost]

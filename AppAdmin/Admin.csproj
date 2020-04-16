@@ -153,8 +153,11 @@
     <Compile Include="Areas\Client\ClientAreaRegistration.cs" />
     <Compile Include="Areas\Client\Controllers\BaseController.cs" />
     <Compile Include="Areas\Client\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Client\Controllers\listMusicByIdCateController.cs" />
+    <Compile Include="Areas\Client\Controllers\listPlaylistByCateController.cs" />
     <Compile Include="Areas\Client\Controllers\LoginController.cs" />
     <Compile Include="Areas\Client\Controllers\playMusicController.cs" />
+    <Compile Include="Areas\Client\Controllers\playPlaylistController.cs" />
     <Compile Include="Areas\Client\Models\ServiceClient\ApiServiceClient.cs" />
     <Compile Include="Common\CommonConstants.cs" />
     <Compile Include="Common\Encryptor.cs" />
@@ -562,6 +565,9 @@
     <Content Include="Areas\Client\Views\Login\Login.cshtml" />
     <Content Include="Areas\Client\Views\playMusic\Index.cshtml" />
     <Content Include="Areas\Client\Views\Login\ResetPassword.cshtml" />
+    <Content Include="Areas\Client\Views\listPlaylistByCate\Index.cshtml" />
+    <Content Include="Areas\Client\Views\playPlaylist\Index.cshtml" />
+    <Content Include="Areas\Client\Views\listMusicByIdCate\Index.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />

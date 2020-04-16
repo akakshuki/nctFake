@@ -19,6 +19,19 @@ namespace Api.Models.Dao
             var data = db.PlaylistMusics.Where(s => s.PlaylistID == id).ToList();
             return data;
         }
+
+        public PlaylistMusic GetIdMusicByIdPlaylist(int id)
+        {
+            var data = db.PlaylistMusics.SingleOrDefault(s => s.PlaylistID == id);
+            return data;
+        }
+
+        public PlaylistMusic GetPlaylistMusicById(int id)
+        {
+            var data = db.PlaylistMusics.SingleOrDefault(s => s.ID == id);
+            return data;
+        }
+
         public bool CreatePlaylist(PlaylistMusic playlistMusic)
         {
             db.PlaylistMusics.Add(playlistMusic);

@@ -1,0 +1,252 @@
+﻿@using ModelViews.DTOs
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Client/Views/Shared/_LayoutClient.cshtml";
+    PlaylistDTO playlistDTO = ViewBag.getPlaylistById;
+    List<PlaylistDTO> randomPlaylist = ViewBag.getListPlaylist;
+    List<PlaylistMusicDTO> playlistMusicDTOs = ViewBag.getPlaylistMusic;
+    List<MusicDTO> SingerMusic = ViewBag.GetSinger;
+}
+@section js{
+
+    <script>
+        $(document).ready(function () {
+            var valueRepeat = false;
+            var valueRandom = false;
+            var valueAuto = true;
+            var mainAudio = $('#myAudio');
+            var itemLength = $('.itemPlaylist').length;
+            $('.itemPlaylist:first-child').addClass("active-playlist");
+            mainAudio.attr("src", $('.itemPlaylist:first-child>span>a').attr("href"));
+            $('#checkAuto').change(function () {
+                if ($('#checkAuto').prop('checked') == true) {
+                    valueAuto = true;
+                } else {
+                    valueAuto = false;
+                }
+            });
+            $('#checkRepeat').change(function () {
+                if ($('#checkRepeat').prop('checked') == true) {
+                    valueRepeat = true;
+                    $('#checkRandom').prop('checked', false);
+                    valueRandom = false;
+                } else {
+                    valueRepeat = false;
+                }
+            });
+            $('#checkRandom').change(function () {
+                if ($('#checkRandom').prop('checked') == true) {
+                    valueRandom = true;
+                    $('#checkRepeat').prop('checked', false);
+                    valueRepeat = false;
+                } else {
+                    valueRandom = false;
+                }
+            });
+            $("#myAudio").on("ended", function () {
+                var index = $('.itemPlaylist').index($('.active-playlist')) + 1;
+                var nextItem = $('.itemPlaylist:nth-child(' + (index + 1) + ')');
+                var nextItemHref = $('.itemPlaylist:nth-child(' + (index + 1) + ')>span>a').attr("href");
+                if (valueRepeat == true) {
+                    document.getElementById("myAudio").play();
+                } else if (valueRandom == true) {
+                    var random = Math.floor((Math.random() * itemLength) + 1);
+                    $('.itemPlaylist').removeClass("active-playlist");
+                    $('.itemPlaylist:nth-child(' + random + ')').addClass("active-playlist");
+                    mainAudio.attr("src", $('.itemPlaylist:nth-child(' + random + ')>span>a').attr("href"));
+                } else if (index == itemLength && valueAuto == true) {
+                    window.open($('.itemSongRandom>div>a:first-child').attr("href"), "_self");
+                } else if (index == itemLength) {
+                    $('.itemPlaylist').removeClass("active-playlist");
+                    $('.itemPlaylist:first-child').addClass("active-playlist");
+                    mainAudio.attr("src", $('.itemPlaylist:first-child>span>a').attr("href"));
+                } else {
+                    $('.itemPlaylist').removeClass("active-playlist");
+                    nextItem.addClass("active-playlist");
+                    mainAudio.attr("src", nextItemHref);
+                }
+            });
+            $('.itemPlaylist').click(function () {
+                $('.itemPlaylist').removeClass("active-playlist");
+                $(this).addClass("active-playlist");
+                mainAudio.attr("src", $('.active-playlist>span>a').attr("href"));
+            })
+        });
+
+    </script>
+    <!-- Input Mask JS
+        ============================================ -->
+    <script src="@Url.Content("~/Content/ClientMusic/")js/jasny-bootstrap.min.js"></script>
+    <!-- icheck JS
+            ============================================ -->
+    <script src="@Url.Content("~/Content/ClientMusic/")js/icheck/icheck.min.js"></script>
+    <script src="@Url.Content("~/Content/ClientMusic/")js/icheck/icheck-active.js"></script>
+    <!-- rangle-slider JS
+            ============================================ -->
+    <script src="@Url.Content("~/Content/ClientMusic/")js/rangle-slider/jquery-ui-1.10.4.custom.min.js"></script>
+    <script src="@Url.Content("~/Content/ClientMusic/")js/rangle-slider/jquery-ui-touch-punch.min.js"></script>
+    <script src="@Url.Content("~/Content/ClientMusic/")js/rangle-slider/rangle-active.js"></script>
+    <!-- datapicker JS
+            ============================================ -->
+    <script src="@Url.Content("~/Content/ClientMusic/")js/datapicker/bootstrap-datepicker.js"></script>
+    <script src="@Url.Content("~/Content/ClientMusic/")js/datapicker/datepicker-active.js"></script>
+    <!-- bootstrap select JS
+            ============================================ -->
+    <script src="@Url.Content("~/Content/ClientMusic/")js/bootstrap-select/bootstrap-select.js"></script>
+    <!--  color-picker JS
+            ============================================ -->
+    <script src="@Url.Content("~/Content/ClientMusic/")js/color-picker/farbtastic.min.js"></script>
+    <script src="@Url.Content("~/Content/ClientMusic/")js/color-picker/color-picker.js"></script>
+    <!--  notification JS
+            ============================================ -->
+    <script src="@Url.Content("~/Content/ClientMusic/")js/notification/bootstrap-growl.min.js"></script>
+    <script src="@Url.Content("~/Content/ClientMusic/")js/notification/notification-active.js"></script>
+    <!--  summernote JS
+            ============================================ -->
+    <script src="@Url.Content("~/Content/ClientMusic/")js/summernote/summernote-updated.min.js"></script>
+    <script src="@Url.Content("~/Content/ClientMusic/")js/summernote/summernote-active.js"></script>
+    <!-- dropzone JS
+            ============================================ -->
+    <script src="@Url.Content("~/Content/ClientMusic/")js/dropzone/dropzone.js"></script>
+    <!--  wave JS
+            ============================================ -->
+    <script src="@Url.Content("~/Content/ClientMusic/")js/wave/waves.min.js"></script>
+    <script src="@Url.Content("~/Content/ClientMusic/")js/wave/wave-active.js"></script>
+    <!--  chosen JS
+            ============================================ -->
+    <script src="@Url.Content("~/Content/ClientMusic/")js/chosen/chosen.jquery.js"></script>
+    <!--  Chat JS
+            ============================================ -->
+    <script src="@Url.Content("~/Content/ClientMusic/")js/chat/jquery.chat.js"></script>
+
+    <!-- tawk chat JS
+            ============================================ -->
+    <script src="js/tawk-chat.js"></script>
+}
+<!--Start Content-->
+<div id="content" class="container">
+    <div class="gridMusic">
+        <div class="gridLeft">
+            <div class="name-view-music">
+                <span>@playlistDTO.PlaylistName - @playlistDTO.UserDto.UserName</span>
+                <span style="position: absolute;left: 730px;top:86px;font-size: 18px;">
+                   
+                </span>
+            </div>
+            <div class="playMusic">
+                <!--song-->
+                @foreach (var item in SingerMusic)
+                {
+                    foreach (var item1 in playlistMusicDTOs)
+                    {
+                       
+                        if (item1.MusicID == item.ID)
+                        {
+                            foreach (var file in item1.MusicDto.QualityMusicDTOs)
+                            {
+
+                                <audio autoplay controls id="myAudio">
+                                    <source src="@file.LinkFile" type="audio/mpeg">
+                                </audio>
+                            }
+
+                        }
+                    }
+
+                }
+
+
+                <!--song-->
+                <div id="playlistMusic">
+                    @foreach (var item in playlistMusicDTOs)
+                    {
+                        <div class="itemPlaylist">
+                            <span>
+                                <span> 1. </span>
+                                <a href="nhac-demo.mp3">@item.MusicDto.MusicName -</a>
+                                <span>
+                                    @foreach (var itemSinger in SingerMusic)
+                                    {
+                                        if (itemSinger.ID == item.MusicID)
+                                        {
+                                            foreach (var singers in itemSinger.SingerMusicDtOs)
+                                            {
+                                                <a>@singers.UserDto.UserName,</a>
+                                            }
+                                        }
+
+                                    }
+                                </span>
+                            </span>
+                            <span>
+                                <span>
+                                    <a href="nhac-demo.mp3" download="nhac" style="color: black;" id="downFile"
+                                       title="Tải về"><i class="fa fa-download"></i></a>
+                                </span>
+                                <span class="addPlaylist" style="cursor: pointer;">
+                                    <i class="fas fa-plus-circle"></i>
+                                    <ul>
+                                        <li><a href="">Bài hát yêu thích</a> </li>
+                                        <li><a href="">Test1</a></li>
+                                    </ul>
+                                </span>
+                                <span><i class="fas fa-headphones"></i> @item.MusicDto.MusicView</span>
+                            </span>
+                        </div>
+                    }
+                </div>
+                <div class="menuMusic">
+                    <img src="img/avt.png" alt="">
+                    <div>
+                        <span>Cung cấp bởi:</span><br>
+                        <span style="color: #00c292;font-weight: 700;">Nhaccuateoo</span>
+                    </div>
+                    <div>
+                        <span>Auto chuyển Playlist:</span>
+                        <input type="checkbox" name="" id="checkAuto" checked><br>
+                    </div>
+                    <div>
+                        <span>Lặp lại 1 bài:</span>
+                        <input type="checkbox" name="" id="checkRepeat"><br>
+                    </div>
+                    <div>
+                        <span>Ngẫu nhiên:</span>
+                        <input type="checkbox" name="" id="checkRandom"><br>
+                    </div>
+
+                    <div>
+                        <a href=""><img src="img/share_fb.png" alt=""></a>
+                    </div>
+                </div>
+                <p style="margin-top: 15px;margin-left: 20px;font-size: 16px;">@playlistDTO.PlaylistDescription</p>
+            </div>
+        </div>
+        <div class="gridRight">
+            <span class="lblMusic">Nghe tiếp</span>
+            @if (randomPlaylist != null)
+            {
+                foreach (var item in randomPlaylist)
+                {
+                    <div class="itemSongRandom">
+                        <div>
+                            <a href="nhac-demo.mp3">
+                                <img src="@item.LinkImage" alt="" style="border-radius: 0%;"> @item.PlaylistName
+                            </a><br>
+                            <span>
+                                <a href="">@item.UserDto.UserName</a>
+                            </span>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <label>chưa có bài hát</label>
+            }
+
+        </div>
+    </div>
+
+</div>
+
+<!--End content-->

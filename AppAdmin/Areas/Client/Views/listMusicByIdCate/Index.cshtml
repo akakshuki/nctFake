@@ -1,0 +1,43 @@
+﻿@using ModelViews.DTOs
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Client/Views/Shared/_LayoutClient.cshtml";
+    List<MusicDTO> getMusicByIdCate = ViewBag.getMusicByIdCate;
+    var CateName = getMusicByIdCate.FirstOrDefault().CategoryDto.CateName;
+    List<MusicDTO> SingerMusic = ViewBag.GetSinger;
+}
+
+<div class="gridMusic">
+    <div class="gridLeft">
+        <label for="" class="lblMusic">Danh sách bài hát của Chủ đề: @CateName</label>
+        <div class="listMusic">
+
+            @foreach (var item in getMusicByIdCate)
+            {
+                <div class="itemMusic">
+                    <span class="viewMusic">
+                        <i class="fas fa-headphones"></i> @item.MusicView
+                    </span>
+                    <a href="@Url.Action("Index", "playMusic", new { id =item.ID })" style="font-size: 18px;"><img src="@item.LinkImage" alt="" class="imgMusic">@item.MusicName</a>
+                    <div class="nameSinger">
+                        @foreach (var itemSinger in SingerMusic)
+                        {
+                            if (itemSinger.ID == item.ID)
+                            {
+                                foreach (var singers in itemSinger.SingerMusicDtOs)
+                                {
+                                    <a>@singers.UserDto.UserName,</a>
+                                }
+                            }
+
+                        }
+                    </div>
+                </div>
+            }
+
+        </div>
+    </div>
+    <div class="gridRight">
+    </div>
+</div>
+

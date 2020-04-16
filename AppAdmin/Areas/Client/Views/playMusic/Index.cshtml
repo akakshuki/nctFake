@@ -134,7 +134,7 @@
             <div class="name-view-music">
                 <span>@getMusic.MusicName</span>
                 <!--song-->
-                <!-- <a href=""><i class="fas fa-video"></i></a> -->
+                 @*<a href=""><i class="fas fa-video"></i></a>*@ 
                 <!--song-->
                 <!--mv-->
                 <a href=""><i class="fas fa-music"></i></a>
@@ -239,19 +239,19 @@
                         </a>
                     </span>
                 </span><br>
-                       <span>
-                           Lời đăng bởi:
-                           @if (getLyrics != null)
-                           {
-                               <a href=""> @getLyrics.UserDto.UserName</a>
-                           }
-                           else
-                           {
-                               <a href=""> chưa có người đăng</a>
-                           }
+                <span>
+                    Lời đăng bởi:
+                    @if (getLyrics != null)
+                    {
+                        <a href=""> @getLyrics.UserDto.UserName</a>
+                    }
+                    else
+                    {
+                        <a href=""> chưa có người đăng</a>
+                    }
 
 
-                       </span>
+                </span>
                 <div style="border: 1px solid #00c292;margin-top: 10px;margin-bottom: 20px;"></div>
                 <!--Lyrics-->
                 <p id="lyrics">
@@ -260,17 +260,18 @@
                     <p>
                         @getLyrics.LMusicDetail
                     </p>
-                }
-                else
-                {
-                    <span>
+                    }
+                    else
+                    {
+                        <span>
                         Hiện tại chưa có lời bài hát, cập nhật lời bài hát <a data-toggle="collapse"
                                                                               href="#multiCollapseExample2" role="button" aria-expanded="false"
                                                                               aria-controls="multiCollapseExample2">tại đây</a>
                     </span>
-                }
+                    }
 
-                    </p>
+                 </p>
+
                     <!--Lyrics-->
                     <!--Post Lyrics-->
 

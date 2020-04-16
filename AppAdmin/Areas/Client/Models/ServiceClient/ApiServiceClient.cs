@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
-using ModelViews.DTOs;
 
 
 namespace AppAdmin.Areas.Client.Models.ServiceClient
@@ -98,7 +97,8 @@ namespace AppAdmin.Areas.Client.Models.ServiceClient
                 Console.WriteLine(e);
                 return false;
             }
-        
+        }
+       
     }
    
 }

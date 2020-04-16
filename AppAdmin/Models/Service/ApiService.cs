@@ -21,7 +21,7 @@ namespace AppAdmin.Models.Service
         {
             _baseUrl = "https://localhost:44384/api/";
         }
-
+        #region Admin
         #region an
         #region User
 
@@ -1421,9 +1421,6 @@ namespace AppAdmin.Models.Service
 
         #endregion
 
-
-
-
         public static List<OrderVipDTO> GetAllListOrderVip()
         {
             using var client = new HttpClient
@@ -1439,6 +1436,8 @@ namespace AppAdmin.Models.Service
                 JsonConvert.DeserializeObject<List<OrderVipDTO>>(result.Content.ReadAsStringAsync().Result);
             return readTask.ToList();
         }
+        #endregion
+        #region Client
         #region Login
         public static int Login(string email, string passWord)
         {
@@ -1472,6 +1471,54 @@ namespace AppAdmin.Models.Service
             }
             return null;
         }
+        #endregion
+        #region PlaylistClient
+        public static List<PlaylistDTO> GetPlaylistByIdCate(int id)
+        {
+            var settings = new JsonSerializerSettings
+            {
+                NullValueHandling = NullValueHandling.Ignore,
+                MissingMemberHandling = MissingMemberHandling.Ignore
+            };
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("https://localhost:44384/api/PlaylistClient/GetPlaylistByIdCate/" + id.ToString());
+                var responseTask = client.GetAsync(client.BaseAddress);
+                responseTask.Wait();
+                var result = responseTask.Result;
+                if (result.IsSuccessStatusCode)
+                {
+                    var readTask =
+                        JsonConvert.DeserializeObject<List<PlaylistDTO>>(result.Content.ReadAsStringAsync().Result, settings);
+                    return readTask;
+                }
+            }
+
+            return null;
+        }
+        public static PlaylistDTO GetPlaylistByCate(int id)
+        {
+            var settings = new JsonSerializerSettings
+            {
+                NullValueHandling = NullValueHandling.Ignore,
+                MissingMemberHandling = MissingMemberHandling.Ignore
+            };
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("https://localhost:44384/api/PlaylistClient/GetPlaylistByCate/" + id.ToString());
+                var responseTask = client.GetAsync(client.BaseAddress);
+                responseTask.Wait();
+                var result = responseTask.Result;
+                if (result.IsSuccessStatusCode)
+                {
+                    var readTask = JsonConvert.DeserializeObject<PlaylistDTO>(result.Content.ReadAsStringAsync().Result, settings);
+                    return readTask;
+                }
+            }
+
+            return null;
+        }
+        #endregion
         #endregion
     }
 }

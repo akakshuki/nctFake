@@ -15,7 +15,7 @@ namespace Api.Models
             return new CategoryBus().GetAllCate();
         }
 
-        public IEnumerable<Category> GetAllCateCon()
+        public IEnumerable<CategoryDTO> GetAllCateCon()
         {
             return new CategoryBus().GetAllCateCon();
         }
@@ -24,7 +24,7 @@ namespace Api.Models
         {
             return new CategoryBus().GetAllListCategories();
         }
-        public Category GetCateById(int id)
+        public CategoryDTO GetCateById(int id)
         {
             return new CategoryBus().GetCateById(id);
         }
@@ -144,7 +144,7 @@ namespace Api.Models
 
         #region Playlist
 
-        public IEnumerable<Playlist> GetAllPlaylist()
+        public IEnumerable<PlaylistDTO> GetAllPlaylist()
         {
             return new PlaylistBus().GetAllPlaylist();
         }
@@ -153,10 +153,19 @@ namespace Api.Models
         {
             return new PlaylistBus().GetPlaylistById(id);
         }
+        public PlaylistDTO GetPlaylistByCate(int id)
+        {
+            return new PlaylistBus().GetPlaylistByCate(id);
+        }
 
         public IEnumerable<Playlist> GetPlaylistByIdUser(int id)
         {
             return new PlaylistBus().GetPlaylistByIdUser(id);
+        }
+
+        public IEnumerable<PlaylistDTO> GetPlaylistByIdCate(int id)
+        {
+            return new PlaylistBus().GetPlaylistByIdCate(id);
         }
 
         public bool CreatePlaylist(PlaylistDTO playlist)
