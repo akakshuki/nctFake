@@ -4,6 +4,8 @@
     Layout = "~/Areas/Client/Views/Shared/_LayoutClient.cshtml";
     MusicDTO getMusic = ViewBag.getMusicById;
     LyricsMusicDTO getLyrics = ViewBag.getLyrics;
+    List<MusicDTO> randomMusic = ViewBag.getMusicRandom;
+    List<MusicDTO> SingerMusic = ViewBag.GetSinger;
     List<QualityMusicDTO> listQuality = ViewBag.getListQualityMusic;
 }
 @section js {
@@ -162,7 +164,7 @@
             <div class="name-view-music">
                 <span>@getMusic.MusicName</span>
                 <!--song-->
-                <!-- <a href=""><i class="fas fa-video"></i></a> -->
+                 @*<a href=""><i class="fas fa-video"></i></a>*@ 
                 <!--song-->
                 <!--mv-->
                 <a href=""><i class="fas fa-music"></i></a>
@@ -172,6 +174,25 @@
                 </span>
             </div>
             <div class="playMusic">
+                @if (getMusic.SongOrMV == true)
+                {
+                    //song
+                    <img src="@getMusic.LinkImage" alt="">
+                    <audio autoplay controls id="myAudio">
+                        <source src="nhac-demo.mp3" type="audio/mpeg">
+                    </audio>
+                    //song
+                }
+                else
+                {
+                    <!--mv-->
+                    <video autoplay controls id="myAudio">
+                        <source src="@Url.Content("~/Content/ClientMusic/")mv-demo.mp4" type="audio/mpeg">
+                    </video>
+                    <!--mv-->
+                }
+
+
                 <!--song-->
                 <!-- <img src="img/avt.png" alt="">
                 <audio autoplay controls id="myAudio">
@@ -286,115 +307,122 @@
             <div class="lyrics">
                 <span style="font-size: 18px;font-weight: 700;">Lời Bài Hát: @getMusic.MusicName</span><br>
                 <span>
-                    <span>Trình bày bởi: </span>
-                    <a href="">@getMusic.UserDto.UserName</a>,
-                    <a href="">Ca sĩ 2</a>
+                    <span>
+                        Trình bày bởi:
+                        <a href="">
+                            @foreach (var itemSinger in SingerMusic)
+                            {
+                                if (itemSinger.ID == getMusic.ID)
+                                {
+                                    foreach (var singers in itemSinger.SingerMusicDtOs)
+                                    {
+                                        <a>@singers.UserDto.UserName,</a>
+                                    }
+                                }
+
+                            }
+                        </a>
+                    </span>
                 </span><br>
-                <span>Lời đăng bởi: <a href="">Ca sĩ 1</a></span>
+                <span>
+                    Lời đăng bởi:
+                    @if (getLyrics != null)
+                    {
+                        <a href=""> @getLyrics.UserDto.UserName</a>
+                    }
+                    else
+                    {
+                        <a href=""> chưa có người đăng</a>
+                    }
+
+
+                </span>
                 <div style="border: 1px solid #00c292;margin-top: 10px;margin-bottom: 20px;"></div>
                 <!--Lyrics-->
                 <p id="lyrics">
+                    @if (getLyrics != null)
+                    {
+                    <p>
+                        @getLyrics.LMusicDetail
+                    </p>
+                    }
+                    else
+                    {
+                        <span>
+                        Hiện tại chưa có lời bài hát, cập nhật lời bài hát <a data-toggle="collapse"
+                                                                              href="#multiCollapseExample2" role="button" aria-expanded="false"
+                                                                              aria-controls="multiCollapseExample2">tại đây</a>
+                    </span>
+                    }
 
-                    [Intro]<br>
-                    What you do for love? Do for love <br>
-                    What you do, what you do, what you do for love?<br>
-                    What you do for love? Do for love<br>
-                    What you do, what you do, what you do for love? (Yea-yeah)<br>
+                 </p>
 
-                    [Verse 1: B-Ray]<br>
-                    Hey<br>
-                    Em gái nhỏ ơi nhìn em đẹp đó<br>
-                    Chỉ cần bước đi ngang là anh khó thở, nhịp tim anh kẹt đó<br>
-                    Bóng hồng kia chưa có chủ, hay là hàng hiếm nên chỉ được nhìn? (Nhìn?)<br>
-                    Mà thằng bạn trai nào dại lại để em bước ra đường một mình<br>
-                    Em make up từ 7 giờ tối để ngồi lại quán ***<br>
-                    Bận chiếc đầm em chọn, hơn cả tiếng để tôn được dáng em<br>
-                    Chụp bức ảnh với dòng caption mà em đã suy nghĩ sáng đêm<br>
-                    Làm tất cả để thấy nơi đây em là người duy nhất đáng xem<br>
-                    Và em thành công rồi đó<br>
-                    Vì em chỉ cần ngồi đó, anh nhìn là xiêu<br>
-                    Tên của anh là Bảo, thằng khỉ gió trên truyền hình là điêu<br>
-                    Một câu hỏi, baby, can you keep it real?<br>
-                    Anh biết em làm mọi thứ để có tất cả, nhưng em sẽ làm gì vì tình yêu?<br>
-                </p>
-                <!--Lyrics-->
-                <!--Post Lyrics-->
-                <span>
-                    Hiện tại chưa có lời bài hát, cập nhật lời bài hát <a data-toggle="collapse"
-                                                                          href="#multiCollapseExample2" role="button" aria-expanded="false"
-                                                                          aria-controls="multiCollapseExample2">tại đây</a>
-                </span>
-                <div class="collapse multi-collapse" id="multiCollapseExample2">
-                    <div class="card card-body" style="width: 70%;">
-                        <form action="" method="POST">
-                            <div class="input-group">
-                                <textarea type="text"
-                                          style="width: 500px;height: 300px;margin-bottom: 10px;">
+                    <!--Lyrics-->
+                    <!--Post Lyrics-->
+
+                    <div class="collapse multi-collapse" id="multiCollapseExample2">
+                        <div class="card card-body" style="width: 70%;">
+                            <form action="" method="POST">
+                                <div class="input-group">
+                                    <textarea type="text"
+                                              style="width: 500px;height: 300px;margin-bottom: 10px;">
 
                                             </textarea>
-                                <input type="submit" id="btnLyrics" value="Gửi lời">
-                            </div>
+                                    <input type="submit" id="btnLyrics" value="Gửi lời">
+                                </div>
 
-                        </form>
+                            </form>
+                        </div>
                     </div>
-                </div>
-                <!--Post Lyrics-->
-                <!--Edit Lyrics-->
-                <a data-toggle="collapse" href="#multiCollapseExample3" role="button" aria-expanded="false"
-                   aria-controls="multiCollapseExample3" id="editLyrics" data-hide="0">
-                    <i class="fas fa-edit"></i>
-                    Chỉnh sửa lời bài hát
-                </a>
-                <div class="collapse multi-collapse" id="multiCollapseExample3">
-                    <div class="card card-body" style="width: 70%;">
-                        <form action="" method="POST">
-                            <div class="input-group">
-                                <textarea type="text" id="containLyrics"
-                                          style="width: 500px;height: 300px;margin-bottom: 10px;">
+                    <!--Post Lyrics-->
+                    <!--Edit Lyrics-->
+                    <a data-toggle="collapse" href="#multiCollapseExample3" role="button" aria-expanded="false"
+                       aria-controls="multiCollapseExample3" id="editLyrics" data-hide="0">
+                        <i class="fas fa-edit"></i>
+                        Chỉnh sửa lời bài hát
+                    </a>
+                    <div class="collapse multi-collapse" id="multiCollapseExample3">
+                        <div class="card card-body" style="width: 70%;">
+                            <form action="" method="POST">
+                                <div class="input-group">
+                                    <textarea type="text" id="containLyrics"
+                                              style="width: 500px;height: 300px;margin-bottom: 10px;">
 
                                         </textarea>
-                                <input type="submit" id="btnEditLyrics" value="Cập nhật">
-                            </div>
-                        </form>
+                                    <input type="submit" id="btnEditLyrics" value="Cập nhật">
+                                </div>
+                            </form>
+                        </div>
                     </div>
+                    <!--Edit Lyrics-->
                 </div>
-                <!--Edit Lyrics-->
             </div>
-        </div>
-        <div class="gridRight">
-            <span class="lblMusic">Nghe tiếp</span>
-            <div class="itemSongRandom">
-                <div>
-                    <a href="nhac-demo-2.mp3"><img src="@Url.Content("~/Content/ClientMusic/")img/avt.png" alt=""> Tên bài hát</a><br>
-                    <span>
-                        <a href="">Ca sĩ 1</a>,
-                        <a href="">Ca sĩ 2</a>
-                    </span>
-                </div>
-                <span><i class="fas fa-headphones"></i> 300.000</span>
-            </div>
-            <div class="itemSongRandom">
-                <div>
-                    <a href="nhac-demo.mp3"><img src="@Url.Content("~/Content/ClientMusic/")img/avt.png" alt=""> Tên bài hát</a><br>
-                    <span>
-                        <a href="">Ca sĩ 1</a>,
-                        <a href="">Ca sĩ 2</a>
-                    </span>
-                </div>
-                <span><i class="fas fa-headphones"></i> 300.000</span>
-            </div>
-            <div class="itemSongRandom">
-                <div>
-                    <a href=""><img src="@Url.Content("~/Content/ClientMusic/")img/avt.png" alt=""> Tên bài hát</a><br>
-                    <span>
-                        <a href="">Ca sĩ 1</a>,
-                        <a href="">Ca sĩ 2</a>
-                    </span>
-                </div>
-                <span><i class="fas fa-headphones"></i> 300.000</span>
-            </div>
-        </div>
-    </div>
+            <div class="gridRight">
+                <span class="lblMusic">Nghe tiếp</span>
 
-</div>
-<!--End content-->
+                @foreach (var item in randomMusic)
+                {<div class="itemSongRandom">
+                        <div>
+                            <a href="nhac-demo-2.mp3"><img src="@item.LinkImage" alt=""> @item.MusicName</a><br>
+                            <span>
+                                <a href="">@item.UserDto.UserName</a>,
+                                @foreach (var itemSinger in SingerMusic)
+                                {
+                                    if (itemSinger.ID == item.ID)
+                                    {
+                                        foreach (var singers in itemSinger.SingerMusicDtOs)
+                                        {
+                                            <a>,@singers.UserDto.UserName</a>
+                                        }
+                                    }
+
+                                }
+                            </span>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+
+    </div>
+    <!--End content-->

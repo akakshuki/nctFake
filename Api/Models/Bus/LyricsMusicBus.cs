@@ -19,11 +19,12 @@ namespace Api.Models.Bus
                 LMusicDayCreate = data.LMusicDayCreate,
                 LMusicDetail = data.LMusicDetail,
                 MusicID = data.MusicID,
-                UserID = data.UserID,
+                UserID = data.UserID,       
                 MusicDto = new MusicDTO
                 {
-                    MusicName = data.Music.MusicName
-                }
+                    MusicName = data.Music.MusicName,                 
+                },
+                UserDto = new UserBus().GetUserById(data.UserID)
             };
         }
         public LyricsMusicDTO GetLyricById(int id)

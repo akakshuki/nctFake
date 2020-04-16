@@ -29,8 +29,10 @@ namespace Api.Models.Bus
                 NewFile = s.NewFile,
                 QualityDto = new QualityDTO
                 {
+                    ID = s.Quality.ID,
                     QualityName = s.Quality.QualityName
-                }
+                },
+                LinkFile = baseUrl + s.MusicFile,
             });
             return data;
         }
@@ -63,7 +65,7 @@ namespace Api.Models.Bus
                 return null;
             }
         }
-        public IEnumerable<QualityMusicDTO> GetFileByIdMusic(int id)
+        public List<QualityMusicDTO> GetFileByIdMusic(int id)
         {
             var data = new QualityMusicDao().GetFileByIdMusic(id).Select(s => new QualityMusicDTO
             {
@@ -80,7 +82,7 @@ namespace Api.Models.Bus
                     ID = s.QualityID,
                     QualityVip = s.Quality.QualityVip
                 }
-            });
+            }).ToList();
             return data;
         }
 

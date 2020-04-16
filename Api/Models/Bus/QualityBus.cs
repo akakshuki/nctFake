@@ -29,6 +29,7 @@ namespace Api.Models.Bus
             return list;
         }
 
+
         //create
         public bool CreateQuality(QualityDTO quality)
         {

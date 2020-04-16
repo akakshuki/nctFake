@@ -10,7 +10,7 @@ namespace Api.Controllers
     public class PlaylistController : ApiController
     {
         [Route("GetAllPlaylist")]
-        public IEnumerable<Playlist> GetAllPlaylist()
+        public IEnumerable<PlaylistDTO> GetAllPlaylist()
         {
             return new Repositories().GetAllPlaylist();
         }

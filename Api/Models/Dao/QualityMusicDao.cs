@@ -20,6 +20,12 @@ namespace Api.Models.Dao
             var data = db.QualityMusics.Where(s => s.MusicID == id).ToList();
             return data;
         }
+        //getFileByIdMusic
+        public QualityMusic GetLinkFileByIdMusic(int id)
+        {
+            var data = db.QualityMusics.SingleOrDefault(s => s.MusicID == id);
+            return data;
+        }
         //create
         public QualityMusic Create(QualityMusic qualityMusic)
         {

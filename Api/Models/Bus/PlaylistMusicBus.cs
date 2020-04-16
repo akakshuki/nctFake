@@ -10,7 +10,15 @@ namespace Api.Models.Bus
 {
     public class PlaylistMusicBus
     {
-        public IEnumerable<PlaylistMusicDTO> GetMusicByIdPlaylist(int id)
+        private string baseUrl = "";
+        private string baseUrl1 = "";
+
+        public PlaylistMusicBus()
+        {
+            baseUrl = "https://localhost:44315/File/mp3-mp4/";
+            baseUrl1 = "https://localhost:44315/File/mp3-mp4/";
+        }
+        public List<PlaylistMusicDTO> GetMusicByIdPlaylist(int id)
         {
             var data = new PlaylistMusicDao().GetMusicByIdPlaylist(id).Select(s => new PlaylistMusicDTO 
             {
@@ -19,11 +27,44 @@ namespace Api.Models.Bus
                 PlaylistID = s.PlaylistID,
                 MusicDto = new MusicDTO
                 {
-                    MusicName = s.Music.MusicName
-                }
-            });
+                    ID = s.Music.ID,
+                    MusicName = s.Music.MusicName,
+                    MusicView = s.Music.MusicView,
+                    MusicImage = s.Music.MusicImage,
+                    LinkImage = baseUrl1 + s.Music.MusicImage,
+                    SingerMusicDtOs = new SingerMusicDao()
+                        .GetAll()
+                        .Where(x => x.MusicID == s.Music.ID)
+                        .Select(x => new SingerMusicDTO()
+                        {
+                            ID = x.ID,
+                            MusicID = x.MusicID,
+                            SingerID = x.SingerID,
+                            UserDto = new UserBus().GetUserDtoById(x.SingerID)
+                        }).ToList(),
+                    QualityMusicDTOs = new QualityMusicBus().GetFileByIdMusic(s.Music.ID)
+                        .Where(d => d.QualityDto.QualityVip == false)
+                        .Select(d => new QualityMusicDTO()
+                        {
+                            ID = d.ID,
+                            LinkFile = baseUrl + d.MusicFile,
+                        }),
+                },
+                
+            }).ToList();
             return data;
         }
+
+        //public PlaylistMusicDTO GetIdMusicByIdPlaylist(int id)
+        //{
+        //    var data = new PlaylistMusicDao().GetMusicByIdPlaylist(id);
+        //    return new PlaylistMusicDTO
+        //    {
+        //        ID = data
+        //    };
+
+        //}
+
         public bool CreatePlaylistMusic(PlaylistMusic playlistMusic)
         {
             if (new PlaylistMusicDao().CreatePlaylist(playlistMusic))

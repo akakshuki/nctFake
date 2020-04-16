@@ -17,9 +17,9 @@ namespace Api.Models.Bus
             });
             return data;
         }
-        public IEnumerable<Category> GetAllCateCon()
+        public IEnumerable<CategoryDTO> GetAllCateCon()
         {
-            var data = new CategoryDao().GetAllCate().Select(s => new Category
+            var data = new CategoryDao().GetAllCate().Select(s => new CategoryDTO
             {
                 ID = s.ID,
                 CateName = s.CateName,
@@ -40,10 +40,10 @@ namespace Api.Models.Bus
             return data;
         }
 
-        public Category GetCateById(int id)
+        public CategoryDTO GetCateById(int id)
         {
             var data = new CategoryDao().GetCateById(id);
-            return new Category
+            return new CategoryDTO
             {
                 ID = data.ID,
                 CateName = data.CateName,

@@ -1,4 +1,4 @@
-﻿using Api.Models.Dao;
+﻿using Api.Models;
 using ModelViews.DTOs;
 using System;
 using System.Collections.Generic;
@@ -7,9 +7,10 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 
-namespace Api.Areas.Admin.Controllers
+namespace Api.Areas.Client.Controllers
 {
-    public class TestController : ApiController
+    [RoutePrefix("api/PlaylistClient")]
+    public class PlaylistClientController : ApiController
     {
         // GET api/<controller>
         public IEnumerable<string> Get()
@@ -18,11 +19,18 @@ namespace Api.Areas.Admin.Controllers
         }
 
         // GET api/<controller>/5
-        [HttpGet]
-        public string Get(string email)
+        [Route("GetPlaylistByIdCate/{id}")]
+        public IEnumerable<PlaylistDTO> GetPlaylistByIdCate(int id)
         {
-            
-            return "";
+            var data = new Repositories().GetPlaylistByIdCate(id);
+            return data;
+        }
+
+        [Route("GetPlaylistByCate/{id}")]
+        public PlaylistDTO GetPlaylistByCate(int id)
+        {
+            var data = new Repositories().GetPlaylistByCate(id);
+            return data;
         }
 
         // POST api/<controller>

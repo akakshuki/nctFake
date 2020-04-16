@@ -20,5 +20,6 @@ namespace ModelViews.DTOs
         public DateTime LMusicDayCreate { get; set; }
 
         public MusicDTO MusicDto { get; set; }
+        public UserDTO UserDto { get; set; }
     }
 }

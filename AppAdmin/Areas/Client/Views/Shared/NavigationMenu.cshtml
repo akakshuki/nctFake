@@ -31,8 +31,7 @@
                                                         if (item.ID_root == itemSub.ID)
                                                         {
                                                             <ul>
-                                                                <li><a href="playMusic.html">@item.CateName</a></li>
-
+                                                                <li><a href="@Url.Action("Index","listMusicByIdCate", new { id = item.ID})">@item.CateName</a></li>
                                                             </ul>
                                                         }
                                                     }
@@ -59,7 +58,7 @@
                                                         if (itemSub.ID_root == item.ID)
                                                         {
                                                             <ul>
-                                                                <li><a href="playMusic.html">@itemSub.CateName</a></li>
+                                                                <li><a href="@Url.Action("Index","listMusicByIdCate", new { id = item.ID})">@itemSub.CateName</a></li>
 
                                                             </ul>
                                                         }
@@ -73,11 +72,14 @@
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                             <i class="fa fa-th-list"></i> Chủ đề
                                         </a>
+                                      
                                         <ul class="dropdown-menu" style="height:250px;overflow:auto">
                                             <!-- Level 2 -->
                                             @foreach (var item in listChuDe)
                                             {
-                                                <li><a href="#">@item.CateName</a></li>
+                                     
+                                                <li><a href="@Url.Action("Index","listPlaylistByCate", new { id = item.ID })">@item.CateName</a></li>
+                          
                                             }
 
                                         </ul>
@@ -86,7 +88,7 @@
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                             <i class="notika-icon notika-bar-chart"></i> BXH
                                         </a>
-                                        <ul class="dropdown-menu" style="height:250px;overflow:auto">
+                                        <ul class="dropdown-menu" style="height:250px; min-height:100px;">
                                             @foreach (var item in listCate)
                                             {
                                                 <li><a href="@Url.Action("RankMusicThisWeek","Home",new {id = item.ID})"> @item.CateName</a></li>       

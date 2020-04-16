@@ -254,6 +254,7 @@ namespace Api.Models.Bus
                     MusicNameUnsigned = music.MusicNameUnsigned,
                     MusicView = music.MusicView,
                     ID = music.ID,
+                    LinkImage = baseUrl + music.MusicImage,
                     //Edit later
                     
                     UserDto = new UserBus().GetUserDtoById(music.UserID),

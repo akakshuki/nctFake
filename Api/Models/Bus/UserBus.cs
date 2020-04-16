@@ -16,6 +16,33 @@ namespace Api.Models.Bus
         {
             baseUrl = "https://localhost:44315/File/ImageUser/";
         }
+        public IEnumerable<UserDTO> GetAllUser()
+        {
+            var data = new UserDao().GetAllUser().Where(s => s.UserVIP == false & s.RoleID == 3).OrderByDescending(s => s.UserDayCreate).Select(s => new UserDTO
+            {
+                ID = s.ID,
+                UserName = s.UserName,
+                UserDOB = s.UserDOB,
+                UserGender = s.UserGender,
+                UserVIP = s.UserVIP,
+                UserEmail = s.UserEmail,
+                UserPwd = s.UserPwd,
+                UserDescription = s.UserDescription,
+                UserNameUnsigned = s.UserNameUnsigned,
+                UserImage = s.UserImage,
+                UserDayCreate = s.UserDayCreate,
+                UserActive = s.UserActive,
+                TokenUser = s.TokenUser,
+                DayVipEnd = s.DayVipEnd,
+                RoleID = s.RoleID,
+                RoleDto = new RoleDTO()
+                {
+                    ID = s.Role.ID,
+                    RoleName = s.Role.RoleName
+                }
+            });
+            return data;
+        }
         public IEnumerable<User> GetAllUserNormal()
         {
             var data = new UserDao().GetAllUser().Where(s=>s.UserVIP == false & s.RoleID == 3).OrderByDescending(s => s.UserDayCreate).Select(s => new User
