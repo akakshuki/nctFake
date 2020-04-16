@@ -21,7 +21,7 @@ namespace AppAdmin.Controllers
         // GET: Music
         public ActionResult Index()
         {
-            var music = ApiService.GetAllMusic();
+            var music = ApiService.GetAllMusic().OrderByDescending(s=>s.MusicDayCreate).ToList();
             return View(music);
         }
 

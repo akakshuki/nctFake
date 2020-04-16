@@ -53,6 +53,15 @@ namespace Api.Areas.Admin.Controllers
         {
             new Repositories().DeleteMusic(id);
         }
+        [Route("UpdateMusicView")]
+        public IHttpActionResult UpdateMusicView(MusicDTO music)
+        {
+            if (new Repositories().UpdateMusicView(music))
+            {
+                return Ok();
+            }
+            return InternalServerError();
+        } 
 
         //// DELETE: api/Music/GetMusicByName/Godzila
         [Route("GetMusicByName/{key}")]

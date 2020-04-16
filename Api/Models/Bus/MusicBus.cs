@@ -47,6 +47,26 @@ namespace Api.Models.Bus
                 throw;
             }
         }
+        //update music View
+        public bool UpdateMusicView(MusicDTO music)
+        {
+
+            var data = new MusicDTO()
+            {
+                ID = music.ID,
+                MusicView = music.MusicView,
+            };
+            try
+            {
+                new MusicDao().UpdateView(data);
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return false;
+            }
+        }
 
         //update music
         public bool AdminUpdateMusic(MusicDTO music)

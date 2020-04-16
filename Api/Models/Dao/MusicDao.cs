@@ -40,7 +40,13 @@ namespace Api.Models.Dao
         public void Unactive(int id)
         {
         }
-
+        //update MusicView
+        public void UpdateView(MusicDTO musicDTO)
+        {
+            var data = db.Musics.SingleOrDefault(x => x.ID == musicDTO.ID);
+            data.MusicView = musicDTO.MusicView + 1;
+            db.SaveChanges();
+        }
         //update
         public void Update(Music music)
         {

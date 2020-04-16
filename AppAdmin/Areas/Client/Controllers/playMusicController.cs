@@ -1,4 +1,5 @@
 ﻿using AppAdmin.Models.Service;
+using ModelViews.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,11 +13,13 @@ namespace AppAdmin.Areas.Client.Controllers
         // GET: Client/playMusic
         public ActionResult Index(int id)
         {
+            ViewBag.GetSinger = ApiService.GetAllMusic();
             ViewBag.getMusicById = ApiService.GetMusicById(id);
             ViewBag.getLyrics = ApiService.GetLyricByIdMusic(id);
             ViewBag.getListQualityMusic = ApiService.GetFileByIdMusic(id);
             return View();
         }
+
 
         public JsonResult DownLoadFile(int qualityId)
         {
@@ -28,6 +31,16 @@ namespace AppAdmin.Areas.Client.Controllers
             {
                 data = linkFile
             }, JsonRequestBehavior.AllowGet);
+
+        public ActionResult UpdateMusicView(MusicDTO music)
+        {
+            var data = ApiService.UpdateMusicView(music);
+            if (data!= null)
+            {
+                return RedirectToAction("Index", new { id = music.ID });
+            }
+            return RedirectToAction("Index",new { id = music.ID });
+
         }
     }
 }

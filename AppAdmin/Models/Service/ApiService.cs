@@ -960,6 +960,23 @@ namespace AppAdmin.Models.Service
             return false;
         }
 
+        public static MusicDTO UpdateMusicView(MusicDTO music)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Accept.Clear();
+                var response = client.PostAsync("https://localhost:44384/api/music/MusicDTO/", new StringContent(
+                    new JavaScriptSerializer().Serialize(music), Encoding.UTF8, "application/json")).Result;
+                if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    return music;
+                }
+            }
+
+            return null;
+        }
+
+
         public static bool DeleteMusic(int id)
         {
             using (HttpClient client = new HttpClient())

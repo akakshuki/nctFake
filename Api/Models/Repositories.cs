@@ -250,6 +250,11 @@ namespace Api.Models
             return new MusicBus().AdminUpdateMusic(music);
         }
 
+        public bool UpdateMusicView(MusicDTO music)
+        {
+            return new MusicBus().UpdateMusicView(music);
+        }
+
         public bool DeleteMusic(int id)
         {
             return new MusicBus().AdminDeleteMusic(id);
