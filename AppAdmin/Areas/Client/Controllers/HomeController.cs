@@ -33,7 +33,7 @@ namespace AppAdmin.Areas.Client.Controllers
         public ActionResult NavigationMenu()
         {
             ViewBag.getCate = ApiService.GetAllCate();
-            ViewBag.getSubCate = ApiService.GetAllCateCon();
+            ViewBag.getSubCate = ApiService.GetAllCateCon().Where(s => s.ID_root != null).ToList();
             ViewBag.getTheoChuDe = ApiService.GetAllCateCon().Where(s=>s.ID_root != null).ToList();
             return PartialView();
         }

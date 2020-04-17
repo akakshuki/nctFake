@@ -23,14 +23,14 @@ namespace Api.Controllers
 
         // GET api/<controller>
         [Route("GetAllCateCon")]
-        public IEnumerable<Category> GetAllCateCon()
+        public IEnumerable<CategoryDTO> GetAllCateCon()
         {
             return new Repositories().GetAllCateCon();
         }
 
         // GET api/<controller>/5
         [Route("GetCateById/{id}")]
-        public Category GetCateById(int id)
+        public CategoryDTO GetCateById(int id)
         {
             return new Repositories().GetCateById(id);
         }

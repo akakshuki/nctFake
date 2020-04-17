@@ -13,9 +13,11 @@ namespace AppAdmin.Areas.Client.Controllers
         // GET: Client/playMusic
         public ActionResult Index(int id)
         {
+          
             ViewBag.GetSinger = ApiService.GetAllMusic();
             ViewBag.getMusicById = ApiService.GetMusicById(id);
             ViewBag.getLyrics = ApiService.GetLyricByIdMusic(id);
+            ViewBag.getMusicRandom = ApiService.GetAllMusic().Distinct().OrderBy(s=> Guid.NewGuid()).Take(5).ToList();
             ViewBag.getListQualityMusic = ApiService.GetFileByIdMusic(id);
             return View();
         }
@@ -33,6 +35,7 @@ namespace AppAdmin.Areas.Client.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
+        }
         public ActionResult UpdateMusicView(MusicDTO music)
         {
             var data = ApiService.UpdateMusicView(music);

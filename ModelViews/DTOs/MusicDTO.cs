@@ -28,5 +28,6 @@ namespace ModelViews.DTOs
         public List<HistoryUserDTO> HistoryUserDtos { get; set; }
         public List<SingerMusicDTO> SingerMusicDtOs { get; set; }
         public CategoryDTO CategoryDto { get; set; }
+        public IEnumerable<QualityMusicDTO> QualityMusicDTOs { get; set; }
     }
 }

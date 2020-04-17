@@ -23,10 +23,30 @@ namespace Api.Models.Dao
             var data = db.Playlists.SingleOrDefault(s => s.ID == id);
             return data;
         }
+        public Playlist GetPlaylistByCate(int id)
+        {
+            try
+            {
+                var data = db.Playlists.SingleOrDefault(s => s.UserID == id);
+                return data;
+            }
+            catch (System.Exception e)
+            {
+
+                return null;
+            }
+           
+        }
 
         public List<Playlist> GetPlaylistByIdUser(int id)
         {
             var data = db.Playlists.Where(s => s.UserID == id).ToList();
+            return data;
+        }
+
+        public List<Playlist> GetPlaylistByIdCate(int id)
+        {
+            var data = db.Playlists.Where(s => s.CateID == id).ToList();
             return data;
         }
 
