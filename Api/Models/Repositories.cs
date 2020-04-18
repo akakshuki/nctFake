@@ -430,6 +430,10 @@ namespace Api.Models
         {
             return new QualityMusicBus().GetQualityMusicById(id);
         }
+        public QualityMusicDTO GetQualityMusicByIdMusic(int id)
+        {
+            return new QualityMusicBus().GetQualityMusicByIdMusic(id);
+        }
         public IEnumerable<QualityMusicDTO> GetFileByIdMusic(int id)
         {
             return new QualityMusicBus().GetFileByIdMusic(id);
@@ -521,6 +525,11 @@ namespace Api.Models
         public IEnumerable<PlaylistMusicDTO> GetMusicByIdPlaylist(int id)
         {
             var data = new PlaylistMusicBus().GetMusicByIdPlaylist(id);
+            return data;
+        }
+        public IEnumerable<PlaylistMusicDTO> GetAllPlaylistMusic()
+        {
+            var data = new PlaylistMusicBus().GetAllPlaylistMusic();
             return data;
         }
         public bool CreatePlaylistMusic(PlaylistMusic playlistMusic)

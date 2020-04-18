@@ -36,6 +36,7 @@ namespace Api.Models.Bus
             });
             return data;
         }
+        
         public QualityMusicDTO GetQualityMusicById(int id)
         {
             try
@@ -111,13 +112,11 @@ namespace Api.Models.Bus
         {
             try
             {
-                new QualityMusicDao().Update(new QualityMusic()
+                new QualityMusicDao().UpdateFile(new QualityMusic()
                 {
                     ID = quality.ID,
                     QMusicApproved = quality.QMusicApproved,
-                    NewFile = false,
-                    MusicFile = quality.MusicFile,//co file sua sau
-                    QualityID = quality.QualityID,
+                    NewFile = false,                                      
                     MusicID = quality.MusicID,
                 });
                 return true;
@@ -136,9 +135,7 @@ namespace Api.Models.Bus
                 {
                     MusicFile = quality.MusicFile,//co file sua sau
                     ID = quality.ID,
-                    QMusicApproved = false,
-                    QualityID = quality.QualityID,
-                    NewFile = true,
+                    QualityID = quality.QualityID,                   
                     MusicID = quality.MusicID,
                 });
                 return true;
@@ -165,5 +162,27 @@ namespace Api.Models.Bus
         }
 
         #endregion Admin
+        #region Client
+        public QualityMusicDTO GetQualityMusicByIdMusic(int id)
+        {
+            var s = new QualityMusicDao().GetQualityMusicByIdMusic(id);
+            return new QualityMusicDTO()
+            {
+                ID = s.ID,
+                MusicID = s.MusicID,
+                MusicFile = s.MusicFile,
+                QualityID = s.QualityID,
+                QMusicApproved = s.QMusicApproved,
+                NewFile = s.NewFile,
+                LinkFile = baseUrl + s.MusicFile,
+                QualityDto = new QualityDTO
+                {
+                    QualityName = s.Quality.QualityName,
+                    ID = s.QualityID,
+                    QualityVip = s.Quality.QualityVip
+                }
+            };
+        }
+        #endregion
     }
 }

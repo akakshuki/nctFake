@@ -55,6 +55,43 @@ namespace Api.Models.Bus
             return data;
         }
 
+        public List<PlaylistMusicDTO> GetAllPlaylistMusic()
+        {
+            var data = new PlaylistMusicDao().GetAllPlaylistMusic().Select(s => new PlaylistMusicDTO
+            {
+                ID = s.ID,
+                MusicID = s.MusicID,
+                PlaylistID = s.PlaylistID,
+                MusicDto = new MusicDTO
+                {
+                    ID = s.Music.ID,
+                    MusicName = s.Music.MusicName,
+                    MusicView = s.Music.MusicView,
+                    MusicImage = s.Music.MusicImage,
+                    LinkImage = baseUrl1 + s.Music.MusicImage,
+                    SingerMusicDtOs = new SingerMusicDao()
+                        .GetAll()
+                        .Where(x => x.MusicID == s.Music.ID)
+                        .Select(x => new SingerMusicDTO()
+                        {
+                            ID = x.ID,
+                            MusicID = x.MusicID,
+                            SingerID = x.SingerID,
+                            UserDto = new UserBus().GetUserDtoById(x.SingerID)
+                        }).ToList(),
+                    QualityMusicDTOs = new QualityMusicBus().GetFileByIdMusic(s.Music.ID)
+                        .Where(d => d.QualityDto.QualityVip == false)
+                        .Select(d => new QualityMusicDTO()
+                        {
+                            ID = d.ID,
+                            LinkFile = baseUrl + d.MusicFile,
+                        }),
+                },
+
+            }).ToList();
+            return data;
+        }
+
         //public PlaylistMusicDTO GetIdMusicByIdPlaylist(int id)
         //{
         //    var data = new PlaylistMusicDao().GetMusicByIdPlaylist(id);

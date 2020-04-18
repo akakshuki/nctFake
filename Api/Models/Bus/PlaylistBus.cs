@@ -59,6 +59,7 @@ namespace Api.Models.Bus
                 UserID = data.UserID,
                 LinkImage = baseUrl + data.PlaylistImage,
                 CategoryDto = new CategoryBus().GetCateById(data.CateID ?? 0),
+                
             };
         }
 

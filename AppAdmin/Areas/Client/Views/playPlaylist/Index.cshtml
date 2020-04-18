@@ -6,6 +6,9 @@
     List<PlaylistDTO> randomPlaylist = ViewBag.getListPlaylist;
     List<PlaylistMusicDTO> playlistMusicDTOs = ViewBag.getPlaylistMusic;
     List<MusicDTO> SingerMusic = ViewBag.GetSinger;
+    List<PlaylistDTO> getPlatlistByIdUser = ViewBag.getPlaylistByIdUser;
+    List<PlaylistDTO> getPlatlistByIdUser1 = ViewBag.getPlaylistByIdUser1;
+    int number = 1;
 }
 @section js{
 
@@ -17,7 +20,9 @@
             var mainAudio = $('#myAudio');
             var itemLength = $('.itemPlaylist').length;
             $('.itemPlaylist:first-child').addClass("active-playlist");
-            mainAudio.attr("src", $('.itemPlaylist:first-child>span>a').attr("href"));
+            mainAudio.attr("src", $('.itemPlaylist:first-child>span>a').attr("data-src"));
+            var idMusicFirst = parseInt($('.itemPlaylist:first-child>span>a').attr("data-id"));
+            UpdateView(idMusicFirst);
             $('#checkAuto').change(function () {
                 if ($('#checkAuto').prop('checked') == true) {
                     valueAuto = true;
@@ -46,33 +51,64 @@
             $("#myAudio").on("ended", function () {
                 var index = $('.itemPlaylist').index($('.active-playlist')) + 1;
                 var nextItem = $('.itemPlaylist:nth-child(' + (index + 1) + ')');
-                var nextItemHref = $('.itemPlaylist:nth-child(' + (index + 1) + ')>span>a').attr("href");
+                var nextItemHref = $('.itemPlaylist:nth-child(' + (index + 1) + ')>span>a').attr("data-src");
+                var nextItemID = $('.itemPlaylist:nth-child(' + (index + 1) + ')>span>a').attr("data-id");
                 if (valueRepeat == true) {
                     document.getElementById("myAudio").play();
                 } else if (valueRandom == true) {
                     var random = Math.floor((Math.random() * itemLength) + 1);
                     $('.itemPlaylist').removeClass("active-playlist");
                     $('.itemPlaylist:nth-child(' + random + ')').addClass("active-playlist");
-                    mainAudio.attr("src", $('.itemPlaylist:nth-child(' + random + ')>span>a').attr("href"));
+                    mainAudio.attr("src", $('.itemPlaylist:nth-child(' + random + ')>span>a').attr("data-src"));
+                    UpdateView(parseInt($('.itemPlaylist:nth-child(' + random + ')>span>a').attr("data-id")));
                 } else if (index == itemLength && valueAuto == true) {
                     window.open($('.itemSongRandom>div>a:first-child').attr("href"), "_self");
                 } else if (index == itemLength) {
                     $('.itemPlaylist').removeClass("active-playlist");
                     $('.itemPlaylist:first-child').addClass("active-playlist");
-                    mainAudio.attr("src", $('.itemPlaylist:first-child>span>a').attr("href"));
+                    mainAudio.attr("src", $('.itemPlaylist:first-child>span>a').attr("data-src"));
+                    UpdateView(idMusicFirst);
                 } else {
                     $('.itemPlaylist').removeClass("active-playlist");
                     nextItem.addClass("active-playlist");
                     mainAudio.attr("src", nextItemHref);
+                    UpdateView(parseInt(nextItemID));
                 }
             });
             $('.itemPlaylist').click(function () {
                 $('.itemPlaylist').removeClass("active-playlist");
                 $(this).addClass("active-playlist");
-                mainAudio.attr("src", $('.active-playlist>span>a').attr("href"));
+                mainAudio.attr("src", $('.active-playlist>span>a').attr("data-src"));
+                UpdateView(parseInt($('.active-playlist>span>a').attr("data-id")));
             })
+            //add music playlist
+            $('.addPlaylist li').click(function () {
+                var idplist = parseInt($(this).attr("data-idPlist"));
+                var idmusic = parseInt($(this).attr("data-idMusic"));
+                $.post("/Client/AddMusicPlaylist", { PlaylistID: idplist, MusicID: idmusic }).done(function (res) {
+                    var stt = res.status;
+                    if (stt == true) {
+                        alertify.success("Thêm bài hát vào playlist thành công.");
+                    } else {
+                        alertify.error("Lỗi khi thêm bài hát vào playlist. Mời thử lại.");
+                    }
+                });
+            });
+            //update view
+            function UpdateView(idMusic) {
+                $.ajax({
+                    url: '/Client/UpdateView',
+                    type: 'GET',
+                    dataType: 'json',
+                    contentType: "application/json",
+                    data: { idMusic },
+                    success: function (res) {
+                        var view = res.data;
+                        console.log(view);
+                    }
+                });
+            }
         });
-
     </script>
     <!-- Input Mask JS
         ============================================ -->
@@ -130,40 +166,23 @@
             <div class="name-view-music">
                 <span>@playlistDTO.PlaylistName - @playlistDTO.UserDto.UserName</span>
                 <span style="position: absolute;left: 730px;top:86px;font-size: 18px;">
-                   
+
                 </span>
             </div>
             <div class="playMusic">
                 <!--song-->
-                @foreach (var item in SingerMusic)
-                {
-                    foreach (var item1 in playlistMusicDTOs)
-                    {
-                       
-                        if (item1.MusicID == item.ID)
-                        {
-                            foreach (var file in item1.MusicDto.QualityMusicDTOs)
-                            {
-
-                                <audio autoplay controls id="myAudio">
-                                    <source src="@file.LinkFile" type="audio/mpeg">
-                                </audio>
-                            }
-
-                        }
-                    }
-
-                }
-
-
+                <img src="@playlistDTO.LinkImage" alt="">
+                <audio autoplay controls id="myAudio">
+                    <source src="" type="audio/mpeg">
+                </audio>
                 <!--song-->
                 <div id="playlistMusic">
                     @foreach (var item in playlistMusicDTOs)
                     {
                         <div class="itemPlaylist">
                             <span>
-                                <span> 1. </span>
-                                <a href="nhac-demo.mp3">@item.MusicDto.MusicName -</a>
+                                <span> @number. </span>
+                                <a href="@Url.Action("Index", "playMusic", new { id = item.MusicID })" data-src="@item.MusicDto.FileImage" data-id="@item.MusicID" target="_blank">@item.MusicDto.MusicName -</a>
                                 <span>
                                     @foreach (var itemSinger in SingerMusic)
                                     {
@@ -179,15 +198,39 @@
                                 </span>
                             </span>
                             <span>
-                                <span>
-                                    <a href="nhac-demo.mp3" download="nhac" style="color: black;" id="downFile"
-                                       title="Tải về"><i class="fa fa-download"></i></a>
-                                </span>
+                                @if (item.MusicDto.MusicDownloadAllowed == true)
+                                {
+                                    <span>
+                                        <a href="#" download="nhac" style="color: black;" id="downFile"
+                                           title="Tải về"><i class="fa fa-download"></i></a>
+                                    </span>
+                                }
+
                                 <span class="addPlaylist" style="cursor: pointer;">
                                     <i class="fas fa-plus-circle"></i>
                                     <ul>
-                                        <li><a href="">Bài hát yêu thích</a> </li>
-                                        <li><a href="">Test1</a></li>
+                                        @if (Session["UserSession"] != null)
+                                        {
+                                            if (getPlatlistByIdUser == null)
+                                            {
+                                                <span>Bạn chưa có playlist nào. <a href="#">TẠO</a></span>
+                                            }
+                                            else
+                                            {
+                                                foreach (var itemPlaylist in getPlatlistByIdUser)
+                                                {
+                                                    <li data-idPlist="@itemPlaylist.ID" data-idMusic="@item.MusicID"><a href="">@itemPlaylist.PlaylistName</a> </li>
+
+                                                }
+                                            }
+
+                                        }
+                                        else
+                                        {
+
+                                            <li><a href="@Url.Action("Login","Login")">Đăng nhập để tạo playlist</a> </li>
+                                        }
+
                                     </ul>
                                 </span>
                                 <span><i class="fas fa-headphones"></i> @item.MusicDto.MusicView</span>
@@ -196,10 +239,10 @@
                     }
                 </div>
                 <div class="menuMusic">
-                    <img src="img/avt.png" alt="">
+                    <img src="@playlistDTO.UserDto.LinkImage" alt="">
                     <div>
                         <span>Cung cấp bởi:</span><br>
-                        <span style="color: #00c292;font-weight: 700;">Nhaccuateoo</span>
+                        <span style="color: #00c292;font-weight: 700;">@playlistDTO.UserDto.UserName</span>
                     </div>
                     <div>
                         <span>Auto chuyển Playlist:</span>
@@ -218,8 +261,21 @@
                         <a href=""><img src="img/share_fb.png" alt=""></a>
                     </div>
                 </div>
-                <p style="margin-top: 15px;margin-left: 20px;font-size: 16px;">@playlistDTO.PlaylistDescription</p>
+
+                @if (playlistDTO.PlaylistDescription == null)
+                {
+
+                    <p style="margin-top: 15px;margin-left: 20px;font-size: 16px;">
+                        Không có mô tả
+                    </p>
+                }
+                else
+                {
+                    <p style="margin-top: 15px;margin-left: 20px;font-size: 16px;">@playlistDTO.PlaylistDescription</p>
+                }
+
             </div>
+
         </div>
         <div class="gridRight">
             <span class="lblMusic">Nghe tiếp</span>

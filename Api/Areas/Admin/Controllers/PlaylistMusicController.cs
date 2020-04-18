@@ -21,6 +21,13 @@ namespace Api.Areas.Admin.Controllers
             return data;
         }
 
+        [Route("GetAllPlaylistMusic")]
+        public IEnumerable<PlaylistMusicDTO> GetAllPlaylistMusic()
+        {
+            var data = new Repositories().GetAllPlaylistMusic();
+            return data;
+        }
+
         // GET api/<controller>/5
         [Route("DeletePlaylistMusic/{id}")]
         public IHttpActionResult DeletePlaylistMusic(int id)

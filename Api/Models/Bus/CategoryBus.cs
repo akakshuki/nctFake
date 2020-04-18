@@ -47,7 +47,7 @@ namespace Api.Models.Bus
             {
                 ID = data.ID,
                 CateName = data.CateName,
-                ID_root = data.ID_root
+                ID_root = data.ID_root,
             };
         }
         public IEnumerable<Category> GetCateByIdRoot(int id)

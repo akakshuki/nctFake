@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using AppAdmin.Areas.Client.Models.ServiceClient;
+using AppAdmin.Common;
+using ModelViews.DTOs;
 using ApiService = AppAdmin.Models.Service.ApiService;
 
 namespace AppAdmin.Areas.Client.Controllers
@@ -32,6 +34,7 @@ namespace AppAdmin.Areas.Client.Controllers
 
         public ActionResult NavigationMenu()
         {
+            Session["UserSession"] = (UserDTO)Session[CommonConstants.USER_SESSION];
             ViewBag.getCate = ApiService.GetAllCate();
             ViewBag.getSubCate = ApiService.GetAllCateCon().Where(s => s.ID_root != null).ToList();
             ViewBag.getTheoChuDe = ApiService.GetAllCateCon().Where(s=>s.ID_root != null).ToList();

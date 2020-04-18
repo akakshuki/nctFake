@@ -20,6 +20,11 @@ namespace Api.Models.Dao
             var data = db.QualityMusics.Where(s => s.MusicID == id).ToList();
             return data;
         }
+        public QualityMusic GetQualityMusicByIdMusic(int id)
+        {
+            var data = db.QualityMusics.SingleOrDefault(s => s.MusicID == id && s.QualityID == 1) ?? null;
+            return data;
+        }
         //getFileByIdMusic
         public QualityMusic GetLinkFileByIdMusic(int id)
         {
@@ -51,7 +56,17 @@ namespace Api.Models.Dao
         public void Unactive(int id)
         {
         }
-
+        //update Approved
+        public bool UpdateFile(QualityMusic qualityMusic)
+        {
+            var data = db.QualityMusics.SingleOrDefault(s => s.ID == qualityMusic.ID);
+            data.QMusicApproved = qualityMusic.QMusicApproved;
+            if (db.SaveChanges() > 0)
+            {
+                return true;
+            }
+            return false;
+        }
         //update
         public void Update(QualityMusic qualityMusic)
         {

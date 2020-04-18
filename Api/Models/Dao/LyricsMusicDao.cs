@@ -47,6 +47,7 @@ namespace Api.Models.Dao
             var data = db.LyricsMusics.SingleOrDefault(s=>s.ID == lyricsMusic.ID);
             data.LMusicDetail = lyricsMusic.LMusicDetail;
             data.MusicID = lyricsMusic.MusicID;
+            data.UserID = lyricsMusic.UserID;
             if (db.SaveChanges() > 0)
             {
                 return true;
