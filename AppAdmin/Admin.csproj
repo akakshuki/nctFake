@@ -290,6 +290,7 @@
     <Content Include="Content\ClientMusic\js\code-editor\codemirror.js" />
     <Content Include="Content\ClientMusic\js\color-picker\color-picker.js" />
     <Content Include="Content\ClientMusic\js\color-picker\farbtastic.min.js" />
+    <Content Include="Content\ClientMusic\js\ControllerJs.js" />
     <Content Include="Content\ClientMusic\js\counterup\counterup-active.js" />
     <Content Include="Content\ClientMusic\js\counterup\jquery.counterup.min.js" />
     <Content Include="Content\ClientMusic\js\counterup\waypoints.min.js" />
@@ -337,6 +338,7 @@
     <Content Include="Content\ClientMusic\js\meanmenu\jquery.meanmenu.js" />
     <Content Include="Content\ClientMusic\js\metisMenu\metisMenu-active.js" />
     <Content Include="Content\ClientMusic\js\metisMenu\metisMenu.min.js" />
+    <Content Include="Content\ClientMusic\js\Mustache.js" />
     <Content Include="Content\ClientMusic\js\notification\bootstrap-growl.min.js" />
     <Content Include="Content\ClientMusic\js\notification\notification-active.js" />
     <Content Include="Content\ClientMusic\js\owl.carousel.min.js" />
@@ -570,6 +572,7 @@
     <Content Include="Areas\Client\Views\listMusicByIdCate\Index.cshtml" />
     <Content Include="Areas\Client\Views\RankMusic\Index.cshtml" />
     <Content Include="Areas\Client\Views\Home\RankMusicThisWeek.cshtml" />
+    <Content Include="Areas\Client\Views\Home\SearchPage.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />

@@ -1,14 +1,118 @@
 (function ($) {
 	"use strict";
 	//Search	
-	$('#valueSearch').keyup(function(){
-		if($('#valueSearch').val()==""){
+	$('#valueSearch').keyup(function () {
+		if ($('#valueSearch').val() == "") {
 			$('#viewSearch').hide();
-		}else{
+		} else {
+			var value = $(this).val();
+			//search music
+			$.ajax({
+				url: "/Client/Home/SearchMusicByKey",
+				type: 'GET',
+				dataType: 'json',
+				data: {
+					name: value
+				}, success: function (response) {
+
+					var ls = response.data;
+                    $('#viewSong').html("");
+                    ls.forEach(function (i) {
+						var row = '<div class="itemSongRandom">\n' +
+                            '<div>\n' +
+							'<a href="/Client/PlayMusic?id=' + i.ID + '"><img src="' + i.LinkImage + '">' + i.MusicName + '</a><br>' +
+                            '<span>\n';
+						i.SingerMusicDtOs.forEach(function (s) {
+							if (s.index + 1 === i.SingerMusicDtOs.length ) {
+                                row += '<a href=""> ' + s.UserDto.UserName + '</a>';
+                            } else {
+								row += '<a href=""> ' + s.UserDto.UserName + ',</a>';
+                            }
+                        });
+
+                        row += '\n</span>' +
+                            '</div>\n' +
+                            '</div>';
+                        $('#viewSong').append(row);
+                    });
+
+     //               var data = response.data;
+					//var html = '';
+                  
+					//var template = $('#data-music-template').html();
+					//$.each(data,
+					//	function (i, item) {
+					//		html += Mustache.render(template,
+					//			{
+					//				id: item.ID,
+     //                               musicName: item.MusicName,
+					//				linkFile: item.LinkImage
+     //                           });
+					//	});
+     //              $('#viewSong').html(html);
+				}
+			});
+			//search music
+            $.ajax({
+                url: "/Client/Home/SearchVideoByKey",
+                type: 'GET',
+                dataType: 'json',
+                data: {
+                    name: value
+                },
+                success: function(response) {
+                    var data = response.data;
+                    var html = '';
+
+                    var template = $('#data-video-template').html();
+                    $.each(data,
+                        function(i, item) {
+                            html += Mustache.render(template,
+                                {
+                                    id: item.ID,
+                                    musicName: item.MusicName,
+                                    linkFile: item.LinkImage,
+                                    userName:item.UserDto.UserName
+								});
+                         
+
+                        });
+                    $('#viewMV').html(html);
+                }
+            });
+			//search singer
+            $.ajax({
+				url: "/Client/Home/SearchSingerByKey",
+                type: 'GET',
+                dataType: 'json',
+                data: {
+                    name: value
+                }, success: function (response) {
+                    var data = response.data;
+                    var html = '';
+                    console.log(data);
+                    var template = $('#data-singer-template').html();
+                    $.each(data,
+                        function (i, item) {
+                            html += Mustache.render(template,
+                                {
+                                    id: item.ID,
+                                    userName: item.UserName,
+									linkFile: item.UserImage
+                                });
+                        });
+                    $('#singerTemplate').html(html);
+                }
+            });
+
 			$('#viewSearch').show();
 		}
-	})
-	//Search	
+
+	});
+
+
+  
+  //Search	
 	$(".chosen")[0] && $(".chosen").chosen({
 		width: "100%",
 		allow_single_deselect: !0
@@ -159,4 +263,5 @@
 
 
 
-})(jQuery); 
+})(jQuery);
+

@@ -4,6 +4,7 @@
     List<CategoryDTO> listSubCate = ViewBag.getSubCate;
     List<CategoryDTO> listChuDe = ViewBag.getTheoChuDe;
 }
+
 <div class="header-top-area">
     <div class="container">
         <div class="row">
@@ -72,14 +73,14 @@
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                             <i class="fa fa-th-list"></i> Chủ đề
                                         </a>
-                                      
+
                                         <ul class="dropdown-menu" style="height:250px;overflow:auto">
                                             <!-- Level 2 -->
                                             @foreach (var item in listChuDe)
                                             {
-                                     
+
                                                 <li><a href="@Url.Action("Index","listPlaylistByCate", new { id = item.ID })">@item.CateName</a></li>
-                          
+
                                             }
 
                                         </ul>
@@ -91,7 +92,8 @@
                                         <ul class="dropdown-menu" style="height:250px; min-height:100px;">
                                             @foreach (var item in listCate)
                                             {
-                                                <li><a href="@Url.Action("RankMusicThisWeek","Home",new {id = item.ID})"> @item.CateName</a></li>       
+                                                <li><a href="@Url.Action("RankMusicThisWeek","Home",new {id = item.ID})"> @item.CateName</a></li>
+
                                             }
 
                                         </ul>
@@ -143,25 +145,21 @@
             <div id="viewSearch" style="display: none;">
                 <span>Bài hát</span>
                 <div id="viewSong">
-                    <div class="itemSongRandom">
-                        <div>
-                            <a href="nhac-demo.mp3"><img src="@Url.Content("~/Content/ClientMusic/")img/avt.png" alt=""> Tên bài hát</a><br>
-                            <span>
-                                <a href="">Ca sĩ 1</a>,
-                                <a href="">Ca sĩ 2</a>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="itemSongRandom">
-                        <div>
-                            <a href="nhac-demo.mp3"><img src="@Url.Content("~/Content/ClientMusic/")img/avt.png" alt=""> Tên bài hát</a><br>
-                            <span>
-                                <a href="">Ca sĩ 1</a>,
-                                <a href="">Ca sĩ 2</a>
-                            </span>
-                        </div>
-                    </div>
+                    @*list render here*@
                 </div>
+                <script id="data-music-template" type="x-tmpl-mustache">
+                    <div class="itemSongRandom">
+                        <div>
+                            <a href="/Client/PlayMusic/{{id}}"><img src="{{linkFile}}" alt=""> {{musicName}}</a>
+                            <br>
+                            @*<span>
+                                {{singers}}
+                            </span>*@
+                        </div>
+                    </div>
+                </script>
+               
+
                 <span>Video</span>
                 <div id="viewMV">
                     <div class="itemSongRandom">
@@ -175,33 +173,34 @@
                             </span>
                         </div>
                     </div>
+                </div>
+                <script id="data-video-template" type="x-tmpl-mustache">
                     <div class="itemSongRandom">
                         <div>
-                            <a href="nhac-demo.mp3">
-                                <img src="@Url.Content("~/Content/ClientMusic/")img/avt.png" alt="" style="border-radius: 0%;"> Tên
-                                Playlist
+                            <a href="/Client/PlayMusic/{{id}}">
+                                <img src="{{linkFile}}" alt="" style="border-radius: 0%;"> {{musicName}}
                             </a><br>
                             <span>
-                                <a href="">Người tạo</a>
+                                <a href="/Client/User/{{userId}}">{{userName}}</a>
                             </span>
                         </div>
                     </div>
-                </div>
+                </script>
                 <span>Nghệ sĩ</span>
-                <div class="viewSinger">
-                    <div class="itemSongRandom">
-                        <div>
-                            <a href="nhac-demo.mp3"><img src="@Url.Content("~/Content/ClientMusic/")img/avt.png" alt="" style="border-radius: 0%;"> Tên ca sĩ</a><br>
-                        </div>
-                    </div>
-                    <div class="itemSongRandom">
-                        <div>
-                            <a href="nhac-demo.mp3"><img src="@Url.Content("~/Content/ClientMusic/")img/avt.png" alt="" style="border-radius: 0%;"> Tên ca sĩ</a><br>
-                        </div>
-                    </div>
+                <div id="singerTemplate" class="viewSinger">
+            
                 </div>
+                <script id="data-singer-template" type="x-tmpl-mustache">
+                    <div class="itemSongRandom">
+                        <div>
+                            <a href="/Client/Singer/{{id}}"><img src="@Url.Content("~/File/ImageUser/"){{linkFile}}" alt="" style="border-radius: 0%;"> {{userName}}</a><br>
+                        </div>
+                    </div>
+                </script>
             </div>
-        </div>
 
+        </div>
     </div>
 </div>
+
+
