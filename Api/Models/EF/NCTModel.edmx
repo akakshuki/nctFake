@@ -29,9 +29,6 @@
           <Property Name="LMusicDetail" Type="nvarchar(max)" Nullable="false" />
           <Property Name="MusicID" Type="int" Nullable="false" />
           <Property Name="UserID" Type="int" Nullable="false" />
-          <Property Name="WaitApproval" Type="bit" Nullable="false" />
-          <Property Name="NotApproved" Type="bit" Nullable="false" />
-          <Property Name="NewNotice" Type="bit" Nullable="false" />
           <Property Name="LMusicDayCreate" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="Music">
@@ -433,9 +430,6 @@
           <Property Name="LMusicDetail" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="MusicID" Type="Int32" Nullable="false" />
           <Property Name="UserID" Type="Int32" Nullable="false" />
-          <Property Name="WaitApproval" Type="Boolean" Nullable="false" />
-          <Property Name="NotApproved" Type="Boolean" Nullable="false" />
-          <Property Name="NewNotice" Type="Boolean" Nullable="false" />
           <Property Name="LMusicDayCreate" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="Music" Relationship="Self.FK_LyricsMusic_Music" FromRole="LyricsMusic" ToRole="Music" />
         </EntityType>
@@ -859,9 +853,6 @@
                 <ScalarProperty Name="LMusicDetail" ColumnName="LMusicDetail" />
                 <ScalarProperty Name="MusicID" ColumnName="MusicID" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
-                <ScalarProperty Name="WaitApproval" ColumnName="WaitApproval" />
-                <ScalarProperty Name="NotApproved" ColumnName="NotApproved" />
-                <ScalarProperty Name="NewNotice" ColumnName="NewNotice" />
                 <ScalarProperty Name="LMusicDayCreate" ColumnName="LMusicDayCreate" />
               </MappingFragment>
             </EntityTypeMapping>

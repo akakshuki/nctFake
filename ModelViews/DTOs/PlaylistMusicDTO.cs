@@ -12,6 +12,7 @@ namespace ModelViews.DTOs
         public int PlaylistID { get; set; }
         public int MusicID { get; set; }
 
+        public PlaylistDTO PlaylistDto { get; set; }
         public virtual MusicDTO MusicDto { get; set; }
     }
 }

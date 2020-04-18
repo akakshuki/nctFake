@@ -25,14 +25,22 @@
 
                         <a href="@Url.Action("Index","playMusic", new { id = item.ID})" style="font-size: 18px;"><img src="@item.LinkImage" alt="" class="imgMusic">@item.MusicName</a>
                         <div class="nameSinger">
-                            <a href="PersonalSinger.html">@item.UserDto.UserName</a>
+
                             @foreach (var itemSinger in SingerMusic)
                             {
                                 if (itemSinger.ID == item.ID)
                                 {
                                     foreach (var singers in itemSinger.SingerMusicDtOs)
                                     {
-                                        <a>,@singers.UserDto.UserName</a>
+                                       
+                                        if (itemSinger.SingerMusicDtOs.IndexOf(singers)+1 == itemSinger.SingerMusicDtOs.Count)
+                                        { 
+                                            <a>@singers.UserDto.UserName.</a>
+                                        }
+                                        else
+                                        {
+                                            <a>@singers.UserDto.UserName,</a>
+                                        }
                                     }
                                 }
 
