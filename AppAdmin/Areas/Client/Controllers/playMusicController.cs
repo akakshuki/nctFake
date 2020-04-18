@@ -64,6 +64,11 @@ namespace AppAdmin.Areas.Client.Controllers
         }
         public ActionResult UpdateLyrics(LyricsMusicDTO lyricsMusicDTO)
         {
+
+            var UserId = (UserDTO)Session[CommonConstants.USER_SESSION];
+
+            lyricsMusicDTO.UserID = UserId.ID;
+
             var data = ApiService.UpdateLyrics(lyricsMusicDTO);
             if (data!=null)
             {

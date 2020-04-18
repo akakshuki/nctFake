@@ -334,9 +334,6 @@
     <Compile Include="Models\EF\SingerMusic.cs">
       <DependentUpon>NCTModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\EF\sysdiagram.cs">
-      <DependentUpon>NCTModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\EF\User.cs">
       <DependentUpon>NCTModel.tt</DependentUpon>
     </Compile>
