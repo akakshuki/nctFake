@@ -40,5 +40,57 @@ namespace AppAdmin.Areas.Client.Controllers
             ViewBag.getTheoChuDe = ApiService.GetAllCateCon().Where(s=>s.ID_root != null).ToList();
             return PartialView();
         }
+
+        public ActionResult SearchPage()
+        {
+
+           
+            return View();
+        }
+
+
+        #region Search for search input
+
+        [HttpGet]
+        public JsonResult SearchMusicByKey(string name)
+        {
+            var  list = ApiService.GetAllMusic()
+                .Where(x => x.MusicName.ToLower().ToString().Contains(name.ToLower()) || x.MusicNameUnsigned.ToLower().Contains(name.ToLower()))
+                .Take(5)
+                .Where(x=>x.SongOrMV == true)
+                .ToList();
+
+            return Json(new
+            {
+                data = list
+            },JsonRequestBehavior.AllowGet);
+
+        }
+        [HttpGet]
+        public JsonResult SearchVideoByKey(string name)
+        {
+            var list = ApiService.GetAllMusic()
+                .Where(x => x.MusicName.ToLower().ToString().Contains(name.ToLower()) || x.MusicNameUnsigned.ToLower().Contains(name.ToLower()) )
+                .Take(5)
+                .Where(x => x.SongOrMV == false)
+                .ToList(); return Json(new
+            {
+                data = list
+            }, JsonRequestBehavior.AllowGet);
+
+        }
+        [HttpGet]
+        public JsonResult SearchSingerByKey(string name)
+        {
+            var list = ApiService.GetAllSinger().Where(x=>x.UserName.ToLower().ToString().Contains(name.ToLower()) || x.UserNameUnsigned.ToLower().Contains(name.ToLower())).ToList();
+
+            return Json(new
+            {
+                data = list
+            }, JsonRequestBehavior.AllowGet);
+
+        }
+
+        #endregion
     }
 }

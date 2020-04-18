@@ -206,15 +206,19 @@
           ============================================ -->
     <script src="@Url.Content("~/Content/ClientMusic/")js/todo/jquery.todo.js"></script>
     <!-- plugins JS
-          ============================================ -->  
+          ============================================ -->
     <script src="@Url.Content("~/Content/ClientMusic/")js/plugins.js"></script>
     <!-- Login JS
           ============================================ -->
     <script src="@Url.Content("~/Content/ClientMusic/")js/login/login-action.js"></script>
+    <!-- Mustache JS
+    ============================================ -->
+    <script src="~/Content/ClientMusic/js/Mustache.js"></script>
     <!-- main JS
-          ============================================ -->
+              ============================================ -->
     <script src="@Url.Content("~/Content/ClientMusic/")js/main.js"></script>
-    @RenderSection("js",false)
+    @RenderSection("js", false)
+    @RenderSection("headerJs", false)
     <script src="~/Scripts/alertify.min.js"></script>
 </body>
 
