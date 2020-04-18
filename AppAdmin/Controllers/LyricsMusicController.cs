@@ -35,6 +35,7 @@ namespace AppAdmin.Controllers
         }
         public ActionResult Create(LyricsMusicDTO lyricsMusic)
         {
+            lyricsMusic.UserID = 1;
             var data = ApiService.CreateLyrics(lyricsMusic);
             if (data != null)
             {

@@ -45,7 +45,7 @@ namespace Api.Models.Bus
         }
         public bool Create(LyricsMusic lyricsMusic)
         {
-            lyricsMusic.UserID = 31;
+            lyricsMusic.UserID = lyricsMusic.UserID;
             lyricsMusic.LMusicDayCreate = DateTime.Now;
             if (new LyricsMusicDao().Create(lyricsMusic))
             {
@@ -55,7 +55,7 @@ namespace Api.Models.Bus
         }
         public bool Update(LyricsMusic lyricsMusic)
         {
-            lyricsMusic.UserID = 31;
+            lyricsMusic.UserID = lyricsMusic.UserID;
             if (new LyricsMusicDao().Update(lyricsMusic))
             {
                 return true;

@@ -1,4 +1,6 @@
-﻿using AppAdmin.Models.Service;
+﻿using AppAdmin.Common;
+using AppAdmin.Models.Service;
+using ModelViews.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,6 +22,17 @@ namespace AppAdmin.Areas.Client.Controllers
             var getIdMusic = ApiService.GetPlaylistById(id);
           
             ViewBag.getFile = ApiService.GetAllQM().Where(s=>s.QualityID==1).ToList();
+            var UserId = (UserDTO)Session[CommonConstants.USER_SESSION];
+            Session["UserSession"] = (UserDTO)Session[CommonConstants.USER_SESSION];           
+            if (Session["UserSession"] != null)
+            {
+                data.UserID = UserId.ID;
+                ViewBag.getPlaylistByIdUser = ApiService.GetPlaylistByIdUser(data.UserID);
+            }
+            else
+            {
+                ViewBag.getPlaylistByIdUser = null;
+            }           
 
             return View();
         }

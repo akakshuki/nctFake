@@ -16,7 +16,7 @@ namespace Api.Models.Bus
         {
             baseUrl = "https://localhost:44315/File/ImageUser/";
         }
-        public IEnumerable<UserDTO> GetAllUser()
+        public List<UserDTO> GetAllUser()
         {
             var data = new UserDao().GetAllUser().Where(s => s.UserVIP == false & s.RoleID == 3).OrderByDescending(s => s.UserDayCreate).Select(s => new UserDTO
             {
@@ -40,7 +40,7 @@ namespace Api.Models.Bus
                     ID = s.Role.ID,
                     RoleName = s.Role.RoleName
                 }
-            });
+            }).ToList();
             return data;
         }
         public IEnumerable<User> GetAllUserNormal()
@@ -268,6 +268,7 @@ namespace Api.Models.Bus
         //user convert dto
         public UserDTO GetUserDtoById(int id)
         {
+        
             var data = new UserDao().GetUserById(id);
             return new UserDTO
             {

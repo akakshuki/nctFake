@@ -1536,6 +1536,49 @@ namespace AppAdmin.Models.Service
             return null;
         }
         #endregion
+        //getAllPlaylistMusic
+        public static List<PlaylistMusicDTO> GetAllPlaylistMusic()
+        {
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("https://localhost:44384/api/PlaylistMusic/GetAllPlaylistMusic/");
+                var responseTask = client.GetAsync(client.BaseAddress);
+                responseTask.Wait();
+                var result = responseTask.Result;
+                if (result.IsSuccessStatusCode)
+                {
+                    var readTask =
+                        JsonConvert.DeserializeObject<List<PlaylistMusicDTO>>(result.Content.ReadAsStringAsync().Result);
+                    return readTask;
+                }
+            }
+
+            return null;
+        }
+        #region QualityMusicClient
+        public static QualityMusicDTO GetQualityMusicByIdMusic(int id)
+        {
+            var settings = new JsonSerializerSettings
+            {
+                NullValueHandling = NullValueHandling.Ignore,
+                MissingMemberHandling = MissingMemberHandling.Ignore
+            };
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("https://localhost:44384/api/QualityMusicClient/GetQualityMusicByIdMusic/" + id.ToString());
+                var responseTask = client.GetAsync(client.BaseAddress);
+                responseTask.Wait();
+                var result = responseTask.Result;
+                if (result.IsSuccessStatusCode)
+                {
+                    var readTask = JsonConvert.DeserializeObject<QualityMusicDTO>(result.Content.ReadAsStringAsync().Result, settings);
+                    return readTask;
+                }
+            }
+
+            return null;
+        }
+        #endregion
         #endregion
     }
 }

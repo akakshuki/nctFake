@@ -18,6 +18,7 @@ namespace ModelViews.DTOs
 
         public CategoryDTO CategoryDto { get; set; }
         public UserDTO UserDto { get; set; }
+        public IEnumerable<UserDTO> UserDtos { get; set; }
 
     }
 }

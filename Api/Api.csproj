@@ -196,6 +196,7 @@
     <Compile Include="Areas\Admin\Controllers\RankController.cs" />
     <Compile Include="Areas\Client\ClientAreaRegistration.cs" />
     <Compile Include="Areas\Client\Controllers\PlaylistClientController.cs" />
+    <Compile Include="Areas\Client\Controllers\QualityMusicClientController.cs" />
     <Compile Include="Areas\Client\Controllers\RankMusicClientController.cs" />
     <Compile Include="Areas\Client\Controllers\UserClientController.cs" />
     <Compile Include="Areas\HelpPage\ApiDescriptionExtensions.cs" />
@@ -331,9 +332,6 @@
       <DependentUpon>NCTModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\EF\SingerMusic.cs">
-      <DependentUpon>NCTModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\EF\sysdiagram.cs">
       <DependentUpon>NCTModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\EF\User.cs">
