@@ -28,7 +28,7 @@ namespace AppAdmin.Controllers
             var data = ApiService.GetPlaylistById(id);
             return View(data);
         }
-        public ActionResult CreatePlAdmin(PlaylistDTO playlistDTO)
+        public ActionResult CreatePlAdmin(PlaylistDto playlistDTO)
         {
             try
             {
@@ -58,7 +58,7 @@ namespace AppAdmin.Controllers
 
         }
         [HttpPost]
-        public ActionResult UpdatePlAdmin(PlaylistDTO playlistDTO)
+        public ActionResult UpdatePlAdmin(PlaylistDto playlistDTO)
         {
             try
             {
