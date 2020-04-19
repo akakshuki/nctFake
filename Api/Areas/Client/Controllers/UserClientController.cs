@@ -18,12 +18,21 @@ namespace Api.Areas.Client.Controllers
             return new string[] { "value1", "value2" };
         }
 
-        // GET: api/User/5
-        public string Get(int id)
+        [HttpGet,Route("UserCheckVipEnd/{email}")]
+        public IHttpActionResult UserCheckVipEnd(string email)
         {
-            return "value";
+            try
+            {
+                new Repositories().UserCheckVipEnd(email);
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return NotFound();
+            }
         }
-
+       
         // POST: api/User
         [HttpPost,Route("UserResetPassword")]
         public IHttpActionResult UserResetPassword([FromBody]UserDTO userDto)

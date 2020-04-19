@@ -568,5 +568,10 @@ namespace Api.Models
         {
             new UserBus().UserResetPassword(userDto);
         }
+
+        public void UserCheckVipEnd(string email)
+        {
+            new UserBus().CheckUserVip(email);
+        }
     }
 }

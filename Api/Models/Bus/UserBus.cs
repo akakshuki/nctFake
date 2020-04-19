@@ -299,6 +299,15 @@ namespace Api.Models.Bus
         {
             new UserDao().ResetPassword(userDto);
         }
+
+        public void CheckUserVip(string email)
+        { 
+            var user = new UserDao().GetAllUser().SingleOrDefault(x=>x.UserEmail== email);
+            if (user != null && user.DayVipEnd <= DateTime.Now)
+            {
+                new UserDao().UpdateUserVip(email);
+            }
+        }
     }
 
 }

@@ -58,6 +58,9 @@
     <script src="https://kit.fontawesome.com/d93a4b936d.js" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="@Url.Content("~/Content/ClientMusic/")js/vendor/modernizr-2.8.3.min.js"></script>
+    <script src="~/Content/ClientMusic/js/vendor/modernizr-2.8.3.min.js"></script>
+    <link href="~/Content/alertifyjs/alertify.min.css" rel="stylesheet" />
+    <link href="~/Content/alertifyjs/themes/default.min.css" rel="stylesheet" />
 
 </head>
 
@@ -214,9 +217,12 @@
     <!-- Mustache JS
     ============================================ -->
     <script src="~/Content/ClientMusic/js/Mustache.js"></script>
-    <!-- main JS
-              ============================================ -->
-    <script src="@Url.Content("~/Content/ClientMusic/")js/main.js"></script>
+<!-- main JS
+============================================ -->
+
+
+<script src="@Url.Content("~/Content/ClientMusic/")js/main.js"></script>
+<script src="~/Scripts/alertify.min.js"></script>
     @RenderSection("js", false)
     @RenderSection("headerJs", false)
     <script src="~/Scripts/alertify.min.js"></script>

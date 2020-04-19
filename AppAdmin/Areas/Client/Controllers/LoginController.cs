@@ -194,7 +194,7 @@ namespace AppAdmin.Areas.Client.Controllers
                     userSession.ID = user.ID;
                     userSession.UserEmail = user.UserEmail;
                     Session.Add(CommonConstants.USER_SESSION, userSession);
-                    return RedirectToAction("Home/ViewCreateCate");
+                    return RedirectToAction("Index","Home");
                 }
                 else if (result == -3)
                 {
@@ -202,7 +202,27 @@ namespace AppAdmin.Areas.Client.Controllers
                     var userSession = new UserDTO();
                     userSession.ID = user.ID;
                     userSession.UserEmail = user.UserEmail;
+
+
                     Session.Add(CommonConstants.USER_SESSION, userSession);
+                    if (user.DayVipEnd != null)
+                    {
+                        var date = (DateTime)user.DayVipEnd;
+                        if (date <= DateTime.Now)
+                        {
+                            ApiService.CheckDateVipEnd(user.UserEmail);
+                            SetAlert("Vip đã hết hạn hãy mua gói mới", "error");
+                            userSession.UserVIP = false;
+                        }
+                        else
+                        {
+                            userSession.UserVIP = true;
+                        }
+                    }
+                    else
+                    {
+                        userSession.UserVIP = false;
+                    }
                     return RedirectToAction("Index", "Home");
                 }
                 else if (result == 0)
@@ -231,7 +251,8 @@ namespace AppAdmin.Areas.Client.Controllers
                 var result = new UserDTO()
                 {
                     ID = data.ID,
-                    UserEmail = data.UserEmail
+                    UserEmail = data.UserEmail,
+                    DayVipEnd = data.DayVipEnd
                 };
                 return result;
             }
@@ -268,6 +289,12 @@ namespace AppAdmin.Areas.Client.Controllers
             TempData["error"] = "Đổi mật khẩu không thành công";
             return RedirectToAction("ResetPassword", "Login", new { email = email });
 
+        }
+
+        public ActionResult LogUserOut()
+        {
+            Session[Common.CommonConstants.USER_SESSION] = null;
+            return RedirectToAction("Index", "Home");
         }
     }
 }

@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Api.Models.Bus;
 
 namespace Api.Models.Dao
 {
@@ -64,42 +65,34 @@ namespace Api.Models.Dao
             data.UserDescription = user.UserDescription;
             data.UserNameUnsigned = user.UserNameUnsigned;
             data.UserImage = user.UserImage;
-            if (db.SaveChanges() > 0)
-            {
-                return true;
-            }
-            return false;
+            return db.SaveChanges() > 0;
         }
         public bool UpdateUser(User user)
         {
             var data = db.Users.SingleOrDefault(s => s.ID == user.ID);
-            data.UserName = user.UserName;
-            data.UserDOB = user.UserDOB;
-            data.UserGender = user.UserGender;
-            data.UserVIP = user.UserVIP;
-            data.UserEmail = user.UserEmail;
-            data.UserPwd = user.UserPwd;
-            data.UserDescription = user.UserDescription;
-            data.UserNameUnsigned = user.UserNameUnsigned;
-            data.UserImage = user.UserImage;
-            data.Role = user.Role;
-            data.UserActive = user.UserActive;
-            data.DayVipEnd = user.DayVipEnd;
-            if (db.SaveChanges() > 0)
+            if (data != null)
             {
-                return true;
+                data.UserName = user.UserName;
+                data.UserDOB = user.UserDOB;
+                data.UserGender = user.UserGender;
+                data.UserVIP = user.UserVIP;
+                data.UserEmail = user.UserEmail;
+                data.UserPwd = user.UserPwd;
+                data.UserDescription = user.UserDescription;
+                data.UserNameUnsigned = user.UserNameUnsigned;
+                data.UserImage = user.UserImage;
+                data.Role = user.Role;
+                data.UserActive = user.UserActive;
+                data.DayVipEnd = user.DayVipEnd;
             }
-            return false;
+
+            return db.SaveChanges() > 0;
         }
         public bool DeleteUser(int id)
         {
             var data = db.Users.SingleOrDefault(s => s.ID == id);
             db.Users.Remove(data);
-            if (db.SaveChanges() > 0)
-            {
-                return true;
-            }
-            return false;
+            return db.SaveChanges() > 0;
         }
         #region Login
         public int Login(string email, string passWord)
@@ -116,6 +109,9 @@ namespace Api.Models.Dao
                 {
                     if (result.UserPwd == passWord)
                     {
+                        //      new UserBus().CheckUserVip(email);
+
+
                         return 1;
                     }
                     else
@@ -152,7 +148,7 @@ namespace Api.Models.Dao
         }
         public UserDTO GetIdLogin(string email)
         {
-            var data = db.Users.Select(x => new UserDTO { UserEmail = x.UserEmail, ID = x.ID, UserName = x.UserName , DayVipEnd = x.DayVipEnd}).SingleOrDefault(x => x.UserEmail == email);
+            var data = db.Users.Select(x => new UserDTO { UserEmail = x.UserEmail, ID = x.ID, UserName = x.UserName, DayVipEnd = x.DayVipEnd }).SingleOrDefault(x => x.UserEmail == email);
             return data;
         }
         #endregion
@@ -165,5 +161,12 @@ namespace Api.Models.Dao
             db.SaveChanges();
         }
 
+        public void UpdateUserVip(string email)
+        {
+            var user = db.Users.SingleOrDefault(x => x.UserEmail == email);
+            user.UserVIP = false;
+            user.DayVipEnd = null;
+            db.SaveChanges();
+        }
     }
 }
