@@ -165,7 +165,7 @@ namespace Api.Models.Dao
         {
             var user = db.Users.SingleOrDefault(x => x.UserEmail == email);
             user.UserVIP = false;
-            user.DayVipEnd = null;
+           //user.DayVipEnd = null;
             db.SaveChanges();
         }
     }
