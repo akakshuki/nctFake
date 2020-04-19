@@ -61,12 +61,12 @@
 
         <div id="listBxh">
             <div>
-                <span>@data.RMusicName (@data.RMusicStart.ToString("dd-MM-yyyy") - @data.RMusicEnd.ToString("dd-MM-yyyy")</span>
-                <span style="float: right;">
+                <span>@data.RMusicName (@data.RMusicStart.ToString("dd-MM-yyyy") - @data.RMusicEnd.ToString("dd-MM-yyyy") )</span>
+                @*<span style="float: right;">
                     <a href="" style="color: white;font-weight: 700;">
                         <i class="far fa-play-circle"></i> Nghe toàn bộ
                     </a>
-                </span>
+                </span>*@
             </div>
             <div id="songBxh" style="display: block;">
                 @if (musics != null && musics.MusicDtos != null)
@@ -77,24 +77,26 @@
                             <span>@item.GradeRank</span>
                             <img src="@item.LinkImage" alt="">
                             <span>
-                                <a href="" style="font-size: 20px;">@item.MusicName</a><br>
+                                <a href="@Url.Action("Index","playMusic",new {id = @item.ID})" style="font-size: 20px;">@item.MusicName</a><br>
+                                <span><i class="fas fa-headphones"></i> @item.MusicView</span>
                                 <span>
                                     @foreach (var singer in item.SingerMusicDtOs)
                                     {
                                         <a href="">@singer.UserDto.UserName</a>
                                     }
                                 </span>
+
                             </span>
                             <span style="left: 265px;top: -15px;">
-                                <span><i class="fas fa-headphones"></i> @item.MusicView</span>
-                                <span class="addPlaylist" style="cursor: pointer;">
+                               
+                                @*<span class="addPlaylist" style="cursor: pointer;">
                                     <i class="fas fa-plus-circle"></i> Thêm vào
                                     <ul>
                                         <li><a href="">Bài hát yêu thích</a> </li>
                                         <li><a href="">Test1</a></li>
                                         <li><a href="">Test2</a></li>
                                     </ul>
-                                </span>
+                                </span>*@
                             </span>
                         </div>
                     }
@@ -113,16 +115,16 @@
                             <span>1</span>
                             <img src="@item.LinkImage" alt="">
                             <span>
-                                <a href="" style="font-size: 20px;">@item.MusicName</a><br>
+                                <a href="@Url.Action("Index","playMusic",new {id = @item.ID})" style="font-size: 20px;">@item.MusicName</a><br>
+                                <span><i class="fas fa-headphones"></i> @item.MusicView</span>
                                 @foreach (var singer in item.SingerMusicDtOs)
                                 {
                                     <a href="">@singer.UserDto.UserName</a>
                                 }
                             </span>
-                            <span style="left: 265px;top: -15px;">
-                                <span><i class="fas fa-headphones"></i> @item.MusicView</span>
-                                <span><i class="fas fa-plus-circle"></i> Thêm vào</span>
-                            </span>
+                            @*<span style="left: 265px;top: -15px;">
+                        <span><i class="fas fa-plus-circle"></i> Thêm vào</span>
+                            </span>*@
                         </div>
                     }
                 }

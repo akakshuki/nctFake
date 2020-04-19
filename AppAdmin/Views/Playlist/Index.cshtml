@@ -1,9 +1,9 @@
 ﻿@using ModelViews.DTOs
-@model ModelViews.DTOs.PlaylistDTO
+@model ModelViews.DTOs.PlaylistDto
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    List<PlaylistDTO> listPl = ViewBag.ListPlaylist;
+    List<PlaylistDto> listPl = ViewBag.ListPlaylist;
     List<CategoryDTO> listCate = ViewBag.GetCate;
 }
 @section js{

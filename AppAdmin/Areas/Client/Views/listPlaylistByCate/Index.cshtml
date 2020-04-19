@@ -2,7 +2,7 @@
 @{
     ViewBag.Title = "Index";
     Layout = "~/Areas/Client/Views/Shared/_LayoutClient.cshtml";
-    List<PlaylistDTO> listPlaylist = ViewBag.getListPlaylist;
+    List<PlaylistDto> listPlaylist = ViewBag.getListPlaylist;
     var Cate = listPlaylist.FirstOrDefault().CategoryDto.CateName;
 
 }

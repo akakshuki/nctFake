@@ -13,7 +13,7 @@ namespace ModelViews.DTOs {
         public int? ID_root { get; set; }
     //    public string CategoryRootName { get; set; }
 
-        public List<PlaylistDTO> PlaylistDtos { get; set; }
+        public List<PlaylistDto> PlaylistDtos { get; set; }
         public List<MusicDTO> MusicDtos { get; set; }
         public List<RankMusicDTO> RankMusicDtos { get; set; }
     }

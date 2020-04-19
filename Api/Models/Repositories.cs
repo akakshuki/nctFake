@@ -144,16 +144,16 @@ namespace Api.Models
 
         #region Playlist
 
-        public IEnumerable<PlaylistDTO> GetAllPlaylist()
+        public IEnumerable<PlaylistDto> GetAllPlaylist()
         {
             return new PlaylistBus().GetAllPlaylist();
         }
 
-        public PlaylistDTO GetPlaylistById(int id)
+        public PlaylistDto GetPlaylistById(int id)
         {
             return new PlaylistBus().GetPlaylistById(id);
         }
-        public PlaylistDTO GetPlaylistByCate(int id)
+        public PlaylistDto GetPlaylistByCate(int id)
         {
             return new PlaylistBus().GetPlaylistByCate(id);
         }
@@ -163,12 +163,12 @@ namespace Api.Models
             return new PlaylistBus().GetPlaylistByIdUser(id);
         }
 
-        public IEnumerable<PlaylistDTO> GetPlaylistByIdCate(int id)
+        public IEnumerable<PlaylistDto> GetPlaylistByIdCate(int id)
         {
             return new PlaylistBus().GetPlaylistByIdCate(id);
         }
 
-        public bool CreatePlaylist(PlaylistDTO playlist)
+        public bool CreatePlaylist(PlaylistDto playlist)
         {
             if (new PlaylistBus().CreatePlaylist(playlist))
             {

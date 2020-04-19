@@ -92,6 +92,7 @@ namespace Api.Models.Bus
                             LinkFile = baseUrl + d.MusicFile,
                         }),
                 },
+                PlaylistDto = new PlaylistBus().GetPlaylistById(s.PlaylistID)
 
             }).ToList();
             return data;

@@ -450,7 +450,7 @@ namespace AppAdmin.Models.Service
 
         #region Playlist
 
-        public static List<PlaylistDTO> GetAllPlaylist()
+        public static List<PlaylistDto> GetAllPlaylist()
         {
             using (var client = new HttpClient())
             {
@@ -461,7 +461,7 @@ namespace AppAdmin.Models.Service
                 if (result.IsSuccessStatusCode)
                 {
                     var readTask =
-                        JsonConvert.DeserializeObject<List<PlaylistDTO>>(result.Content.ReadAsStringAsync().Result);
+                        JsonConvert.DeserializeObject<List<PlaylistDto>>(result.Content.ReadAsStringAsync().Result);
                     return readTask;
                 }
             }
@@ -469,7 +469,7 @@ namespace AppAdmin.Models.Service
             return null;
         }
 
-        public static PlaylistDTO GetPlaylistById(int id)
+        public static PlaylistDto GetPlaylistById(int id)
         {
             using (var client = new HttpClient())
             {
@@ -480,7 +480,7 @@ namespace AppAdmin.Models.Service
                 if (result.IsSuccessStatusCode)
                 {
                     var readTask =
-                        JsonConvert.DeserializeObject<PlaylistDTO>(result.Content.ReadAsStringAsync().Result);
+                        JsonConvert.DeserializeObject<PlaylistDto>(result.Content.ReadAsStringAsync().Result);
                     return readTask;
                 }
             }
@@ -488,7 +488,7 @@ namespace AppAdmin.Models.Service
             return null;
         }
 
-        public static List<PlaylistDTO> GetPlaylistByIdUser(int id)
+        public static List<PlaylistDto> GetPlaylistByIdUser(int id)
         {
             using (var client = new HttpClient())
             {
@@ -500,7 +500,7 @@ namespace AppAdmin.Models.Service
                 if (result.IsSuccessStatusCode)
                 {
                     var readTask =
-                        JsonConvert.DeserializeObject<List<PlaylistDTO>>(result.Content.ReadAsStringAsync().Result);
+                        JsonConvert.DeserializeObject<List<PlaylistDto>>(result.Content.ReadAsStringAsync().Result);
                     return readTask;
                 }
             }
@@ -508,7 +508,7 @@ namespace AppAdmin.Models.Service
             return null;
         }
 
-        public static PlaylistDTO CreatePlaylist(PlaylistDTO playlistDTO)
+        public static PlaylistDto CreatePlaylist(PlaylistDto playlistDTO)
         {
             using (HttpClient client = new HttpClient())
             {
@@ -525,7 +525,7 @@ namespace AppAdmin.Models.Service
             return null;
         }
 
-        public static PlaylistDTO UpdatePlaylist(PlaylistDTO playlistDTO)
+        public static PlaylistDto UpdatePlaylist(PlaylistDto playlistDTO)
         {
             using (HttpClient client = new HttpClient())
             {
@@ -1490,7 +1490,7 @@ namespace AppAdmin.Models.Service
         }
         #endregion
         #region PlaylistClient
-        public static List<PlaylistDTO> GetPlaylistByIdCate(int id)
+        public static List<PlaylistDto> GetPlaylistByIdCate(int id)
         {
             var settings = new JsonSerializerSettings
             {
@@ -1506,14 +1506,14 @@ namespace AppAdmin.Models.Service
                 if (result.IsSuccessStatusCode)
                 {
                     var readTask =
-                        JsonConvert.DeserializeObject<List<PlaylistDTO>>(result.Content.ReadAsStringAsync().Result, settings);
+                        JsonConvert.DeserializeObject<List<PlaylistDto>>(result.Content.ReadAsStringAsync().Result, settings);
                     return readTask;
                 }
             }
 
             return null;
         }
-        public static PlaylistDTO GetPlaylistByCate(int id)
+        public static PlaylistDto GetPlaylistByCate(int id)
         {
             var settings = new JsonSerializerSettings
             {
@@ -1528,7 +1528,7 @@ namespace AppAdmin.Models.Service
                 var result = responseTask.Result;
                 if (result.IsSuccessStatusCode)
                 {
-                    var readTask = JsonConvert.DeserializeObject<PlaylistDTO>(result.Content.ReadAsStringAsync().Result, settings);
+                    var readTask = JsonConvert.DeserializeObject<PlaylistDto>(result.Content.ReadAsStringAsync().Result, settings);
                     return readTask;
                 }
             }

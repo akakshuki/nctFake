@@ -5,7 +5,7 @@ using System.Web;
 
 namespace ModelViews.DTOs
 {
-    public class PlaylistDTO
+    public class PlaylistDto
     {
         public int ID { get; set; }
         public string PlaylistName { get; set; }

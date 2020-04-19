@@ -158,6 +158,7 @@
     <Compile Include="Areas\Client\Controllers\LoginController.cs" />
     <Compile Include="Areas\Client\Controllers\playMusicController.cs" />
     <Compile Include="Areas\Client\Controllers\playPlaylistController.cs" />
+    <Compile Include="Areas\Client\Controllers\SingerController.cs" />
     <Compile Include="Areas\Client\Models\ServiceClient\ApiServiceClient.cs" />
     <Compile Include="Common\CommonConstants.cs" />
     <Compile Include="Common\Encryptor.cs" />
@@ -573,6 +574,7 @@
     <Content Include="Areas\Client\Views\RankMusic\Index.cshtml" />
     <Content Include="Areas\Client\Views\Home\RankMusicThisWeek.cshtml" />
     <Content Include="Areas\Client\Views\Home\SearchPage.cshtml" />
+    <Content Include="Areas\Client\Views\Singer\Index.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />

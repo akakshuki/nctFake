@@ -32,7 +32,15 @@
                                 {
                                     foreach (var singers in itemSinger.SingerMusicDtOs)
                                     {
-                                        <a>@singers.UserDto.UserName,</a>
+                                       
+                                        if (itemSinger.SingerMusicDtOs.IndexOf(singers)+1 == itemSinger.SingerMusicDtOs.Count)
+                                        { 
+                                            <a>@singers.UserDto.UserName.</a>
+                                        }
+                                        else
+                                        {
+                                            <a>@singers.UserDto.UserName,</a>
+                                        }
                                     }
                                 }
 
