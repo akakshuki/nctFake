@@ -1,4 +1,5 @@
-﻿using AppAdmin.Models.Service;
+﻿using AppAdmin.Common;
+using AppAdmin.Models.Service;
 using ModelViews.DTOs;
 using System;
 using System.Collections.Generic;
@@ -35,7 +36,9 @@ namespace AppAdmin.Controllers
         }
         public ActionResult Create(LyricsMusicDTO lyricsMusic)
         {
-            lyricsMusic.UserID = 1;
+            //var UserId = (UserDTO)Session[CommonConstants.USER_SESSION];
+            //lyricsMusic.UserID = UserId.ID;
+            lyricsMusic.UserID = 31;
             var data = ApiService.CreateLyrics(lyricsMusic);
             if (data != null)
             {
@@ -45,6 +48,9 @@ namespace AppAdmin.Controllers
         }
         public ActionResult Update(LyricsMusicDTO lyricsMusic)
         {
+            //var UserId = (UserDTO)Session[CommonConstants.USER_SESSION];
+            //lyricsMusic.UserID = UserId.ID;
+            lyricsMusic.UserID = 31;
             var data = ApiService.UpdateLyrics(lyricsMusic);
             if (data != null)
             {

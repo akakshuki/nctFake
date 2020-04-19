@@ -48,24 +48,9 @@ namespace Api.Models.Bus
             }
         }
         //update music View
-        public bool UpdateMusicView(MusicDTO music)
+        public int UpdateView(int id)
         {
-
-            var data = new MusicDTO()
-            {
-                ID = music.ID,
-                MusicView = music.MusicView,
-            };
-            try
-            {
-                new MusicDao().UpdateView(data);
-                return true;
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                return false;
-            }
+            return new MusicDao().UpdateView(id);
         }
 
         //update music
@@ -158,6 +143,16 @@ namespace Api.Models.Bus
                     MusicView = music.MusicView,
                     ID = music.ID,
                     LinkImage = baseUrl + music.MusicImage,
+
+                    QualityMusicDTOs = new QualityMusicBus()
+                        .GetAllQM()
+                        .Where(s => s.QualityID == 1 && s.QualityID == 3)
+                        .Select(s => new QualityMusicDTO() 
+                        {
+                            ID = s.ID,
+                            LinkFile = s.LinkFile,
+                            MusicFile = s.MusicFile,
+                        }),
                     //need User
                     UserDto = new UserBus().GetUserDtoById(music.UserID),
                     SingerMusicDtOs = new SingerMusicDao()

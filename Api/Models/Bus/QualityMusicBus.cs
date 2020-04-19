@@ -183,6 +183,26 @@ namespace Api.Models.Bus
                 }
             };
         }
+        public QualityMusicDTO GetQualityMusicByIdMusicMV(int id)
+        {
+            var s = new QualityMusicDao().GetQualityMusicByIdMusicMV(id);
+            return new QualityMusicDTO()
+            {
+                ID = s.ID,
+                MusicID = s.MusicID,
+                MusicFile = s.MusicFile,
+                QualityID = s.QualityID,
+                QMusicApproved = s.QMusicApproved,
+                NewFile = s.NewFile,
+                LinkFile = baseUrl + s.MusicFile,
+                QualityDto = new QualityDTO
+                {
+                    QualityName = s.Quality.QualityName,
+                    ID = s.QualityID,
+                    QualityVip = s.Quality.QualityVip
+                }
+            };
+        }
         #endregion
     }
 }

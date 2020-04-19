@@ -1556,6 +1556,7 @@ namespace AppAdmin.Models.Service
             return null;
         }
         #region QualityMusicClient
+        //lay song file 120kbps
         public static QualityMusicDTO GetQualityMusicByIdMusic(int id)
         {
             var settings = new JsonSerializerSettings
@@ -1577,6 +1578,54 @@ namespace AppAdmin.Models.Service
             }
 
             return null;
+        }
+        //lay mv file 360mp
+        public static QualityMusicDTO GetQualityMusicByIdMusicMV(int id)
+        {
+            var settings = new JsonSerializerSettings
+            {
+                NullValueHandling = NullValueHandling.Ignore,
+                MissingMemberHandling = MissingMemberHandling.Ignore
+            };
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("https://localhost:44384/api/QualityMusicClient/GetQualityMusicByIdMusicMV/" + id.ToString());
+                var responseTask = client.GetAsync(client.BaseAddress);
+                responseTask.Wait();
+                var result = responseTask.Result;
+                if (result.IsSuccessStatusCode)
+                {
+                    var readTask = JsonConvert.DeserializeObject<QualityMusicDTO>(result.Content.ReadAsStringAsync().Result, settings);
+                    return readTask;
+                }
+            }
+
+            return null;
+        }
+        #endregion
+        #region MusicClient
+        //UpdateView
+        public static int UpdateView(int id)
+        {
+            var settings = new JsonSerializerSettings
+            {
+                NullValueHandling = NullValueHandling.Ignore,
+                MissingMemberHandling = MissingMemberHandling.Ignore
+            };
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("https://localhost:44384/api/MusicClient/UpdateView/" + id.ToString());
+                var responseTask = client.GetAsync(client.BaseAddress);
+                responseTask.Wait();
+                var result = responseTask.Result;
+                if (result.IsSuccessStatusCode)
+                {
+                    var readTask = JsonConvert.DeserializeObject<int>(result.Content.ReadAsStringAsync().Result, settings);
+                    return readTask;
+                }
+            }
+
+            return 0;
         }
         #endregion
         #endregion

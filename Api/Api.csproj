@@ -195,6 +195,7 @@
     <Compile Include="Areas\Admin\Controllers\QualityMusicController.cs" />
     <Compile Include="Areas\Admin\Controllers\RankController.cs" />
     <Compile Include="Areas\Client\ClientAreaRegistration.cs" />
+    <Compile Include="Areas\Client\Controllers\MusicClientController.cs" />
     <Compile Include="Areas\Client\Controllers\PlaylistClientController.cs" />
     <Compile Include="Areas\Client\Controllers\QualityMusicClientController.cs" />
     <Compile Include="Areas\Client\Controllers\RankMusicClientController.cs" />

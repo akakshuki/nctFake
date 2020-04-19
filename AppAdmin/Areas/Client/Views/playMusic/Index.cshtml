@@ -3,13 +3,14 @@
     ViewBag.Title = "Index";
     Layout = "~/Areas/Client/Views/Shared/_LayoutClient.cshtml";
     QualityMusicDTO qualityMusicDTO = ViewBag.getQualityMusicByIdMusic;
+    QualityMusicDTO qualityMusicDTOMV = ViewBag.getQualityMusicByIdMusicMv;
     MusicDTO getMusic = ViewBag.getMusicById;
     LyricsMusicDTO getLyrics = ViewBag.getLyrics;
     List<PlaylistDto> getPlaylistByIdUser = ViewBag.getPlaylistByIdUser;
     List<MusicDTO> randomMusic = ViewBag.getMusicRandom;
     List<MusicDTO> GetAllMusic = ViewBag.GetAllMusic;
     List<QualityMusicDTO> listQuality = ViewBag.getListQualityMusic;
-    List<PlaylistMusicDTO> getAllPlaylistMusic = ViewBag.getAllPlaylistMusic;
+    //List<PlaylistMusicDTO> getAllPlaylistMusic = ViewBag.getAllPlaylistMusic;
 }
 @section js {
     <script>
@@ -44,7 +45,7 @@
                 } else {
                     var idMusic = parseInt('@getMusic.ID');
                     $.ajax({
-                        url: '/Client/UpdateView',
+                        url: '/playMusic/UpdateView',
                         type: 'GET',
                         dataType: 'json',
                         contentType: "application/json",
@@ -211,7 +212,24 @@
     <div class="gridMusic">
         <div class="gridLeft">
             <div class="name-view-music">
-                <span>@getMusic.MusicName @(qualityMusicDTO.QMusicApproved == false ? "(Đang chờ duyệt)" : "")</span>
+                <span>
+                    @getMusic.MusicName
+                    @if (qualityMusicDTO != null)
+                    {
+                        @(qualityMusicDTO.QMusicApproved == false ? "(Đang chờ duyệt)" : "")
+                    }
+                    else
+                    {
+                        if (qualityMusicDTOMV != null)
+                        {
+                            @(qualityMusicDTOMV.QMusicApproved == false ? "(Đang chờ duyệt)" : "")
+                        }
+                        else
+                        {
+                            <label></label>
+                        }
+                    }
+                </span>
                 @if (getMusic.SongOrMV == true && getMusic.MusicRelated != null)
                 {
                     <!--song-->
@@ -237,7 +255,7 @@
                     <img src="@getMusic.LinkImage" alt="">
 
                     <audio autoplay controls id="myAudio">
-                        <source src="@listQuality.SingleOrDefault(x=>x.QualityID == 1).LinkFile" type="audio/mpeg">
+                        <source src="@qualityMusicDTO.LinkFile" type="audio/mpeg">
                     </audio>
                     //song
                 }
@@ -245,7 +263,7 @@
                 {
                     <!--mv-->
                     <video autoplay controls id="myAudio">
-                        <source src="@listQuality.SingleOrDefault(x=>x.QualityID == 2).LinkFile" type="audio/mpeg">
+                        <source src="@qualityMusicDTOMV.LinkFile" type="audio/mpeg">
                     </video>
                     <!--mv-->
                 }
@@ -264,7 +282,6 @@
                         <span style="color: #00c292;font-weight: 700;">Nhaccuateoo</span>
                     </div>
                     <div>
-                        <
                         <span>Tự động chuyển bài:</span>
                         <input type="checkbox" name="" id="checkAuto" checked><br>
                         @if (getMusic.SongOrMV == true)
@@ -275,17 +292,14 @@
                                 vào
 
                                 <ul>
-                                    @if (Session["UserId"] == null)
+                                    @if (Session["SessionUser"] == null)
                                     {
                                         <a href="@Url.Action("Login", "Login")">Mời bạn đăng nhập</a>
                                     }
                                     else
                                     {
-                                        if (getPlaylistByIdUser == null)
-                                        {
-                                            <span>Bạn chưa có playlist nào. <a href="#">TẠO</a></span>
-                                        }
-                                        else
+
+                                        if (getPlaylistByIdUser != null)
                                         {
                                             foreach (var item in getPlaylistByIdUser)
                                             {
@@ -293,6 +307,11 @@
 
                                             }
 
+                                        }
+                                        else
+                                        {
+
+                                            <span>Bạn chưa có playlist nào. <a href="#">TẠO</a></span>
                                         }
 
                                     }
@@ -311,66 +330,119 @@
                         <!--mv-->
                     </div>
                     <div>
-                        @if (qualityMusicDTO.QMusicApproved == true)
+                        @if (qualityMusicDTO != null)
                         {
-
-                            <span>Chất lượng: </span>
-                            <select name="" id="selectQuality">
-                                @if (getMusic.SongOrMV == true)
-                                {
-                                    <!--song-->
-                                    <option value="@listQuality.SingleOrDefault(x=>x.QualityID == 1).LinkFile" data-vip="@qualityMusicDTO.QualityDto.QualityVip">@qualityMusicDTO.QualityDto.QualityName</option>
-                                    if (listQuality != null)
-                                    {
-                                        foreach (var item in listQuality)
-                                        {
-                                            if (item.LinkFile != qualityMusicDTO.LinkFile)
-                                            {
-                                                <option value="@item.LinkFile" data-vip="@item.QualityDto.QualityVip">@item.QualityDto.QualityName</option>
-                                            }
-
-                                        }
-
-                                    }
-                                    <!--song-->
-                                }
-                                else
-                                {
-                                    <!--mv-->
-                                    <option value="@listQuality.SingleOrDefault(x=>x.QualityID == 1).LinkFile" data-vip="@qualityMusicDTO.QualityDto.QualityVip">@qualityMusicDTO.QualityDto.QualityName</option>
-                                    if (listQuality != null)
-                                    {
-                                        foreach (var item in listQuality)
-                                        {
-                                            if (item.LinkFile != qualityMusicDTO.LinkFile)
-                                            {
-                                                <option value="@item.LinkFile" data-vip="@item.QualityDto.QualityVip">@item.QualityDto.QualityName</option>
-                                            }
-                                            @*<option value="@qualityMusicDto.LinkFile" data-vip="@qualityMusicDto.QualityDto.QualityVip">
-                                                    @qualityMusicDto.QualityDto.QualityName   @if (qualityMusicDto.QualityDto.QualityVip)
-                                                    {
-                                                        <p>
-                                                            <i class="fas fa-crown"></i>
-                                                        </p>
-                                                    }
-                                                </option>*@
-                                            //    <option value="@qualityMusicDto.LinkFile" data-vip="@qualityMusicDto.QualityDto.QualityVip">@qualityMusicDto.QualityDto.QualityName</option>
-                                        }
-                                    }
-                                    <!--mv-->
-                                }
-
-                            </select><br>
-                            if (getMusic.MusicDownloadAllowed == true)
+                            if (qualityMusicDTO.QMusicApproved == true)
                             {
-                                <a data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false"
-                                   aria-controls="multiCollapseExample1" style="color: black;">
-                                    <i class="fa fa-download"></i>
-                                    Tải về
-                                </a>
-                            }
 
+                                <span>Chất lượng: </span>
+                                <select name="" id="selectQuality">
+                                    @if (getMusic.SongOrMV == true)
+                                    {
+                                        <!--song-->
+                                        <option value="@qualityMusicDTO.LinkFile" data-vip="@qualityMusicDTO.QualityDto.QualityVip">@qualityMusicDTO.QualityDto.QualityName</option>
+                                        if (listQuality != null)
+                                        {
+                                            foreach (var item in listQuality)
+                                            {
+                                                if (item.LinkFile != qualityMusicDTO.LinkFile)
+                                                {
+                                                    <option value="@item.LinkFile" data-vip="@item.QualityDto.QualityVip">@item.QualityDto.QualityName</option>
+                                                }
+
+                                            }
+
+                                        }
+                                        <!--song-->
+                                    }
+                                    else
+                                    {
+                                        <!--mv-->
+                                        <option value="@qualityMusicDTO.LinkFile" data-vip="@qualityMusicDTO.QualityDto.QualityVip">@qualityMusicDTO.QualityDto.QualityName</option>
+                                        if (listQuality != null)
+                                        {
+                                            foreach (var item in listQuality)
+                                            {
+                                                if (item.LinkFile != qualityMusicDTO.LinkFile)
+                                                {
+                                                    <option value="@item.LinkFile" data-vip="@item.QualityDto.QualityVip">@item.QualityDto.QualityName</option>
+                                                }
+                                            }
+                                        }
+                                        <!--mv-->
+                                    }
+
+                                </select><br>
+                                if (getMusic.MusicDownloadAllowed == true)
+                                {
+                                    <a data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false"
+                                       aria-controls="multiCollapseExample1" style="color: black;">
+                                        <i class="fa fa-download"></i>
+                                        Tải về
+                                    </a>
+                                }
+
+                            }
                         }
+                        else
+                        {
+                            if (qualityMusicDTOMV != null)
+                            {
+                                if (qualityMusicDTOMV.QMusicApproved == true)
+                                {
+
+                                    <span>Chất lượng: </span>
+                                    <select name="" id="selectQuality">
+                                        @if (getMusic.SongOrMV == true)
+                                        {
+                                            <!--song-->
+                                            <option value="@qualityMusicDTOMV.LinkFile" data-vip="@qualityMusicDTOMV.QualityDto.QualityVip">@qualityMusicDTOMV.QualityDto.QualityName</option>
+                                            if (listQuality != null)
+                                            {
+                                                foreach (var item in listQuality)
+                                                {
+                                                    if (item.LinkFile != qualityMusicDTOMV.LinkFile)
+                                                    {
+                                                        <option value="@item.LinkFile" data-vip="@item.QualityDto.QualityVip">@item.QualityDto.QualityName</option>
+                                                    }
+
+                                                }
+
+                                            }
+                                            <!--song-->
+                                        }
+                                        else
+                                        {
+                                            <!--mv-->
+                                            <option value="@qualityMusicDTOMV.LinkFile" data-vip="@qualityMusicDTOMV.QualityDto.QualityVip">@qualityMusicDTOMV.QualityDto.QualityName</option>
+                                            if (listQuality != null)
+                                            {
+                                                foreach (var item in listQuality)
+                                                {
+                                                    if (item.LinkFile != qualityMusicDTOMV.LinkFile)
+                                                    {
+                                                        <option value="@item.LinkFile" data-vip="@item.QualityDto.QualityVip">@item.QualityDto.QualityName</option>
+                                                    }
+   
+                                                }
+                                            }
+                                            <!--mv-->
+                                        }
+
+                                    </select><br>
+                                    if (getMusic.MusicDownloadAllowed == true)
+                                    {
+                                        <a data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false"
+                                           aria-controls="multiCollapseExample1" style="color: black;">
+                                            <i class="fa fa-download"></i>
+                                            Tải về
+                                        </a>
+                                    }
+
+                                }
+                            }
+                        }
+
 
 
 
@@ -440,9 +512,15 @@
                 </span><br>
                 <span>
                     Lời đăng bởi:
-                    @if (getLyrics.UserDto != null)
+                    @if (getLyrics != null)
                     {
                         <a href=""> @getLyrics.UserDto.UserName</a>
+                        <div style="border: 1px solid #00c292;margin-top: 10px;margin-bottom: 20px;"></div>
+                        <!--Lyrics-->
+                        <p>
+                            @getLyrics.LMusicDetail
+                        </p>
+                        <!--Lyrics-->
                         if (getLyrics.UserID == Convert.ToInt32(Session["UserId"]))
                         {
                             <a data-toggle="collapse" href="#multiCollapseExample3" role="button" aria-expanded="false"
@@ -454,7 +532,6 @@
 
                             </a>
                         }
-                        <div style="border: 1px solid #00c292;margin-top: 10px;margin-bottom: 20px;"></div>
 
 
                     }
@@ -464,15 +541,13 @@
 
                             Hiện tại chưa có lời bài hát, cập nhật lời bài hát <a data-toggle="collapse"
                                                                                   href="#multiCollapseExample2" role="button" aria-expanded="false"
-                                                                                  aria-controls="multiCollapseExample2">tại đây</a>
+                                                                                  aria-controls="multiCollapseExample2"><h6>Tại đây</h6></a>
 
                         </span>
                     }
-                    <!--Lyrics-->
-                    <p>
-                        @getLyrics.LMusicDetail
-                    </p>
-                    <!--Lyrics-->
+
+
+
                 </span>
 
 
@@ -508,27 +583,38 @@
                 </div>
                 <!--Post Lyrics-->
                 <!--Edit Lyrics-->
-                <a data-toggle="collapse" href="#multiCollapseExample3" role="button" aria-expanded="false"
-                   aria-controls="multiCollapseExample3" id="editLyrics" data-hide="0">
-                    <i class="fas fa-edit"></i>
-                    Chỉnh sửa lời bài hát
-                </a>
-                <div class="collapse multi-collapse" id="multiCollapseExample3">
-                    <div class="card card-body" style="width: 70%;">
-                        <form action="@Url.Action("UpdateLyrics","playMusic")" method="POST">
-                            <div class="input-group">
-                                <input type="hidden" name="UserID" value="@Session["UserID"]" />
-                                <input type="hidden" name="MusicID" value="@getMusic.ID" />
-                                <input type="hidden" name="ID" value="@getLyrics.ID" />
-                                <textarea name="LMusicDetail" type="text" id="containLyrics"
-                                          style="width: 500px;height: 300px;margin-bottom: 10px;">
+                @*<a data-toggle="collapse" href="#multiCollapseExample3" role="button" aria-expanded="false"
+                       aria-controls="multiCollapseExample3" id="editLyrics" data-hide="0">
+                        <i class="fas fa-edit"></i>
+                        Chỉnh sửa lời bài hát
+                    </a>*@
+                @if (Session["UserId"] != null)
+                {
+                    if (getLyrics != null)
+                    {
+                        <div class="collapse multi-collapse" id="multiCollapseExample3">
+                            <div class="card card-body" style="width: 70%;">
+                                <form action="@Url.Action("UpdateLyrics","playMusic")" method="POST">
+                                    <div class="input-group">
+                                        <input type="hidden" name="UserID" value="@Session["UserID"]" />
+                                        <input type="hidden" name="MusicID" value="@getMusic.ID" />
+                                        <input type="hidden" name="ID" value="@getLyrics.ID" />
+                                        <textarea name="LMusicDetail" type="text" id="containLyrics"
+                                                  style="width: 500px;height: 300px;margin-bottom: 10px;">
 
                                         </textarea>
-                                <input type="submit" id="btnEditLyrics" value="Cập nhật">
+                                        <input type="submit" id="btnEditLyrics" value="Cập nhật">
+                                    </div>
+                                </form>
                             </div>
-                        </form>
-                    </div>
-                </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <label>Chưa có lời không thể cập nhật</label>
+                    }
+                }
+
                 <!--Edit Lyrics-->
             </div>
         </div>
@@ -536,25 +622,30 @@
             <span class="lblMusic">Nghe tiếp</span>
 
             @foreach (var item in randomMusic)
-            {<div class="itemSongRandom">
-                    <div>
-                        <a href="nhac-demo-2.mp3"><img src="@item.LinkImage" alt=""> @item.MusicName</a><br>
-                        <span>
-                            <a href="">@item.UserDto.UserName</a>,
-                            @foreach (var itemSinger in GetAllMusic)
-                            {
-                                if (itemSinger.ID == item.ID)
+            {
+                if (item.ID != getMusic.ID)
+                {
+                    <div class="itemSongRandom">
+                        <div>
+                            <a href="@Url.Action("Index","playMusic",new { id = item.ID})"><img src="@item.LinkImage" alt=""> @item.MusicName</a><br>
+                            <span>
+                                <a href=""></a>
+                                @foreach (var itemSinger in GetAllMusic)
                                 {
-                                    foreach (var singers in itemSinger.SingerMusicDtOs)
+                                    if (itemSinger.ID == item.ID)
                                     {
-                                        <a>,@singers.UserDto.UserName</a>
+                                        foreach (var singers in itemSinger.SingerMusicDtOs)
+                                        {
+                                            <a>@singers.UserDto.UserName,</a>
+                                        }
                                     }
-                                }
 
-                            }
-                        </span>
+                                }
+                            </span>
+                        </div>
                     </div>
-                </div>
+                }
+
             }
         </div>
     </div>

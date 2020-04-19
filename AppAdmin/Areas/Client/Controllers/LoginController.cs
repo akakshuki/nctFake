@@ -194,7 +194,7 @@ namespace AppAdmin.Areas.Client.Controllers
                     userSession.ID = user.ID;
                     userSession.UserEmail = user.UserEmail;
                     Session.Add(CommonConstants.USER_SESSION, userSession);
-                    return View("ViewCreateCate","User");
+                    return RedirectToAction("Home/ViewCreateCate");
                 }
                 else if (result == -3)
                 {

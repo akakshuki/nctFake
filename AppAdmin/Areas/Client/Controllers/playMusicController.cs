@@ -15,6 +15,7 @@ namespace AppAdmin.Areas.Client.Controllers
         // GET: Client/playMusic
         public ActionResult Index(int id)
         {
+            Session["SessionUser"]=(UserDTO)Session[CommonConstants.USER_SESSION];
             var UserId = (UserDTO)Session[CommonConstants.USER_SESSION];
             if (UserId == null)
             {
@@ -26,24 +27,17 @@ namespace AppAdmin.Areas.Client.Controllers
                 Session["UserId"] = UserId.ID;
                 ViewBag.getPlaylistByIdUser = ApiService.GetPlaylistByIdUser(UserId.ID);
             }
-           
-            //if (Session["UserId"]!=null)
-            //{
-                
-            //}
-            //else
-            //{
-            //    //ham chua loi
-            //    ViewBag.getPlaylistByIdUser1 = ApiService.GetPlaylistByIdUser(UserId.ID);
-            //}
-           
+                      
             ViewBag.GetAllMusic = ApiService.GetAllMusic();
             ViewBag.getMusicById = ApiService.GetMusicById(id);
             ViewBag.getLyrics = ApiService.GetLyricByIdMusic(id);
             ViewBag.getMusicRandom = ApiService.GetAllMusic().Distinct().OrderBy(s=> Guid.NewGuid()).Take(5).ToList();
             ViewBag.getListQualityMusic = ApiService.GetFileByIdMusic(id);
             ViewBag.getAllPlaylistMusic = ApiService.GetAllPlaylistMusic();
+            //lay song file 120kbps
             ViewBag.getQualityMusicByIdMusic = ApiService.GetQualityMusicByIdMusic(id);
+            //lay mv file 360mp
+            ViewBag.getQualityMusicByIdMusicMv = ApiService.GetQualityMusicByIdMusicMV(id);
             return View();
         }
 
@@ -91,16 +85,12 @@ namespace AppAdmin.Areas.Client.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
-     
-        public ActionResult UpdateMusicView(MusicDTO music)
-        {
-            var data = ApiService.UpdateMusicView(music);
-            if (data!= null)
-            {
-                return RedirectToAction("Index", new { id = music.ID });
-            }
-            return RedirectToAction("Index",new { id = music.ID });
 
+        [HttpGet]
+        public JsonResult UpdateView(int idMusic)
+        {
+            var view = ApiService.UpdateView(idMusic);
+            return Json(new { data = view }, JsonRequestBehavior.AllowGet);
         }
     }
 }

@@ -25,6 +25,13 @@ namespace Api.Areas.Client.Controllers
             var data = new Repositories().GetQualityMusicByIdMusic(id);
             return data;
         }
+        // GET api/<controller>/5
+        [Route("GetQualityMusicByIdMusicMV/{id}")]
+        public QualityMusicDTO GetQualityMusicByIdMusicMV(int id)
+        {
+            var data = new Repositories().GetQualityMusicByIdMusicMV(id);
+            return data;
+        }
 
         // POST api/<controller>
         public void Post([FromBody]string value)

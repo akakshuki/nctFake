@@ -20,11 +20,13 @@ namespace Api.Models.Bus
         {
             var data = new PlaylistDao().GetAllPlaylist().Select(s => new PlaylistDto
             {
+                ID = s.ID,
                 PlaylistName = s.PlaylistName,
                 PlaylistDescription = s.PlaylistDescription,
                 PlaylistImage = s.PlaylistImage,
                 CateID = s.CateID,
                 UserID = s.UserID,
+                CategoryDto = new CategoryBus().GetCateById(s.CateID ?? 0),
                 UserDto = new UserBus().GetUserDtoById(s.UserID),
             });
             return data;

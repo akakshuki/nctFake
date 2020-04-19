@@ -5,9 +5,9 @@
     PlaylistDto playlistDTO = ViewBag.getPlaylistById;
     List<PlaylistDto> randomPlaylist = ViewBag.getListPlaylist;
     List<PlaylistMusicDTO> playlistMusicDTOs = ViewBag.getPlaylistMusic;
-    List<MusicDTO> SingerMusic = ViewBag.GetSinger;
-    List<PlaylistDto> getPlatlistByIdUser = ViewBag.getPlaylistByIdUser;
-    List<PlaylistDto> getPlatlistByIdUser1 = ViewBag.getPlaylistByIdUser1;
+    List<MusicDTO> listAllMusic = ViewBag.GetAllMusic;
+    List<PlaylistDTO> getPlatlistByIdUser = ViewBag.getPlaylistByIdUser;
+    List<PlaylistDTO> getPlatlistByIdUser1 = ViewBag.getPlaylistByIdUser1;
     int number = 1;
 }
 @section js{
@@ -85,7 +85,7 @@
             $('.addPlaylist li').click(function () {
                 var idplist = parseInt($(this).attr("data-idPlist"));
                 var idmusic = parseInt($(this).attr("data-idMusic"));
-                $.post("/Client/AddMusicPlaylist", { PlaylistID: idplist, MusicID: idmusic }).done(function (res) {
+                $.post("/playPlaylist/AddMusicPlaylist", { PlaylistID: idplist, MusicID: idmusic }).done(function (res) {
                     var stt = res.status;
                     if (stt == true) {
                         alertify.success("Thêm bài hát vào playlist thành công.");
@@ -97,7 +97,7 @@
             //update view
             function UpdateView(idMusic) {
                 $.ajax({
-                    url: '/Client/UpdateView',
+                    url: '/playPlaylist/UpdateView',
                     type: 'GET',
                     dataType: 'json',
                     contentType: "application/json",
@@ -182,13 +182,13 @@
                         <div class="itemPlaylist">
                             <span>
                                 <span> @number. </span>
-                                <a href="@Url.Action("Index", "playMusic", new { id = item.MusicID })" data-src="@item.MusicDto.FileImage" data-id="@item.MusicID" target="_blank">@item.MusicDto.MusicName -</a>
+                                <a href="@Url.Action("Index", "playMusic", new { id = item.MusicID })" data-src="@item.MusicDto.QualityMusicDTOs.SingleOrDefault(s=>s.QualityID==1).LinkFile" data-id="@item.MusicID" target="_blank">@item.MusicDto.MusicName -</a>
                                 <span>
-                                    @foreach (var itemSinger in SingerMusic)
+                                    @foreach (var itemMusic in listAllMusic)
                                     {
-                                        if (itemSinger.ID == item.MusicID)
+                                        if (itemMusic.ID == item.MusicID)
                                         {
-                                            foreach (var singers in itemSinger.SingerMusicDtOs)
+                                            foreach (var singers in itemMusic.SingerMusicDtOs)
                                             {
                                                 <a>@singers.UserDto.UserName,</a>
                                             }

@@ -40,15 +40,20 @@ namespace Api.Models.Bus
                             ID = x.ID,
                             MusicID = x.MusicID,
                             SingerID = x.SingerID,
-                            UserDto = new UserBus().GetUserDtoById(x.SingerID)
+                            UserDto = new UserBus().GetUserDtoById(x.SingerID),
                         }).ToList(),
                     QualityMusicDTOs = new QualityMusicBus().GetFileByIdMusic(s.Music.ID)
                         .Where(d => d.QualityDto.QualityVip == false)
                         .Select(d => new QualityMusicDTO()
                         {
                             ID = d.ID,
+                            MusicFile = d.MusicFile,
                             LinkFile = baseUrl + d.MusicFile,
+                            MusicID = d.MusicID,
+                            QualityID = d.QualityID,
+                            
                         }),
+
                 },
                 
             }).ToList();

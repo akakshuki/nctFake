@@ -642,6 +642,8 @@
     <Content Include="Views\MusicRank\GetOldRank.cshtml" />
     <Content Include="Views\OrderVip\Index.cshtml" />
     <Content Include="Views\User\MusicOfSinger.cshtml" />
+    <Content Include="Views\Playlist\ViewAddPlaylist.cshtml" />
+    <Content Include="Views\Playlist\EditPlAdmin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
