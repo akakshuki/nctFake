@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using AppAdmin.Common;
 using AppAdmin.Models.Service;
 using ModelViews.DTOs;
 
@@ -57,8 +58,9 @@ namespace AppAdmin.Controllers
         {
             try
             {
-                music.UserID = 11;
-
+                //var UserId = (UserDTO)Session[CommonConstants.USER_SESSION];
+                //music.UserID = UserId.ID;
+                music.UserID = 31;
                 if (music.FileImage != null)
                 {
                     music.MusicImage = DateTime.Now.Ticks + music.MusicName + ".png";
@@ -144,7 +146,7 @@ namespace AppAdmin.Controllers
                 var res = ApiService.UpdateMusic(music);
                 if (res)
                 {
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Index","Music");
                 }
                 return RedirectToAction("Edit");
             }

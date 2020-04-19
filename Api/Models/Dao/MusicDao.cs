@@ -17,7 +17,7 @@ namespace Api.Models.Dao
 
         //create
         public Music Create(Music music)
-            {
+        {
             db.Musics.Add(music);
             if (db.SaveChanges() > 0)
             {
@@ -41,11 +41,12 @@ namespace Api.Models.Dao
         {
         }
         //update MusicView
-        public void UpdateView(MusicDTO musicDTO)
+        public int UpdateView(int id)
         {
-            var data = db.Musics.SingleOrDefault(x => x.ID == musicDTO.ID);
-            data.MusicView = musicDTO.MusicView + 1;
-            db.SaveChanges();
+            var data = db.Musics.Find(id);
+            var itemView = data.MusicView + 1;
+            data.MusicView = itemView;
+            return db.SaveChanges() > 0 ? itemView : 0;
         }
         //update
         public void Update(Music music)

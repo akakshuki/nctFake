@@ -18,7 +18,7 @@ namespace AppAdmin.Areas.Client.Controllers
             var data = ApiService.GetPlaylistById(id);
             ViewBag.getListPlaylist = ApiService.GetPlaylistByIdCate(data.CateID??0).Distinct().OrderBy(s => Guid.NewGuid()).Take(3).ToList();
             ViewBag.getPlaylistMusic = ApiService.GetMusicByIdPlaylist(id);
-            ViewBag.GetSinger = ApiService.GetAllMusic();
+            ViewBag.GetAllMusic = ApiService.GetAllMusic();
             var getIdMusic = ApiService.GetPlaylistById(id);
           
             ViewBag.getFile = ApiService.GetAllQM().Where(s=>s.QualityID==1).ToList();
@@ -35,6 +35,28 @@ namespace AppAdmin.Areas.Client.Controllers
             }           
 
             return View();
+        }
+        [HttpGet]
+        public JsonResult UpdateView(int idMusic)
+        {
+            var view = ApiService.UpdateView(idMusic);
+            return Json(new { data = view }, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult AddMusicPlaylist(PlaylistMusicDTO playlistMusicDTO)
+        {
+            var data = ApiService.CreatePlaylistMusic(playlistMusicDTO);
+            if (data != null)
+            {
+                return Json(new
+                {
+                    status = true
+                }, JsonRequestBehavior.AllowGet);
+            }
+            return Json(new
+            {
+                status = false
+            }, JsonRequestBehavior.AllowGet);
         }
     }
 }

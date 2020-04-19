@@ -25,14 +25,14 @@
 
                         <a href="@Url.Action("Index","playMusic", new { id = item.ID})" style="font-size: 18px;"><img src="@item.LinkImage" alt="" class="imgMusic">@item.MusicName</a>
                         <div class="nameSinger">
-                            <a href="PersonalSinger.html">@item.UserDto.UserName</a>
+                            <a href="PersonalSinger.html"></a>
                             @foreach (var itemSinger in SingerMusic)
                             {
                                 if (itemSinger.ID == item.ID)
                                 {
                                     foreach (var singers in itemSinger.SingerMusicDtOs)
                                     {
-                                        <a>,@singers.UserDto.UserName</a>
+                                        <a>@singers.UserDto.UserName,</a>
                                     }
                                 }
 
@@ -54,10 +54,20 @@
                             <i class="fas fa-headphones"></i> @item.MusicView
                         </span>
 
-                        <a href="" style="font-size: 18px;"><img src="@item.LinkImage" alt="" class="imgMusic">@item.MusicName</a>
+                        <a href="@Url.Action("Index","playMusic", new { id = item.ID})" style="font-size: 18px;"><img src="@item.LinkImage" alt="" class="imgMusic">@item.MusicName</a>
                         <div class="nameSinger">
-                            <a href="">@item.UserDto.UserName</a>,
                             <a href=""></a>
+                            @foreach (var itemSinger in SingerMusic)
+                            {
+                                if (itemSinger.ID == item.ID)
+                                {
+                                    foreach (var singers in itemSinger.SingerMusicDtOs)
+                                    {
+                                        <a>@singers.UserDto.UserName,</a>
+                                    }
+                                }
+
+                            }
                         </div>
 
 
@@ -73,7 +83,7 @@
             <ul>
                 @foreach (var item in randomCate)
                 {
-                    <li><a href="listPlaylistByCate.html">@item.CateName</a></li>
+                    <li><a href="@Url.Action("Index","listPlaylistByCate", new { id = item.ID})">@item.CateName</a></li>
                 }
             </ul>
         </div>

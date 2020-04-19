@@ -259,9 +259,10 @@ namespace Api.Models
             return new MusicBus().AdminUpdateMusic(music);
         }
 
-        public bool UpdateMusicView(MusicDTO music)
+        //update music View
+        public int UpdateView(int id)
         {
-            return new MusicBus().UpdateMusicView(music);
+            return new MusicBus().UpdateView(id);
         }
 
         public bool DeleteMusic(int id)
@@ -433,6 +434,10 @@ namespace Api.Models
         public QualityMusicDTO GetQualityMusicByIdMusic(int id)
         {
             return new QualityMusicBus().GetQualityMusicByIdMusic(id);
+        }
+        public QualityMusicDTO GetQualityMusicByIdMusicMV(int id)
+        {
+            return new QualityMusicBus().GetQualityMusicByIdMusicMV(id);
         }
         public IEnumerable<QualityMusicDTO> GetFileByIdMusic(int id)
         {

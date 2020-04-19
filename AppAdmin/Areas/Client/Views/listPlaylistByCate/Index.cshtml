@@ -10,7 +10,17 @@
 <div id="content" class="container">
     <div class="gridMusic">
         <div class="gridLeft">
-            <label for="" class="lblMusic">Chủ đề: @Cate</label>
+            <label for="" class="lblMusic">
+                Chủ đề: @if (listPlaylist != null)
+                {
+                    @Cate
+                }
+                else
+                {
+                    <label></label>
+                }
+            </label>
+      
             <div class="listMusic">
                 @foreach (var item in listPlaylist)
                 {

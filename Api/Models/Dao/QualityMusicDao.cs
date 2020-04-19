@@ -17,12 +17,19 @@ namespace Api.Models.Dao
         //getFileByIdMusic
         public List<QualityMusic> GetFileByIdMusic(int id)
         {
-            var data = db.QualityMusics.Where(s => s.MusicID == id).ToList();
+            var data = db.QualityMusics.Where(s => s.MusicID == id && s.QualityID == 1 || s.QualityID ==3).ToList();
             return data;
         }
+        //lay song file 120kbps
         public QualityMusic GetQualityMusicByIdMusic(int id)
         {
-            var data = db.QualityMusics.SingleOrDefault(s => s.MusicID == id && s.QualityID == 1) ?? null;
+            var data = db.QualityMusics.SingleOrDefault(s => s.MusicID == id && s.QualityID == 1 ) ?? null;
+            return data;
+        }
+        //lay mv file 360mp
+        public QualityMusic GetQualityMusicByIdMusicMV(int id)
+        {
+            var data = db.QualityMusics.SingleOrDefault(s => s.MusicID == id && s.QualityID == 3) ?? null;
             return data;
         }
         //getFileByIdMusic
