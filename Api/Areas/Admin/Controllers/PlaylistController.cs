@@ -10,14 +10,14 @@ namespace Api.Controllers
     public class PlaylistController : ApiController
     {
         [Route("GetAllPlaylist")]
-        public IEnumerable<PlaylistDTO> GetAllPlaylist()
+        public IEnumerable<PlaylistDto> GetAllPlaylist()
         {
             return new Repositories().GetAllPlaylist();
         }
 
         // GET api/<controller>/5
         [Route("GetPlaylistById/{id}")]
-        public PlaylistDTO GetPlaylistById(int id)
+        public PlaylistDto GetPlaylistById(int id)
         {
             return new Repositories().GetPlaylistById(id);
         }
@@ -30,7 +30,7 @@ namespace Api.Controllers
 
         // POST api/<controller>
         [Route("CreatePlaylist")]
-        public IHttpActionResult CreatePlaylist(PlaylistDTO playlist)
+        public IHttpActionResult CreatePlaylist(PlaylistDto playlist)
         {
             if (new Repositories().CreatePlaylist(playlist))
             {

@@ -30,7 +30,7 @@ namespace AppAdmin.Controllers
             return View(data);
         }
         [HttpPost]
-        public ActionResult Create(PlaylistDTO playlistDTO)
+        public ActionResult Create(PlaylistDto playlistDTO)
         {
             try
             {
@@ -59,7 +59,7 @@ namespace AppAdmin.Controllers
           
         }
         [HttpPost]
-        public ActionResult Update(PlaylistDTO playlistDTO)
+        public ActionResult Update(PlaylistDto playlistDTO)
         {
             try
             {

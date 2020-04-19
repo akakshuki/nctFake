@@ -16,9 +16,9 @@ namespace Api.Models.Bus
         {
             baseUrl = "https://localhost:44315/File/ImagePlaylist/";
         }
-        public IEnumerable<PlaylistDTO> GetAllPlaylist()
+        public IEnumerable<PlaylistDto> GetAllPlaylist()
         {
-            var data = new PlaylistDao().GetAllPlaylist().Select(s => new PlaylistDTO
+            var data = new PlaylistDao().GetAllPlaylist().Select(s => new PlaylistDto
             {
                 PlaylistName = s.PlaylistName,
                 PlaylistDescription = s.PlaylistDescription,
@@ -30,10 +30,10 @@ namespace Api.Models.Bus
             return data;
         }
 
-        public PlaylistDTO GetPlaylistById(int id)
+        public PlaylistDto GetPlaylistById(int id)
         {
             var data = new PlaylistDao().GetPlaylistById(id);
-            return new PlaylistDTO
+            return new PlaylistDto
             {
                 ID = data.ID,
                 PlaylistName = data.PlaylistName,
@@ -46,10 +46,10 @@ namespace Api.Models.Bus
             };
         }
 
-        public PlaylistDTO GetPlaylistByCate(int id)
+        public PlaylistDto GetPlaylistByCate(int id)
         {
             var data = new PlaylistDao().GetPlaylistByCate(id);
-            return new PlaylistDTO
+            return new PlaylistDto
             {
                 ID = data.ID,
                 PlaylistName = data.PlaylistName,
@@ -77,11 +77,11 @@ namespace Api.Models.Bus
             return data;
         }
 
-        public List<PlaylistDTO> GetPlaylistByIdCate(int id)
+        public List<PlaylistDto> GetPlaylistByIdCate(int id)
         {
             try
             {
-                var data = new PlaylistDao().GetPlaylistByIdCate(id).Select(s => new PlaylistDTO
+                var data = new PlaylistDao().GetPlaylistByIdCate(id).Select(s => new PlaylistDto
                 {
                     ID = s.ID,
                     PlaylistName = s.PlaylistName,
@@ -95,14 +95,14 @@ namespace Api.Models.Bus
                 }).ToList();
                 return data;
             }
-            catch (Exception e)
+            catch (Exception)
             {
 
                 return null;
             }
         }
 
-        public bool CreatePlaylist(PlaylistDTO playlistDTO)
+        public bool CreatePlaylist(PlaylistDto playlistDTO)
         {
             try
             {

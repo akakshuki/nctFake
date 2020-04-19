@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace AppAdmin.Areas.Client.Models.ServiceClient
 {
-    public class ApiService
+    public class ApiDataService
     {
         private HttpClient _client = null;
 
-        public ApiService()
+        public ApiDataService()
         {
             _client = new HttpClient { BaseAddress = new Uri("https://localhost:44384/api/") };
         }
@@ -63,9 +63,9 @@ namespace AppAdmin.Areas.Client.Models.ServiceClient
 
     public static class ApiServiceClient
     {
-        private static ApiService _api = null;
+        private static ApiDataService _api = null;
 
-        static ApiServiceClient() => _api = new ApiService();
+        static ApiServiceClient() => _api = new ApiDataService();
 
 
 

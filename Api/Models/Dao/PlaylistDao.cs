@@ -30,7 +30,7 @@ namespace Api.Models.Dao
                 var data = db.Playlists.SingleOrDefault(s => s.UserID == id);
                 return data;
             }
-            catch (System.Exception e)
+            catch (System.Exception)
             {
 
                 return null;

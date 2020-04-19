@@ -20,14 +20,14 @@ namespace Api.Areas.Client.Controllers
 
         // GET api/<controller>/5
         [Route("GetPlaylistByIdCate/{id}")]
-        public IEnumerable<PlaylistDTO> GetPlaylistByIdCate(int id)
+        public IEnumerable<PlaylistDto> GetPlaylistByIdCate(int id)
         {
             var data = new Repositories().GetPlaylistByIdCate(id);
             return data;
         }
 
         [Route("GetPlaylistByCate/{id}")]
-        public PlaylistDTO GetPlaylistByCate(int id)
+        public PlaylistDto GetPlaylistByCate(int id)
         {
             var data = new Repositories().GetPlaylistByCate(id);
             return data;

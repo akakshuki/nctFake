@@ -1,20 +1,19 @@
 ﻿@using ModelViews.DTOs
 
 @{
-    ViewBag.Title = "SearchPage";
+    ViewBag.Title = "Index";
     Layout = "~/Areas/Client/Views/Shared/_LayoutClient.cshtml";
 
+    UserDTO user = ViewBag.SingerData;
 
+    System.Diagnostics.Debug.Assert(user.UserDOB != null, "user.UserDOB != null");
+    var date = (DateTime)user.UserDOB;
 
-    List<MusicDTO> listMusic = ViewBag.Music;
-    List<MusicDTO> listVideo = ViewBag.Video;
-    List<UserDTO> listSinger = ViewBag.Singer;
-    List<PlaylistDto> listPlaylist = ViewBag.PlayList;
-    string key = ViewBag.Key;
-
+    List<MusicDTO> musics = ViewBag.ListMusic;
+    List<PlaylistMusicDTO> listPlayList = ViewBag.PlayListMusic;
 }
-@section js
-{
+
+@section js{
     <script>
         $(document).ready(function () {
             var nameID = "#pageSong";
@@ -39,14 +38,7 @@
                     nameActive = "activePlaylist";
                     $('#playlistSearch').show();
                 }
-                else if (id == "4") {
-                    nameID = "#pageSinger";
-                    nameActive = "activeSinger";
-                    $('#singerSearch').show();
-                }
             });
-
-
             //Pagination
             $('.pageSearch>.prevPage').hide();
             $('.pageSearch>.firstPage').hide();
@@ -99,54 +91,81 @@
             }
         });
     </script>
-    <script src="~/Content/ClientMusic/js/ControllerJs.js">
-
-    </script>
 }
-<!--Start Content-->
-<div id="content" class="container">
-    <label for="" class="lblMusic" style="margin-left: 40px;margin-top: 20px;">Tìm Kiếm: </label>
-    <span style="font-size: 18px;">@key</span>
-    <div id="menuSearch">
+
+@if (user != null)
+{
+    <div id="info">
+        <div>
+            <img src="@Url.Content("~/File/ImageUser/")@user.UserImage" alt="">
+        </div>
+        <div>
+            <span><i class="fa fa-music"></i> @user.UserName</span><br>
+            <span>Sinh ngày: @date.ToString("dd-MM-yyyy")</span><br>
+            <span>
+                Giới tính: @if (user.UserGender == true)
+                {
+                    <span>Nam</span>
+                }
+                else
+                {
+                    <span>Nữ</span>
+                }
+            </span><br>
+            @if (user.UserDescription != null)
+            {
+                <a data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false"
+                   aria-controls="multiCollapseExample1">Click để xem tiểu sử</a>
+                <div class="collapse multi-collapse" id="multiCollapseExample1">
+                    <div class="card card-body" style="width: 70%;">
+                        @user.UserDescription
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+    <div id="menuSearch" style="margin-top: -90px;">
         <div class="hoverSearch" data-id="1">Bài hát</div>
         <div data-id="2">Video</div>
         <div data-id="3">Playlist</div>
-        <div data-id="4">Ca sĩ</div>
     </div>
     <div id="songSearch" class="musicSearch">
-        @if (listMusic != null)
+        @if (musics != null)
         {
-            foreach (var musicDto in listMusic)
+            foreach (var music in musics.Where(x => x.SongOrMV))
             {
-        <div class="itemBxh">
-            <img src="@musicDto.LinkImage" alt="">
-            <span style="left: -5px;">
-                <a href="" style="font-size: 20px;">@musicDto.MusicName</a><br>
-                <span style="left: 80px;">
-                    @foreach (var singer in musicDto.SingerMusicDtOs)
-                    {
-                        <a href="">@singer.UserDto.UserName</a>
-                    }
-                </span>
-            </span>
-            @*<span class="addPlaylist" style="cursor: pointer;">
-                <i class="fas fa-plus-circle"></i> Thêm vào
-                <ul>
-                    <li><a href="">Bài hát yêu thích</a> </li>
-                    <li><a href="">Test1</a></li>
-                    <li><a href="">Test2</a></li>
-                </ul>
-            </span>*@
-        </div>
+                <div class="itemBxh">
+                    <img src="@music.LinkImage" alt="">
+                    <span>
+                        <a href="" style="font-size: 20px;">@music.MusicName</a><br>
+                        <span style="left: 80px;">
+                            @foreach (var singer in music.SingerMusicDtOs)
+                            {
+                                if (music.SingerMusicDtOs.IndexOf(singer) + 1 == music.SingerMusicDtOs.Count)
+                                {
+                                    <a href="">@singer.UserDto.UserName.</a>
+                                }
+                                else
+                                {
+                                    <a href="">@singer.UserDto.UserName,</a>
+                                }
+
+                            }
+                        </span>
+                    </span>
+                    <span style="left: 265px;">
+                        <span><i class="fas fa-headphones"></i> @music.MusicView</span>
+                        <span class="addPlaylist">
+                            <i class="fas fa-plus-circle"></i> Thêm vào
+                            <ul>
+                                <li><a href="">Bài hát yêu thích</a> </li>
+                                <li><a href="">Test1</a></li>
+                                <li><a href="">Test2</a></li>
+                            </ul>
+                        </span>
+                    </span>
+                </div>
             }
-        }
-        else
-        {
-            <div class="itemBxh">
-                <span>
-                    Không có thông tin
-                </span>
-            </div>
         }
 
         @*<div id="pageSong" class="pageSearch">
@@ -162,38 +181,43 @@
                 <span class="lastPage"><i class="fas fa-angle-double-right"></i></span>
             </div>*@
     </div>
-
-
     <div id="videoSearch" class="musicSearch">
-
-        @if (listVideo != null)
+        @if (musics != null)
         {
-            foreach (var video in listVideo)
+            foreach (var music in musics.Where(x => !x.SongOrMV))
             {
-
                 <div class="itemBxh">
-                    <img src="@video.LinkImage" alt="">
+                    <img src="@music.LinkImage" alt="">
                     <span>
-                        <a href="" style="font-size: 20px;">@video.MusicName</a><br>
+                        <a href="" style="font-size: 20px;">@music.MusicName</a><br>
                         <span style="left: 80px;">
-                            @foreach (var singer in video.SingerMusicDtOs)
+                            @foreach (var singer in music.SingerMusicDtOs)
                             {
-                                <a href="">@singer.UserDto.UserName</a>
+                                if (music.SingerMusicDtOs.IndexOf(singer) + 1 == music.SingerMusicDtOs.Count)
+                                {
+                                    <a href="">@singer.UserDto.UserName.</a>
+                                }
+                                else
+                                {
+                                    <a href="">@singer.UserDto.UserName,</a>
+                                }
+
                             }
                         </span>
-                        @*<span style="cursor: pointer;"><i class="fas fa-plus-circle"></i> Thêm vào</span>*@
                     </span>
-
+                    <span style="left: 265px;">
+                        <span><i class="fas fa-headphones"></i> @music.MusicView</span>
+                        @*<span class="addPlaylist">
+                            <i class="fas fa-plus-circle"></i> Thêm vào
+                            <ul>
+                                <li><a href="">Bài hát yêu thích</a> </li>
+                                <li><a href="">Test1</a></li>
+                                <li><a href="">Test2</a></li>
+                            </ul>
+                        </span>*@
+                    </span>
                 </div>
             }
-        }
-        else
-        {
-            <div class="itemBxh">
-                <span>
-                    Không có thông tin
-                </span>
-            </div>
         }
 
         @*<div id="pageMV" class="pageSearch">
@@ -210,22 +234,29 @@
             </div>*@
     </div>
     <div id="playlistSearch" class="musicSearch">
-        @if (listPlaylist != null)
+        @if (listPlayList != null)
         {
-            foreach (var playList in listPlaylist)
+            foreach (var playlistMusic in listPlayList)
             {
                 <div class="itemBxh">
-                    <img src="@Url.Content("~/File/ImagePlaylist/")@playList.PlaylistImage" alt="">
+                    <img src="@playlistMusic.PlaylistDto.LinkImage" alt="">
                     <span>
-                        <a href="" style="font-size: 20px;">@playList.PlaylistName</a><br>
+                        <a href="@Url.Action("Index","playPlaylist", new  {id = playlistMusic.PlaylistDto.ID})" style="font-size: 20px;">@playlistMusic.PlaylistDto.PlaylistName</a><br>
                         <span style="left: 80px;">
-                            <a href="">@playList.UserDto.UserName</a>
+                            <a href="">@playlistMusic.PlaylistDto.UserDto.UserName</a>
                         </span>
+                    </span>
+                    <span style="left: 265px;">
+                        @*<span><i class="fas fa-headphones"></i> </span>*@
+                        @*<span><i class="fas fa-plus-circle"></i> Thêm vào</span>*@
                     </span>
                 </div>
             }
         }
-
+        else
+        {
+            <span>Chưa có bài hát nào</span>
+        }
         @*<div id="pagePlaylist" class="pageSearch">
                 <span class="firstPage"><i class="fas fa-angle-double-left"></i></span>
                 <span class="prevPage"><i class="fas fa-angle-left"></i></span>
@@ -239,31 +270,14 @@
                 <span class="lastPage"><i class="fas fa-angle-double-right"></i></span>
             </div>*@
     </div>
-    <div id="singerSearch" class="musicSearch">
-        @if (listSinger != null)
-        {
-            foreach (var userDto in listSinger)
-            {
-                <div class="itemBxh">
-                    <img src="@Url.Content("~/File/ImageUser/")@userDto.UserImage" alt="">
-                    <span style="left: 0;top: 0;">
-                        <a href="" style="font-size: 20px;">@userDto.UserName</a><br>
-                    </span>
-                </div>
-            }
-        }
-        @*<div id="pageSinger" class="pageSearch">
-                <span class="firstPage"><i class="fas fa-angle-double-left"></i></span>
-                <span class="prevPage"><i class="fas fa-angle-left"></i></span>
-                <span class="activeSong">1</span>
-                <span>2</span>
-                <span>3</span>
-                <span>4</span>
-                <span>5</span>
-                <span>6</span>
-                <span class="nextPage"><i class="fas fa-angle-right"></i></span>
-                <span class="lastPage"><i class="fas fa-angle-double-right"></i></span>
-            </div>*@
+}
+else
+{
+    <div class="text-center">
+        <h1>404</h1>
+        <span>
+            Không tìm thấy không tin ca sĩ
+        </span>
     </div>
-</div>
-<!--End content-->
+
+}
