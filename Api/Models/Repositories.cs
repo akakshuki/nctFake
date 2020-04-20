@@ -573,5 +573,10 @@ namespace Api.Models
         {
             new UserBus().CheckUserVip(email);
         }
+
+        public bool AcceptOrderVip(OrderVipDTO dto)
+        {
+            return  new UserBus().AcceptOrderVip(dto);
+        }
     }
 }

@@ -24,5 +24,11 @@ namespace Api.Models.Dao
         {
             return db.OrderVips;
         }
+
+        public bool Create(OrderVip orderVip)
+        {
+            db.OrderVips.Add(orderVip);
+            return db.SaveChanges() > 0;
+        }
     }
 }

@@ -165,7 +165,8 @@ namespace AppAdmin.Areas.Client.Controllers
 
             return View();
         }
-        protected void SetAlert(string message, string type)
+
+        private void SetAlert(string message, string type)
         {
             TempData["AlertMessage"] = message;
             if (type == "success")

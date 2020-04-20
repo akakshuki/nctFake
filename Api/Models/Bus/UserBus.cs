@@ -308,6 +308,37 @@ namespace Api.Models.Bus
                 new UserDao().UpdateUserVip(email);
             }
         }
+
+        public bool AcceptOrderVip(OrderVipDTO dto)
+        {
+            try
+            {
+                if (new OrderVipDao().Create(new OrderVip()
+                {
+                    UserID = dto.UserID,
+                    PVipID = dto.PVipID,
+                    PaymentID = dto.PaymentID,
+                    OrdDayCreate = DateTime.Now,
+                    OrdPrice = dto.OrdPrice
+                }))
+                {
+                    if (dto.PVipID != null)
+                    {
+                        var vip = new PackageVipDao().GetById((int) dto.PVipID);
+                        new UserDao().SetVipForUser(dto.UserID, vip.PVipMonths);
+                    }
+
+                }
+
+
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return false;
+            }
+        }
     }
 
 }

@@ -1740,5 +1740,14 @@ namespace AppAdmin.Models.Service
             responseTask.Wait();
             var result = responseTask.Result;
         }
+
+        public static bool AcceptOrder(OrderVipDTO orderVipDto)
+        {
+            using var client = new HttpClient();
+            client.DefaultRequestHeaders.Accept.Clear();
+            var response = client.PostAsync("https://localhost:44384/api/ClientPayment/AcceptPayment", new StringContent(
+                new JavaScriptSerializer().Serialize(orderVipDto), Encoding.UTF8, "application/json")).Result;
+            return response.StatusCode == System.Net.HttpStatusCode.OK;
+        }
     }
 }

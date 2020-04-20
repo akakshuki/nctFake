@@ -1,0 +1,40 @@
+﻿@using ModelViews.DTOs
+
+@{
+    ViewBag.Title = "Payment";
+    Layout = "~/Areas/Client/Views/Shared/_LayoutClient.cshtml";
+    List<PaymentDTO> list = ViewBag.Payment;
+}
+
+<div class="container">
+    <h1 style="font-size: 30px; margin-top: 1rem; " class="text-center">
+        Chọn phương thức thanh toán
+    </h1>
+    <div class="row">
+        @if (list != null)
+        {
+            foreach (var paymentDto in list)
+            {
+                <div class="col-md-6 text-center">
+                    <div class="card" style="margin: 1rem; padding: 1rem; border: 1px outset black; -ms-border-radius: 10%; border-radius: 2%; background: aliceblue">
+                        @if (paymentDto.PaymentName == "MoMo")
+                        {
+                        <img class="card-img-top" width="70" src=" @Url.Content("~/Content/ClientMusic/images/logo-momo.png")" alt="Card image cap">
+
+                        }
+                        else
+                        {
+                        <img class="card-img-top" width="70" src="@Url.Content("~/Content/ClientMusic/images/paymentlgo.png")" alt="Card image cap">
+
+                        }
+
+                        <div class="card-body">
+                            <h5 class="card-title">Qua: @paymentDto.PaymentName</h5>
+                           <a href="@Url.Action("CreateOrderByUser","Payment",new {idPayment=@paymentDto.ID})" class="btn btn-primary">Thanh toán</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+       </div>
+</div>

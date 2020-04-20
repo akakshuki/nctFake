@@ -168,5 +168,27 @@ namespace Api.Models.Dao
            //user.DayVipEnd = null;
             db.SaveChanges();
         }
+
+        public void SetVipForUser(int dtoUserId, int month)
+        {
+            var user = db.Users.Find(dtoUserId);
+            if (user != null)
+            {
+                if (user.DayVipEnd != null || user.DayVipEnd < DateTime.Now )
+                {
+                    user.DayVipEnd = DateTime.Now.AddMonths(month);
+                }
+                else
+                {
+                    var date = (DateTime)user.DayVipEnd;
+                    user.DayVipEnd = date.AddMonths(month);
+                }
+                user.UserVIP = true;
+                db.SaveChanges();
+            }
+
+            
+            
+        }
     }
 }

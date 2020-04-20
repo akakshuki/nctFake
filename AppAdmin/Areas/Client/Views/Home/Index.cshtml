@@ -9,20 +9,7 @@
     List<CategoryDTO> randomCate = ViewBag.RandomTheoChuDe;
 
 }
-@section js {
-    <script>
-        $(function () {
-            $('#AlertBox').removeClass('hide');
-            $('#AlertBox').delay(2000).slideUp(500);
-        });
-    </script>
-}
-@if (TempData["AlertMessage"] != null)
-{
-    <div id="AlertBox" class="text-center alert @TempData["AlertType"]" hide>
-        @TempData["AlertMessage"]
-    </div>
-}
+
 <div class="gridMusic">
     <div class="gridLeft">
         <!--New Song-->

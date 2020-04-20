@@ -156,6 +156,7 @@
     <Compile Include="Areas\Client\Controllers\listMusicByIdCateController.cs" />
     <Compile Include="Areas\Client\Controllers\listPlaylistByCateController.cs" />
     <Compile Include="Areas\Client\Controllers\LoginController.cs" />
+    <Compile Include="Areas\Client\Controllers\PaymentController.cs" />
     <Compile Include="Areas\Client\Controllers\playMusicController.cs" />
     <Compile Include="Areas\Client\Controllers\playPlaylistController.cs" />
     <Compile Include="Areas\Client\Controllers\SingerController.cs" />
@@ -177,6 +178,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Service\ApiService.cs" />
+    <Compile Include="Models\Service\MomoService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -242,6 +244,9 @@
     <Content Include="Content\ClientMusic\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\ClientMusic\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\ClientMusic\fonts\notika-icon.svg" />
+    <Content Include="Content\ClientMusic\images\logo-momo.png" />
+    <Content Include="Content\ClientMusic\images\paymentlgo.png" />
+    <Content Include="Content\ClientMusic\images\paypal-Logo.jpg" />
     <Content Include="Content\ClientMusic\images\select.png" />
     <Content Include="Content\ClientMusic\images\sort_asc.png" />
     <Content Include="Content\ClientMusic\images\sort_asc_disabled.png" />
@@ -575,6 +580,9 @@
     <Content Include="Areas\Client\Views\Home\RankMusicThisWeek.cshtml" />
     <Content Include="Areas\Client\Views\Home\SearchPage.cshtml" />
     <Content Include="Areas\Client\Views\Singer\Index.cshtml" />
+    <Content Include="Areas\Client\Views\Payment\Index.cshtml" />
+    <Content Include="Areas\Client\Views\Payment\Payment.cshtml" />
+    <Content Include="Areas\Client\Views\Payment\Success.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -675,6 +683,10 @@
     <ProjectReference Include="..\ModelViews\ModelViews.csproj">
       <Project>{b858e174-1730-496b-b610-22753df96436}</Project>
       <Name>ModelViews</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MomoGateWay\MomoGateWay.csproj">
+      <Project>{89e40819-40f0-4acd-8731-3ddf8df2d898}</Project>
+      <Name>MomoGateWay</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
