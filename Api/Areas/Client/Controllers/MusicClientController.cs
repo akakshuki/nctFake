@@ -1,4 +1,5 @@
 ﻿using Api.Models;
+using ModelViews.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,9 +26,12 @@ namespace Api.Areas.Client.Controllers
             return new Repositories().UpdateView(id);
         }
 
-        // POST api/<controller>
-        public void Post([FromBody]string value)
+        
+        [HttpGet]
+        [Route("GetMusicByIdUser/{id}")]
+        public List<MusicDTO> GetMusicByIdUser(int id)
         {
+            return new Repositories().GetMusicByIdUser(id);
         }
 
         // PUT api/<controller>/5

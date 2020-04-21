@@ -23,11 +23,16 @@ namespace AppAdmin.Areas.Client.Controllers
           
             ViewBag.getFile = ApiService.GetAllQM().Where(s=>s.QualityID==1).ToList();
             var UserId = (UserDTO)Session[CommonConstants.USER_SESSION];
+            Session["UserIdPl"] = UserId.ID;
             Session["UserSession"] = (UserDTO)Session[CommonConstants.USER_SESSION];           
             if (Session["UserSession"] != null)
             {
                 data.UserID = UserId.ID;
-                ViewBag.getPlaylistByIdUser = ApiService.GetPlaylistByIdUser(data.UserID);
+                if (ApiService.GetPlaylistByIdUser(data.UserID).Count() > 0)
+                {
+                    ViewBag.getPlaylistByIdUser = ApiService.GetPlaylistByIdUser(data.UserID);
+                }
+                ViewBag.getPlaylistByIdUser = null;
             }
             else
             {

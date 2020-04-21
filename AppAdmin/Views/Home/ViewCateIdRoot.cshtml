@@ -57,16 +57,13 @@
                         <tbody>
                             <tr>
                                 <td>
-                                    <a href="#">@item.CateName</a>
+                                    <a href="@Url.Action("GetMusicByIdCate","Home", new { id = item.ID})">@item.CateName</a>
                                     <input type="hidden" value="@item.ID_root" />
                                 </td>
                                 <td><span class="label label-info label-mini">Due</span></td>
                                 <td>
                                     <a href="@Url.Action("EditCateIdRoot","Home", new { id = item.ID})">
                                         <button class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></button>
-                                    </a>
-                                    <a href="@Url.Action("DeleteCateIdRoot","Home", new { id = item.ID})">
-                                        <button class="btn btn-danger btn-xs"><i class="fa fa-trash-o "></i></button>
                                     </a>
                                 </td>
                             </tr>

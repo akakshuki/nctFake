@@ -6,9 +6,7 @@
     List<PlaylistDto> randomPlaylist = ViewBag.getListPlaylist;
     List<PlaylistMusicDTO> playlistMusicDTOs = ViewBag.getPlaylistMusic;
     List<MusicDTO> listAllMusic = ViewBag.GetAllMusic;
-    var getPlatlistByIdUser = ViewBag.getPlaylistByIdUser;
-    var getPlatlistByIdUser1 = ViewBag.getPlaylistByIdUser1;
-    int number = 1;
+    List<PlaylistDto> getPlatlistByIdUser = ViewBag.getPlaylistByIdUser;
 }
 @section js{
 
@@ -157,7 +155,7 @@
 
     <!-- tawk chat JS
             ============================================ -->
-    <script src="js/tawk-chat.js"></script>
+    <script src="@Url.Content("~/Content/ClientMusic/")js/tawk-chat.js"></script>
 }
 <!--Start Content-->
 <div id="content" class="container">
@@ -181,7 +179,7 @@
                     {
                         <div class="itemPlaylist">
                             <span>
-                                <span> @number. </span>
+                                <span> </span>
                                 <a href="@Url.Action("Index", "playMusic", new { id = item.MusicID })" data-src="@item.MusicDto.QualityMusicDTOs.SingleOrDefault(s=>s.QualityID==1).LinkFile" data-id="@item.MusicID" target="_blank">@item.MusicDto.MusicName -</a>
                                 <span>
                                     @foreach (var itemMusic in listAllMusic)
@@ -209,8 +207,9 @@
                                 <span class="addPlaylist" style="cursor: pointer;">
                                     <i class="fas fa-plus-circle"></i>
                                     <ul>
-                                        @if (Session["UserSession"] != null)
+                                        @if (Session["UserIdPl"] != null)
                                         {
+                                          
                                             if (getPlatlistByIdUser == null)
                                             {
                                                 <span>Bạn chưa có playlist nào. <a href="#">TẠO</a></span>
@@ -283,16 +282,20 @@
             {
                 foreach (var item in randomPlaylist)
                 {
-                    <div class="itemSongRandom">
-                        <div>
-                            <a href="nhac-demo.mp3">
-                                <img src="@item.LinkImage" alt="" style="border-radius: 0%;"> @item.PlaylistName
-                            </a><br>
-                            <span>
-                                <a href="">@item.UserDto.UserName</a>
-                            </span>
+                    if (item.ID != playlistDTO.ID)
+                    {
+                        <div class="itemSongRandom">
+                            <div>
+                                <a href="@Url.Action("Index","playPlaylist", new { id = item.ID })">
+                                    <img src="@item.LinkImage" alt="" style="border-radius: 0%;"> @item.PlaylistName
+                                </a><br>
+                                <span>
+                                    <a href="">@item.UserDto.UserName</a>
+                                </span>
+                            </div>
                         </div>
-                    </div>
+                    }
+
                 }
             }
             else

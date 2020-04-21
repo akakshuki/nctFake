@@ -65,16 +65,18 @@ namespace Api.Models.Bus
             };
         }
 
-        public IEnumerable<Playlist> GetPlaylistByIdUser(int id)
+        public IEnumerable<PlaylistDto> GetPlaylistByIdUser(int id)
         {
-            var data = new PlaylistDao().GetPlaylistByIdUser(id).Select(s => new Playlist
+            var data = new PlaylistDao().GetPlaylistByIdUser(id).Select(s => new PlaylistDto
             {
                 ID= s.ID,
                 PlaylistName = s.PlaylistName,
                 PlaylistDescription = s.PlaylistDescription,
                 PlaylistImage = s.PlaylistImage,
+                LinkImage = baseUrl + s.PlaylistImage,
                 CateID = s.CateID,
-                UserID = s.UserID,            
+                UserID = s.UserID,  
+                UserDto = new UserBus().GetUserById(s.UserID),
             });
             return data;
         }
@@ -138,6 +140,14 @@ namespace Api.Models.Bus
         public bool DeletePlaylist(int id)
         {
             if (new PlaylistDao().DeletePlaylist(id))
+            {
+                return true;
+            }
+            return false;
+        }
+        public bool DeletePlaylistAndPlaylistMusic(int id)
+        {
+            if (new PlaylistDao().DeletePlaylistAndPlaylistMusic(id))
             {
                 return true;
             }

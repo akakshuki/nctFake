@@ -1,5 +1,4 @@
 ﻿using Api.Models.EF;
-using Glimpse.AspNet.Tab;
 using ModelViews.DTOs;
 using System;
 using System.Collections.Generic;
@@ -161,6 +160,12 @@ namespace Api.Models.Dao
             db.SaveChanges();
         }
 
+        public IEnumerable<User> GetListSingerSearch(string value)
+        {
+            var data = db.Users.Where(w => w.RoleID == 2 && (w.UserName.ToLower().Contains(value.ToLower()) || w.UserNameUnsigned.ToLower().Contains(value.ToLower()))).ToList() ?? null;
+            return data;
+
+        }
         public void UpdateUserVip(string email)
         {
             var user = db.Users.SingleOrDefault(x => x.UserEmail == email);

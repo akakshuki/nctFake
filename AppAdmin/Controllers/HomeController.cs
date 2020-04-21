@@ -78,7 +78,12 @@ namespace AppAdmin.Controllers
         public ActionResult DeleteCateIdRoot(int id)
         {
             ApiService.DeleteCate(id);
-            return RedirectToAction("ViewCateIdRoot", new { id = Session["idRoot"]});
+            return RedirectToAction("ViewCateIdRoot", new { id = Session["idRoot"] });
+        }
+        public ActionResult GetMusicByIdCate(int id)
+        {
+            var data = ApiService.GetAllMusic().Where(s => s.CategoryId == id).ToList();
+            return View(data);
         }
         #endregion
     }

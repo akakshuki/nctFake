@@ -33,6 +33,15 @@ namespace Api.Areas.Client.Controllers
             return data;
         }
 
+        [Route("DeletePlaylistAndPlaylistMusic/{id}")]
+        public IHttpActionResult DeletePlaylistAndPlaylistMusic(int id)
+        {
+            if (new Repositories().DeletePlaylistAndPlaylistMusic(id))
+            {
+                return Ok();
+            }
+            return InternalServerError();
+        }
         // POST api/<controller>
         public void Post([FromBody]string value)
         {

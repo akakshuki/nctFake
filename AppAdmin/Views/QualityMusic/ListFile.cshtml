@@ -82,6 +82,7 @@
                             <thead>
                                 <tr>
                                     <th>File Name</th>
+                                    <th>User Name</th>
                                     <th class="hidden-phone">Quality</th>
                                     <th class="hidden-phone">Approved</th>
                                     <th></th>
@@ -92,6 +93,7 @@
                                 {
                                     <tr class="gradeA odd">
                                         <td>@item.MusicFile</td>
+                                        <td>@item.MusicDto.UserDto.UserName</td>
                                         <td class="center hidden-phone">@item.QualityDto.QualityName</td>
                                         <td class="center hidden-phone">
                                             @if (item.QMusicApproved == true)
@@ -105,11 +107,9 @@
                                         </td>
                                         <td>
                                             <a href="@Url.Action("EditFile","QualityMusic", new { id = item.ID})">
-                                                <button type="button" class="btn btn-round btn-warning">Edit</button>
+                                                <button type="button" class="btn btn-round btn-warning">Details</button>
                                             </a>
-                                            <a href="@Url.Action("Delete","QualityMusic", new { id = item.ID})">
-                                                <button type="button" class="btn btn-round btn-danger">Delete</button>
-                                            </a>
+                                      
                                         </td>
                                     </tr>
                                 }

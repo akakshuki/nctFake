@@ -300,6 +300,11 @@ namespace Api.Models.Bus
             new UserDao().ResetPassword(userDto);
         }
 
+        public IEnumerable<User> GetListSingerSearch(string value)
+        {
+            return new UserDao().GetListSingerSearch(value);
+        }
+
         public void CheckUserVip(string email)
         { 
             var user = new UserDao().GetAllUser().SingleOrDefault(x=>x.UserEmail== email);

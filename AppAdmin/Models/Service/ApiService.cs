@@ -893,17 +893,37 @@ namespace AppAdmin.Models.Service
             return null;
         }
 
-        public static QualityMusicDTO UpdateFile(QualityMusicDTO qualityMusic)
+        public static QualityMusicDTO UpdateFile(int id)
         {
-            using (HttpClient client = new HttpClient())
+            using (var client = new HttpClient())
             {
-                client.DefaultRequestHeaders.Accept.Clear();
-                var response = client.PostAsync("https://localhost:44384/api/QualityMusic/UpdateFile/",
-                    new StringContent(
-                        new JavaScriptSerializer().Serialize(qualityMusic), Encoding.UTF8, "application/json")).Result;
-                if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                client.BaseAddress = new Uri("https://localhost:44384/api/QualityMusic/UpdateFile/" + id.ToString());
+                var responseTask = client.GetAsync(client.BaseAddress);
+                responseTask.Wait();
+                var result = responseTask.Result;
+                if (result.IsSuccessStatusCode)
                 {
-                    return qualityMusic;
+                    var readTask =
+                        JsonConvert.DeserializeObject<QualityMusicDTO>(result.Content.ReadAsStringAsync().Result);
+                    return readTask;
+                }
+            }
+
+            return null;
+        }
+        public static QualityMusicDTO DelFileAndTableRelated(int id)
+        {
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("https://localhost:44384/api/QualityMusic/DelFileAndTableRelated/" + id.ToString());
+                var responseTask = client.GetAsync(client.BaseAddress);
+                responseTask.Wait();
+                var result = responseTask.Result;
+                if (result.IsSuccessStatusCode)
+                {
+                    var readTask =
+                        JsonConvert.DeserializeObject<QualityMusicDTO>(result.Content.ReadAsStringAsync().Result);
+                    return readTask;
                 }
             }
 
@@ -982,6 +1002,24 @@ namespace AppAdmin.Models.Service
                 return readTask.Take(20).ToList();
             }
 
+        }
+        public static int CreateMusicUpload(MusicDTO music)
+        {
+            using (var client = new HttpClient())
+            {
+                var data = new StringContent(
+                    new JavaScriptSerializer().Serialize(music), Encoding.UTF8, "application/json");
+                client.DefaultRequestHeaders.Accept.Clear();
+
+                var response = client.PostAsync("https://localhost:44384/api/music/", data).Result;
+
+                if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    return music.ID;
+                }
+            }
+
+            return 0;
         }
 
         public static bool CreateMusic(MusicDTO music)
@@ -1617,8 +1655,6 @@ namespace AppAdmin.Models.Service
             return null;
         }
 
-        #endregion
-
         //getAllPlaylistMusic
         public static List<PlaylistMusicDTO> GetAllPlaylistMusic()
         {
@@ -1639,7 +1675,22 @@ namespace AppAdmin.Models.Service
 
             return null;
         }
+        public static bool DeletePlaylistAndPlaylistMusic(int id)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Accept.Clear();
+                var response = client
+                    .DeleteAsync("https://localhost:44384/api/PlaylistClient/DeletePlaylistAndPlaylistMusic/" + id.ToString()).Result;
+                if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    return true;
+                }
+            }
 
+            return false;
+        }
+        #endregion
         #region QualityMusicClient
 
         //lay song file 120kbps
@@ -1725,7 +1776,48 @@ namespace AppAdmin.Models.Service
 
             return 0;
         }
+        public static List<MusicDTO> GetMusicByIdUser(int id)
+        {
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("https://localhost:44384/api/MusicClient/GetMusicByIdUser/" + id.ToString());
+                var responseTask = client.GetAsync(client.BaseAddress);
+                responseTask.Wait();
+                var result = responseTask.Result;
+                if (result.IsSuccessStatusCode)
+                {
+                    var readTask =
+                        JsonConvert.DeserializeObject<List<MusicDTO>>(result.Content.ReadAsStringAsync().Result);
+                    return readTask;
+                }
+            }
 
+            return null;
+        }
+        #endregion
+        #region UserClient
+        public static List<UserDTO> GetListSingerSearch(string value)
+        {
+            var settings = new JsonSerializerSettings
+            {
+                NullValueHandling = NullValueHandling.Ignore,
+                MissingMemberHandling = MissingMemberHandling.Ignore
+            };
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("https://localhost:44384/api/UserClient/GetListSingerSearch" + "?value=" + value);
+                var responseTask = client.GetAsync(client.BaseAddress);
+                responseTask.Wait();
+                var result = responseTask.Result;
+                if (result.IsSuccessStatusCode)
+                {
+                    var readTask = JsonConvert.DeserializeObject<List<UserDTO>>(result.Content.ReadAsStringAsync().Result,settings);
+                    return readTask;
+                }
+            }
+
+            return null;
+        }
         #endregion
 
         #endregion

@@ -27,6 +27,7 @@ namespace Api.Models.Bus
                 QualityID = s.QualityID,
                 QMusicApproved = s.QMusicApproved,
                 NewFile = s.NewFile,
+                MusicDto = new MusicBus().MusicById(s.MusicID),
                 QualityDto = new QualityDTO
                 {
                     ID = s.Quality.ID,
@@ -107,26 +108,17 @@ namespace Api.Models.Bus
                 return false;
             }
         }
-
-        public bool UpdateFile(QualityMusicDTO quality)
+        //update Approved
+        public bool UpdateFile(int id)
         {
-            try
-            {
-                new QualityMusicDao().UpdateFile(new QualityMusic()
-                {
-                    ID = quality.ID,
-                    QMusicApproved = quality.QMusicApproved,
-                    NewFile = false,                                      
-                    MusicID = quality.MusicID,
-                });
-                return true;
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                return false;
-            }
+            return new QualityMusicDao().UpdateFile(id);
         }
+        //Delete lien quan
+        public bool DelFileAndTableRelated(int id)
+        {
+            return new QualityMusicDao().DelFileAndTableRelated(id);
+        }
+
         public bool UpdateQualityMusic(QualityMusicDTO quality)
         {
             try

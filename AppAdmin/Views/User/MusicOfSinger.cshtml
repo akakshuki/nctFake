@@ -79,6 +79,7 @@
                     <thead>
                         <tr>
                             <th>Music Name</th>
+                            <th>Cate Name</th>
                             <th class="hidden-phone">Day Create</th>
                             <th>File </th>
                         </tr>
@@ -88,6 +89,7 @@
                         {
                             <tr class="gradeA odd">
                                 <td>@item.MusicName</td>
+                                <td>@item.CategoryDto.CateName</td>
                                 <td>@item.MusicDayCreate</td>
                                 <td>
                                     <a href="@Url.Action("ListFile","User",new { id = item.ID })">

@@ -24,7 +24,12 @@ namespace Api.Models.Bus
                 {
                     ID = s.PackageVip.ID,
                     PVipName = s.PackageVip.PVipName
-                }        
+                }       ,
+                PaymentDto = new PaymentDTO()
+                {
+                    ID = s.Payment.ID,
+                    PaymentName = s.Payment.PaymentName
+                }
             });
             return data;
         }

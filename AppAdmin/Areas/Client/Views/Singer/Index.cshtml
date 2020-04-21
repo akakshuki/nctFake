@@ -11,10 +11,24 @@
 
     List<MusicDTO> musics = ViewBag.ListMusic;
     List<PlaylistMusicDTO> listPlayList = ViewBag.PlayListMusic;
+    List<PlaylistDto> getPlatlistByIdUser = ViewBag.getPlaylistByIdUser;
 }
 
 @section js{
     <script>
+        //add music playlist
+        $('.addPlaylist li').click(function () {
+            var idplist = parseInt($(this).attr("data-idPlist"));
+            var idmusic = parseInt($(this).attr("data-idMusic"));
+            $.post("/playPlaylist/AddMusicPlaylist", { PlaylistID: idplist, MusicID: idmusic }).done(function (res) {
+                var stt = res.status;
+                if (stt == true) {
+                    alertify.success("Thêm bài hát vào playlist thành công.");
+                } else {
+                    alertify.error("Lỗi khi thêm bài hát vào playlist. Mời thử lại.");
+                }
+            });
+        });
         $(document).ready(function () {
             var nameID = "#pageSong";
             var nameActive = "activeSong";
@@ -158,9 +172,27 @@
                         <span class="addPlaylist">
                             <i class="fas fa-plus-circle"></i> Thêm vào
                             <ul>
-                                <li><a href="">Bài hát yêu thích</a> </li>
-                                <li><a href="">Test1</a></li>
-                                <li><a href="">Test2</a></li>
+                                @if (Session["UserSession"] != null)
+                                {
+                                    if (getPlatlistByIdUser == null)
+                                    {
+                                        <span>Bạn chưa có playlist nào. <a href="#">TẠO</a></span>
+                                    }
+                                    else
+                                    {
+                                        foreach (var itemPlaylist in getPlatlistByIdUser)
+                                        {
+                                            <li data-idPlist="@itemPlaylist.ID" data-idMusic="@music.ID"><a href="@Url.Action("Index","playPlaylist", new { id = itemPlaylist.ID })">@itemPlaylist.PlaylistName</a> </li>
+
+                                        }
+                                    }
+
+                                }
+                                else
+                                {
+
+                                    <li><a href="@Url.Action("Login","Login")">Đăng nhập để tạo playlist</a> </li>
+                                }
                             </ul>
                         </span>
                     </span>
@@ -208,13 +240,13 @@
                     <span style="left: 265px;">
                         <span><i class="fas fa-headphones"></i> @music.MusicView</span>
                         @*<span class="addPlaylist">
-                            <i class="fas fa-plus-circle"></i> Thêm vào
-                            <ul>
-                                <li><a href="">Bài hát yêu thích</a> </li>
-                                <li><a href="">Test1</a></li>
-                                <li><a href="">Test2</a></li>
-                            </ul>
-                        </span>*@
+                                <i class="fas fa-plus-circle"></i> Thêm vào
+                                <ul>
+                                    <li><a href="">Bài hát yêu thích</a> </li>
+                                    <li><a href="">Test1</a></li>
+                                    <li><a href="">Test2</a></li>
+                                </ul>
+                            </span>*@
                     </span>
                 </div>
             }

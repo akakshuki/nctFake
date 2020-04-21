@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using Api.Models;
+using Api.Models.EF;
 using ModelViews.DTOs;
 
 namespace Api.Areas.Client.Controllers
@@ -13,9 +14,12 @@ namespace Api.Areas.Client.Controllers
     public class UserClientController : ApiController
     {
         // GET: api/User
-        public IEnumerable<string> Get()
+        [HttpGet]
+        [Route("GetListSingerSearch")]
+        public IEnumerable<User> GetListSingerSearch(string value)
         {
-            return new string[] { "value1", "value2" };
+            var data = new Repositories().GetListSingerSearch(value);
+            return data;
         }
 
         [HttpGet,Route("UserCheckVipEnd/{email}")]
@@ -34,7 +38,7 @@ namespace Api.Areas.Client.Controllers
         }
        
         // POST: api/User
-        [HttpPost,Route("UserResetPassword")]
+        [HttpPost, Route("UserResetPassword")]
         public IHttpActionResult UserResetPassword([FromBody]UserDTO userDto)
         {
             try
