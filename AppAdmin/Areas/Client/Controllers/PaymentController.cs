@@ -47,7 +47,7 @@ namespace AppAdmin.Areas.Client.Controllers
                 }
                 else
                 {
-                    SetAlert("Mua gói vip thành công", "mua gói vip không thành công");
+                    SetAlert("Mua gói vip không thành công", "error");
                     return RedirectToAction("Index");
                 }
             }
