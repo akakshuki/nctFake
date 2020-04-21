@@ -174,7 +174,10 @@ namespace Api.Models.Dao
             var user = db.Users.Find(dtoUserId);
             if (user != null)
             {
-                if (user.DayVipEnd != null || user.DayVipEnd < DateTime.Now )
+                if (user.DayVipEnd == null   )
+                {
+                    user.DayVipEnd = DateTime.Now.AddMonths(month);
+                }else if (user.DayVipEnd <= DateTime.Now)
                 {
                     user.DayVipEnd = DateTime.Now.AddMonths(month);
                 }

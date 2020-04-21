@@ -90,7 +90,7 @@ namespace AppAdmin.Areas.Client.Controllers
         [HttpGet]
         public JsonResult SearchSingerByKey(string name)
         {
-            var list = ApiService.GetAllSinger().Where(x => x.UserName.ToLower().ToString().Contains(name.ToLower()) || x.UserNameUnsigned.ToLower().Contains(name.ToLower())).ToList();
+            var list = ApiService.GetAllSinger().Where(x => x.UserName.ToLower().ToString().Contains(name.ToLower()) || x.UserNameUnsigned.ToLower().Contains(name.ToLower())).Take(5).ToList();
 
             return Json(new
             {
