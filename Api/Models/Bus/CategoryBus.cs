@@ -19,13 +19,26 @@ namespace Api.Models.Bus
         }
         public IEnumerable<CategoryDTO> GetAllCateCon()
         {
-            var data = new CategoryDao().GetAllCate().Select(s => new CategoryDTO
+            var list = new List<CategoryDTO>();
+            var dataList = new CategoryDao().GetAllCate();
+            foreach (var item in dataList)
             {
-                ID = s.ID,
-                CateName = s.CateName,
-                ID_root = s.ID_root
-            });
-            return data;
+                var newCate = new CategoryDTO()
+                {
+                    ID = item.ID,
+                    CateName = item.CateName,
+                    ID_root = item.ID_root,
+                    CategoryDtos = new CategoryBus()
+                        .GetCateByIdConvert(item.ID)
+                        .Select(s => new CategoryDTO
+                        { 
+                            ID = s.ID,
+                            CateName =s.CateName
+                        }).ToList()
+                };
+                list.Add(newCate);
+            }
+            return list;
         }
 
         public IEnumerable<CategoryDTO> GetAllListCategories()
@@ -50,6 +63,19 @@ namespace Api.Models.Bus
                 ID_root = data.ID_root,
             };
         }
+        //converDTO
+        public IEnumerable<CategoryDTO> GetCateByIdConvert(int id)
+        {
+            var data = new CategoryDao().GetCateByIdRoot(id).Select(s => new CategoryDTO
+            {
+                ID = s.ID,
+                CateName = s.CateName,
+                ID_root = s.ID_root
+
+            });
+            return data;
+        }
+
         public IEnumerable<Category> GetCateByIdRoot(int id)
         {
             var data = new CategoryDao().GetCateByIdRoot(id).Select(s => new Category

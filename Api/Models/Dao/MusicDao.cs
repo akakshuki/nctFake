@@ -25,6 +25,17 @@ namespace Api.Models.Dao
             };
             return null;
         }
+        //delete file lien quan nhac
+        public bool DeleteLQ(int id)
+        {
+            var data = db.Musics.Find(id);
+            if (data != null)
+            {
+                db.Musics.Remove(data);
+                db.SaveChanges();
+            }
+            return false;
+        }
 
         //delete
         public void Delete(int id)
@@ -74,6 +85,13 @@ namespace Api.Models.Dao
                 .ToList()
                 .Skip(page.Index * page.Size)
                 .Take(page.Size);
+            return data;
+        }
+
+        //getMusicByIdUser
+        public List<Music> GetMusicByIdUser(int id)
+        {
+            var data = db.Musics.Where(s => s.UserID == id).ToList();
             return data;
         }
     }

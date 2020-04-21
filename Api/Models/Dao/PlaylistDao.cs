@@ -35,12 +35,12 @@ namespace Api.Models.Dao
 
                 return null;
             }
-           
+
         }
 
         public List<Playlist> GetPlaylistByIdUser(int id)
         {
-            var data = db.Playlists.Where(s => s.UserID == id).ToList();
+            var data = db.Playlists.Where(s => s.UserID == id).ToList() ?? null;
             return data;
         }
 
@@ -84,6 +84,20 @@ namespace Api.Models.Dao
                 return true;
             }
             return false;
+        }
+
+        public bool DeletePlaylistAndPlaylistMusic(int id)
+        {
+            var item = db.Playlists.Find(id);
+            var lsPlaylistMusic = new PlaylistMusicDao().GetMusicByIdPlaylist(item.ID);
+            if (lsPlaylistMusic != null)
+            {
+                foreach (var playlistMusic in lsPlaylistMusic)
+                {
+                    db.PlaylistMusics.Remove(db.PlaylistMusics.Find(playlistMusic.ID));
+                }
+            }
+            return DeletePlaylist(id) == true ? true : false;
         }
     }
 }

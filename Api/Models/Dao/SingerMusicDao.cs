@@ -59,5 +59,12 @@ namespace Api.Models.Dao
         {
             return db.SingerMusics.Find(id);
         }
+
+        public IEnumerable<SingerMusic> GetSMByID(int id)
+
+        {
+            return  db.SingerMusics.Where(w => w.MusicID == id).ToList() ?? null;
+
+        }
     }
 }
