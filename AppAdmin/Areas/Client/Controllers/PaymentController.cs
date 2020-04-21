@@ -123,7 +123,7 @@ namespace AppAdmin.Areas.Client.Controllers
             var transList = new List<Transaction>();
             transList.Add(new Transaction
             {
-                description = "Hotel Management using Paypal",
+                description = "Nctfake buy vip ",
                 invoice_number = Convert.ToString((new Random()).Next(100000)),
                 amount = amount,
                 item_list = lsItem,
