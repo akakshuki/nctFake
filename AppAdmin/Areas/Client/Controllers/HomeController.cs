@@ -35,6 +35,17 @@ namespace AppAdmin.Areas.Client.Controllers
         public ActionResult NavigationMenu()
         {
             Session["UserSession"] = (UserDTO)Session[CommonConstants.USER_SESSION];
+            if (Session["UserSession"]!=null)
+            {
+                var idUser = (UserDTO)Session[CommonConstants.USER_SESSION];
+                Session["UserId"] = idUser.ID;
+                ViewBag.getUserById = ApiService.GetUserById(idUser.ID);
+            }
+            else
+            {
+                Session["UserId"] = null;
+                ViewBag.getUserById = null;
+            } 
             ViewBag.getCate = ApiService.GetAllCate();
             ViewBag.getSubCate = ApiService.GetAllCateCon().Where(s => s.ID_root != null).ToList();
             ViewBag.getTheoChuDe = ApiService.GetAllCateCon().Where(s => s.ID_root != null).ToList();

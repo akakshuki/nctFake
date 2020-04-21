@@ -23,7 +23,7 @@ namespace Api.Controllers
         }
 
         [Route("GetPlaylistByIdUser/{id}")]
-        public IEnumerable<Playlist> GetPlaylistByIdUser(int id)
+        public IEnumerable<PlaylistDto> GetPlaylistByIdUser(int id)
         {
             return new Repositories().GetPlaylistByIdUser(id);
         }

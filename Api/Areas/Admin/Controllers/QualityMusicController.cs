@@ -48,10 +48,23 @@ namespace Api.Areas.Admin.Controllers
             return InternalServerError();
         }
         // PUT api/<controller>/5
-        [Route("UpdateFile")]
-        public IHttpActionResult UpdateFile(QualityMusicDTO qualityMusic)
+        [HttpGet]
+        [Route("UpdateFile/{id}")]
+        public IHttpActionResult UpdateFile(int  id)
         {
-            if (new Repositories().UpdateFile(qualityMusic))
+            if (new Repositories().UpdateFile(id))
+            {
+                return Ok();
+            }
+            return InternalServerError();
+        }
+
+        // PUT api/<controller>/5
+        [HttpGet]
+        [Route("DelFileAndTableRelated/{id}")]
+        public IHttpActionResult DelFileAndTableRelated(int id)
+        {
+            if (new Repositories().DelFileAndTableRelated(id))
             {
                 return Ok();
             }

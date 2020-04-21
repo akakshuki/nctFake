@@ -124,7 +124,7 @@ namespace AppAdmin.Controllers
         }
         public ActionResult MusicOfSinger(int id)
         {
-            ViewBag.getMusicByUser = ApiService.GetAllMusic().Where(s => s.UserID == id).ToList();
+            ViewBag.getMusicByUser = ApiService.GetAllMusic().Where(x => x.SingerMusicDtOs.Any(k => k.SingerID == id)).ToList();
             return View();
         }
         #endregion

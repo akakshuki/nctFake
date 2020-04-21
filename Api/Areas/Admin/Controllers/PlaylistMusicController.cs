@@ -19,8 +19,7 @@ namespace Api.Areas.Admin.Controllers
         {
             var data = new Repositories().GetMusicByIdPlaylist(id);
             return data;
-        }
-
+        }     
         [Route("GetAllPlaylistMusic")]
         public IEnumerable<PlaylistMusicDTO> GetAllPlaylistMusic()
         {

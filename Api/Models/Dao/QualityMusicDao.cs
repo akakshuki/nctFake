@@ -17,7 +17,7 @@ namespace Api.Models.Dao
         //getFileByIdMusic
         public List<QualityMusic> GetFileByIdMusic(int id)
         {
-            var data = db.QualityMusics.Where(s => s.MusicID == id && s.QualityID == 1 || s.QualityID ==3).ToList();
+            var data = db.QualityMusics.Where(s => s.MusicID == id).ToList();
             return data;
         }
         //lay song file 120kbps
@@ -64,15 +64,29 @@ namespace Api.Models.Dao
         {
         }
         //update Approved
-        public bool UpdateFile(QualityMusic qualityMusic)
+        public bool UpdateFile(int id)
         {
-            var data = db.QualityMusics.SingleOrDefault(s => s.ID == qualityMusic.ID);
-            data.QMusicApproved = qualityMusic.QMusicApproved;
+            var data = db.QualityMusics.SingleOrDefault(s => s.ID == id);
+            data.NewFile = false;
+            data.QMusicApproved = true;
             if (db.SaveChanges() > 0)
             {
                 return true;
             }
             return false;
+        }
+        //Delete lien quan
+        public bool DelFileAndTableRelated(int id)
+        {
+            var item = db.QualityMusics.Find(id);
+            var lsSinger = new SingerMusicDao().GetSMByID(item.MusicID);
+            foreach (var singer in lsSinger)
+            {
+                db.SingerMusics.Remove(db.SingerMusics.Find(singer.ID));
+                db.SaveChanges();
+            }
+            Delete(id);
+            return new MusicDao().DeleteLQ(item.MusicID) == true ? true : false;
         }
         //update
         public void Update(QualityMusic qualityMusic)

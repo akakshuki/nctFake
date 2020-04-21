@@ -140,6 +140,10 @@ namespace Api.Models
             return false;
         }
 
+        public IEnumerable<User> GetListSingerSearch(string value)
+        {
+            return new UserBus().GetListSingerSearch(value);
+        }
         #endregion User
 
         #region Playlist
@@ -158,7 +162,7 @@ namespace Api.Models
             return new PlaylistBus().GetPlaylistByCate(id);
         }
 
-        public IEnumerable<Playlist> GetPlaylistByIdUser(int id)
+        public IEnumerable<PlaylistDto> GetPlaylistByIdUser(int id)
         {
             return new PlaylistBus().GetPlaylistByIdUser(id);
         }
@@ -189,6 +193,14 @@ namespace Api.Models
         public bool DeletePlaylist(int id)
         {
             if (new PlaylistBus().DeletePlaylist(id))
+            {
+                return true;
+            }
+            return false;
+        }
+        public bool DeletePlaylistAndPlaylistMusic(int id)
+        {
+            if (new PlaylistBus().DeletePlaylistAndPlaylistMusic(id))
             {
                 return true;
             }
@@ -238,6 +250,10 @@ namespace Api.Models
         #endregion Partner
 
         #region Musics
+        public List<MusicDTO> GetMusicByIdUser(int id)
+        {
+            return new MusicBus().GetMusicByIdUser(id);
+        }
 
         public List<MusicDTO> GetListMusicByPage(Pagination pagination)
         {
@@ -455,13 +471,13 @@ namespace Api.Models
             }
             return false;
         }
-        public bool UpdateFile(QualityMusicDTO qualityMusicDTO)
+        public bool UpdateFile(int id)
         {
-            if (new QualityMusicBus().UpdateFile(qualityMusicDTO))
-            {
-                return true;
-            }
-            return false;
+            return new QualityMusicBus().UpdateFile(id);
+        }
+        public bool DelFileAndTableRelated(int id)
+        {
+            return new QualityMusicBus().DelFileAndTableRelated(id);
         }
         public bool UpdateQualityMusic(QualityMusicDTO qualityMusicDTO)
         {
@@ -531,7 +547,7 @@ namespace Api.Models
         {
             var data = new PlaylistMusicBus().GetMusicByIdPlaylist(id);
             return data;
-        }
+        }  
         public IEnumerable<PlaylistMusicDTO> GetAllPlaylistMusic()
         {
             var data = new PlaylistMusicBus().GetAllPlaylistMusic();
@@ -567,6 +583,11 @@ namespace Api.Models
         public void UserResetPassword(UserDTO userDto)
         {
             new UserBus().UserResetPassword(userDto);
+        }
+
+        public void UserCheckVipEnd(string email)
+        {
+            new UserBus().CheckUserVip(email);
         }
     }
 }

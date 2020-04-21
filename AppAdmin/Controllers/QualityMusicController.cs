@@ -82,7 +82,7 @@ namespace AppAdmin.Controllers
                 var dataMusic = ApiService.GetMusicById(qualityMusic.MusicID);
                 var checkQuality = ApiService.GetAllQM().SingleOrDefault(x => x.QualityID == qualityMusic.QualityID && x.MusicID == qualityMusic.MusicID);
 
-            
+
                 if (qualityMusic.FileQ != null)
                 {
                     if (checkQuality != null)
@@ -152,20 +152,16 @@ namespace AppAdmin.Controllers
             ViewBag.listFile = ApiService.GetAllQM();
             return View();
         }
-        public ActionResult UpdateFile(QualityMusicDTO qualityMusic)
+        public ActionResult UpdateFile(int id)
         {
-            var data = ApiService.UpdateFile(qualityMusic);
-            if (data != null)
-            {
-                return RedirectToAction("ListFile");
-            }
-            return RedirectToAction("EditFile", new { id = qualityMusic.MusicID });
+            var data = ApiService.UpdateFile(id);
+            return RedirectToAction("ListFile", "QualityMusic");
         }
 
-        public ActionResult DeleteFile(int id)
+        public ActionResult DelFileAndTableRelated(int id)
         {
-            ApiService.DeleteQualityMusic(id);
-            return RedirectToAction("ViewCreate", new { id = Session["idQ"] });
+            var data = ApiService.DelFileAndTableRelated(id);
+            return RedirectToAction("ListFile", "QualityMusic");
         }
 
     }

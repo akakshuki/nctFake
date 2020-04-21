@@ -3,6 +3,7 @@
     List<CategoryDTO> listCate = ViewBag.getCate;
     List<CategoryDTO> listSubCate = ViewBag.getSubCate;
     List<CategoryDTO> listChuDe = ViewBag.getTheoChuDe;
+    UserDTO getUser = ViewBag.getUserById;
 }
 
 <div class="header-top-area">
@@ -104,16 +105,23 @@
 
                                         @if (Session["UserSession"] != null)
                                         {
-                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="margin-top: -10px;">
-                                                <img src="@Url.Content("~/Content/ClientMusic/")img/avt.png" alt="" style="width: 40px;border-radius: 50%;">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="margin-top: -10px;">
+                                            <img src="@Url.Content("~/Content/ClientMusic/")img/avt.png" alt="" style="width: 40px;border-radius: 50%;">
+                                            @if (getUser.UserVIP == true)
+                                            {
                                                 <i class="fa fa-crown" style="color: yellow;"></i>
-                                            </a>
+                                            }
+                                            else
+                                            {
+
+                                            }
+                                        </a>
                                             <ul class="dropdown-menu">
                                                 <li><a href="#"> Thông tin tài khoản</a></li>
-                                                <li><a href="PersonalUser.html"> Trang cá nhân</a></li>
+                                                <li><a href="@Url.Action("PersonalUser","PersonalUser",new {id = Session["UserId"]})"> Trang cá nhân</a></li>
                                                 <li><a href="historyUser.html"> Lịch sử</a></li>
                                                 <li><a href=""> Thông báo duyệt lời <b style="color: red;">(1)</b></a></li>
-                                                <li><a href=""> Đăng xuất</a></li>
+                                                <li><a href="@Url.Action("LogUserOut","Login")"> Đăng xuất</a></li>
                                             </ul>
                                         }
                                         else
@@ -126,15 +134,15 @@
                                         }
 
                                     </li>
-                                    @*<li class="dropdown">
+                                    <li class="dropdown">
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                             <i class="fa fa-chevron-circle-down"></i>
                                         </a>
                                         <ul class="dropdown-menu">
-                                            <li><a href="buyVip.html"><i class="fa fa-upload"></i> Upload file</a></li>
+                                            <li><a href="@Url.Action("UploadFile","UploadFile")"><i class="fa fa-upload"></i> Upload file</a></li>
                                             <li><a href="#"><i class="fa fa-crown"></i> Mua VIP</a></li>
                                         </ul>
-                                    </li>*@
+                                    </li>
                                 </ul>
 
                             </div>

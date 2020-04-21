@@ -151,16 +151,21 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Client\ClientAreaRegistration.cs" />
+    <Compile Include="Areas\Client\Controllers\AccountUserController.cs" />
     <Compile Include="Areas\Client\Controllers\BaseController.cs" />
+    <Compile Include="Areas\Client\Controllers\EditPlaylistController.cs" />
     <Compile Include="Areas\Client\Controllers\HomeController.cs" />
     <Compile Include="Areas\Client\Controllers\listMusicByIdCateController.cs" />
     <Compile Include="Areas\Client\Controllers\listPlaylistByCateController.cs" />
     <Compile Include="Areas\Client\Controllers\LoginController.cs" />
+    <Compile Include="Areas\Client\Controllers\PersonalUserController.cs" />
     <Compile Include="Areas\Client\Controllers\playMusicController.cs" />
     <Compile Include="Areas\Client\Controllers\playPlaylistController.cs" />
     <Compile Include="Areas\Client\Controllers\SingerController.cs" />
+    <Compile Include="Areas\Client\Controllers\UploadFileController.cs" />
     <Compile Include="Areas\Client\Models\ServiceClient\ApiServiceClient.cs" />
     <Compile Include="Common\CommonConstants.cs" />
+    <Compile Include="Common\RemoveUnicode.cs" />
     <Compile Include="Common\Encryptor.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LyricsMusicController.cs" />
@@ -575,6 +580,10 @@
     <Content Include="Areas\Client\Views\Home\RankMusicThisWeek.cshtml" />
     <Content Include="Areas\Client\Views\Home\SearchPage.cshtml" />
     <Content Include="Areas\Client\Views\Singer\Index.cshtml" />
+    <Content Include="Areas\Client\Views\PersonalUser\PersonalUser.cshtml" />
+    <Content Include="Areas\Client\Views\UploadFile\UploadFile.cshtml" />
+    <Content Include="Areas\Client\Views\EditPlaylist\EditPLaylist.cshtml" />
+    <Content Include="Areas\Client\Views\accountUser\AccountUser.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -644,6 +653,7 @@
     <Content Include="Views\User\MusicOfSinger.cshtml" />
     <Content Include="Views\Playlist\ViewAddPlaylist.cshtml" />
     <Content Include="Views\Playlist\EditPlAdmin.cshtml" />
+    <Content Include="Views\Home\GetMusicByIdCate.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

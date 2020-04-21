@@ -54,6 +54,7 @@ namespace Api.Areas.Admin.Controllers
         {
             new Repositories().DeleteMusic(id);
         }
+
         //// DELETE: api/Music/GetMusicByName/Godzila
         [Route("GetMusicByName/{key}")]
         public IHttpActionResult GetMusicByName(string key)

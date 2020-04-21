@@ -17,6 +17,9 @@
     <!-- Bootstrap CSS
             ============================================ -->
     <link rel="stylesheet" href="~/Content/ClientMusic/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/Dashio/")lib/bootstrap-fileupload/bootstrap-fileupload.css" />
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/Dashio/")lib/bootstrap-datepicker/css/datepicker.css" />
+
     <!-- font awesome CSS
             ============================================ -->
     <link rel="stylesheet" href="~/Content/ClientMusic/css/font-awesome.min.css">
@@ -72,7 +75,7 @@
                 @using (Html.BeginForm("LoginUser", "Login", FormMethod.Post))
                 {
                     <div class="input-group">
-                        <div style="color:red;">                          
+                        <div style="color:red;">
                         </div>
                         <span class="input-group-addon nk-ic-st-pro"><i class="notika-icon notika-support"></i></span>
                         <div class="nk-int-st">
@@ -87,11 +90,10 @@
                     </div>
                     <input type="submit" value="Đăng Nhập" style="margin-top: 10px;height: 30px;color: black; background-color: #00c292;  border-radius: 10%; border: 3px solid white;  font-size: 18px;">
                 }
-                        </form>
                 @*<a href="@Url.Action("LoginFacebook")" style="font-size: 18px;color: black;"><i class="fa fa-facebook-square" style="color: blue;"></i>  Đăng nhập bằng Facebook</a>
-        <br />
-        <a href="" style="font-size: 18px;color: black;"><i class="fa fa-google-plus-square" style="color: red;"></i> Đăng nhập bằng Google</a>*@
-               <a href="#l-register" data-ma-action="nk-login-switch" data-ma-block="#l-register"
+                    <br />
+                    <a href="" style="font-size: 18px;color: black;"><i class="fa fa-google-plus-square" style="color: red;"></i> Đăng nhập bằng Google</a>*@
+                <a href="#l-register" data-ma-action="nk-login-switch" data-ma-block="#l-register"
                    class="btn btn-login btn-success btn-float">
                     <i class="notika-icon notika-right-arrow right-arrow-ant"></i>
                 </a>
@@ -126,11 +128,10 @@
                             <input name="UserEmail" type="text" class="form-control" placeholder="Email Address" required>
                         </div>
                     </div>
-
-                    <div class="input-group mg-t-15">
+                    <div class="input-group mg-t-15 ">
                         <span class="input-group-addon nk-ic-st-pro"><i class="notika-icon notika-edit"></i></span>
-                        <div class="nk-int-st">
-                            <input name="UserPwd" type="password" class="form-control" placeholder="Password" required>
+                        <div class="nk-int-st mb-5">
+                            <input name="UserPwd" type="password" class="form-control" placeholder="Password">
                         </div>
                     </div>
                     <input type="submit" value="Đăng kí" style="margin-top: 10px;height: 30px;color: black; background-color: #00c292;  border-radius: 10%; border: 3px solid white;  font-size: 18px;">
@@ -262,13 +263,13 @@
     <script src="~/Content/ClientMusic/js/tawk-chat.js"></script>
 
     <script src="~/Scripts/alertify.min.js"></script>
-        (function (d, s, id) {
-            var js, fjs = d.getElementsByTagName(s)[0];
-            if (d.getElementById(id)) { return; }
-            js = d.createElement(s); js.id = id;
-            js.src = "https://connect.facebook.net/en_US/sdk.js";
-            fjs.parentNode.insertBefore(js, fjs);
-        }(document, 'script', 'facebook-jssdk'));
+    (function (d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) { return; }
+    js = d.createElement(s); js.id = id;
+    js.src = "https://connect.facebook.net/en_US/sdk.js";
+    fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
     </script>
     <script>
         $(function () {
@@ -276,6 +277,10 @@
             $('#AlertBox').delay(1000).slideUp(500);
         });
     </script>
+    <script src="@Url.Content("~/Content/Dashio/")lib/jquery-ui-1.9.2.custom.min.js"></script>
+    <script type="text/javascript" src="@Url.Content("~/Content/Dashio/")lib/bootstrap-fileupload/bootstrap-fileupload.js"></script>
+    <script type="text/javascript" src="@Url.Content("~/Content/Dashio/")lib/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+    <script src="@Url.Content("~/Content/Dashio/")lib/advanced-form-components.js"></script>
 </body>
 
 </html>
