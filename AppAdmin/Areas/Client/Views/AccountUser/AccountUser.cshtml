@@ -1,0 +1,145 @@
+﻿@using ModelViews.DTOs
+@{
+    ViewBag.Title = "AccountUser";
+    Layout = "~/Areas/Client/Views/Shared/_LayoutClient.cshtml";
+    List<OrderVipDTO> GetOrderVipByIdUser = ViewBag.getOrderVipByIdUser;
+}
+
+<div id="content" class="container">
+    <div id="info">
+        <div>
+            <img src="@Url.Content("~/File/ImageUser/default.png")" alt="">
+        </div>
+        <div>
+            <span>Tên ca sĩ</span>
+            <span><i class="fa fa-crown" style="color: yellow;"></i></span><br>
+            <span>Sinh ngày: 16/10/2000</span><br>
+            <span>Giới tính: Nữ</span><br>
+            <span>Email:</span><br>
+            <span>Lời giới thiệu:</span>
+            <span>Hi xin chào các bạn! ahihiihihihihihihihihiiih <br></span>
+            <span>Ngày hết hạn VIP: </span><br>
+            <a data-toggle="collapse" href="#multiCollapseExample1" role="button" class="btn btn-success"
+               aria-expanded="false" aria-controls="multiCollapseExample1">Chỉnh sửa</a>
+            <a data-toggle="collapse" href="#multiCollapseExample2" role="button" class="btn btn-primary"
+               aria-expanded="false" aria-controls="multiCollapseExample1">Đổi mật khẩu</a>
+            <div class="collapse multi-collapse" id="multiCollapseExample1">
+                <div class="card card-body" style="width: 30%;margin-top: 20px;">
+                    <form action="" method="">
+                        <!--Full name-->
+                        <div class="form-group ic-cmp-int">
+                            <div class="form-ic-cmp">
+                                <i class="notika-icon notika-support"></i>
+                            </div>
+                            <div class="nk-int-st">
+                                <input type="text" class="form-control" placeholder="Full Name">
+                            </div>
+                        </div>
+                        <!--DOB-->
+                        <div class="form-group ic-cmp-int">
+                            <div class="form-ic-cmp">
+                                <i class="notika-icon notika-calendar"></i>
+                            </div>
+                            <div class="nk-int-st">
+                                <input type="date" class="form-control" placeholder="dd/mm/yyyy">
+                            </div>
+                        </div>
+                        <!--Gender-->
+                        <div class="form-group ic-cmp-int">
+                            <div class="nk-int-st" style="margin-left: 10px;">
+                                <span><i class="fas fa-venus-mars"></i></span>
+                                <select name="" id="" style="width: 155px;font-size: 16px;">
+                                    <option value="">Nam</option>
+                                    <option value="">Nữ</option>
+                                </select>
+                            </div>
+                        </div>
+                        <!--Description-->
+                        <div class="form-group ic-cmp-int">
+                            <div class="form-ic-cmp">
+                                <i class="notika-icon notika-edit"></i>
+                            </div>
+                            <div class="nk-int-st">
+                                <textarea type="text" class="form-control" placeholder="Lời giới thiệu"
+                                          style="height: 70px;" maxlength="200"></textarea>
+                            </div>
+                        </div>
+                        <!--Image-->
+                        <div class="maincrop-img" style="margin-left: 37px;margin-bottom: 10px;">
+                            <div class="image-crp-int">
+                                <div class="img-preview img-preview-custom">
+                                    <img src="img/avt.png" id="upImage" style="width: 300px; height: 255px;">
+                                </div>
+                            </div>
+                            <div class="image-crp-img">
+                                <div class="btn-group images-cropper-pro">
+                                    <label title="Upload image file" for="inputImage"
+                                           class="btn btn-primary img-cropper-cp waves-effect">
+                                        <input type="file" accept="image/*" name="file" id="inputImage"
+                                               class="hide"> Upload new image
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Button-->
+                        <input type="submit" class="btn btn-info" value="Lưu"
+                               style="margin-left: 37px;font-size: 18px;">
+                    </form>
+                </div>
+            </div>
+            <div class="collapse multi-collapse" id="multiCollapseExample2">
+                <div class="card card-body" style="width: 30%;margin-top: 20px;">
+                    <form action="" method="POST">
+                        <!--Old Pwd-->
+                        <div class="form-group">
+                            <div class="nk-int-st">
+                                <input type="password" class="form-control input-sm" style="font-size: 18px;"
+                                       placeholder="Mật khẩu cũ">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="nk-int-st">
+                                <input type="password" class="form-control input-sm" style="font-size: 18px;"
+                                       placeholder="Mật khẩu mới">
+                            </div>
+                        </div>
+                        <input type="submit" class="btn btn-info" value="Lưu" style="font-size: 18px;">
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: -145px;">
+        <div class="normal-table-list mg-t-30">
+            <div class="basic-tb-hd">
+                <h2>Danh sách mua VIP của bạn</h2>
+            </div>
+            <div class="bsc-tbl-st">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Gói VIP</th>
+                            <th>Giá</th>
+                            <th>Cổng thanh toán</th>
+                            <th>Ngày mua</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in GetOrderVipByIdUser)
+                        {
+                            <tr>
+                                <td>@item.PackageVipDto.PVipName</td>
+                                <td>@item.OrdPrice $</td>
+                                <td>@item.PaymentDto.PaymentName</td>
+                                <td>@item.OrdDayCreate</td>
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+

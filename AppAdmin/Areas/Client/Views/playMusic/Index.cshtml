@@ -501,7 +501,7 @@
                                 {
                                     foreach (var singers in itemSinger.SingerMusicDtOs)
                                     {
-                                        <a>@singers.UserDto.UserName,</a>
+                                        <a href="@Url.Action("Index","Singer", new { id = singers.UserDto.ID})" >@singers.UserDto.UserName,</a>
                                     }
                                 }
 
@@ -564,12 +564,12 @@
                         }
                         else
                         {
-                            <form action="" method="POST">
+                            <form action="@Url.Action("CreateLyrics","playMusic")" method="POST">
                                 <div class="input-group">
                                     <input type="hidden" name="UserID" value="@Session["UserID"]" />
 
                                     <input type="hidden" name="MusicID" value="@getMusic.ID" />
-                                    <textarea type="text"
+                                    <textarea name="LMusicDetail" type="text"
                                               style="width: 500px;height: 300px;margin-bottom: 10px;">
 
                                             </textarea>
@@ -625,7 +625,7 @@
             {
                 if (item.ID != getMusic.ID)
                 {
-                    <div class="itemSongRandom">
+                    <div class="itemSongRandom musicRandom">
                         <div>
                             <a href="@Url.Action("Index","playMusic",new { id = item.ID})"><img src="@item.LinkImage" alt=""> @item.MusicName</a><br>
                             <span>
@@ -636,12 +636,12 @@
                                     {
                                         foreach (var singers in itemSinger.SingerMusicDtOs)
                                         {
-                                            <a>@singers.UserDto.UserName,</a>
+                                            <a href="@Url.Action("Index","Singer", new { id = singers.UserDto.ID })">@singers.UserDto.UserName,</a>
                                         }
                                     }
 
                                 }
-                            </span>
+                            </span> 
                         </div>
                     </div>
                 }

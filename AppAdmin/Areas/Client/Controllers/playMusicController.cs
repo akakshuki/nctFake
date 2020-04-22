@@ -25,13 +25,21 @@ namespace AppAdmin.Areas.Client.Controllers
             else
             {
                 Session["UserId"] = UserId.ID;
-                ViewBag.getPlaylistByIdUser = ApiService.GetPlaylistByIdUser(UserId.ID);
+                if (ApiService.GetPlaylistByIdUser(UserId.ID).Count() > 0)
+                {
+                    ViewBag.getPlaylistByIdUser = ApiService.GetPlaylistByIdUser(UserId.ID);
+                }
+                else
+                {
+                    ViewBag.getPlaylistByIdUser = null;
+                }
             }
-                      
+            
+                                     
             ViewBag.GetAllMusic = ApiService.GetAllMusic();
             ViewBag.getMusicById = ApiService.GetMusicById(id);
             ViewBag.getLyrics = ApiService.GetLyricByIdMusic(id);
-            ViewBag.getMusicRandom = ApiService.GetAllMusic().Distinct().OrderBy(s=> Guid.NewGuid()).Take(5).ToList();
+            ViewBag.getMusicRandom = ApiService.GetAllMusic().Where(s=>s.SongOrMV==true).Distinct().OrderBy(s=> Guid.NewGuid()).Take(5).ToList();
             ViewBag.getListQualityMusic = ApiService.GetFileByIdMusic(id);
             ViewBag.getAllPlaylistMusic = ApiService.GetAllPlaylistMusic();
             //lay song file 120kbps
@@ -55,6 +63,23 @@ namespace AppAdmin.Areas.Client.Controllers
             {
                 status = false
             }, JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult CreateLyrics(LyricsMusicDTO lyricsMusicDTO)
+        {
+
+            var UserId = (UserDTO)Session[CommonConstants.USER_SESSION];
+
+            lyricsMusicDTO.UserID = UserId.ID;
+
+            var data = ApiService.CreateLyrics(lyricsMusicDTO);
+            if (data != null)
+            {
+                TempData["success"] = "Cập nhật lời cho bài hát này thành công";
+                return RedirectToAction("Index", "playMusic", new { id = lyricsMusicDTO.MusicID });
+
+            }
+            TempData["error"] = "Xảy ra lỗi khi cập nhật lời cho bài hát này";
+            return RedirectToAction("Index", "playMusic", new { id = lyricsMusicDTO.MusicID });
         }
         public ActionResult UpdateLyrics(LyricsMusicDTO lyricsMusicDTO)
         {

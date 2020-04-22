@@ -49,9 +49,9 @@ namespace Api.Areas.Admin.Controllers
         }
         // PUT api/<controller>/5
         [Route("UpdateFile")]
-        public IHttpActionResult UpdateFile(QualityMusicDTO qualityMusic)
+        public IHttpActionResult UpdateFile(int id)
         {
-            if (new Repositories().UpdateFile(qualityMusic))
+            if (new Repositories().UpdateFile(id))
             {
                 return Ok();
             }

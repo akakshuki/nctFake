@@ -253,7 +253,7 @@ namespace Api.Models.Bus
                     //Edit later
                     
                     UserDto = new UserBus().GetUserDtoById(music.UserID),
-
+                    CategoryDto = new CategoryBus().GetCateById(music.CategoryId),
 
 
                     SingerMusicDtOs = new SingerMusicDao()
@@ -300,6 +300,37 @@ namespace Api.Models.Bus
                 return false;
             }
 
+        }
+        public List<MusicDTO> GetMusicByIdUser(int id)
+        {
+            var data = new MusicDao().GetMusicByIdUser(id).Select(s => new MusicDTO
+            {
+                ID = s.ID,
+                UserID = s.UserID,
+                MusicName = s.MusicName,
+                MusicImage = s.MusicImage,
+                SongOrMV = s.SongOrMV,
+                MusicDownloadAllowed = s.MusicDownloadAllowed,
+                MusicRelated = s.MusicRelated,
+                MusicDayCreate = s.MusicDayCreate,
+                MusicNameUnsigned = s.MusicNameUnsigned,
+                CategoryId = s.CategoryId,
+                MusicView = s.MusicView,
+                LinkImage = baseUrl + s.MusicImage,
+                UserDto = new UserBus().GetUserDtoById(s.UserID),
+                SingerMusicDtOs = new SingerMusicDao()
+                        .GetAll()
+                        .Where(x => x.MusicID == s.ID)
+                        .Select(x => new SingerMusicDTO()
+                        {
+                            ID = x.ID,
+                            MusicID = x.MusicID,
+                            SingerID = x.SingerID,
+                            UserDto = new UserBus().GetUserDtoById(x.SingerID)
+                        }).ToList(),
+
+            }).ToList();
+            return data;
         }
     }
 }

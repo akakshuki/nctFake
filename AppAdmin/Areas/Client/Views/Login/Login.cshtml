@@ -17,6 +17,9 @@
     <!-- Bootstrap CSS
             ============================================ -->
     <link rel="stylesheet" href="~/Content/ClientMusic/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/Dashio/")lib/bootstrap-fileupload/bootstrap-fileupload.css" />
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/Dashio/")lib/bootstrap-datepicker/css/datepicker.css" />
+
     <!-- font awesome CSS
             ============================================ -->
     <link rel="stylesheet" href="~/Content/ClientMusic/css/font-awesome.min.css">
@@ -125,11 +128,10 @@
                             <input name="UserEmail" type="text" class="form-control" placeholder="Email Address" required>
                         </div>
                     </div>
-
-                    <div class="input-group mg-t-15">
+                    <div class="input-group mg-t-15 ">
                         <span class="input-group-addon nk-ic-st-pro"><i class="notika-icon notika-edit"></i></span>
-                        <div class="nk-int-st">
-                            <input name="UserPwd" type="password" class="form-control" placeholder="Password" required>
+                        <div class="nk-int-st mb-5">
+                            <input name="UserPwd" type="password" class="form-control" placeholder="Password">
                         </div>
                     </div>
                     <input type="submit" value="Đăng kí" style="margin-top: 10px;height: 30px;color: black; background-color: #00c292;  border-radius: 10%; border: 3px solid white;  font-size: 18px;">
@@ -261,15 +263,15 @@
     <script src="~/Content/ClientMusic/js/tawk-chat.js"></script>
 
     <script src="~/Scripts/alertify.min.js"></script>
-
-
-
-    <script>
-        $(function () {
+    <script> $(function () {
             $('#AlertBox').removeClass('hide');
             $('#AlertBox').delay(1000).slideUp(500);
-        });
+            });
     </script>
+    <script src="@Url.Content("~/Content/Dashio/")lib/jquery-ui-1.9.2.custom.min.js"></script>
+    <script type="text/javascript" src="@Url.Content("~/Content/Dashio/")lib/bootstrap-fileupload/bootstrap-fileupload.js"></script>
+    <script type="text/javascript" src="@Url.Content("~/Content/Dashio/")lib/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+    <script src="@Url.Content("~/Content/Dashio/")lib/advanced-form-components.js"></script>
 </body>
 
 </html>

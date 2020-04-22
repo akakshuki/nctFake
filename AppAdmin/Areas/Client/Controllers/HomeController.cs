@@ -18,8 +18,9 @@ namespace AppAdmin.Areas.Client.Controllers
             ViewBag.RandomTheoChuDe = ApiService.GetAllCateCon().Where(s => s.ID_root != null).Distinct().OrderBy(s => Guid.NewGuid()).Take(5).ToList();
             ViewBag.GetPartner = ApiService.GetAllPartner();
             ViewBag.GetSinger = ApiService.GetAllMusic();
-            ViewBag.GetTop10SongNew = ApiService.GetAllMusic().Where(s => s.SongOrMV == true).OrderByDescending(s => s.MusicDayCreate).Take(10).ToList();
-            ViewBag.GetTop10MVNew = ApiService.GetAllMusic().Where(s => s.SongOrMV == false).OrderByDescending(s => s.MusicDayCreate).Take(10).ToList();
+            var data = ApiService.GetAllMusic();
+            ViewBag.GetTop10SongNew = data.Where(s => s.SongOrMV == true).OrderByDescending(s => s.MusicDayCreate).Take(10).ToList();
+            ViewBag.GetTop10MVNew = data.Where(s => s.SongOrMV == false).OrderByDescending(s => s.MusicDayCreate).Take(10).ToList();
             return View();
         }
 
@@ -35,6 +36,17 @@ namespace AppAdmin.Areas.Client.Controllers
         public ActionResult NavigationMenu()
         {
             Session["UserSession"] = (UserDTO)Session[CommonConstants.USER_SESSION];
+            if (Session["UserSession"]!=null)
+            {
+                var idUser = (UserDTO)Session[CommonConstants.USER_SESSION];
+                Session["UserId"] = idUser.ID;
+                ViewBag.getUserById = ApiService.GetUserById(idUser.ID);
+            }
+            else
+            {
+                Session["UserId"] = null;
+                ViewBag.getUserById = null;
+            } 
             ViewBag.getCate = ApiService.GetAllCate();
             ViewBag.getSubCate = ApiService.GetAllCateCon().Where(s => s.ID_root != null).ToList();
             ViewBag.getTheoChuDe = ApiService.GetAllCateCon().Where(s => s.ID_root != null).ToList();

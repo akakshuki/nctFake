@@ -32,14 +32,14 @@
                                 {
                                     foreach (var singers in itemSinger.SingerMusicDtOs)
                                     {
-
-                                        if (itemSinger.SingerMusicDtOs.IndexOf(singers) + 1 == itemSinger.SingerMusicDtOs.Count)
-                                        {
-                                            <a>@singers.UserDto.UserName.</a>
+                                       
+                                        if (itemSinger.SingerMusicDtOs.IndexOf(singers)+1 == itemSinger.SingerMusicDtOs.Count)
+                                        { 
+                                            <a href="@Url.Action("Index","Singer", new { id = singers.UserDto.ID })" >@singers.UserDto.UserName.</a>
                                         }
                                         else
                                         {
-                                            <a>@singers.UserDto.UserName,</a>
+                                            <a href="@Url.Action("Index","Singer", new { id = singers.UserDto.ID })">@singers.UserDto.UserName,</a>
                                         }
                                     }
                                 }
@@ -61,7 +61,6 @@
                         <span class="viewMusic">
                             <i class="fas fa-headphones"></i> @item.MusicView
                         </span>
-
                         <a href="@Url.Action("Index","playMusic", new { id = item.ID})" style="font-size: 18px;"><img src="@item.LinkImage" alt="" class="imgMusic">@item.MusicName</a>
                         <div class="nameSinger">
                             <a href=""></a>
@@ -71,7 +70,14 @@
                                 {
                                     foreach (var singers in itemSinger.SingerMusicDtOs)
                                     {
-                                        <a>@singers.UserDto.UserName,</a>
+                                        if (itemSinger.SingerMusicDtOs.IndexOf(singers) + 1 == itemSinger.SingerMusicDtOs.Count)
+                                        {
+                                            <a>@singers.UserDto.UserName.</a>
+                                        }
+                                        else
+                                        {
+                                            <a>@singers.UserDto.UserName,</a>
+                                        }
                                     }
                                 }
 
