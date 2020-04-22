@@ -157,6 +157,7 @@
     <Compile Include="Areas\Client\Controllers\AccountUserController.cs" />
     <Compile Include="Areas\Client\Controllers\BaseController.cs" />
     <Compile Include="Areas\Client\Controllers\EditPlaylistController.cs" />
+    <Compile Include="Areas\Client\Controllers\ErrorController.cs" />
     <Compile Include="Areas\Client\Controllers\HomeController.cs" />
     <Compile Include="Areas\Client\Controllers\listMusicByIdCateController.cs" />
     <Compile Include="Areas\Client\Controllers\listPlaylistByCateController.cs" />
@@ -724,6 +725,7 @@
     <Content Include="Areas\Client\Views\UploadFile\UploadFile.cshtml" />
     <Content Include="Areas\Client\Views\AccountUser\AccountUser.cshtml" />
     <Content Include="Areas\Client\Views\AccountUser\HistoryUser.cshtml" />
+    <Content Include="Areas\Client\Views\Error\NotFound.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
