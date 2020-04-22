@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -911,11 +912,13 @@ namespace AppAdmin.Models.Service
 
             return null;
         }
+
         public static QualityMusicDTO DelFileAndTableRelated(int id)
         {
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri("https://localhost:44384/api/QualityMusic/DelFileAndTableRelated/" + id.ToString());
+                client.BaseAddress =
+                    new Uri("https://localhost:44384/api/QualityMusic/DelFileAndTableRelated/" + id.ToString());
                 var responseTask = client.GetAsync(client.BaseAddress);
                 responseTask.Wait();
                 var result = responseTask.Result;
@@ -1003,6 +1006,7 @@ namespace AppAdmin.Models.Service
             }
 
         }
+
         public static int CreateMusicUpload(MusicDTO music)
         {
             using (var client = new HttpClient())
@@ -1445,18 +1449,16 @@ namespace AppAdmin.Models.Service
 
         public static List<RankDTO> GetAllRank()
         {
-            using (var client = new HttpClient())
-            {
-                //GetAllRank
-                client.BaseAddress = new Uri("https://localhost:44384/api/Rank/GetAllRank");
-                var responseTask = client.GetAsync(client.BaseAddress);
-                responseTask.Wait();
-                var result = responseTask.Result;
-                if (!result.IsSuccessStatusCode) return null;
-                var readTask =
-                    JsonConvert.DeserializeObject<List<RankDTO>>(result.Content.ReadAsStringAsync().Result);
-                return readTask.ToList();
-            }
+            using var client = new HttpClient();
+            //GetAllRank
+            client.BaseAddress = new Uri("https://localhost:44384/api/Rank/GetAllRank");
+            var responseTask = client.GetAsync(client.BaseAddress);
+            responseTask.Wait();
+            var result = responseTask.Result;
+            if (!result.IsSuccessStatusCode) return null;
+            var readTask =
+                JsonConvert.DeserializeObject<List<RankDTO>>(result.Content.ReadAsStringAsync().Result);
+            return readTask.ToList();
         }
 
         public static bool DeleteRank(int id)
@@ -1675,13 +1677,15 @@ namespace AppAdmin.Models.Service
 
             return null;
         }
+
         public static bool DeletePlaylistAndPlaylistMusic(int id)
         {
             using (HttpClient client = new HttpClient())
             {
                 client.DefaultRequestHeaders.Accept.Clear();
                 var response = client
-                    .DeleteAsync("https://localhost:44384/api/PlaylistClient/DeletePlaylistAndPlaylistMusic/" + id.ToString()).Result;
+                    .DeleteAsync("https://localhost:44384/api/PlaylistClient/DeletePlaylistAndPlaylistMusic/" +
+                                 id.ToString()).Result;
                 if (response.StatusCode == System.Net.HttpStatusCode.OK)
                 {
                     return true;
@@ -1690,7 +1694,9 @@ namespace AppAdmin.Models.Service
 
             return false;
         }
+
         #endregion
+
         #region QualityMusicClient
 
         //lay song file 120kbps
@@ -1776,11 +1782,13 @@ namespace AppAdmin.Models.Service
 
             return 0;
         }
+
         public static List<MusicDTO> GetMusicByIdUser(int id)
         {
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri("https://localhost:44384/api/MusicClient/GetMusicByIdUser/" + id.ToString());
+                client.BaseAddress =
+                    new Uri("https://localhost:44384/api/MusicClient/GetMusicByIdUser/" + id.ToString());
                 var responseTask = client.GetAsync(client.BaseAddress);
                 responseTask.Wait();
                 var result = responseTask.Result;
@@ -1794,8 +1802,11 @@ namespace AppAdmin.Models.Service
 
             return null;
         }
+
         #endregion
+
         #region UserClient
+
         public static List<UserDTO> GetListSingerSearch(string value)
         {
             var settings = new JsonSerializerSettings
@@ -1805,22 +1816,26 @@ namespace AppAdmin.Models.Service
             };
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri("https://localhost:44384/api/UserClient/GetListSingerSearch" + "?value=" + value);
+                client.BaseAddress =
+                    new Uri("https://localhost:44384/api/UserClient/GetListSingerSearch" + "?value=" + value);
                 var responseTask = client.GetAsync(client.BaseAddress);
                 responseTask.Wait();
                 var result = responseTask.Result;
                 if (result.IsSuccessStatusCode)
                 {
-                    var readTask = JsonConvert.DeserializeObject<List<UserDTO>>(result.Content.ReadAsStringAsync().Result,settings);
+                    var readTask =
+                        JsonConvert.DeserializeObject<List<UserDTO>>(result.Content.ReadAsStringAsync().Result,
+                            settings);
                     return readTask;
                 }
             }
 
             return null;
         }
-        #endregion
 
         #endregion
+
+        #region Order
 
         public static void CheckDateVipEnd(string userUserEmail)
         {
@@ -1837,9 +1852,62 @@ namespace AppAdmin.Models.Service
         {
             using var client = new HttpClient();
             client.DefaultRequestHeaders.Accept.Clear();
-            var response = client.PostAsync("https://localhost:44384/api/ClientPayment/AcceptPayment", new StringContent(
-                new JavaScriptSerializer().Serialize(orderVipDto), Encoding.UTF8, "application/json")).Result;
+            var response = client.PostAsync("https://localhost:44384/api/ClientPayment/AcceptPayment",
+                new StringContent(
+                    new JavaScriptSerializer().Serialize(orderVipDto), Encoding.UTF8, "application/json")).Result;
             return response.StatusCode == System.Net.HttpStatusCode.OK;
+        }
+
+        #endregion
+
+        #endregion
+
+
+
+        public static List<HistoryUserDTO> HistoryUserList(int id)
+        {
+            using var client = new HttpClient();
+            client.BaseAddress = new Uri("https://localhost:44384/api/UserClient/HistoryUserByUserId/" + id);
+            var responseTask = client.GetAsync(client.BaseAddress);
+            responseTask.Wait();
+            var result = responseTask.Result;
+            if (!result.IsSuccessStatusCode) return null;
+            var readTask =
+                JsonConvert.DeserializeObject<List<HistoryUserDTO>>(result.Content.ReadAsStringAsync().Result);
+            return readTask.ToList();
+        }
+
+        public static bool DeleteHistoryUser(int userId, int id)
+        {
+            using var client = new HttpClient();
+            client.BaseAddress = new Uri("https://localhost:44384/api/UserClient/DeleteHistoryUserById/" + userId +"/"+ id);
+            var responseTask = client.DeleteAsync(client.BaseAddress);
+            responseTask.Wait();
+            var result = responseTask.Result;
+            return result.StatusCode == HttpStatusCode.OK;
+
+        }
+
+
+        public static bool DeleteAllHistoryUser(int userId)
+        {
+            using var client = new HttpClient();
+            client.BaseAddress = new Uri("https://localhost:44384/api/UserClient/DeleteHistoryUserByUserId/" + userId);
+            var responseTask = client.DeleteAsync(client.BaseAddress);
+            responseTask.Wait();
+            var result = responseTask.Result;
+            return result.StatusCode == HttpStatusCode.OK;
+
+        }
+
+        public bool CreateHistory(HistoryUserDTO historyUserDto)
+        {
+            using HttpClient client = new HttpClient();
+            client.DefaultRequestHeaders.Accept.Clear();
+            var response = client.PostAsync("https://localhost:44384/api/UserClient/CreateHistoryUser/", new StringContent(
+                new JavaScriptSerializer().Serialize(historyUserDto), Encoding.UTF8, "application/json")).Result;
+            return response.StatusCode == System.Net.HttpStatusCode.OK;
+
         }
     }
 }

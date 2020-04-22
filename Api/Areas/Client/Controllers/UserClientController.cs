@@ -54,6 +54,54 @@ namespace Api.Areas.Client.Controllers
             }
         }
 
+
+        [HttpPost, Route("CreateHistoryUser")]
+        public IHttpActionResult CreateHistoryUser([FromBody] HistoryUserDTO historyUser)
+        {
+            try
+            {
+                 new Repositories().CreateHistoryUser(historyUser);
+
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return  InternalServerError();
+            }
+        }
+
+
+
+        // GET: api/HistoryUser/5
+        [HttpGet, Route("HistoryUserByUserId/{id}")]
+        public List<HistoryUserDTO> HistoryUserByUserId(int id)
+        {
+            var data = new Repositories().GetHistoryUserId(id);
+
+            return data;
+        }
+
+
+        // HttpDelete: api/HistoryUser/5
+        [HttpDelete, Route("DeleteHistoryUserByUserId/{id}")]
+        public IHttpActionResult DeleteHistoryUserByUserId(int id)
+        {
+            if (new Repositories().DeleteHistoryUserByUserId(id)) return Ok();
+
+            return NotFound();
+        }
+
+
+        // HttpDelete: api/HistoryUser/5
+        [HttpDelete, Route("DeleteHistoryUserById/{idUser}/{idMusic}")]
+        public IHttpActionResult DeleteHistoryUserById(int idUser, int idMusic)
+        {
+            if (new Repositories().DeleteHistoryUserById(idUser, idMusic)) return Ok();
+
+            return NotFound();
+        }
+
         // PUT: api/User/5
         public void Put(int id, [FromBody]string value)
         {

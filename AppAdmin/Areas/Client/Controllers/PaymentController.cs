@@ -17,7 +17,8 @@ namespace AppAdmin.Areas.Client.Controllers
         public ActionResult Index()
         {
             ViewBag.PackageVip = ApiService.GetAllPackageVip().ToList();
-
+            var useData = (UserDTO)Session[Common.CommonConstants.USER_SESSION];
+            if (useData == null || useData.ID == 0) return RedirectToAction("Login", "Login");
             return View();
         }
 

@@ -723,6 +723,7 @@
     <Content Include="Areas\Client\Views\PersonalUser\PersonalUser.cshtml" />
     <Content Include="Areas\Client\Views\UploadFile\UploadFile.cshtml" />
     <Content Include="Areas\Client\Views\AccountUser\AccountUser.cshtml" />
+    <Content Include="Areas\Client\Views\AccountUser\HistoryUser.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -799,11 +800,6 @@
     <Folder Include="Areas\Client\Views\Base\" />
     <Folder Include="Areas\Client\Views\PayPal\" />
     <Folder Include="Content\DataTable\" />
-    <Folder Include="File\ImageMusic\" />
-    <Folder Include="File\ImagePartner\" />
-    <Folder Include="File\ImagePlaylist\" />
-    <Folder Include="File\ImageUser\" />
-    <Folder Include="File\mp3-mp4\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

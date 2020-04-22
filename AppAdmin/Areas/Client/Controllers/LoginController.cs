@@ -193,6 +193,7 @@ namespace AppAdmin.Areas.Client.Controllers
                     var user = GetIdLogin(userDTO.UserEmail);
                     var userSession = new UserDTO();
                     userSession.ID = user.ID;
+                    userSession.UserName = user.UserName;
                     userSession.UserEmail = user.UserEmail;
                     Session.Add(CommonConstants.USER_SESSION, userSession);
                     return RedirectToAction("Index","Home");
@@ -203,7 +204,7 @@ namespace AppAdmin.Areas.Client.Controllers
                     var userSession = new UserDTO();
                     userSession.ID = user.ID;
                     userSession.UserEmail = user.UserEmail;
-
+                    userSession.UserName = user.UserName;
 
                     Session.Add(CommonConstants.USER_SESSION, userSession);
                     if (user.DayVipEnd != null)
@@ -253,7 +254,8 @@ namespace AppAdmin.Areas.Client.Controllers
                 {
                     ID = data.ID,
                     UserEmail = data.UserEmail,
-                    DayVipEnd = data.DayVipEnd
+                    DayVipEnd = data.DayVipEnd,
+                    UserName = data.UserName
                 };
                 return result;
             }
