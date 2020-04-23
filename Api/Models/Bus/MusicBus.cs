@@ -143,7 +143,6 @@ namespace Api.Models.Bus
                     MusicView = music.MusicView,
                     ID = music.ID,
                     LinkImage = baseUrl + music.MusicImage,
-
                     QualityMusicDTOs = new QualityMusicBus()
                         .GetAllQM()
                         .Where(s => s.QualityID == 1 && s.QualityID == 3)
@@ -152,6 +151,7 @@ namespace Api.Models.Bus
                             ID = s.ID,
                             LinkFile = s.LinkFile,
                             MusicFile = s.MusicFile,
+                            QMusicApproved = s.QMusicApproved,
                         }),
                     //need User
                     UserDto = new UserBus().GetUserDtoById(music.UserID),
@@ -328,9 +328,24 @@ namespace Api.Models.Bus
                             SingerID = x.SingerID,
                             UserDto = new UserBus().GetUserDtoById(x.SingerID)
                         }).ToList(),
-
+                QualityMusicDTOs = new QualityMusicBus()
+                        .GetAllQM()
+                        .Where(d => d.QualityID == 1 || d.QualityID == 3)
+                        .Select(d => new QualityMusicDTO()
+                        {
+                            ID = d.ID,
+                            LinkFile = d.LinkFile,
+                            MusicFile = d.MusicFile,
+                            QMusicApproved = d.QMusicApproved,
+                            MusicID = d.MusicID
+                        }),
+               
             }).ToList();
             return data;
+        }
+        public bool DeleteLQ(int id)
+        {
+            return new MusicDao().DeleteLQ(id); 
         }
     }
 }

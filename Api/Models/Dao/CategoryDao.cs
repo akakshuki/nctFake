@@ -18,6 +18,11 @@ namespace Api.Models.Dao
             return db.Categories.ToList();
         }
 
+        public List<Category> GetListSuperCate()
+        {
+            return db.Categories.Where(w => w.ID_root == null).ToList() ?? null;
+        }
+
         public Category GetCateById(int? id)
         {
             var data = db.Categories.SingleOrDefault(s => s.ID == id);
@@ -26,7 +31,7 @@ namespace Api.Models.Dao
         public List<Category> GetCateByIdRoot(int id)
         {
             var data = db.Categories.Where(s => s.ID_root == id).ToList();
-            return data;
+            return data ?? null;
         }
         public bool CreateCate(Category category)
         {

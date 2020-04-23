@@ -10,17 +10,18 @@ namespace Api.Models.Bus
     {
         public IEnumerable<Category> GetAllCate()
         {
-            var data = new CategoryDao().GetAllCate().Where(s => s.ID_root == null).Select(s => new Category
+            var data = new CategoryDao().GetAllCate().Select(s => new Category
             {
                 ID = s.ID,
                 CateName = s.CateName,
+                ID_root = s.ID_root
             });
             return data;
         }
         public IEnumerable<CategoryDTO> GetAllCateCon()
         {
             var list = new List<CategoryDTO>();
-            var dataList = new CategoryDao().GetAllCate();
+            var dataList = new CategoryDao().GetListSuperCate();
             foreach (var item in dataList)
             {
                 var newCate = new CategoryDTO()
@@ -28,12 +29,13 @@ namespace Api.Models.Bus
                     ID = item.ID,
                     CateName = item.CateName,
                     ID_root = item.ID_root,
-                    CategoryDtos = new CategoryBus()
-                        .GetCateByIdConvert(item.ID)
+                    CategoryDtos = new CategoryDao()
+                        .GetCateByIdRoot(item.ID)
                         .Select(s => new CategoryDTO
                         { 
                             ID = s.ID,
-                            CateName =s.CateName
+                            CateName =s.CateName,
+                            ID_root = s.ID_root
                         }).ToList()
                 };
                 list.Add(newCate);

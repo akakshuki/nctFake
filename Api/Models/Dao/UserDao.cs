@@ -74,15 +74,8 @@ namespace Api.Models.Dao
                 data.UserName = user.UserName;
                 data.UserDOB = user.UserDOB;
                 data.UserGender = user.UserGender;
-                data.UserVIP = user.UserVIP;
-                data.UserEmail = user.UserEmail;
-                data.UserPwd = user.UserPwd;
                 data.UserDescription = user.UserDescription;
-                data.UserNameUnsigned = user.UserNameUnsigned;
                 data.UserImage = user.UserImage;
-                data.Role = user.Role;
-                data.UserActive = user.UserActive;
-                data.DayVipEnd = user.DayVipEnd;
             }
 
             return db.SaveChanges() > 0;
@@ -172,6 +165,17 @@ namespace Api.Models.Dao
             user.UserVIP = false;
            //user.DayVipEnd = null;
             db.SaveChanges();
+        }
+        public bool UpdatePassword(UserDTO userDTO)
+        {
+            var data = db.Users.SingleOrDefault(x =>x.ID == userDTO.ID && x.UserPwd == userDTO.AccountPwd) ?? null;
+            if (data != null)
+            {
+                data.UserPwd = userDTO.UserPwd;
+                db.SaveChanges();
+                return true;
+            }
+            return false;
         }
     }
 }

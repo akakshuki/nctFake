@@ -8,6 +8,7 @@
     LyricsMusicDTO getLyrics = ViewBag.getLyrics;
     List<PlaylistDto> getPlaylistByIdUser = ViewBag.getPlaylistByIdUser;
     List<MusicDTO> randomMusic = ViewBag.getMusicRandom;
+    List<MusicDTO> randomMV = ViewBag.getMvRandom;
     List<MusicDTO> GetAllMusic = ViewBag.GetAllMusic;
     List<QualityMusicDTO> listQuality = ViewBag.getListQualityMusic;
     //List<PlaylistMusicDTO> getAllPlaylistMusic = ViewBag.getAllPlaylistMusic;
@@ -216,18 +217,13 @@
                     @getMusic.MusicName
                     @if (qualityMusicDTO != null)
                     {
+
                         @(qualityMusicDTO.QMusicApproved == false ? "(Đang chờ duyệt)" : "")
+
                     }
                     else
                     {
-                        if (qualityMusicDTOMV != null)
-                        {
-                            @(qualityMusicDTOMV.QMusicApproved == false ? "(Đang chờ duyệt)" : "")
-                        }
-                        else
-                        {
-                            <label></label>
-                        }
+                        @(qualityMusicDTOMV.QMusicApproved == false ? "(Đang chờ duyệt)" : "")
                     }
                 </span>
                 @if (getMusic.SongOrMV == true && getMusic.MusicRelated != null)
@@ -251,21 +247,47 @@
             <div class="playMusic">
                 @if (getMusic.SongOrMV == true)
                 {
-                    //song
-                    <img src="@getMusic.LinkImage" alt="">
+                    if (qualityMusicDTO.QMusicApproved == true)
+                    {
+                        //song
+                        <img src="@getMusic.LinkImage" alt="">
 
-                    <audio autoplay controls id="myAudio">
-                        <source src="@qualityMusicDTO.LinkFile" type="audio/mpeg">
-                    </audio>
-                    //song
+                        <audio autoplay controls id="myAudio">
+                            <source src="@qualityMusicDTO.LinkFile" type="audio/mpeg">
+                        </audio>
+                        //song
+                    }
+                    else
+                    {
+                        //song
+                        <img src="@getMusic.LinkImage" alt="">
+
+                        <audio autoplay controls id="myAudio">
+                            <source src="" type="audio/mpeg">
+                        </audio>
+                        //song
+                    }
+
                 }
                 else
                 {
-                    <!--mv-->
-                    <video autoplay controls id="myAudio">
-                        <source src="@qualityMusicDTOMV.LinkFile" type="audio/mpeg">
-                    </video>
-                    <!--mv-->
+                    if (qualityMusicDTOMV.QMusicApproved == true)
+                    {
+                        <!--mv-->
+                        <video autoplay controls id="myAudio">
+                            <source src="@qualityMusicDTOMV.LinkFile" type="audio/mpeg">
+                        </video>
+                        <!--mv-->
+                    }
+                    else
+                    {
+                        <!--mv-->
+                        <video autoplay controls id="myAudio">
+                            <source src="" type="audio/mpeg">
+                        </video>
+                        <!--mv-->
+                    }
+
                 }
                 <!--song-->
                 <!-- <img src="img/avt.png" alt="">
@@ -298,20 +320,26 @@
                                     }
                                     else
                                     {
-
-                                        if (getPlaylistByIdUser != null)
+                                        if (qualityMusicDTO.QMusicApproved == true)
                                         {
-                                            foreach (var item in getPlaylistByIdUser)
+                                            if (getPlaylistByIdUser != null)
                                             {
-                                                <a href=""><li data-id="@item.ID">@item.PlaylistName</li></a>
+                                                foreach (var item in getPlaylistByIdUser)
+                                                {
+                                                    <a href=""><li data-id="@item.ID">@item.PlaylistName</li></a>
+
+                                                }
 
                                             }
+                                            else
+                                            {
 
+                                                <span>Bạn chưa có playlist nào. <a href="#">TẠO</a></span>
+                                            }
                                         }
                                         else
                                         {
-
-                                            <span>Bạn chưa có playlist nào. <a href="#">TẠO</a></span>
+                                            <span>Bài hát này chưa được duyệt. Không thể thêm vào playlist</span>
                                         }
 
                                     }
@@ -357,7 +385,7 @@
                                     }
                                     else
                                     {
-                                        <!--mv-->
+                                    
                                         <option value="@qualityMusicDTO.LinkFile" data-vip="@qualityMusicDTO.QualityDto.QualityVip">@qualityMusicDTO.QualityDto.QualityName</option>
                                         if (listQuality != null)
                                         {
@@ -369,7 +397,7 @@
                                                 }
                                             }
                                         }
-                                        <!--mv-->
+             
                                     }
 
                                 </select><br>
@@ -423,23 +451,24 @@
                                                     {
                                                         <option value="@item.LinkFile" data-vip="@item.QualityDto.QualityVip">@item.QualityDto.QualityName</option>
                                                     }
-   
+
                                                 }
                                             }
                                             <!--mv-->
                                         }
 
                                     </select><br>
-                                    if (getMusic.MusicDownloadAllowed == true)
-                                    {
-                                        <a data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false"
-                                           aria-controls="multiCollapseExample1" style="color: black;">
-                                            <i class="fa fa-download"></i>
-                                            Tải về
-                                        </a>
-                                    }
+
 
                                 }
+                            }
+                            if (getMusic.MusicDownloadAllowed == true)
+                            {
+                                <a data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false"
+                                   aria-controls="multiCollapseExample1" style="color: black;">
+                                    <i class="fa fa-download"></i>
+                                    Tải về
+                                </a>
                             }
                         }
 
@@ -501,7 +530,7 @@
                                 {
                                     foreach (var singers in itemSinger.SingerMusicDtOs)
                                     {
-                                        <a href="@Url.Action("Index","Singer", new { id = singers.UserDto.ID})" >@singers.UserDto.UserName,</a>
+                                        <a href="@Url.Action("Index","Singer", new { id = singers.UserDto.ID})">@singers.UserDto.UserName,</a>
                                     }
                                 }
 
@@ -564,19 +593,51 @@
                         }
                         else
                         {
-                            <form action="@Url.Action("CreateLyrics","playMusic")" method="POST">
-                                <div class="input-group">
-                                    <input type="hidden" name="UserID" value="@Session["UserID"]" />
+                            if (getMusic.SongOrMV == true)
+                            {
+                                if (qualityMusicDTO.QMusicApproved == true)
+                                {
+                                    <form action="@Url.Action("CreateLyrics","playMusic")" method="POST">
+                                        <div class="input-group">
+                                            <input type="hidden" name="UserID" value="@Session["UserID"]" />
 
-                                    <input type="hidden" name="MusicID" value="@getMusic.ID" />
-                                    <textarea name="LMusicDetail" type="text"
-                                              style="width: 500px;height: 300px;margin-bottom: 10px;">
+                                            <input type="hidden" name="MusicID" value="@getMusic.ID" />
+                                            <textarea name="LMusicDetail" type="text"
+                                                      style="width: 500px;height: 300px;margin-bottom: 10px;">
 
-                                            </textarea>
-                                    <input type="submit" id="btnLyrics" value="Gửi lời">
-                                </div>
+                                                </textarea>
+                                            <input type="submit" id="btnLyrics" value="Gửi lời">
+                                        </div>
+                                    </form>
+                                }
+                                else
+                                {
+                                    <span>Vui lòng chờ bài hát được duyệt để gửi lời!</span>
+                                }
+                            }
+                            else
+                            {
+                                if (qualityMusicDTOMV.QMusicApproved == true)
+                                {
+                                    <form action="@Url.Action("CreateLyrics","playMusic")" method="POST">
+                                        <div class="input-group">
+                                            <input type="hidden" name="UserID" value="@Session["UserID"]" />
 
-                            </form>
+                                            <input type="hidden" name="MusicID" value="@getMusic.ID" />
+                                            <textarea name="LMusicDetail" type="text"
+                                                      style="width: 500px;height: 300px;margin-bottom: 10px;">
+
+                                                </textarea>
+                                            <input type="submit" id="btnLyrics" value="Gửi lời">
+                                        </div>
+                                    </form>
+                                }
+                                else
+                                {
+                                    <span>Vui lòng chờ bài hát được duyệt để gửi lời!</span>
+                                }
+                            }
+
                         }
 
                     </div>
@@ -620,32 +681,67 @@
         </div>
         <div class="gridRight">
             <span class="lblMusic">Nghe tiếp</span>
-
-            @foreach (var item in randomMusic)
+            @if (getMusic.SongOrMV == true)
             {
-                if (item.ID != getMusic.ID)
+                foreach (var item in randomMusic)
                 {
-                    <div class="itemSongRandom musicRandom">
-                        <div>
-                            <a href="@Url.Action("Index","playMusic",new { id = item.ID})"><img src="@item.LinkImage" alt=""> @item.MusicName</a><br>
-                            <span>
-                                <a href=""></a>
-                                @foreach (var itemSinger in GetAllMusic)
-                                {
-                                    if (itemSinger.ID == item.ID)
+                    if (item.ID != getMusic.ID)
+                    {
+
+                        <div class="itemSongRandom musicRandom">
+                            <div>
+                                <a href="@Url.Action("Index","playMusic",new { id = item.ID})"><img src="@item.LinkImage" alt=""> @item.MusicName</a><br>
+                                <span>
+                                    <a href=""></a>
+                                    @foreach (var itemSinger in GetAllMusic)
                                     {
-                                        foreach (var singers in itemSinger.SingerMusicDtOs)
+                                        if (itemSinger.ID == item.ID)
                                         {
-                                            <a href="@Url.Action("Index","Singer", new { id = singers.UserDto.ID })">@singers.UserDto.UserName,</a>
+                                            foreach (var singers in itemSinger.SingerMusicDtOs)
+                                            {
+                                                <a href="@Url.Action("Index","Singer", new { id = singers.UserDto.ID })">@singers.UserDto.UserName,</a>
+                                            }
                                         }
+
                                     }
-
-                                }
-                            </span> 
+                                </span>
+                            </div>
                         </div>
-                    </div>
-                }
 
+
+                    }
+
+                }
+            }
+            else
+            {
+                foreach (var item in randomMV)
+                {
+                    if (item.ID != getMusic.ID)
+                    {
+
+                        <div class="itemSongRandom musicRandom">
+                            <div>
+                                <a href="@Url.Action("Index","playMusic",new { id = item.ID})"><img src="@item.LinkImage" alt=""> @item.MusicName</a><br>
+                                <span>
+                                    <a href=""></a>
+                                    @foreach (var itemSinger in GetAllMusic)
+                                    {
+                                        if (itemSinger.ID == item.ID)
+                                        {
+                                            foreach (var singers in itemSinger.SingerMusicDtOs)
+                                            {
+                                                <a href="@Url.Action("Index","Singer", new { id = singers.UserDto.ID })">@singers.UserDto.UserName,</a>
+                                            }
+                                        }
+
+                                    }
+                                </span>
+                            </div>
+                        </div>
+                    }
+
+                }
             }
         </div>
     </div>

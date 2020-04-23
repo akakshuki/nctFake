@@ -83,6 +83,7 @@ namespace AppAdmin.Areas.Client.Controllers
         }
         public ActionResult CreateAccount(UserDTO userDTO)
         {
+            userDTO.UserImage = "default.png";
             var data = ApiService.CreateUser(userDTO);
             if (data != null)
             {

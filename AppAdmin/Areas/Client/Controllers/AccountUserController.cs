@@ -1,4 +1,5 @@
 ﻿using AppAdmin.Models.Service;
+using ModelViews.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,11 @@ namespace AppAdmin.Areas.Client.Controllers
 {
     public class AccountUserController : Controller
     {
+        private string path = "";
+        public AccountUserController()
+        {
+            path = "~/File/ImageUser/";
+        }
         // GET: Client/AccountUser
         public ActionResult Index()
         {
@@ -16,8 +22,100 @@ namespace AppAdmin.Areas.Client.Controllers
         }
         public ActionResult AccountUser(int id)
         {
+            var user = ApiService.GetUserById(id);
+            ViewBag.getInfoUser = user;
+            if (user.UserDOB != null)
+            {
+                ViewBag.date = (DateTime)user.UserDOB;
+            }
+            else
+            {
+                ViewBag.date = null;
+            }
             ViewBag.getOrderVipByIdUser = ApiService.GetOrderVipByIdUser(id);
             return View();
+        }
+        public ActionResult UpdatePassword(UserDTO userDTO)
+        {
+            var data = ApiService.UpdatePassword(userDTO);
+            if (data != null)
+            {
+                SetAlert("Update success!", "success");
+                return RedirectToAction("AccountUser", new { id = userDTO.ID });
+            }
+            SetAlert("Update fail!", "danger");
+            return RedirectToAction("AccountUser", new { id = userDTO.ID });
+        }
+        public ActionResult UpdateUser(UserDTO userDTO)
+        {
+            try
+            {
+                //get Image have exist
+                var currentFileName = ApiService.GetUserById(userDTO.ID).UserImage;
+                //check name have deafault if exist ==> dont delete
+                if (currentFileName == "default.png")
+                {
+                    if (userDTO.FileImage != null)
+                    {
+                        userDTO.UserImage = DateTime.Now.Ticks + userDTO.UserImage + ".png";
+                        userDTO.FileImage.SaveAs(Server.MapPath(path + userDTO.UserImage));
+                        userDTO.FileImage = null;
+                    }
+                    else
+                    {
+                        userDTO.UserImage = "default.png";
+                    }
+                }
+                else
+                {
+                    if (userDTO.FileImage != null)
+                    {
+                        //delete file
+                        var filePath = Server.MapPath(path + currentFileName);
+                        if (System.IO.File.Exists(filePath))
+                        {
+                            System.IO.File.Delete(filePath);
+                        }
+                        userDTO.UserImage = DateTime.Now.Ticks + userDTO.UserImage + ".png";
+                        userDTO.FileImage.SaveAs(Server.MapPath(path + userDTO.UserImage));
+                        userDTO.FileImage = null;
+                    }
+                    else
+                    {
+                        userDTO.UserImage = currentFileName;
+                    }
+                }
+                var data = ApiService.UpdateUser(userDTO);
+                if (data != null)
+                {
+                    SetAlert("Update success!", "success");
+                    return RedirectToAction("AccountUser", new { id = userDTO.ID });
+                }
+                SetAlert("Update fail!", "danger");
+                return RedirectToAction("AccountUser", new { id = userDTO.ID });
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                SetAlert("Update fail!", "danger");
+                return RedirectToAction("AccountUser", new { id = userDTO.ID });
+            }
+        }
+        protected void SetAlert(string message, string type)
+        {
+            TempData["AlertMessage"] = message;
+            if (type == "success")
+            {
+                TempData["AlertType"] = "alert-success";
+            }
+            else if (type == "warning")
+            {
+                TempData["AlertType"] = "alert-warning";
+            }
+            else if (type == "error")
+            {
+                TempData["AlertType"] = "alert-danger";
+            }
         }
     }
 }

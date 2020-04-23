@@ -24,6 +24,7 @@ namespace ModelViews.DTOs
         public int  GradeRank { get; set; }
 
         public UserDTO UserDto { get; set; }
+        public QualityMusicDTO QualityMusicDto { get; set; }
         public List<QualityDTO> QualityDtos { get; set; }
         public List<HistoryUserDTO> HistoryUserDtos { get; set; }
         public List<SingerMusicDTO> SingerMusicDtOs { get; set; }

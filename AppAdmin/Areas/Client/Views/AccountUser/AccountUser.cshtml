@@ -3,54 +3,150 @@
     ViewBag.Title = "AccountUser";
     Layout = "~/Areas/Client/Views/Shared/_LayoutClient.cshtml";
     List<OrderVipDTO> GetOrderVipByIdUser = ViewBag.getOrderVipByIdUser;
+    UserDTO getInfoUser = ViewBag.getInfoUser;
+    var date = ViewBag.date;
 }
-
+@section js{
+    <script>
+        $(document).ready(function () {
+            $('#inputImage').change(function (event) {
+                var tmppath = URL.createObjectURL(event.target.files[0]);
+                $('#upImage').fadeIn("fast").attr("src", tmppath);
+            });
+        });
+    </script>
+    <script>
+        $(function () {
+            $('#AlertBox').removeClass('hide');
+            $('#AlertBox').delay(1000).slideUp(500);
+        });
+    </script>
+    <script src="@Url.Content("~/Content/Dashio/")lib/jquery-ui-1.9.2.custom.min.js"></script>
+    @*<script type="text/javascript" src="@Url.Content("~/Content/Dashio/")lib/bootstrap-fileupload/bootstrap-fileupload.js"></script>*@
+    <script type="text/javascript" src="@Url.Content("~/Content/Dashio/")lib/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+    <script src="@Url.Content("~/Content/Dashio/")lib/advanced-form-components.js"></script>
+}
 <div id="content" class="container">
+    @if (TempData["AlertMessage"] != null)
+    {
+        <div style="text-align: center;" id="AlertBox" class="alert @TempData["AlertType"]" hide>
+            @TempData["AlertMessage"]
+        </div>
+    }
     <div id="info">
         <div>
-            <img src="img/avt.png" alt="">
+            <img src="@getInfoUser.LinkImage" alt="">
         </div>
         <div>
-            <span>Tên ca sĩ</span>
-            <span><i class="fa fa-crown" style="color: yellow;"></i></span><br>
-            <span>Sinh ngày: 16/10/2000</span><br>
-            <span>Giới tính: Nữ</span><br>
-            <span>Email:</span><br>
+            <span>@getInfoUser.UserName</span>
+            <span>
+                @if (getInfoUser.UserVIP == true)
+                {<i class="fa fa-crown" style="color: yellow;"></i>}
+                else { }
+            </span><br>
+            @if (date != null)
+            {
+                <span>Sinh ngày: @date.ToString("dd-MM-yyyy")</span><br>
+            }
+            else
+            {
+                <span>Sinh ngày: Chưa cập nhật</span><br />
+            }
+            @if (getInfoUser.UserGender == true)
+            {
+                <span>Giới tính: Nam</span><br>
+            }
+            else
+            {
+                <span>Giới tính: Nữ</span><br>
+            }
+            <span>Email: @getInfoUser.UserEmail</span><br>
             <span>Lời giới thiệu:</span>
-            <span>Hi xin chào các bạn! ahihiihihihihihihihihiiih <br></span>
-            <span>Ngày hết hạn VIP: </span><br>
+            <span>
+                @if (getInfoUser.UserDescription != null)
+                {
+                    @getInfoUser.UserDescription
+                }
+                else
+                {
+                    <label>Chưa cập nhật lời giới thiệu</label>
+                } <br>
+            </span>
+            <span>
+                @if (getInfoUser.DayVipEnd != null)
+                {
+
+                    @getInfoUser.DayVipEnd
+                }
+                else
+                {
+                    <label>Bạn chưa mua vip</label>
+                }
+            </span>
+            <br>
             <a data-toggle="collapse" href="#multiCollapseExample1" role="button" class="btn btn-success"
                aria-expanded="false" aria-controls="multiCollapseExample1">Chỉnh sửa</a>
             <a data-toggle="collapse" href="#multiCollapseExample2" role="button" class="btn btn-primary"
                aria-expanded="false" aria-controls="multiCollapseExample1">Đổi mật khẩu</a>
             <div class="collapse multi-collapse" id="multiCollapseExample1">
                 <div class="card card-body" style="width: 30%;margin-top: 20px;">
-                    <form action="" method="">
+                    <form action="@Url.Action("UpdateUser","AccountUser")" method="post" enctype="multipart/form-data">
                         <!--Full name-->
                         <div class="form-group ic-cmp-int">
                             <div class="form-ic-cmp">
                                 <i class="notika-icon notika-support"></i>
                             </div>
                             <div class="nk-int-st">
-                                <input type="text" class="form-control" placeholder="Full Name">
+                                <input type="hidden" name="ID" value="@getInfoUser.ID" />
+                                <input name="UserName" value="@getInfoUser.UserName" type="text" class="form-control" placeholder="Full Name">
                             </div>
                         </div>
                         <!--DOB-->
                         <div class="form-group ic-cmp-int">
+                            @*<div class="form-ic-cmp">
+                                    <i class="notika-icon notika-calendar"></i>
+                                </div>
+                                <div class="nk-int-st">
+                                    <input name="UserDOB" value="@getInfoUser.UserDOB" type="date" class="form-control" placeholder="">
+                                </div>*@
                             <div class="form-ic-cmp">
                                 <i class="notika-icon notika-calendar"></i>
                             </div>
                             <div class="nk-int-st">
-                                <input type="date" class="form-control" placeholder="dd/mm/yyyy">
+                                <div data-date-viewmode="years" data-date-format="dd-mm-yyyy" data-date="" class="input-append date dpYears">
+                                    <input name="UserDOB" type="text" readonly="" value="@date.ToString("dd-MM-yyyy")" size="16" class="form-control" placeholder="dd-mm-yy">
+                                    <div class="input-group-btn add-on">
+                                        <button style="margin-left: -39px;margin-top: -33px; float:right;" class="btn btn-theme" type="button"><i class="fa fa-calendar"></i></button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
+                        @*<div class="form-group">
+                                <label class="control-label col-lg-2">Date of birth</label>
+                                <div class="col-md-3 col-xs-11">
+                                    <div data-date-viewmode="years" data-date-format="dd-mm-yyyy" data-date="01-01-2014" class="input-append date dpYears">
+                                        <input name="UserDOB" type="text" readonly="" value="@getInfoUser.UserDOB" size="16" class="form-control">
+                                        <span class="input-group-btn add-on">
+                                            <button class="btn btn-theme" type="button"><i class="fa fa-calendar"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>*@
                         <!--Gender-->
                         <div class="form-group ic-cmp-int">
                             <div class="nk-int-st" style="margin-left: 10px;">
                                 <span><i class="fas fa-venus-mars"></i></span>
-                                <select name="" id="" style="width: 155px;font-size: 16px;">
-                                    <option value="">Nam</option>
-                                    <option value="">Nữ</option>
+                                <select name="UserGender" id="" style="width: 155px;font-size: 16px;">
+                                    @if (getInfoUser.UserGender == true)
+                                    {
+                                        <option selected="selected" value="@getInfoUser.UserGender">Nam</option>
+                                        <option value="false">Nữ</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="true">Nam</option>
+                                        <option selected="selected" value="@getInfoUser.UserGender">Nữ</option>
+                                    }
                                 </select>
                             </div>
                         </div>
@@ -60,22 +156,22 @@
                                 <i class="notika-icon notika-edit"></i>
                             </div>
                             <div class="nk-int-st">
-                                <textarea type="text" class="form-control" placeholder="Lời giới thiệu"
-                                          style="height: 70px;" maxlength="200"></textarea>
+                                <textarea name="UserDescription" type="text" class="form-control" placeholder="Lời giới thiệu"
+                                          style="height: 70px;" maxlength="200">@getInfoUser.UserDescription</textarea>
                             </div>
                         </div>
                         <!--Image-->
                         <div class="maincrop-img" style="margin-left: 37px;margin-bottom: 10px;">
                             <div class="image-crp-int">
                                 <div class="img-preview img-preview-custom">
-                                    <img src="img/avt.png" id="upImage" style="width: 300px; height: 255px;">
+                                    <img src="@getInfoUser.LinkImage" id="upImage" style="width: 300px; height: 255px;">
                                 </div>
                             </div>
                             <div class="image-crp-img">
                                 <div class="btn-group images-cropper-pro">
                                     <label title="Upload image file" for="inputImage"
                                            class="btn btn-primary img-cropper-cp waves-effect">
-                                        <input type="file" accept="image/*" name="file" id="inputImage"
+                                        <input type="file" accept="image/*" name="FileImage" id="inputImage"
                                                class="hide"> Upload new image
                                     </label>
                                 </div>
@@ -89,17 +185,18 @@
             </div>
             <div class="collapse multi-collapse" id="multiCollapseExample2">
                 <div class="card card-body" style="width: 30%;margin-top: 20px;">
-                    <form action="" method="POST">
+                    <form action="@Url.Action("UpdatePassword","AccountUser")" method="POST">
                         <!--Old Pwd-->
                         <div class="form-group">
                             <div class="nk-int-st">
-                                <input type="password" class="form-control input-sm" style="font-size: 18px;"
+                                <input type="hidden" name="ID" value="@getInfoUser.ID" />
+                                <input name="AccountPwd" type="password" class="form-control input-sm" style="font-size: 18px;"
                                        placeholder="Mật khẩu cũ">
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="nk-int-st">
-                                <input type="password" class="form-control input-sm" style="font-size: 18px;"
+                                <input name="UserPwd" type="password" class="form-control input-sm" style="font-size: 18px;"
                                        placeholder="Mật khẩu mới">
                             </div>
                         </div>

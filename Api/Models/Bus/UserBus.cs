@@ -245,6 +245,15 @@ namespace Api.Models.Bus
             return false;
         }
 
+        public bool UpdatePassword(UserDTO userDTO)
+        {
+            if (new UserDao().UpdatePassword(userDTO))
+            {
+                return true;
+            }
+            return false;
+        }
+
         public bool UpdateUser(User user)
         {
             if (new UserDao().UpdateUser(user))

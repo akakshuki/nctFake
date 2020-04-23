@@ -3,11 +3,11 @@
     ViewBag.Title = "PersonalUser";
     Layout = "~/Areas/Client/Views/Shared/_LayoutClient.cshtml";
     UserDTO getInfoUser = ViewBag.getInfoUser;
-    System.Diagnostics.Debug.Assert(getInfoUser.UserDOB != null, "getInfoUser.UserDOB != null");
-    var date = (DateTime)getInfoUser.UserDOB;
+    var date = ViewBag.date ;
     List<PlaylistDto> getPlaylistByIdUser = ViewBag.getPlaylistByIdUser;
     List<MusicDTO> getSong = ViewBag.getSong;
     List<MusicDTO> getMv = ViewBag.getMv;
+    List<CategoryDTO> listCate = ViewBag.GetCate;
 }
 @section js{
     <script>
@@ -17,6 +17,19 @@
         });
     </script>
     <script>
+        //add music playlist
+        $('.addPlaylist li').click(function () {
+            var idplist = parseInt($(this).attr("data-idPlist"));
+            var idmusic = parseInt($(this).attr("data-idMusic"));
+            $.post("/playPlaylist/AddMusicPlaylist", { PlaylistID: idplist, MusicID: idmusic }).done(function (res) {
+                var stt = res.status;
+                if (stt == true) {
+                    alertify.success("Thêm bài hát vào playlist thành công.");
+                } else {
+                    alertify.error("Lỗi khi thêm bài hát vào playlist. Mời thử lại.");
+                }
+            });
+        });
         $(document).ready(function () {
             var nameID = "#pageSong";
             var nameActive = "activeSong";
@@ -59,6 +72,7 @@
                 $('#upImage').fadeIn("fast").attr("src", tmppath);
             });
         });
+
     </script>
 }
 <!--Start Content-->
@@ -79,7 +93,14 @@
                 {<i class="fa fa-crown"></i>}
                 else { } @getInfoUser.UserName
             </span><br>
-            <span>Sinh ngày: @date.ToString("dd-MM-yyyy")</span><br>
+            @if (date != null)
+            {
+                <span>Sinh ngày: @date.ToString("dd-MM-yyyy")</span><br>
+            }
+            else
+            {
+                <span>Sinh ngày: Chưa cập nhật</span><br />
+            }
             @if (getInfoUser.UserGender == true)
             {
                 <span>Giới tính: Nam</span><br>
@@ -116,34 +137,37 @@
         }
 
         <div class="collapse multi-collapse" id="multiCollapseExample1">
-            <form action="" method="post">
+            <form action="@Url.Action("Create","PersonalUser")" method="post" enctype="multipart/form-data">
                 <div class="card card-body" style="width: 70%;margin-top: 20px;margin-left: 40px;">
                     <div class="form-group">
+                        <input type="hidden" name="UserID" value="@Session["UserId"]" />
                         <label for="" style="margin-right: 12px;">Tên Playlist: </label>
-                        <input type="text" name="" id="" style="width: 40%;">
+                        <input type="text" name="PlaylistName" id="" style="width: 40%;">
                     </div>
                     <div class="form-group">
                         <label for="">Chọn Thể loại: </label>
-                        <select name="" id="" style="width: 38%;">
-                            <option value="">Cate 1</option>
-                            <option value="">Cate 2</option>
+                        <select name="CateId" id="" style="width: 38%;">
+                            @foreach (var item in listCate)
+                            {
+                                <option value="@item.ID">@item.CateName</option>
+                            }
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="" style="margin-right: 50px;">Mô tả: </label>
-                        <textarea name="" id="" maxlength="1000" style="width: 38%;"></textarea>
+                        <textarea name="PlaylistDescription" id="" maxlength="1000" style="width: 38%;"></textarea>
                     </div>
                     <div class="maincrop-img" style="margin-left: 95px;margin-bottom: 10px;">
                         <div class="image-crp-int">
                             <div class="img-preview img-preview-custom">
-                                <img src="img/avt.png" id="upImage" style="width: 300px; height: 255px;">
+                                <img src="@Url.Content("~/Content/ClientMusic/")img/avt.png" id="upImage" style="width: 300px; height: 255px;">
                             </div>
                         </div>
                         <div class="image-crp-img">
                             <div class="btn-group images-cropper-pro">
                                 <label title="Upload image file" for="inputImage"
                                        class="btn btn-primary img-cropper-cp waves-effect">
-                                    <input type="file" accept="image/*" name="file" id="inputImage" class="hide">
+                                    <input type="file" accept="image/*" name="FileImage" id="inputImage" class="hide">
                                     Upload new image
                                 </label>
                             </div>
@@ -163,7 +187,7 @@
                 <div class="itemBxh">
                     <img src="@itemPl.LinkImage" alt="">
                     <span>
-                        <a href="" style="font-size: 20px;">@itemPl.PlaylistName</a><br>
+                        <a href="@Url.Action("Index","playPlaylist",new {id = itemPl.ID })" style="font-size: 20px;">@itemPl.PlaylistName</a><br>
                         <span style="left: 80px;">
                             <a href="">@itemPl.UserDto.UserName</a>
                         </span>
@@ -195,7 +219,14 @@
                 <div class="itemBxh" style="width: 60%;">
                     <img src="@item.LinkImage" alt="">
                     <span>
-                        <a href="" style="font-size: 20px;">@item.MusicName</a>(Chờ duyệt)<br>
+
+                        <a href="" style="font-size: 20px;">@item.MusicName</a>@foreach (var approved in item.QualityMusicDTOs)
+                        {
+                            if (approved.MusicID == item.ID)
+                            {
+                                @(approved.QMusicApproved == false ? "(Đang chờ duyệt)" : "")
+                            }
+                        }<br>
                         <span style="left: 80px;">
                             @foreach (var singers in item.SingerMusicDtOs)
                             {
@@ -214,16 +245,25 @@
                         <span><i class="fas fa-headphones"></i> @item.MusicView</span>
                         @if (getInfoUser.ID == Convert.ToInt32(Session["UserId"]))
                         {
-                            <span style="cursor: pointer;"><i class="far fa-trash-alt"></i> Xóa</span>
+                            <span style="cursor: pointer;"><i class="far fa-trash-alt"></i><a href="@Url.Action("DeleteFile","PersonalUser", new { id =item.ID})"> Xóa</a> </span>
                         }
 
                         <span class="addPlaylist" style="cursor: pointer;">
                             <i class="fas fa-plus-circle"></i> Thêm
                             vào
                             <ul>
-                                <li>Bài hát yêu thích</li>
-                                <li>Test 1</li>
-                                <li>Test2</li>
+                                @if (getPlaylistByIdUser == null)
+                                {
+                                    <span>Bạn chưa có playlist nào.</span>
+                                }
+                                else
+                                {
+                                    foreach (var itemPlaylist in getPlaylistByIdUser)
+                                    {
+                                        <li data-idPlist="@itemPlaylist.ID" data-idMusic="@item.ID"><a href="@Url.Action("Index", "playPlaylist", new { id = itemPlaylist.ID })">@itemPlaylist.PlaylistName</a> </li>
+
+                                    }
+                                }
                             </ul>
                         </span>
                     </span>
@@ -238,7 +278,13 @@
 
                     <img src="@item.LinkImage" alt="">
                     <span>
-                        <a href="" style="font-size: 20px;">@item.MusicName</a><br>
+                        <a href="" style="font-size: 20px;">@item.MusicName</a>@foreach (var approved in item.QualityMusicDTOs)
+                        {
+                            if (approved.MusicID == item.ID)
+                            {
+                                @(approved.QMusicApproved == false ? "(Đang chờ duyệt)" : "")
+                            }
+                        }<br>
                         <span style="left: 80px;">
                             @foreach (var singers in item.SingerMusicDtOs)
                             {
@@ -257,7 +303,7 @@
                         <span><i class="fas fa-headphones"></i> @item.MusicView</span>
                         @if (getInfoUser.ID == Convert.ToInt32(Session["UserId"]))
                         {
-                            <span style="cursor: pointer;"><i class="fas fa-trash-alt"></i> Xóa</span>
+                            <span style="cursor: pointer;"><i class="fas fa-trash-alt"></i><a href="@Url.Action("DeleteFile","PersonalUser", new { id =item.ID})"> Xóa</a></span>
                         }
                     </span>
                 </div>

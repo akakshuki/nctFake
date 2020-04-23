@@ -26,16 +26,36 @@ namespace Api.Models.Dao
             return null;
         }
         //delete file lien quan nhac
+        #region deletefiletuiupload 
         public bool DeleteLQ(int id)
         {
             var data = db.Musics.Find(id);
-            if (data != null)
+            var lsQualityMusic = new QualityMusicDao().GetFileByIdMusic(data.ID);
+            var lsSinger = new SingerMusicDao().GetSMByID(data.ID);
+            foreach (var qualityMusic in lsQualityMusic)
             {
-                db.Musics.Remove(data);
+                db.QualityMusics.Remove(db.QualityMusics.Find(qualityMusic.ID));
                 db.SaveChanges();
+            }
+            foreach (var singer in lsSinger)
+            {
+                db.SingerMusics.Remove(db.SingerMusics.Find(singer.ID));
+                db.SaveChanges();
+            }
+            return DeleteMusicLQ(id) == true ? true : false;
+        }
+        private bool DeleteMusicLQ(int id)
+        {
+            var data = db.Musics.SingleOrDefault(s => s.ID == id);
+            db.Musics.Remove(data);
+            if (db.SaveChanges() > 0)
+            {
+                return true;
             }
             return false;
         }
+        #endregion
+
 
         //delete
         public void Delete(int id)
@@ -94,5 +114,6 @@ namespace Api.Models.Dao
             var data = db.Musics.Where(s => s.UserID == id).ToList();
             return data;
         }
+
     }
 }

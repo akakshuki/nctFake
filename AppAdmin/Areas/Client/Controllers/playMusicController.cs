@@ -37,9 +37,11 @@ namespace AppAdmin.Areas.Client.Controllers
             
                                      
             ViewBag.GetAllMusic = ApiService.GetAllMusic();
+            var data = ApiService.GetAllMusic();
             ViewBag.getMusicById = ApiService.GetMusicById(id);
             ViewBag.getLyrics = ApiService.GetLyricByIdMusic(id);
-            ViewBag.getMusicRandom = ApiService.GetAllMusic().Where(s=>s.SongOrMV==true).Distinct().OrderBy(s=> Guid.NewGuid()).Take(5).ToList();
+            ViewBag.getMusicRandom = data.Where(s=>s.SongOrMV==true).Distinct().OrderBy(s=> Guid.NewGuid()).Take(5).ToList();
+            ViewBag.getMvRandom = data.Where(s=>s.SongOrMV==false).Distinct().OrderBy(s=> Guid.NewGuid()).Take(5).ToList();
             ViewBag.getListQualityMusic = ApiService.GetFileByIdMusic(id);
             ViewBag.getAllPlaylistMusic = ApiService.GetAllPlaylistMusic();
             //lay song file 120kbps

@@ -25,8 +25,17 @@ namespace Api.Areas.Client.Controllers
         {
             return new Repositories().UpdateView(id);
         }
+        [Route("DeleteLQ/{id}")]
+        public IHttpActionResult DeleteLQ(int id)
+        {
+            if (new Repositories().DeleteLQ(id))
+            {
+                return Ok();
+            }
+            return InternalServerError();
+        }
 
-        
+
         [HttpGet]
         [Route("GetMusicByIdUser/{id}")]
         public List<MusicDTO> GetMusicByIdUser(int id)

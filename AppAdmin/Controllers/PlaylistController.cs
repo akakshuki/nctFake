@@ -18,13 +18,13 @@ namespace AppAdmin.Controllers
         #region Tạo Playlist Navigation
         public ActionResult ViewAddPlaylist()
         {
-            ViewBag.GetCate = ApiService.GetAllCateCon().Where(s=>s.ID_root != null).ToList();
+            ViewBag.GetCate = ApiService.GetAllCate().Where(s=>s.ID_root != null).ToList();
             ViewBag.ListPlaylist = ApiService.GetAllPlaylist();
             return View();
         }
         public ActionResult EditPlAdmin(int id)
         {
-            ViewBag.GetCate = ApiService.GetAllCateCon().Where(s => s.ID_root != null).ToList();
+            ViewBag.GetCate = ApiService.GetAllCate().Where(s => s.ID_root != null).ToList();
             var data = ApiService.GetPlaylistById(id);
             return View(data);
         }
@@ -124,13 +124,13 @@ namespace AppAdmin.Controllers
         public ActionResult Index(int id)
         {
             Session["id"] = id;
-            ViewBag.GetCate = ApiService.GetAllCateCon().Where(s => s.ID_root != null).ToList();
+            ViewBag.GetCate = ApiService.GetAllCate().Where(s => s.ID_root != null).ToList();
             ViewBag.ListPlaylist = ApiService.GetPlaylistByIdUser(id);
             return View();
         }
         public ActionResult Edit(int id)
         {
-            ViewBag.GetCate = ApiService.GetAllCateCon().Where(s => s.ID_root != null).ToList();
+            ViewBag.GetCate = ApiService.GetAllCate().Where(s => s.ID_root != null).ToList();
             var data = ApiService.GetPlaylistById(id);
             return View(data);
         }

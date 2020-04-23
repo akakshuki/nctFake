@@ -55,8 +55,14 @@ namespace Api.Areas.Client.Controllers
         }
 
         // PUT: api/User/5
-        public void Put(int id, [FromBody]string value)
+        [HttpPost, Route("UpdatePassword")]
+        public IHttpActionResult UpdatePassword(UserDTO userDto)
         {
+            if (new Repositories().UpdatePassword(userDto))
+            {
+                return Ok();
+            }
+            return InternalServerError();
         }
 
         // DELETE: api/User/5

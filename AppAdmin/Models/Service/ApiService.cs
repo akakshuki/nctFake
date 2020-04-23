@@ -1153,6 +1153,7 @@ namespace AppAdmin.Models.Service
             return false;
         }
 
+
         #endregion
 
         #region Payment
@@ -1794,8 +1795,38 @@ namespace AppAdmin.Models.Service
 
             return null;
         }
+        public static bool DeleteLQ(int id)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Accept.Clear();
+                var response = client.DeleteAsync("https://localhost:44384/api/MusicClient/DeleteLQ/" + id.ToString())
+                    .Result;
+                if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
         #endregion
         #region UserClient
+        public static UserDTO UpdatePassword(UserDTO userDTO)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Accept.Clear();
+                var response = client.PostAsync("https://localhost:44384/api/UserClient/UpdatePassword/", new StringContent(
+                    new JavaScriptSerializer().Serialize(userDTO), Encoding.UTF8, "application/json")).Result;
+                if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    return userDTO;
+                }
+            }
+
+            return null;
+        }
         public static List<UserDTO> GetListSingerSearch(string value)
         {
             var settings = new JsonSerializerSettings

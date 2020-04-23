@@ -144,6 +144,15 @@ namespace Api.Models
         {
             return new UserBus().GetListSingerSearch(value);
         }
+
+        public bool UpdatePassword(UserDTO userDTO)
+        {
+            if (new UserBus().UpdatePassword(userDTO))
+            {
+                return true;
+            }
+            return false;
+        }
         #endregion User
 
         #region Playlist
@@ -313,6 +322,10 @@ namespace Api.Models
         public List<MusicDTO> GetMusicByKey(string key)
         {
             return new MusicBus().SearchMusic(key);
+        }
+        public bool DeleteLQ(int id)
+        {
+            return new MusicBus().DeleteLQ(id);
         }
 
         #endregion Musics

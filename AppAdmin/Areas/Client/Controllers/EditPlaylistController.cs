@@ -24,7 +24,7 @@ namespace AppAdmin.Areas.Client.Controllers
         {
             Session["IdEditPl"] = id;
             ViewBag.getMusicByIdPlaylist = ApiService.GetMusicByIdPlaylist(id);
-            ViewBag.getCate = ApiService.GetAllCateCon().Where(s => s.ID_root != null).ToList();
+            ViewBag.getCate = ApiService.GetAllCate().Where(s => s.ID_root != null).ToList();
             var data = ApiService.GetPlaylistById(id);
             return View(data);
         }

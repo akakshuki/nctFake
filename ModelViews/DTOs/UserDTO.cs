@@ -18,6 +18,7 @@ namespace ModelViews.DTOs
         [Required(ErrorMessage = "Hãy nhập password")]
         [DataType(DataType.Password)]
         public string UserPwd { get; set; }
+        public string AccountPwd { get; set; }
         public string UserDescription { get; set; }
         public string UserNameUnsigned { get; set; }
         public string UserImage { get; set; }

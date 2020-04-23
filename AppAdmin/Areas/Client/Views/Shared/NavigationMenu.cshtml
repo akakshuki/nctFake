@@ -21,23 +21,21 @@
                                             <i class="fa fa-music"></i> Bài Hát
                                         </a>
                                         <ul class="dropdown-menu">
-                                            @foreach (var itemSub in listCate)
+                                            @foreach (var item in listCate)
                                             {
                                                 @*<li><a href="#">@itemSub.CateName</a></li>*@
                                                 <li class="dropdown-submenu">
-                                                    <a href="#" style="font-weight:600" class="dropdown-toggle" data-toggle="dropdown">@itemSub.CateName</a>
+                                                    <a href="#" style="font-weight:600" class="dropdown-toggle" data-toggle="dropdown">@item.CateName</a>
                                                     <!-- Level 2 -->
-
-                                                    @foreach (var item in listSubCate)
-                                                    {
-                                                        if (item.ID_root == itemSub.ID)
+                                                    <ul>
+                                                        @foreach (var itemSub in item.CategoryDtos)
                                                         {
-                                                            <ul>
-                                                                <li><a href="@Url.Action("Index","listMusicByIdCate", new { id = item.ID})">@item.CateName</a></li>
-                                                            </ul>
-                                                        }
-                                                    }
 
+                                                            <li><a href="@Url.Action("Index","listMusicByIdCate", new { id = itemSub.ID})">@itemSub.CateName</a></li>
+
+
+                                                        }
+                                                    </ul>
                                                 </li>
                                             }
                                         </ul>
@@ -54,18 +52,15 @@
                                                 <li class="dropdown-submenu">
                                                     <a href="#" style="font-weight:600" class="dropdown-toggle" data-toggle="dropdown">@item.CateName</a>
                                                     <!-- Level 2 -->
-
-                                                    @foreach (var itemSub in listSubCate)
-                                                    {
-                                                        if (itemSub.ID_root == item.ID)
+                                                    <ul>
+                                                        @foreach (var itemSub in item.CategoryDtos)
                                                         {
-                                                            <ul>
-                                                                <li><a href="@Url.Action("Index","listMusicByIdCate", new { id = item.ID})">@itemSub.CateName</a></li>
 
-                                                            </ul>
+                                                            <li><a href="@Url.Action("IndexMV","listMusicByIdCate", new { id = itemSub.ID})">@itemSub.CateName</a></li>
+
+
                                                         }
-                                                    }
-
+                                                    </ul>
                                                 </li>
                                             }
                                         </ul>
@@ -105,17 +100,17 @@
 
                                         @if (Session["UserSession"] != null)
                                         {
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="margin-top: -10px;">
-                                            <img src="@Url.Content("~/Content/ClientMusic/")img/avt.png" alt="" style="width: 40px;border-radius: 50%;">
-                                            @if (getUser.UserVIP == true)
-                                            {
-                                                <i class="fa fa-crown" style="color: yellow;"></i>
-                                            }
-                                            else
-                                            {
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="margin-top: -10px;">
+                                                <img src="@Url.Content("~/Content/ClientMusic/")img/avt.png" alt="" style="width: 40px;border-radius: 50%;">
+                                                @if (getUser.UserVIP == true)
+                                                {
+                                                    <i class="fa fa-crown" style="color: yellow;"></i>
+                                                }
+                                                else
+                                                {
 
-                                            }
-                                        </a>
+                                                }
+                                            </a>
                                             <ul class="dropdown-menu">
                                                 <li><a href="@Url.Action("AccountUser","AccountUser",new {id = Session["UserId"]})"> Thông tin tài khoản</a></li>
                                                 <li><a href="@Url.Action("PersonalUser","PersonalUser",new {id = Session["UserId"]})"> Trang cá nhân</a></li>
@@ -129,7 +124,7 @@
                                             <a href=""><i class="fas fa-user"></i></a>
                                             <ul class="dropdown-menu">
                                                 <li><a href="@Url.Action("Login","Login")"> Đăng nhập/ Đăng ký</a></li>
-                                                
+
                                             </ul>
                                         }
 
@@ -174,12 +169,12 @@
                             <a href="/Client/PlayMusic/{{id}}"><img src="{{linkFile}}" alt=""> {{musicName}}</a>
                             <br>
                             @*<span>
-                                {{singers}}
-                            </span>*@
+                                    {{singers}}
+                                </span>*@
                         </div>
                     </div>
                 </script>
-               
+
 
                 <span>Video</span>
                 <div id="viewMV">
@@ -209,7 +204,7 @@
                 </script>
                 <span>Nghệ sĩ</span>
                 <div id="singerTemplate" class="viewSinger">
-            
+
                 </div>
                 <script id="data-singer-template" type="x-tmpl-mustache">
                     <div class="itemSongRandom">
