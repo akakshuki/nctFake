@@ -3,6 +3,7 @@ using Api.Models.Bus;
 using Api.Models.EF;
 using ModelViews.DTOs;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Api.Models
 {
@@ -103,7 +104,6 @@ namespace Api.Models
             }
             return false;
         }
-
         public bool CreateUser(UserDTO userDTO)
         {
             if (new UserBus().CreateUser(userDTO))
@@ -140,9 +140,9 @@ namespace Api.Models
             return false;
         }
 
-        public IEnumerable<User> GetListSingerSearch(string value)
+        public IEnumerable<UserDTO> GetListSingerSearch(string value)
         {
-            return new UserBus().GetListSingerSearch(value);
+            return new UserBus().GetListSingerSearch(value).ToList();
         }
 
         public bool UpdatePassword(UserDTO userDTO)
@@ -585,11 +585,11 @@ namespace Api.Models
         #endregion
 
 
-
+        #region user login 
 
         public List<OrderVipDTO> GetAllOrderVip()
         {
-          return new OrderVipBus().GetAllOrderVip();
+            return new OrderVipBus().GetAllOrderVip();
         }
 
 
@@ -601,6 +601,35 @@ namespace Api.Models
         public void UserCheckVipEnd(string email)
         {
             new UserBus().CheckUserVip(email);
+        }
+
+        public bool AcceptOrderVip(OrderVipDTO dto)
+        {
+            return new UserBus().AcceptOrderVip(dto);
+        }
+
+
+        #endregion
+
+
+        public List<HistoryUserDTO> GetHistoryUserId(int id)
+        {
+           return  new UserBus().GetHistoryUserByUserId(id);
+        }
+
+        public void CreateHistoryUser(HistoryUserDTO historyUser)
+        {
+            new UserBus().CreatHistoryUser(historyUser);
+        }
+
+        public bool DeleteHistoryUserById(int idUser, int idMusic)
+        {
+           return new UserBus().DeleteHistoryUserById(idUser, idMusic);
+        }
+
+        public bool DeleteHistoryUserByUserId(int id)
+        {
+            return new UserBus().DeleteAllHistory(id);
         }
     }
 }

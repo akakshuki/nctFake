@@ -195,6 +195,7 @@
     <Compile Include="Areas\Admin\Controllers\QualityMusicController.cs" />
     <Compile Include="Areas\Admin\Controllers\RankController.cs" />
     <Compile Include="Areas\Client\ClientAreaRegistration.cs" />
+    <Compile Include="Areas\Client\Controllers\ClientPaymentController.cs" />
     <Compile Include="Areas\Client\Controllers\MusicClientController.cs" />
     <Compile Include="Areas\Client\Controllers\PlaylistClientController.cs" />
     <Compile Include="Areas\Client\Controllers\QualityMusicClientController.cs" />
@@ -257,6 +258,7 @@
     <Compile Include="Models\CommonConstants.cs" />
     <Compile Include="Models\Common\ConvertString.cs" />
     <Compile Include="Models\Dao\CategoryDao.cs" />
+    <Compile Include="Models\Dao\HistoryUserDao.cs" />
     <Compile Include="Models\Dao\LyricsMusicDao.cs" />
     <Compile Include="Models\Dao\MusicDao.cs" />
     <Compile Include="Models\Dao\OrderVipDao.cs" />
@@ -333,9 +335,6 @@
       <DependentUpon>NCTModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\EF\SingerMusic.cs">
-      <DependentUpon>NCTModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\EF\sysdiagram.cs">
       <DependentUpon>NCTModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\EF\User.cs">

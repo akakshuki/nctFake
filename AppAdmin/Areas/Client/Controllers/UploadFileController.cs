@@ -71,14 +71,17 @@ namespace AppAdmin.Areas.Client.Controllers
         public ActionResult CreateMusicUser(MusicDTO m, HttpPostedFileBase fileMusic, HttpPostedFileBase imgMusic)
         {
             Session["singer"] = ApiService.GetAllSinger();
+            var user = (UserDTO) Session[CommonConstants.USER_SESSION];
+            List<int> arrSinger = new List<int>();
             if (Session["singer"]!=null)
             {
-                List<int> arrSinger = new List<int>();
-                arrSinger = Session["singer"] as List<int>;
+
+                var list = Session["singer"] as List<int>;
+                arrSinger = list;
                 m.MusicNameUnsigned = RemoveUnicode.RemoveSign4VietnameseString(m.MusicName);
                 m.MusicDownloadAllowed = true;
                 m.MusicView = 0;
-                m.UserID = 48;
+                m.UserID = user.ID;
                 //img music
                 if (imgMusic == null)
                 {
@@ -86,10 +89,17 @@ namespace AppAdmin.Areas.Client.Controllers
                 }
                 else
                 {
-                    string FileNameMusic = DateTime.Now.Ticks + Path.GetFileName(imgMusic.FileName);
-                    string pathMusic = Path.Combine(Server.MapPath("~/File/ImagesMusic"), FileNameMusic);
-                    imgMusic.SaveAs(pathMusic);
-                    m.MusicImage = FileNameMusic;
+                    try
+                    {
+                        string FileNameMusic = DateTime.Now.Ticks +".png";
+                        imgMusic.SaveAs(Server.MapPath("~/File/ImageMusic/" + FileNameMusic));
+                        m.MusicImage = FileNameMusic;
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e);
+                        throw;
+                    }
                 }
                 //quality music
                 QualityMusicDTO quality = new QualityMusicDTO()
@@ -103,13 +113,13 @@ namespace AppAdmin.Areas.Client.Controllers
                 {
                     quality.QualityID = 1; //file normal of song
                     m.SongOrMV = true;
-                    path = Path.Combine(Server.MapPath("~/File/mp3-mp4"), FileName);
+                    path = Path.Combine(Server.MapPath("~/File/mp3-mp4/"), FileName);
                 }
                 else
                 {
                     quality.QualityID = 3; //file mormal of mv
                     m.SongOrMV = false;
-                    path = Path.Combine(Server.MapPath("~/File/mp3-mp4"), FileName);
+                    path = Path.Combine(Server.MapPath("~/File/mp3-mp4/"), FileName);
                 }
                 fileMusic.SaveAs(path);
                 quality.MusicFile = FileName;
@@ -125,7 +135,11 @@ namespace AppAdmin.Areas.Client.Controllers
                         //singer
                         foreach (var number in arrSinger)
                         {
-
+                            ApiService.AddSingerToMusic(new SingerMusicDTO()
+                            {
+                                MusicID = data,
+                                SingerID = number
+                            });
                         }
                         TempData["success"] = "Upload file thành công";
                     }

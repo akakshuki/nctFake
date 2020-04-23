@@ -25,6 +25,11 @@ namespace AppAdmin.Areas.Client.Controllers
             else
             {
                 Session["UserId"] = UserId.ID;
+                new ApiService().CreateHistory(new HistoryUserDTO()
+                {
+                    MusicID = id,
+                    UserID = UserId.ID
+            });
                 if (ApiService.GetPlaylistByIdUser(UserId.ID).Count() > 0)
                 {
                     ViewBag.getPlaylistByIdUser = ApiService.GetPlaylistByIdUser(UserId.ID);

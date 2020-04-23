@@ -309,7 +309,7 @@ namespace Api.Models.Bus
             new UserDao().ResetPassword(userDto);
         }
 
-        public IEnumerable<User> GetListSingerSearch(string value)
+        public IEnumerable<UserDTO> GetListSingerSearch(string value)
         {
             return new UserDao().GetListSingerSearch(value);
         }
@@ -320,6 +320,95 @@ namespace Api.Models.Bus
             if (user != null && user.DayVipEnd <= DateTime.Now)
             {
                 new UserDao().UpdateUserVip(email);
+            }
+        }
+
+        public bool AcceptOrderVip(OrderVipDTO dto)
+        {
+            try
+            {
+                if (new OrderVipDao().Create(new OrderVip()
+                {
+                    UserID = dto.UserID,
+                    PVipID = dto.PVipID,
+                    PaymentID = dto.PaymentID,
+                    OrdDayCreate = DateTime.Now,
+                    OrdPrice = dto.OrdPrice
+                }))
+                {
+                    if (dto.PVipID != null)
+                    {
+                        var vip = new PackageVipDao().GetById((int) dto.PVipID);
+                        new UserDao().SetVipForUser(dto.UserID, vip.PVipMonths);
+                    }
+
+                }
+
+
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return false;
+            }
+        }
+
+        public List<HistoryUserDTO> GetHistoryUserByUserId(int id)
+        {
+            try
+            {
+               var historyUser = new HistoryUserDao().GetAllHistoryUser().Where(x=>x.UserID == id).Select(x=>new HistoryUserDTO()
+               {
+                   ID = x.ID,
+                   UserID = x.UserID,
+                   MusicID = x.MusicID,
+                   MusicDto = new MusicBus().MusicById(x.MusicID),
+                   UserDto = new UserBus().GetUserDtoById(x.UserID)
+               }).GroupBy(x=>x.MusicID).Select(x=>x.First()).OrderByDescending(x=>x.ID).ToList();
+
+
+               return historyUser;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+
+        public void CreatHistoryUser(HistoryUserDTO historyUser)
+        {
+            new HistoryUserDao().CreateHistoryUser(new HistoryUser()
+            {
+                MusicID = historyUser.MusicID,
+                UserID = historyUser.UserID
+            });
+        }
+
+
+        public bool DeleteHistoryUserById(int idUser, int idMusic)
+        {
+            try
+            {
+               return new HistoryUserDao().DeleteHistory(idUser, idMusic);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return false;
+            }
+        }
+        public bool DeleteAllHistory(int idUser)
+        {
+            try
+            {
+                return new HistoryUserDao().DeleteAllHistoryUser(idUser);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return false;
             }
         }
     }

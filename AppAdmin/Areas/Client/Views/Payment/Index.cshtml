@@ -1,0 +1,47 @@
+﻿@using ModelViews.DTOs
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Client/Views/Shared/_LayoutClient.cshtml";
+
+    List<PackageVipDTO> list =  ViewBag.PackageVip;
+}
+
+
+
+<div class="container form-panel">
+    <h1 style="font-size: 35px; margin-top: 1rem; " class="text-center ">
+        Chọn gói Vip
+    </h1>
+    <div style="padding-top: 1rem;" class="container row">
+        @if (list != null)
+        {
+            foreach (var packageVipDto in list.OrderBy(x => x.PVipMonths))
+            {
+                <div class="col-md-4">
+                    <div class="card" style="margin: 2rem; padding: 1rem; width: 18rem; border: 1px outset black; -ms-border-radius: 10%; border-radius: 1%; background: azure">
+                        <img class="card-img-top" src="~/Content/ClientMusic/images/paymentlgo.png" alt="Card image cap">
+                        <div class="card-body ">
+                            <h5 class=" text-center card-title">@packageVipDto.PVipName</h5>
+                            <div class="text-center">
+                                <p class="card-text">Thời hạn : <span>@packageVipDto.PVipMonths</span> tháng</p>
+                                <p class="card-text">Giá : <span>@packageVipDto.PVipPrice</span> vnd</p>
+                                <hr />
+                            </div>
+                            <a style="margin-left: 6rem;" href="@Url.Action("Payment","Payment", new {id= @packageVipDto.ID})" class="btn btn-primary">Mua</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <p class="text-center">
+                <span>
+                    Hiện tại các gói vip vẫn chưa mở bán :<
+                </span>
+                </p>
+            }
+</div>
+</div>
+

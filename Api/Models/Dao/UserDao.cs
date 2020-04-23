@@ -153,9 +153,13 @@ namespace Api.Models.Dao
             db.SaveChanges();
         }
 
-        public IEnumerable<User> GetListSingerSearch(string value)
+        public IEnumerable<UserDTO> GetListSingerSearch(string value)
         {
-            var data = db.Users.Where(w => w.RoleID == 2 && (w.UserName.ToLower().Contains(value.ToLower()) || w.UserNameUnsigned.ToLower().Contains(value.ToLower()))).ToList() ?? null;
+            var data = db.Users.Where(w => w.RoleID == 2 && (w.UserName.ToLower().Contains(value.ToLower()) || w.UserNameUnsigned.ToLower().Contains(value.ToLower()))).Select(x=> new UserDTO()
+            {
+                ID = x.ID,
+                UserName = x.UserName
+            } ).ToList();
             return data;
 
         }
@@ -176,6 +180,31 @@ namespace Api.Models.Dao
                 return true;
             }
             return false;
+        }
+
+        public void SetVipForUser(int dtoUserId, int month)
+        {
+            var user = db.Users.Find(dtoUserId);
+            if (user != null)
+            {
+                if (user.DayVipEnd == null   )
+                {
+                    user.DayVipEnd = DateTime.Now.AddMonths(month);
+                }else if (user.DayVipEnd <= DateTime.Now)
+                {
+                    user.DayVipEnd = DateTime.Now.AddMonths(month);
+                }
+                else
+                {
+                    var date = (DateTime)user.DayVipEnd;
+                    user.DayVipEnd = date.AddMonths(month);
+                }
+                user.UserVIP = true;
+                db.SaveChanges();
+            }
+
+            
+            
         }
     }
 }

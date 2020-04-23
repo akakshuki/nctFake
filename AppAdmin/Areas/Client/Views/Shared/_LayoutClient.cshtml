@@ -74,6 +74,12 @@
     <!-- End Header Top Area -->
     <!--Start Content-->
     <div id="content" class="container">
+        @if (TempData["AlertMessage"] != null)
+        {
+            <div id="AlertBox" class="text-center alert @TempData["AlertType"]" hide>
+                @TempData["AlertMessage"]
+            </div>
+        }
         @RenderBody()
     </div>
     <!--End content-->
@@ -218,15 +224,22 @@
     <!-- Mustache JS
     ============================================ -->
     <script src="~/Content/ClientMusic/js/Mustache.js"></script>
-<!-- main JS
-============================================ -->
+    <!-- main JS
+    ============================================ -->
 
 
-<script src="@Url.Content("~/Content/ClientMusic/")js/main.js"></script>
-<script src="~/Scripts/alertify.min.js"></script>
+    <script src="@Url.Content("~/Content/ClientMusic/")js/main.js"></script>
+    <script src="~/Scripts/alertify.min.js"></script>
     @RenderSection("js", false)
     @RenderSection("headerJs", false)
     <script src="~/Scripts/alertify.min.js"></script>
+    <script>
+        $(function () {
+            $('#AlertBox').removeClass('hide');
+            $('#AlertBox').delay(2000).slideUp(500);
+        });
+    </script>
+    }
 </body>
 
 </html>
