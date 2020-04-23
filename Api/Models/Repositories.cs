@@ -3,6 +3,7 @@ using Api.Models.Bus;
 using Api.Models.EF;
 using ModelViews.DTOs;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Api.Models
 {
@@ -139,9 +140,9 @@ namespace Api.Models
             return false;
         }
 
-        public IEnumerable<User> GetListSingerSearch(string value)
+        public IEnumerable<UserDTO> GetListSingerSearch(string value)
         {
-            return new UserBus().GetListSingerSearch(value);
+            return new UserBus().GetListSingerSearch(value).ToList();
         }
         #endregion User
 

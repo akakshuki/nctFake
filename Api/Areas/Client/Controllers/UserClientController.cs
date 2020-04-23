@@ -15,14 +15,23 @@ namespace Api.Areas.Client.Controllers
     {
         // GET: api/User
         [HttpGet]
-        [Route("GetListSingerSearch")]
-        public IEnumerable<User> GetListSingerSearch(string value)
+        [Route("GetListSingerSearch/{value}")]
+        public IHttpActionResult GetListSingerSearch(string value)
         {
-            var data = new Repositories().GetListSingerSearch(value);
-            return data;
+            try
+            {
+
+                var data = new Repositories().GetListSingerSearch(value).ToList();
+                return Ok(data);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return NotFound();
+            }
         }
 
-        [HttpGet,Route("UserCheckVipEnd/{email}")]
+        [HttpGet, Route("UserCheckVipEnd/{email}")]
         public IHttpActionResult UserCheckVipEnd(string email)
         {
             try
@@ -36,7 +45,7 @@ namespace Api.Areas.Client.Controllers
                 return NotFound();
             }
         }
-       
+
         // POST: api/User
         [HttpPost, Route("UserResetPassword")]
         public IHttpActionResult UserResetPassword([FromBody]UserDTO userDto)
@@ -60,14 +69,14 @@ namespace Api.Areas.Client.Controllers
         {
             try
             {
-                 new Repositories().CreateHistoryUser(historyUser);
+                new Repositories().CreateHistoryUser(historyUser);
 
                 return Ok();
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
-                return  InternalServerError();
+                return InternalServerError();
             }
         }
 

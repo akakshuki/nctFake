@@ -300,7 +300,7 @@ namespace Api.Models.Bus
             new UserDao().ResetPassword(userDto);
         }
 
-        public IEnumerable<User> GetListSingerSearch(string value)
+        public IEnumerable<UserDTO> GetListSingerSearch(string value)
         {
             return new UserDao().GetListSingerSearch(value);
         }

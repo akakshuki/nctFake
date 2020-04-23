@@ -1809,28 +1809,19 @@ namespace AppAdmin.Models.Service
 
         public static List<UserDTO> GetListSingerSearch(string value)
         {
-            var settings = new JsonSerializerSettings
-            {
-                NullValueHandling = NullValueHandling.Ignore,
-                MissingMemberHandling = MissingMemberHandling.Ignore
-            };
-            using (var client = new HttpClient())
-            {
-                client.BaseAddress =
-                    new Uri("https://localhost:44384/api/UserClient/GetListSingerSearch" + "?value=" + value);
-                var responseTask = client.GetAsync(client.BaseAddress);
-                responseTask.Wait();
-                var result = responseTask.Result;
-                if (result.IsSuccessStatusCode)
-                {
-                    var readTask =
-                        JsonConvert.DeserializeObject<List<UserDTO>>(result.Content.ReadAsStringAsync().Result,
-                            settings);
-                    return readTask;
-                }
-            }
 
-            return null;
+
+            using var client = new HttpClient
+            {
+                BaseAddress = new Uri("https://localhost:44384/api/UserClient/GetListSingerSearch" + "/" + value + "/")
+            };
+            var responseTask = client.GetAsync(client.BaseAddress);
+            responseTask.Wait();
+            var result = responseTask.Result;
+            if (!result.IsSuccessStatusCode) return null;
+            var readTask =
+                JsonConvert.DeserializeObject<List<UserDTO>>(result.Content.ReadAsStringAsync().Result);
+            return readTask.ToList();
         }
 
         #endregion
@@ -1880,7 +1871,7 @@ namespace AppAdmin.Models.Service
         public static bool DeleteHistoryUser(int userId, int id)
         {
             using var client = new HttpClient();
-            client.BaseAddress = new Uri("https://localhost:44384/api/UserClient/DeleteHistoryUserById/" + userId +"/"+ id);
+            client.BaseAddress = new Uri("https://localhost:44384/api/UserClient/DeleteHistoryUserById/" + userId + "/" + id);
             var responseTask = client.DeleteAsync(client.BaseAddress);
             responseTask.Wait();
             var result = responseTask.Result;
