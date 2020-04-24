@@ -71,11 +71,11 @@
                                     {
                                         if (itemSinger.SingerMusicDtOs.IndexOf(singers) + 1 == itemSinger.SingerMusicDtOs.Count)
                                         {
-                                            <a>@singers.UserDto.UserName.</a>
+                                            <a href="@Url.Action("Index","Singer", new { id = singers.UserDto.ID })">@singers.UserDto.UserName.</a>
                                         }
                                         else
                                         {
-                                            <a>@singers.UserDto.UserName,</a>
+                                            <a href="@Url.Action("Index","Singer", new { id = singers.UserDto.ID })">@singers.UserDto.UserName,</a>
                                         }
                                     }
                                 }
@@ -109,7 +109,7 @@
         <div id="owl-wrapper">
             @foreach (var item in listPartner)
             {
-                <img class="imgItem" src="@item.LinkImage">
+                <a href="@item.PartnerLink" class="imgItem" target="_blank"> <img src="@item.LinkImage"></a>
             }
         </div>
         <div id="controlImg">

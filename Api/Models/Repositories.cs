@@ -268,6 +268,11 @@ namespace Api.Models
         {
             return new MusicBus().GetListMusicWithPage(pagination);
         }
+        // create upload
+        public int CreateMusic(Music m)
+        {
+            return new MusicBus().CreateMusic(m);
+        }
 
         public void CreateMusic(MusicDTO music)
         {
@@ -285,6 +290,7 @@ namespace Api.Models
         }
 
         //update music View
+
         public int UpdateView(int id)
         {
             return new MusicBus().UpdateView(id);

@@ -125,13 +125,13 @@
                     <div class="input-group mg-t-15">
                         <span class="input-group-addon nk-ic-st-pro"><i class="notika-icon notika-mail"></i></span>
                         <div class="nk-int-st">
-                            <input name="UserEmail" type="text" class="form-control" placeholder="Email Address" required>
+                            <input pattern="[a-z0-9._%+-]+@("@")[a-z0-9.-]+\.[a-z]{2,}$" title="Invalid email" name="UserEmail" type="text" class="form-control" placeholder="Email Address" required>
                         </div>
                     </div>
                     <div class="input-group mg-t-15 ">
                         <span class="input-group-addon nk-ic-st-pro"><i class="notika-icon notika-edit"></i></span>
                         <div class="nk-int-st mb-5">
-                            <input name="UserPwd" type="password" class="form-control" placeholder="Password">
+                            <input pattern=".{6,}" title="Six or more characters" name="UserPwd" type="password" class="form-control" placeholder="Password" required>
                         </div>
                     </div>
                     <input type="submit" value="Đăng kí" style="margin-top: 10px;height: 30px;color: black; background-color: #00c292;  border-radius: 10%; border: 3px solid white;  font-size: 18px;">

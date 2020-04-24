@@ -140,7 +140,14 @@ namespace Api.Models.Dao
         }
         public UserDTO GetIdLogin(string email)
         {
-            var data = db.Users.Select(x => new UserDTO { UserEmail = x.UserEmail, ID = x.ID, UserName = x.UserName, DayVipEnd = x.DayVipEnd }).SingleOrDefault(x => x.UserEmail == email);
+            var data = db.Users.Select(x => new UserDTO
+            {
+                UserEmail = x.UserEmail,
+                ID = x.ID,
+                UserName = x.UserName,
+                DayVipEnd = x.DayVipEnd,
+                UserVIP = x.UserVIP
+            }).SingleOrDefault(x => x.UserEmail == email);
             return data;
         }
         #endregion
@@ -155,11 +162,11 @@ namespace Api.Models.Dao
 
         public IEnumerable<UserDTO> GetListSingerSearch(string value)
         {
-            var data = db.Users.Where(w => w.RoleID == 2 && (w.UserName.ToLower().Contains(value.ToLower()) || w.UserNameUnsigned.ToLower().Contains(value.ToLower()))).Select(x=> new UserDTO()
+            var data = db.Users.Where(w => w.RoleID == 2 && (w.UserName.ToLower().Contains(value.ToLower()) || w.UserNameUnsigned.ToLower().Contains(value.ToLower()))).Select(x => new UserDTO()
             {
                 ID = x.ID,
                 UserName = x.UserName
-            } ).ToList();
+            }).ToList();
             return data;
 
         }
@@ -167,12 +174,12 @@ namespace Api.Models.Dao
         {
             var user = db.Users.SingleOrDefault(x => x.UserEmail == email);
             user.UserVIP = false;
-           //user.DayVipEnd = null;
+            //user.DayVipEnd = null;
             db.SaveChanges();
         }
         public bool UpdatePassword(UserDTO userDTO)
         {
-            var data = db.Users.SingleOrDefault(x =>x.ID == userDTO.ID && x.UserPwd == userDTO.AccountPwd) ?? null;
+            var data = db.Users.SingleOrDefault(x => x.ID == userDTO.ID && x.UserPwd == userDTO.AccountPwd) ?? null;
             if (data != null)
             {
                 data.UserPwd = userDTO.UserPwd;
@@ -187,10 +194,11 @@ namespace Api.Models.Dao
             var user = db.Users.Find(dtoUserId);
             if (user != null)
             {
-                if (user.DayVipEnd == null   )
+                if (user.DayVipEnd == null)
                 {
                     user.DayVipEnd = DateTime.Now.AddMonths(month);
-                }else if (user.DayVipEnd <= DateTime.Now)
+                }
+                else if (user.DayVipEnd <= DateTime.Now)
                 {
                     user.DayVipEnd = DateTime.Now.AddMonths(month);
                 }
@@ -203,8 +211,8 @@ namespace Api.Models.Dao
                 db.SaveChanges();
             }
 
-            
-            
+
+
         }
     }
 }

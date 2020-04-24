@@ -26,7 +26,7 @@
                             {
                                 foreach (var singers in itemSinger.SingerMusicDtOs)
                                 {
-                                    <a>@singers.UserDto.UserName,</a>
+                                    <a href="@Url.Action("Index","Singer", new { id = singers.UserDto.ID })">@singers.UserDto.UserName,</a>
                                 }
                             }
 

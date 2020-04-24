@@ -188,7 +188,7 @@
                                         {
                                             foreach (var singers in itemMusic.SingerMusicDtOs)
                                             {
-                                                <a>@singers.UserDto.UserName,</a>
+                                                <a href="@Url.Action("Index","Singer", new { id = singers.UserDto.ID })">@singers.UserDto.UserName,</a>
                                             }
                                         }
 
@@ -212,7 +212,7 @@
                                           
                                             if (getPlatlistByIdUser == null)
                                             {
-                                                <span>Bạn chưa có playlist nào. <a href="#">TẠO</a></span>
+                                                <span>Bạn chưa có playlist nào. <a href="@Url.Action("","", new { id = Session["UserIdPl"]})">TẠO</a></span>
                                             }
                                             else
                                             {
@@ -290,7 +290,7 @@
                                     <img src="@item.LinkImage" alt="" style="border-radius: 0%;"> @item.PlaylistName
                                 </a><br>
                                 <span>
-                                    <a href="">@item.UserDto.UserName</a>
+                                    <a href="@Url.Action("Index","Singer", new { id = item.UserDto.ID })">@item.UserDto.UserName</a>
                                 </span>
                             </div>
                         </div>

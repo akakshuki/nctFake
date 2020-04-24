@@ -18,8 +18,8 @@
            $(document).ready(function () {
             var valueAuto = true;
             var userVip = "False";
-            if ('@Session["Vip"]' != null) {
-                userVip = '@Session["Vip"]';
+            if ('@Session["UserVip"]' != null) {
+                userVip = '@Session["UserVip"]';
             }
             var mainAudio = $("#myAudio");
             var mvFav = true;
@@ -334,7 +334,7 @@
                                             else
                                             {
 
-                                                <span>Bạn chưa có playlist nào. <a href="#">TẠO</a></span>
+                                                <span>Bạn chưa có playlist nào. <a href="@Url.Action("","", new { id = Session["UserId"]})">TẠO</a></span>
                                             }
                                         }
                                         else
@@ -385,7 +385,7 @@
                                     }
                                     else
                                     {
-                                    
+
                                         <option value="@qualityMusicDTO.LinkFile" data-vip="@qualityMusicDTO.QualityDto.QualityVip">@qualityMusicDTO.QualityDto.QualityName</option>
                                         if (listQuality != null)
                                         {
@@ -397,7 +397,7 @@
                                                 }
                                             }
                                         }
-             
+
                                     }
 
                                 </select><br>
@@ -487,28 +487,68 @@
                             foreach (var quality in listQuality)
                             {
                                 // so sanh user vip o day uservip == quality.qualitydto.vip
-                                if (quality.QualityDto.QualityVip)
+
+                                if ((Session["UserVip"]) == null)
                                 {
-                                    <button disabled="disabled" class="buttondownload btn btn-default" data-id="@quality.ID">
-                                        @quality.QualityDto.QualityName
-                                        @if (quality.QualityDto.QualityVip)
-                                        {
-                                            <i class="fas fa-crown"></i>
-                                        }
-                                    </button>
+                                    if (quality.QualityDto.QualityVip)
+                                    {
+                                        <button disabled="disabled" class="buttondownload btn btn-default" data-id="@quality.ID">
+                                            @quality.QualityDto.QualityName
+                                            @if (quality.QualityDto.QualityVip)
+                                            {
+                                                <i class="fas fa-crown"></i>
+                                            }
+                                        </button>
+                                    }
+                                    else
+                                    {
+                                        <button class="buttondownload btn btn-default" data-id="@quality.ID">
+                                            @quality.QualityDto.QualityName
+                                            @if (quality.QualityDto.QualityVip)
+                                            {
+                                                <i class="fas fa-crown"></i>
+                                            }
+                                        </button>
+                                    }
+
                                 }
                                 else
                                 {
-                                    <button class="buttondownload btn btn-default" data-id="@quality.ID">
-                                        @quality.QualityDto.QualityName
-                                        @if (quality.QualityDto.QualityVip)
+                                    if ((bool)(Session["UserVip"]) == true)
+                                    {
+                                        <button class="buttondownload btn btn-default" data-id="@quality.ID">
+                                            @quality.QualityDto.QualityName
+                                            @if (quality.QualityDto.QualityVip)
+                                            {
+                                                <i class="fas fa-crown"></i>
+                                            }
+                                        </button>
+                                    }
+                                    else
+                                    {
+                                        if (quality.QualityDto.QualityVip)
                                         {
-                                            <i class="fas fa-crown"></i>
+                                            <button disabled="disabled" class="buttondownload btn btn-default" data-id="@quality.ID">
+                                                @quality.QualityDto.QualityName
+                                                @if (quality.QualityDto.QualityVip)
+                                                {
+                                                    <i class="fas fa-crown"></i>
+                                                }
+                                            </button>
                                         }
-                                    </button>
+                                        else
+                                        {
+                                            <button class="buttondownload btn btn-default" data-id="@quality.ID">
+                                                @quality.QualityDto.QualityName
+                                                @if (quality.QualityDto.QualityVip)
+                                                {
+                                                    <i class="fas fa-crown"></i>
+                                                }
+                                            </button>
+                                        }
+                                    }
+
                                 }
-
-
                             }
                         }
                         else

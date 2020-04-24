@@ -39,9 +39,10 @@ namespace AppAdmin.Areas.Client.Controllers
             else
             {
                 ViewBag.getPlaylistByIdUser = null;
-            }   
-            ViewBag.getSong = ApiService.GetMusicByIdUser(id).Where(s=>s.SongOrMV == true).ToList();
-            ViewBag.getMv = ApiService.GetMusicByIdUser(id).Where(s=>s.SongOrMV == false).ToList();
+            }
+            var data = ApiService.GetMusicByIdUser(id); 
+            ViewBag.getSong = data.Where(s=>s.SongOrMV == true).ToList();
+            ViewBag.getMv = data.Where(s=>s.SongOrMV == false).ToList();
             return View();
         }
         [HttpPost]

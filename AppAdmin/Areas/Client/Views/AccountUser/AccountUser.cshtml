@@ -5,6 +5,7 @@
     List<OrderVipDTO> GetOrderVipByIdUser = ViewBag.getOrderVipByIdUser;
     UserDTO getInfoUser = ViewBag.getInfoUser;
     var date = ViewBag.date;
+    var dateVip = ViewBag.dateVip;
 }
 @section js{
     <script>
@@ -27,22 +28,15 @@
     <script src="@Url.Content("~/Content/Dashio/")lib/advanced-form-components.js"></script>
 }
 <div id="content" class="container">
-    @if (TempData["AlertMessage"] != null)
-    {
-        <div style="text-align: center;" id="AlertBox" class="alert @TempData["AlertType"]" hide>
-            @TempData["AlertMessage"]
-        </div>
-    }
     <div id="info">
         <div>
             <img src="@getInfoUser.LinkImage" alt="">
         </div>
         <div>
-            <span>@getInfoUser.UserName</span>
             <span>
                 @if (getInfoUser.UserVIP == true)
                 {<i class="fa fa-crown" style="color: yellow;"></i>}
-                else { }
+                else { }@getInfoUser.UserName
             </span><br>
             @if (date != null)
             {
@@ -50,15 +44,22 @@
             }
             else
             {
-                <span>Sinh ngày: Chưa cập nhật</span><br />
+                <span>Sinh ngày: Chưa cập nhật</span><br>
             }
-            @if (getInfoUser.UserGender == true)
+            @if (getInfoUser.UserGender != null)
             {
-                <span>Giới tính: Nam</span><br>
+                if (getInfoUser.UserGender == true)
+                {
+                    <span>Giới tính: Nam</span><br>
+                }
+                else
+                {
+                    <span>Giới tính: Nữ</span><br>
+                }
             }
             else
             {
-                <span>Giới tính: Nữ</span><br>
+                <span>Giới tính: Chưa cập nhật</span><br>
             }
             <span>Email: @getInfoUser.UserEmail</span><br>
             <span>Lời giới thiệu:</span>
@@ -72,18 +73,16 @@
                     <label>Chưa cập nhật lời giới thiệu</label>
                 } <br>
             </span>
-            <span>
-                @if (getInfoUser.DayVipEnd != null)
-                {
 
-                    @getInfoUser.DayVipEnd
-                }
-                else
-                {
-                    <label>Bạn chưa mua vip</label>
-                }
-            </span>
-            <br>
+            @if (dateVip == null)
+            {
+
+                <span>Bạn chưa mua vip</span><br>
+            }
+            else
+            {
+        <span>Ngày hết hạn vip: @dateVip.ToString("dd-MM-yyyy")</span><br>
+            }
             <a data-toggle="collapse" href="#multiCollapseExample1" role="button" class="btn btn-success"
                aria-expanded="false" aria-controls="multiCollapseExample1">Chỉnh sửa</a>
             <a data-toggle="collapse" href="#multiCollapseExample2" role="button" class="btn btn-primary"
@@ -103,49 +102,44 @@
                         </div>
                         <!--DOB-->
                         <div class="form-group ic-cmp-int">
-                            @*<div class="form-ic-cmp">
-                                    <i class="notika-icon notika-calendar"></i>
-                                </div>
-                                <div class="nk-int-st">
-                                    <input name="UserDOB" value="@getInfoUser.UserDOB" type="date" class="form-control" placeholder="">
-                                </div>*@
                             <div class="form-ic-cmp">
                                 <i class="notika-icon notika-calendar"></i>
                             </div>
                             <div class="nk-int-st">
                                 <div data-date-viewmode="years" data-date-format="dd-mm-yyyy" data-date="" class="input-append date dpYears">
-                                    <input name="UserDOB" type="text" readonly="" value="@date.ToString("dd-MM-yyyy")" size="16" class="form-control" placeholder="dd-mm-yy">
+                                    <input name="UserDOB" type="text" readonly="" value="@if (date != null)
+                                    {
+                                            @date.ToString("dd-MM-yyyy")
+                                    }
+                                        " size="16" class="form-control" placeholder="dd-mm-yy">
                                     <div class="input-group-btn add-on">
                                         <button style="margin-left: -39px;margin-top: -33px; float:right;" class="btn btn-theme" type="button"><i class="fa fa-calendar"></i></button>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        @*<div class="form-group">
-                                <label class="control-label col-lg-2">Date of birth</label>
-                                <div class="col-md-3 col-xs-11">
-                                    <div data-date-viewmode="years" data-date-format="dd-mm-yyyy" data-date="01-01-2014" class="input-append date dpYears">
-                                        <input name="UserDOB" type="text" readonly="" value="@getInfoUser.UserDOB" size="16" class="form-control">
-                                        <span class="input-group-btn add-on">
-                                            <button class="btn btn-theme" type="button"><i class="fa fa-calendar"></i></button>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>*@
                         <!--Gender-->
                         <div class="form-group ic-cmp-int">
                             <div class="nk-int-st" style="margin-left: 10px;">
                                 <span><i class="fas fa-venus-mars"></i></span>
                                 <select name="UserGender" id="" style="width: 155px;font-size: 16px;">
-                                    @if (getInfoUser.UserGender == true)
+                                    @if (getInfoUser.UserGender != null)
                                     {
-                                        <option selected="selected" value="@getInfoUser.UserGender">Nam</option>
-                                        <option value="false">Nữ</option>
+                                        if (getInfoUser.UserGender == true)
+                                        {
+                                            <option selected="selected" value="@getInfoUser.UserGender">Nam</option>
+                                            <option value="false">Nữ</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="true">Nam</option>
+                                            <option selected="selected" value="@getInfoUser.UserGender">Nữ</option>
+                                        }
                                     }
                                     else
                                     {
                                         <option value="true">Nam</option>
-                                        <option selected="selected" value="@getInfoUser.UserGender">Nữ</option>
+                                        <option value="false">Nữ</option>
                                     }
                                 </select>
                             </div>
@@ -157,26 +151,26 @@
                             </div>
                             <div class="nk-int-st">
                                 <textarea name="UserDescription" type="text" class="form-control" placeholder="Lời giới thiệu"
-                                          style="height: 70px;" maxlength="200">@getInfoUser.UserDescription</textarea>
+                                          style="height: 70px;" maxlength="200">@if (getInfoUser.UserDescription != null){@getInfoUser.UserDescription}</textarea>
                             </div>
                         </div>
                         <!--Image-->
                         <div class="maincrop-img" style="margin-left: 37px;margin-bottom: 10px;">
-                            <div class="image-crp-int">
-                                <div class="img-preview img-preview-custom">
-                                    <img src="@getInfoUser.LinkImage" id="upImage" style="width: 300px; height: 255px;">
+                                <div class="image-crp-int">
+                                    <div class="img-preview img-preview-custom">
+                                        <img src="@getInfoUser.LinkImage" id="upImage" style="width: 300px; height: 255px;">
+                                    </div>
+                                </div>
+                                <div class="image-crp-img">
+                                    <div class="btn-group images-cropper-pro">
+                                        <label title="Upload image file" for="inputImage"
+                                               class="btn btn-primary img-cropper-cp waves-effect">
+                                            <input type="file" accept="image/*" name="FileImage" id="inputImage"
+                                                   class="hide"> Upload new image
+                                        </label>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="image-crp-img">
-                                <div class="btn-group images-cropper-pro">
-                                    <label title="Upload image file" for="inputImage"
-                                           class="btn btn-primary img-cropper-cp waves-effect">
-                                        <input type="file" accept="image/*" name="FileImage" id="inputImage"
-                                               class="hide"> Upload new image
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
                         <!--Button-->
                         <input type="submit" class="btn btn-info" value="Lưu"
                                style="margin-left: 37px;font-size: 18px;">

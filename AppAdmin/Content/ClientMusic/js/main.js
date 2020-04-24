@@ -24,9 +24,9 @@
                             '<span>\n';
 						i.SingerMusicDtOs.forEach(function (s) {
 							if (s.index + 1 === i.SingerMusicDtOs.length ) {
-                                row += '<a href=""> ' + s.UserDto.UserName + '</a>';
+                                row += '<a href="/Client/Singer?id=' +s.UserDto.ID +  '" > ' + s.UserDto.UserName + '</a>';
                             } else {
-								row += '<a href=""> ' + s.UserDto.UserName + ',</a>';
+                                row += '<a href="/Client/Singer?id=' + s.UserDto.ID + '" > ' + s.UserDto.UserName + '</a>';
                             }
                         });
 

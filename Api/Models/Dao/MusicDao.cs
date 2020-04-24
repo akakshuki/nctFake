@@ -1,5 +1,6 @@
 ﻿using Api.Models.EF;
 using ModelViews.DTOs;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -113,6 +114,15 @@ namespace Api.Models.Dao
         {
             var data = db.Musics.Where(s => s.UserID == id).ToList();
             return data;
+        }
+        //upload
+        public int CreateMusic(Music m)
+        {
+            m.MusicDayCreate = DateTime.Now;
+            var en = new ProjectNCTEntities();
+            en.Musics.Add(m);
+            en.SaveChanges();
+            return m.ID;
         }
 
     }

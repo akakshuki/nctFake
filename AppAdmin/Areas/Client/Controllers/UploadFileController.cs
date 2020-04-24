@@ -19,8 +19,7 @@ namespace AppAdmin.Areas.Client.Controllers
         }
         public ActionResult UploadFile()
         {
-            var data = (UserDTO)Session[CommonConstants.USER_SESSION];           
-            Session["singer"] = ApiService.GetAllSinger();
+            var data = (UserDTO)Session[CommonConstants.USER_SESSION];
             if (data != null)
             {
                 Session["UserId-UF"] = data.ID;
@@ -32,7 +31,7 @@ namespace AppAdmin.Areas.Client.Controllers
                     return RedirectToAction("Login", "Login");
                 }
             }
-            ViewBag.lsCate = ApiService.GetAllCateCon().Where(s => s.ID_root != null).ToList();
+            ViewBag.lsCate = ApiService.GetAllCate().Where(s => s.ID_root != null).ToList();
             Session.Remove("singer");
             return View();
         }
@@ -70,12 +69,11 @@ namespace AppAdmin.Areas.Client.Controllers
         }
         public ActionResult CreateMusicUser(MusicDTO m, HttpPostedFileBase fileMusic, HttpPostedFileBase imgMusic)
         {
-            Session["singer"] = ApiService.GetAllSinger();
-            var user = (UserDTO) Session[CommonConstants.USER_SESSION];
-            List<int> arrSinger = new List<int>();
-            if (Session["singer"]!=null)
+            //Session["singer"] = ApiService.GetAllSinger();
+            var user = (UserDTO)Session[CommonConstants.USER_SESSION];
+            if (Session["singer"] != null)
             {
-
+                List<int> arrSinger = new List<int>();
                 var list = Session["singer"] as List<int>;
                 arrSinger = list;
                 m.MusicNameUnsigned = RemoveUnicode.RemoveSign4VietnameseString(m.MusicName);
@@ -91,7 +89,7 @@ namespace AppAdmin.Areas.Client.Controllers
                 {
                     try
                     {
-                        string FileNameMusic = DateTime.Now.Ticks +".png";
+                        string FileNameMusic = DateTime.Now.Ticks + ".png";
                         imgMusic.SaveAs(Server.MapPath("~/File/ImageMusic/" + FileNameMusic));
                         m.MusicImage = FileNameMusic;
                     }
@@ -124,10 +122,9 @@ namespace AppAdmin.Areas.Client.Controllers
                 fileMusic.SaveAs(path);
                 quality.MusicFile = FileName;
                 // music
-                var data = ApiService.CreateMusicUpload(m);
-                if (data != null)
+                int idMusic = ApiService.CreateMusicUpload(m);
+                if (idMusic > 0)
                 {
-                    int idMusic = data;
                     quality.MusicID = idMusic;
                     var dataQM = ApiService.CreateQualityMusic(quality);
                     if (dataQM != null)
@@ -137,21 +134,38 @@ namespace AppAdmin.Areas.Client.Controllers
                         {
                             ApiService.AddSingerToMusic(new SingerMusicDTO()
                             {
-                                MusicID = data,
+                                MusicID = idMusic,
                                 SingerID = number
                             });
                         }
+                        SetAlert("Update success!", "success");
                         TempData["success"] = "Upload file thành công";
                     }
                 }
-
             }
             else
             {
+                SetAlert("Update fail!", "warning");
                 TempData["error"] = "Upload file xảy ra lỗi";
             }
             Session.Remove("singer");
             return RedirectToAction("UploadFile");
+        }
+        protected void SetAlert(string message, string type)
+        {
+            TempData["AlertMessage"] = message;
+            if (type == "success")
+            {
+                TempData["AlertType"] = "alert-success";
+            }
+            else if (type == "warning")
+            {
+                TempData["AlertType"] = "alert-warning";
+            }
+            else if (type == "error")
+            {
+                TempData["AlertType"] = "alert-danger";
+            }
         }
     }
 }

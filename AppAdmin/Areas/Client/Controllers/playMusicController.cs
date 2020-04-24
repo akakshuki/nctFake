@@ -21,28 +21,30 @@ namespace AppAdmin.Areas.Client.Controllers
             {
                 Session["UserId"] = null;
                 ViewBag.getPlaylistByIdUser = null;
+                Session["UserVip"] = null;
             }
             else
             {
                 Session["UserId"] = UserId.ID;
+                Session["UserVip"] = UserId.UserVIP;
                 new ApiService().CreateHistory(new HistoryUserDTO()
                 {
                     MusicID = id,
                     UserID = UserId.ID
             });
-                if (ApiService.GetPlaylistByIdUser(UserId.ID).Count() > 0)
+                var dt = ApiService.GetPlaylistByIdUser(UserId.ID);
+                if (dt.Count() > 0)
                 {
-                    ViewBag.getPlaylistByIdUser = ApiService.GetPlaylistByIdUser(UserId.ID);
+                    ViewBag.getPlaylistByIdUser = dt;
                 }
                 else
                 {
                     ViewBag.getPlaylistByIdUser = null;
                 }
             }
-            
-                                     
-            ViewBag.GetAllMusic = ApiService.GetAllMusic();
+
             var data = ApiService.GetAllMusic();
+            ViewBag.GetAllMusic = data;
             ViewBag.getMusicById = ApiService.GetMusicById(id);
             ViewBag.getLyrics = ApiService.GetLyricByIdMusic(id);
             ViewBag.getMusicRandom = data.Where(s=>s.SongOrMV==true).Distinct().OrderBy(s=> Guid.NewGuid()).Take(5).ToList();

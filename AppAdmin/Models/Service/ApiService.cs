@@ -149,8 +149,7 @@ namespace AppAdmin.Models.Service
                 var result = responseTask.Result;
                 if (result.IsSuccessStatusCode)
                 {
-                    var readTask =
-                        JsonConvert.DeserializeObject<UserDTO>(result.Content.ReadAsStringAsync().Result, settings);
+                    var readTask = JsonConvert.DeserializeObject<UserDTO>(result.Content.ReadAsStringAsync().Result, settings);
                     return readTask;
                 }
             }
@@ -1007,19 +1006,17 @@ namespace AppAdmin.Models.Service
 
         }
 
-        public static int CreateMusicUpload(MusicDTO music)
+        public static int CreateMusicUpload(MusicDTO musicDTO)
         {
-            using (var client = new HttpClient())
+            using (HttpClient client = new HttpClient())
             {
-                var data = new StringContent(
-                    new JavaScriptSerializer().Serialize(music), Encoding.UTF8, "application/json");
                 client.DefaultRequestHeaders.Accept.Clear();
-
-                var response = client.PostAsync("https://localhost:44384/api/music/", data).Result;
-
-                if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                var response = client.PostAsync("https://localhost:44384/api/MusicClient/", new StringContent(
+                    new JavaScriptSerializer().Serialize(musicDTO), Encoding.UTF8, "application/json")).Result;
+                if (response.IsSuccessStatusCode)
                 {
-                    return music.ID;
+                    var readTask = JsonConvert.DeserializeObject<int>(response.Content.ReadAsStringAsync().Result);
+                    return readTask;
                 }
             }
 

@@ -197,7 +197,7 @@ namespace AppAdmin.Areas.Client.Controllers
                     userSession.UserName = user.UserName;
                     userSession.UserEmail = user.UserEmail;
                     Session.Add(CommonConstants.USER_SESSION, userSession);
-                    return RedirectToAction("Index","Home");
+                    return RedirectToAction("Index","Music");
                 }
                 else if (result == -3)
                 {
@@ -256,7 +256,8 @@ namespace AppAdmin.Areas.Client.Controllers
                     ID = data.ID,
                     UserEmail = data.UserEmail,
                     DayVipEnd = data.DayVipEnd,
-                    UserName = data.UserName
+                    UserName = data.UserName,
+                    UserVIP = data.UserVIP
                 };
                 return result;
             }

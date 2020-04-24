@@ -23,15 +23,24 @@ namespace AppAdmin.Areas.Client.Controllers
         }
         public ActionResult AccountUser(int id)
         {
-            var user = ApiService.GetUserById(id);
-            ViewBag.getInfoUser = user;
-            if (user.UserDOB != null)
+            var u = ApiService.GetUserById(id);
+            ViewBag.getInfoUser = u;
+            if (u.UserDOB != null)
             {
-                ViewBag.date = (DateTime)user.UserDOB;
+                ViewBag.date = (DateTime)u.UserDOB;
             }
             else
             {
                 ViewBag.date = null;
+           
+            }
+            if (u.DayVipEnd != null)
+            {
+                ViewBag.dateVip = (DateTime)u.DayVipEnd;
+            }
+            else
+            {
+                ViewBag.dateVip = null;
             }
             ViewBag.getOrderVipByIdUser = ApiService.GetOrderVipByIdUser(id);
             return View();
@@ -163,22 +172,6 @@ namespace AppAdmin.Areas.Client.Controllers
             return RedirectToAction("HistoryUser");
         }
 
-        private void SetAlert(string message, string type)
-        {
-            TempData["AlertMessage"] = message;
-            if (type == "success")
-            {
-                TempData["AlertType"] = "alert-success";
-            }
-            else if (type == "warning")
-            {
-                TempData["AlertType"] = "alert-warning";
-            }
-            else if (type == "error")
-            {
-                TempData["AlertType"] = "alert-danger";
-            }
-        }
 
     }
 }

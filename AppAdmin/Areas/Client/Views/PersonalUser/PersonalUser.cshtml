@@ -3,7 +3,7 @@
     ViewBag.Title = "PersonalUser";
     Layout = "~/Areas/Client/Views/Shared/_LayoutClient.cshtml";
     UserDTO getInfoUser = ViewBag.getInfoUser;
-    var date = ViewBag.date ;
+    var date = ViewBag.date;
     List<PlaylistDto> getPlaylistByIdUser = ViewBag.getPlaylistByIdUser;
     List<MusicDTO> getSong = ViewBag.getSong;
     List<MusicDTO> getMv = ViewBag.getMv;
@@ -101,14 +101,22 @@
             {
                 <span>Sinh ngày: Chưa cập nhật</span><br />
             }
-            @if (getInfoUser.UserGender == true)
+            @if (getInfoUser.UserGender != null)
             {
-                <span>Giới tính: Nam</span><br>
+                if (getInfoUser.UserGender == true)
+                {
+                    <span>Giới tính: Nam</span><br>
+                }
+                else
+                {
+                    <span>Giới tính: Nữ</span><br>
+                }
             }
             else
             {
-                <span>Giới tính: Nữ</span><br>
+                <span>Giới tính: Chưa cập nhật</span><br>
             }
+
 
             <span>Lời giới thiệu:</span>
             <span>
@@ -220,7 +228,7 @@
                     <img src="@item.LinkImage" alt="">
                     <span>
 
-                        <a href="" style="font-size: 20px;">@item.MusicName</a>@foreach (var approved in item.QualityMusicDTOs)
+                        <a href="@Url.Action("Index","playMusic", new { id= item.ID })" style="font-size: 20px;">@item.MusicName</a>@foreach (var approved in item.QualityMusicDTOs)
                         {
                             if (approved.MusicID == item.ID)
                             {
@@ -247,25 +255,35 @@
                         {
                             <span style="cursor: pointer;"><i class="far fa-trash-alt"></i><a href="@Url.Action("DeleteFile","PersonalUser", new { id =item.ID})"> Xóa</a> </span>
                         }
-
-                        <span class="addPlaylist" style="cursor: pointer;">
-                            <i class="fas fa-plus-circle"></i> Thêm
-                            vào
-                            <ul>
-                                @if (getPlaylistByIdUser == null)
+                        @foreach (var approved in item.QualityMusicDTOs)
+                        {
+                            if (approved.MusicID == item.ID)
+                            {
+                                if (approved.QMusicApproved == true)
                                 {
-                                    <span>Bạn chưa có playlist nào.</span>
-                                }
-                                else
-                                {
-                                    foreach (var itemPlaylist in getPlaylistByIdUser)
-                                    {
-                                        <li data-idPlist="@itemPlaylist.ID" data-idMusic="@item.ID"><a href="@Url.Action("Index", "playPlaylist", new { id = itemPlaylist.ID })">@itemPlaylist.PlaylistName</a> </li>
+                                    <span class="addPlaylist" style="cursor: pointer;">
+                                        <i class="fas fa-plus-circle"></i> Thêm
+                                        vào
+                                        <ul>
+                                            @if (getPlaylistByIdUser == null)
+                                            {
+                                                <span>Bạn chưa có playlist nào.</span>
+                                            }
+                                            else
+                                            {
+                                                foreach (var itemPlaylist in getPlaylistByIdUser)
+                                                {
+                                                    <li data-idPlist="@itemPlaylist.ID" data-idMusic="@item.ID"><a href="@Url.Action("Index", "playPlaylist", new { id = itemPlaylist.ID })">@itemPlaylist.PlaylistName</a> </li>
 
-                                    }
+                                                }
+                                            }
+                                        </ul>
+                                    </span>
                                 }
-                            </ul>
-                        </span>
+
+                            }
+                        }
+
                     </span>
                 </div>
             }
@@ -278,7 +296,7 @@
 
                     <img src="@item.LinkImage" alt="">
                     <span>
-                        <a href="" style="font-size: 20px;">@item.MusicName</a>@foreach (var approved in item.QualityMusicDTOs)
+                        <a href="@Url.Action("Index","playMusic", new { id= item.ID })" style="font-size: 20px;">@item.MusicName</a>@foreach (var approved in item.QualityMusicDTOs)
                         {
                             if (approved.MusicID == item.ID)
                             {

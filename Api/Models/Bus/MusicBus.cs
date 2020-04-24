@@ -347,5 +347,9 @@ namespace Api.Models.Bus
         {
             return new MusicDao().DeleteLQ(id); 
         }
+        public int CreateMusic(Music m)
+        {
+            return new MusicDao().CreateMusic(m);
+        }
     }
 }

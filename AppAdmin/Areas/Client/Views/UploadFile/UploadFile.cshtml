@@ -141,14 +141,10 @@
                     </div>
                     <div class="form-group">
                         <label for="">Chọn Thể loại: </label>
-                        <select name="CateID" id="" style="width: 68%;">
+                        <select name="CategoryId" id="" style="width: 68%;">
                             @foreach (var item in lsCate)
                             {
-                                <option value="" >@item.CateName</option>
-                                foreach (var sub in item.CategoryDtos)
-                                {
-                                    <option value="@sub.ID">@sub.CateName</option>
-                                }
+                                <option value="@item.ID" >@item.CateName</option>
                             }
                         </select>
                     </div>

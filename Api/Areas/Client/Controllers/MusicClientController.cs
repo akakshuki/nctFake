@@ -1,4 +1,5 @@
 ﻿using Api.Models;
+using Api.Models.EF;
 using ModelViews.DTOs;
 using System;
 using System.Collections.Generic;
@@ -51,6 +52,17 @@ namespace Api.Areas.Client.Controllers
         // DELETE api/<controller>/5
         public void Delete(int id)
         {
+        }
+
+        public IHttpActionResult Post(MusicDTO s)
+        {
+            var item = new Music { CategoryId = s.CategoryId, ID = s.ID, MusicDayCreate = s.MusicDayCreate, MusicDownloadAllowed = s.MusicDownloadAllowed, MusicImage = s.MusicImage, MusicName = s.MusicName, MusicNameUnsigned = s.MusicNameUnsigned, MusicRelated = s.MusicRelated, SongOrMV = s.SongOrMV, UserID = s.UserID, MusicView = s.MusicView };
+            var res = new Repositories().CreateMusic(item);
+            if (res > 0)
+            {
+                return Ok(res);
+            }
+            return InternalServerError();
         }
     }
 }
