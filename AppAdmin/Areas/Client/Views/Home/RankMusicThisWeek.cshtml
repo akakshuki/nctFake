@@ -1,0 +1,151 @@
+﻿@using ModelViews.DTOs
+
+@{
+    ViewBag.Title = "RankMusicThisWeek";
+    Layout = "~/Areas/Client/Views/Shared/_LayoutClient.cshtml";
+    List<RankDTO> listRank = ViewBag.ListRank;
+    var id = ViewBag.idCate;
+    var data = listRank.FirstOrDefault(x => x.CateID == id);
+    var musics = listRank.FirstOrDefault(x => x.SongOrMusic && x.CateID == id);
+    var mvs = listRank.FirstOrDefault(x => !x.SongOrMusic && x.CateID == id);
+
+
+    
+}
+
+
+
+@section js
+{
+    <script>
+        $(document).ready(function () {
+            var itemLenght = $('.itemBxh').length;
+            for (let i = 1; i < itemLenght + 1; i++) {
+                var item = $('.itemBxh:nth-child(' + i + ')');
+                var itemNumber = $('.itemBxh:nth-child(' + i + ')>span:first-child');
+                if (item.attr('data-grade') === "1") {
+                    itemNumber.css('color', '#e74c3c');
+                } else if (item.attr('data-grade') === "2") {
+                    itemNumber.css('color', '#1abc9c');
+                } else if (item.attr('data-grade') === "3") {
+                    itemNumber.css('color', '#f39c12');
+                }
+            }
+            $('#topicBxh>div>div').click(function () {
+                $('#topicBxh>div>div').removeClass("activeTopicBxh");
+                $(this).addClass("activeTopicBxh");
+                if ($(this).attr("data-music") == "1") {
+                    $('#songBxh').css("display", "block");
+                    $('#mvBxh').css("display", "none");
+                } else {
+                    $('#songBxh').css("display", "none");
+                    $('#mvBxh').css("display", "block");
+                }
+            });
+        });
+    </script>
+}
+<div id="content" class="container">
+    @if (data != null)
+    {
+        <div id="topicBxh">
+            <span>Bảng xếp hạng âm nhạc  @data.CategoryDto.CateName</span>
+            <div>
+                <div class="activeTopicBxh" data-music="1">Bài hát</div>
+                <div data-music="0">Video</div>
+            </div>
+        </div>
+        <p style="margin-left: 40px;">
+            Bảng xếp hạng được thống kê và thay đổi và lúc 23h30 chủ nhật hàng tuần.
+        </p>
+
+        <div id="listBxh">
+            <div>
+                <span>@data.RMusicName (@data.RMusicStart.ToString("dd-MM-yyyy") - @data.RMusicEnd.ToString("dd-MM-yyyy") )</span>
+                @*<span style="float: right;">
+                    <a href="" style="color: white;font-weight: 700;">
+                        <i class="far fa-play-circle"></i> Nghe toàn bộ
+                    </a>
+                </span>*@
+            </div>
+            <div id="songBxh" style="display: block;">
+                @if (musics != null && musics.MusicDtos != null)
+                {
+                    foreach (var item in musics.MusicDtos)
+                    {
+                        <div class="itemBxh" data-grade="@item.GradeRank">
+                            <span>@item.GradeRank</span>
+                            <img src="@item.LinkImage" alt="">
+                            <span>
+                                <a href="@Url.Action("Index","playMusic",new {id = @item.ID})" style="font-size: 20px;">@item.MusicName</a><br>
+                                <span><i class="fas fa-headphones"></i> @item.MusicView</span>
+                                <span>
+                                    @foreach (var singer in item.SingerMusicDtOs)
+                                    {
+                                        <a href="">@singer.UserDto.UserName</a>
+                                    }
+                                </span>
+
+                            </span>
+                            <span style="left: 265px;top: -15px;">
+                               
+                                @*<span class="addPlaylist" style="cursor: pointer;">
+                                    <i class="fas fa-plus-circle"></i> Thêm vào
+                                    <ul>
+                                        <li><a href="">Bài hát yêu thích</a> </li>
+                                        <li><a href="">Test1</a></li>
+                                        <li><a href="">Test2</a></li>
+                                    </ul>
+                                </span>*@
+                            </span>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <p>Chưa có dữ liệu</p>
+                }
+            </div>
+            <div id="mvBxh" style="display: none;">
+                @if (mvs != null && mvs.MusicDtos != null)
+                {
+                    foreach (var item in mvs.MusicDtos)
+                    {
+                        <div class="itemBxh" data-grade="@item.GradeRank">
+                            <span>1</span>
+                            <img src="@item.LinkImage" alt="">
+                            <span>
+                                <a href="@Url.Action("Index","playMusic",new {id = @item.ID})" style="font-size: 20px;">@item.MusicName</a><br>
+                                <span><i class="fas fa-headphones"></i> @item.MusicView</span>
+                                @foreach (var singer in item.SingerMusicDtOs)
+                                {
+                                    <a href="">@singer.UserDto.UserName</a>
+                                }
+                            </span>
+                            @*<span style="left: 265px;top: -15px;">
+                        <span><i class="fas fa-plus-circle"></i> Thêm vào</span>
+                            </span>*@
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    }
+    else
+    {
+        <div id="topicBxh">
+            <span>Bảng xếp hạng âm nhạc</span>
+
+        </div>
+        <p style="margin-left: 40px;">
+            Bảng xếp hạng được thống kê và thay đổi và lúc 23h30 chủ nhật hàng tuần.
+        </p>
+        <div class="p-5">
+            <h1 class="text-center">
+
+                Chưa có dữ liệu
+
+            </h1>
+        </div>
+    }
+</div>

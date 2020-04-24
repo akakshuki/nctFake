@@ -34,6 +34,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -43,12 +44,47 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=7.0.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.7.0.1\lib\net45\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="Facebook, Version=6.0.10.0, Culture=neutral, PublicKeyToken=58cb4f2111d1e6de, processorArchitecture=MSIL">
+      <HintPath>..\packages\Facebook.7.0.6\lib\net45\Facebook.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Owin, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.4.1.0\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.4.1.0\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Facebook, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Facebook.4.1.0\lib\net45\Microsoft.Owin.Security.Facebook.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Google, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Google.4.1.0\lib\net45\Microsoft.Owin.Security.Google.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="PayPal, Version=1.8.0.0, Culture=neutral, PublicKeyToken=5b4afc1ccaef40fb, processorArchitecture=MSIL">
+      <HintPath>..\packages\PayPal.1.8.0\lib\net45\PayPal.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.7\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -99,9 +135,6 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="WebGrease">
       <Private>True</Private>
       <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
@@ -120,17 +153,233 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Areas\Client\ClientAreaRegistration.cs" />
+    <Compile Include="Areas\Client\Controllers\AccountUserController.cs" />
+    <Compile Include="Areas\Client\Controllers\BaseController.cs" />
+    <Compile Include="Areas\Client\Controllers\EditPlaylistController.cs" />
+    <Compile Include="Areas\Client\Controllers\ErrorController.cs" />
+    <Compile Include="Areas\Client\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Client\Controllers\listMusicByIdCateController.cs" />
+    <Compile Include="Areas\Client\Controllers\listPlaylistByCateController.cs" />
+    <Compile Include="Areas\Client\Controllers\LoginController.cs" />
+    <Compile Include="Areas\Client\Controllers\PaymentController.cs" />
+    <Compile Include="Areas\Client\Controllers\PayPalController.cs" />
+    <Compile Include="Areas\Client\Controllers\PersonalUserController.cs" />
+    <Compile Include="Areas\Client\Controllers\playMusicController.cs" />
+    <Compile Include="Areas\Client\Controllers\playPlaylistController.cs" />
+    <Compile Include="Areas\Client\Controllers\SingerController.cs" />
+    <Compile Include="Areas\Client\Models\PaypalConfiguration.cs" />
+    <Compile Include="Areas\Client\Models\PaypalLogger.cs" />
+    <Compile Include="Areas\Client\Controllers\UploadFileController.cs" />
+    <Compile Include="Areas\Client\Models\ServiceClient\ApiServiceClient.cs" />
+    <Compile Include="Common\CommonConstants.cs" />
+    <Compile Include="Common\Encryptor.cs" />
+    <Compile Include="Common\RemoveUnicode.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LyricsMusicController.cs" />
+    <Compile Include="Controllers\MusicController.cs" />
+    <Compile Include="Controllers\MusicRankController.cs" />
+    <Compile Include="Controllers\OrderVipController.cs" />
+    <Compile Include="Controllers\PackageVipController.cs" />
+    <Compile Include="Controllers\PartnerController.cs" />
+    <Compile Include="Controllers\PlaylistController.cs" />
+    <Compile Include="Controllers\QualityController.cs" />
+    <Compile Include="Controllers\QualityMusicController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Service\ApiService.cs" />
+    <Compile Include="Models\Service\MomoService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\alertifyjs\alertify.css" />
+    <Content Include="Content\alertifyjs\alertify.min.css" />
+    <Content Include="Content\alertifyjs\alertify.rtl.css" />
+    <Content Include="Content\alertifyjs\alertify.rtl.min.css" />
+    <Content Include="Content\alertifyjs\themes\bootstrap.css" />
+    <Content Include="Content\alertifyjs\themes\bootstrap.min.css" />
+    <Content Include="Content\alertifyjs\themes\bootstrap.rtl.css" />
+    <Content Include="Content\alertifyjs\themes\bootstrap.rtl.min.css" />
+    <Content Include="Content\alertifyjs\themes\default.css" />
+    <Content Include="Content\alertifyjs\themes\default.min.css" />
+    <Content Include="Content\alertifyjs\themes\default.rtl.css" />
+    <Content Include="Content\alertifyjs\themes\default.rtl.min.css" />
+    <Content Include="Content\alertifyjs\themes\semantic.css" />
+    <Content Include="Content\alertifyjs\themes\semantic.min.css" />
+    <Content Include="Content\alertifyjs\themes\semantic.rtl.css" />
+    <Content Include="Content\alertifyjs\themes\semantic.rtl.min.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\ClientMusic\css\animate.css" />
+    <Content Include="Content\ClientMusic\css\animation\animation-custom.css" />
+    <Content Include="Content\ClientMusic\css\bootstrap-select\bootstrap-select.css" />
+    <Content Include="Content\ClientMusic\css\bootstrap.min.css" />
+    <Content Include="Content\ClientMusic\css\c3\c3.min.css" />
+    <Content Include="Content\ClientMusic\css\chosen\chosen-sprite.png" />
+    <Content Include="Content\ClientMusic\css\chosen\chosen.css" />
+    <Content Include="Content\ClientMusic\css\code-editor\1.jpg" />
+    <Content Include="Content\ClientMusic\css\code-editor\ambiance.css" />
+    <Content Include="Content\ClientMusic\css\code-editor\codemirror.css" />
+    <Content Include="Content\ClientMusic\css\color-picker\farbtastic.css" />
+    <Content Include="Content\ClientMusic\css\color-picker\marker.png" />
+    <Content Include="Content\ClientMusic\css\color-picker\mask.png" />
+    <Content Include="Content\ClientMusic\css\color-picker\wheel.png" />
+    <Content Include="Content\ClientMusic\css\cropper\cropper.min.css" />
+    <Content Include="Content\ClientMusic\css\datapicker\datepicker3.css" />
+    <Content Include="Content\ClientMusic\css\dialog\dialog.css" />
+    <Content Include="Content\ClientMusic\css\dialog\sweetalert2.min.css" />
+    <Content Include="Content\ClientMusic\css\dropzone\dropzone.css" />
+    <Content Include="Content\ClientMusic\css\font-awesome.min.css" />
+    <Content Include="Content\ClientMusic\css\jquery.dataTables.min.css" />
+    <Content Include="Content\ClientMusic\css\jvectormap\jquery-jvectormap-2.0.3.css" />
+    <Content Include="Content\ClientMusic\css\main.css" />
+    <Content Include="Content\ClientMusic\css\meanmenu\meanmenu.min.css" />
+    <Content Include="Content\ClientMusic\css\metisMenu\metisMenu-vertical.css" />
+    <Content Include="Content\ClientMusic\css\metisMenu\metisMenu.min.css" />
+    <Content Include="Content\ClientMusic\css\normalize.css" />
+    <Content Include="Content\ClientMusic\css\notification\notification.css" />
+    <Content Include="Content\ClientMusic\css\notika-custom-icon.css" />
+    <Content Include="Content\ClientMusic\css\owl.carousel.css" />
+    <Content Include="Content\ClientMusic\css\owl.theme.css" />
+    <Content Include="Content\ClientMusic\css\owl.transitions.css" />
+    <Content Include="Content\ClientMusic\css\responsive.css" />
+    <Content Include="Content\ClientMusic\css\scrollbar\jquery.mCustomScrollbar.min.css" />
+    <Content Include="Content\ClientMusic\css\style.css" />
+    <Content Include="Content\ClientMusic\css\summernote\summernote.css" />
+    <Content Include="Content\ClientMusic\css\themesaller-forms.css" />
+    <Content Include="Content\ClientMusic\css\wave\button.css" />
+    <Content Include="Content\ClientMusic\css\wave\waves.min.css" />
+    <Content Include="Content\ClientMusic\fonts\fontawesome-webfont.svg" />
+    <Content Include="Content\ClientMusic\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\ClientMusic\fonts\notika-icon.svg" />
+    <Content Include="Content\ClientMusic\images\logo-momo.png" />
+    <Content Include="Content\ClientMusic\images\paymentlgo.png" />
+    <Content Include="Content\ClientMusic\images\paypal-Logo.jpg" />
+    <Content Include="Content\ClientMusic\images\select.png" />
+    <Content Include="Content\ClientMusic\images\sort_asc.png" />
+    <Content Include="Content\ClientMusic\images\sort_asc_disabled.png" />
+    <Content Include="Content\ClientMusic\images\sort_both.png" />
+    <Content Include="Content\ClientMusic\images\sort_desc.png" />
+    <Content Include="Content\ClientMusic\images\sort_desc_disabled.png" />
+    <Content Include="Content\ClientMusic\img\avt.png" />
+    <Content Include="Content\ClientMusic\img\blog\1.jpg" />
+    <Content Include="Content\ClientMusic\img\chosen-sprite.png" />
+    <Content Include="Content\ClientMusic\img\country\1.png" />
+    <Content Include="Content\ClientMusic\img\country\2.png" />
+    <Content Include="Content\ClientMusic\img\country\3.png" />
+    <Content Include="Content\ClientMusic\img\cropper\1.jpg" />
+    <Content Include="Content\ClientMusic\img\dialog\like.png" />
+    <Content Include="Content\ClientMusic\img\favicon.ico" />
+    <Content Include="Content\ClientMusic\img\green1.png" />
+    <Content Include="Content\ClientMusic\img\icon-play.jpg" />
+    <Content Include="Content\ClientMusic\img\logo-edit.png" />
+    <Content Include="Content\ClientMusic\img\logo\favicon.png" />
+    <Content Include="Content\ClientMusic\img\logo\logo.png" />
+    <Content Include="Content\ClientMusic\img\post\1.jpg" />
+    <Content Include="Content\ClientMusic\img\post\2.jpg" />
+    <Content Include="Content\ClientMusic\img\post\4.jpg" />
+    <Content Include="Content\ClientMusic\img\search-engines\baidu.png" />
+    <Content Include="Content\ClientMusic\img\search-engines\bing.png" />
+    <Content Include="Content\ClientMusic\img\search-engines\duckduckgo.png" />
+    <Content Include="Content\ClientMusic\img\search-engines\google.png" />
+    <Content Include="Content\ClientMusic\img\search-engines\yahoo.png" />
+    <Content Include="Content\ClientMusic\img\search-engines\yandex.png" />
+    <Content Include="Content\ClientMusic\img\share_fb.png" />
+    <Content Include="Content\ClientMusic\img\widgets\2.png" />
+    <Content Include="Content\ClientMusic\img\widgets\4.png" />
+    <Content Include="Content\ClientMusic\img\widgets\6.png" />
+    <Content Include="Content\ClientMusic\js\animation\animation-active.js" />
+    <Content Include="Content\ClientMusic\js\autosize.min.js" />
+    <Content Include="Content\ClientMusic\js\bootstrap-select\bootstrap-select.js" />
+    <Content Include="Content\ClientMusic\js\bootstrap.min.js" />
+    <Content Include="Content\ClientMusic\js\charts\area-chart.js" />
+    <Content Include="Content\ClientMusic\js\charts\bar-chart.js" />
+    <Content Include="Content\ClientMusic\js\charts\Chart.js" />
+    <Content Include="Content\ClientMusic\js\charts\line-chart.js" />
+    <Content Include="Content\ClientMusic\js\chat\jquery.chat.js" />
+    <Content Include="Content\ClientMusic\js\chat\moment.min.js" />
+    <Content Include="Content\ClientMusic\js\chosen\chosen.jquery.js" />
+    <Content Include="Content\ClientMusic\js\code-editor\code-editor-active.js" />
+    <Content Include="Content\ClientMusic\js\code-editor\code-editor.js" />
+    <Content Include="Content\ClientMusic\js\code-editor\codemirror.js" />
+    <Content Include="Content\ClientMusic\js\color-picker\color-picker.js" />
+    <Content Include="Content\ClientMusic\js\color-picker\farbtastic.min.js" />
+    <Content Include="Content\ClientMusic\js\ControllerJs.js" />
+    <Content Include="Content\ClientMusic\js\counterup\counterup-active.js" />
+    <Content Include="Content\ClientMusic\js\counterup\jquery.counterup.min.js" />
+    <Content Include="Content\ClientMusic\js\counterup\waypoints.min.js" />
+    <Content Include="Content\ClientMusic\js\cropper\cropper-actice.js" />
+    <Content Include="Content\ClientMusic\js\cropper\cropper.min.js" />
+    <Content Include="Content\ClientMusic\js\data-map\d3.min.js" />
+    <Content Include="Content\ClientMusic\js\data-map\data-maps-active.js" />
+    <Content Include="Content\ClientMusic\js\data-map\datamaps.all.min.js" />
+    <Content Include="Content\ClientMusic\js\data-map\topojson.js" />
+    <Content Include="Content\ClientMusic\js\data-table\data-table-act.js" />
+    <Content Include="Content\ClientMusic\js\data-table\jquery.dataTables.min.js" />
+    <Content Include="Content\ClientMusic\js\datapicker\bootstrap-datepicker.js" />
+    <Content Include="Content\ClientMusic\js\datapicker\datepicker-active.js" />
+    <Content Include="Content\ClientMusic\js\dialog\dialog-active.js" />
+    <Content Include="Content\ClientMusic\js\dialog\sweetalert2.min.js" />
+    <Content Include="Content\ClientMusic\js\dropzone\dropzone.js" />
+    <Content Include="Content\ClientMusic\js\easytopie\jquery.easypiechart.min.js" />
+    <Content Include="Content\ClientMusic\js\easytopie\salvattore.min.js" />
+    <Content Include="Content\ClientMusic\js\flot\analtic-flot-active.js" />
+    <Content Include="Content\ClientMusic\js\flot\chart-tooltips.js" />
+    <Content Include="Content\ClientMusic\js\flot\curvedLines.js" />
+    <Content Include="Content\ClientMusic\js\flot\flot-active.js" />
+    <Content Include="Content\ClientMusic\js\flot\flot-widget-anatic-active.js" />
+    <Content Include="Content\ClientMusic\js\flot\jquery.flot.js" />
+    <Content Include="Content\ClientMusic\js\flot\jquery.flot.orderBars.js" />
+    <Content Include="Content\ClientMusic\js\flot\jquery.flot.pie.js" />
+    <Content Include="Content\ClientMusic\js\flot\jquery.flot.resize.js" />
+    <Content Include="Content\ClientMusic\js\flot\jquery.flot.time.js" />
+    <Content Include="Content\ClientMusic\js\flot\jquery.flot.tooltip.min.js" />
+    <Content Include="Content\ClientMusic\js\google.maps\google.maps-active.js" />
+    <Content Include="Content\ClientMusic\js\google.maps\google.maps2-active.js" />
+    <Content Include="Content\ClientMusic\js\icheck\icheck-active.js" />
+    <Content Include="Content\ClientMusic\js\icheck\icheck.min.js" />
+    <Content Include="Content\ClientMusic\js\jasny-bootstrap.min.js" />
+    <Content Include="Content\ClientMusic\js\jquery-price-slider.js" />
+    <Content Include="Content\ClientMusic\js\jquery.scrollUp.min.js" />
+    <Content Include="Content\ClientMusic\js\jvectormap\jquery-jvectormap-2.0.2.min.js" />
+    <Content Include="Content\ClientMusic\js\jvectormap\jquery-jvectormap-world-mill-en.js" />
+    <Content Include="Content\ClientMusic\js\jvectormap\jvectormap-active.js" />
+    <Content Include="Content\ClientMusic\js\knob\jquery.appear.js" />
+    <Content Include="Content\ClientMusic\js\knob\jquery.knob.js" />
+    <Content Include="Content\ClientMusic\js\knob\knob-active.js" />
+    <Content Include="Content\ClientMusic\js\login\login-action.js" />
+    <Content Include="Content\ClientMusic\js\main.js" />
+    <Content Include="Content\ClientMusic\js\meanmenu\jquery.meanmenu.js" />
+    <Content Include="Content\ClientMusic\js\metisMenu\metisMenu-active.js" />
+    <Content Include="Content\ClientMusic\js\metisMenu\metisMenu.min.js" />
+    <Content Include="Content\ClientMusic\js\Mustache.js" />
+    <Content Include="Content\ClientMusic\js\notification\bootstrap-growl.min.js" />
+    <Content Include="Content\ClientMusic\js\notification\notification-active.js" />
+    <Content Include="Content\ClientMusic\js\owl.carousel.min.js" />
+    <Content Include="Content\ClientMusic\js\plugins.js" />
+    <Content Include="Content\ClientMusic\js\rangle-slider\jquery-ui-1.10.4.custom.min.js" />
+    <Content Include="Content\ClientMusic\js\rangle-slider\jquery-ui-touch-punch.min.js" />
+    <Content Include="Content\ClientMusic\js\rangle-slider\rangle-active.js" />
+    <Content Include="Content\ClientMusic\js\scrollbar\jquery.mCustomScrollbar.concat.min.js" />
+    <Content Include="Content\ClientMusic\js\sparkline\jquery.sparkline.min.js" />
+    <Content Include="Content\ClientMusic\js\sparkline\sparkline-active.js" />
+    <Content Include="Content\ClientMusic\js\summernote\summernote-active.js" />
+    <Content Include="Content\ClientMusic\js\summernote\summernote-updated.min.js" />
+    <Content Include="Content\ClientMusic\js\summernote\summernote.min.js" />
+    <Content Include="Content\ClientMusic\js\tawk-chat.js" />
+    <Content Include="Content\ClientMusic\js\todo\jquery.todo.js" />
+    <Content Include="Content\ClientMusic\js\vendor\jquery-1.12.4.min.js" />
+    <Content Include="Content\ClientMusic\js\vendor\modernizr-2.8.3.min.js" />
+    <Content Include="Content\ClientMusic\js\wave\wave-active.js" />
+    <Content Include="Content\ClientMusic\js\wave\waves.min.js" />
+    <Content Include="Content\ClientMusic\js\wizard\jquery.bootstrap.wizard.min.js" />
+    <Content Include="Content\ClientMusic\js\wizard\wizard-active.js" />
+    <Content Include="Content\ClientMusic\js\wow.min.js" />
+    <Content Include="Content\ClientMusic\style.css" />
     <Content Include="Content\Dashio\contactform\contactform.php" />
     <Content Include="Content\Dashio\contactform\Readme.txt" />
     <Content Include="Content\Dashio\css\style-responsive.css" />
@@ -300,9 +549,136 @@
     <Content Include="Content\Dashio\lib\xchart\xcharts.min.js" />
     <Content Include="Content\Dashio\lib\zabuto_calendar.js" />
     <Content Include="favicon.ico" />
+    <Content Include="File\ImageMusic\637222141810251959Hãy là em của ngày hôm qua.png" />
+    <Content Include="File\ImageMusic\637222142346253939Hãy trao cho anh.png" />
+    <Content Include="File\ImageMusic\637222169706972506Chạy ngay đi.png" />
+    <Content Include="File\ImageMusic\637222169864156582Chạy ngay đi.png" />
+    <Content Include="File\ImageMusic\637222170995116573Chạy ngay đi.png" />
+    <Content Include="File\ImageMusic\637222450147455662Em không thể.png" />
+    <Content Include="File\ImageMusic\637222452146262383Em không thể.png" />
+    <Content Include="File\ImageMusic\637222456313649960Em không thể.png" />
+    <Content Include="File\ImageMusic\637223164304873415Despasito.png" />
+    <Content Include="File\ImageMusic\637223235303276391Chạy ngay đi.png" />
+    <Content Include="File\ImageMusic\637227297109531900Vùng kí ức.png" />
+    <Content Include="File\ImageMusic\637227298301749026Vùng kí ức.png" />
+    <Content Include="File\ImageMusic\637227298848621028Vùng kí ức.png" />
+    <Content Include="File\ImageMusic\637227306132778732Có em bên đời bỗng vui.png" />
+    <Content Include="File\ImageMusic\637228175391434377Em không thể.png" />
+    <Content Include="File\ImageMusic\637228177691005261Anh Thanh Niên.png" />
+    <Content Include="File\ImageMusic\637228179439077999Anh Thanh Niên.png" />
+    <Content Include="File\ImageMusic\637228189261679003Anh Thanh Niên.png" />
+    <Content Include="File\ImageMusic\637228189604202928Em có nghe.png" />
+    <Content Include="File\ImageMusic\637228190026075256Từng yêu.png" />
+    <Content Include="File\ImageMusic\637228190478772753Nhớ lắm đấy.png" />
+    <Content Include="File\ImageMusic\637228190802103545Thiệp hồng người dưng.png" />
+    <Content Include="File\ImageMusic\637228191125564385Sợ rằng em biết anh còn yêu em.png" />
+    <Content Include="File\ImageMusic\637228193445926825Để đó anh lo.png" />
+    <Content Include="File\ImageMusic\637228198097242384Có em bên đời bỗng vui.png" />
+    <Content Include="File\ImageMusic\637228198761482293Em không thể.png" />
+    <Content Include="File\ImageMusic\6372282018808352472 phút hơn.png" />
+    <Content Include="File\ImageMusic\637228202286823081100 Years love.png" />
+    <Content Include="File\ImageMusic\637228203271630361Con gái rượu.png" />
+    <Content Include="File\ImageMusic\637228204383114333Cách Ly.png" />
+    <Content Include="File\ImageMusic\637228205283595113Làm vì yêu.png" />
+    <Content Include="File\ImageMusic\637228207464018867Do for love.png" />
+    <Content Include="File\ImageMusic\637228217102477949Yêu vì điên hay điên vì yêu.png" />
+    <Content Include="File\ImageMusic\637229070495317420Trứng rán cần mỡ.png" />
+    <Content Include="File\ImageMusic\637229070840267154Nếu  mai gặp lại.png" />
+    <Content Include="File\ImageMusic\default.png" />
+    <Content Include="File\ImagePartner\637223115648475036.png" />
+    <Content Include="File\ImagePartner\637224745204769818.png" />
+    <Content Include="File\ImagePartner\637224745483110032.png" />
+    <Content Include="File\ImagePartner\637224745583560656.png" />
+    <Content Include="File\ImagePartner\637224745741526411.png" />
+    <Content Include="File\ImagePartner\637224745860666779.png" />
+    <Content Include="File\ImagePartner\default.png" />
+    <Content Include="File\ImagePlaylist\637223133191594975.png" />
+    <Content Include="File\ImagePlaylist\637228298963478066.png" />
+    <Content Include="File\ImagePlaylist\637228319036542583.png" />
+    <Content Include="File\ImagePlaylist\637228320693512860.png" />
+    <Content Include="File\ImagePlaylist\637228325460441430.png" />
+    <Content Include="File\ImagePlaylist\637228326229330033.png" />
+    <Content Include="File\ImagePlaylist\637228327163359708.png" />
+    <Content Include="File\ImagePlaylist\637228892217296627.png" />
+    <Content Include="File\ImagePlaylist\637230786805836005.png" />
+    <Content Include="File\ImagePlaylist\637230787033363217.png" />
+    <Content Include="File\ImagePlaylist\default.png" />
+    <Content Include="File\ImageUser\637223262981502194.png" />
+    <Content Include="File\ImageUser\637227288088104420.png" />
+    <Content Include="File\ImageUser\637227296343003922.png" />
+    <Content Include="File\ImageUser\637228197074223775.png" />
+    <Content Include="File\ImageUser\637228220286396503.png" />
+    <Content Include="File\ImageUser\637228224030425192.png" />
+    <Content Include="File\ImageUser\637228225468416122.png" />
+    <Content Include="File\ImageUser\637228225897670525.png" />
+    <Content Include="File\ImageUser\637228228823053776.png" />
+    <Content Include="File\ImageUser\637228229483859469.png" />
+    <Content Include="File\ImageUser\637228233312684811.png" />
+    <Content Include="File\ImageUser\637228233954083367.png" />
+    <Content Include="File\ImageUser\637228235069315691.png" />
+    <Content Include="File\ImageUser\637228235674980607.png" />
+    <Content Include="File\ImageUser\637228236151562866.png" />
+    <Content Include="File\ImageUser\637228236731785929.png" />
+    <Content Include="File\ImageUser\637228237766429123.png" />
+    <Content Include="File\ImageUser\637228238176754347.png" />
+    <Content Include="File\ImageUser\637228238372731830.png" />
+    <Content Include="File\ImageUser\637228240651410140.png" />
+    <Content Include="File\ImageUser\637229068757445280.png" />
+    <Content Include="File\ImageUser\637229069043319756.png" />
+    <Content Include="File\ImageUser\default.png" />
+    <Content Include="File\mp3-mp4\637226635796873648.mp3" />
+    <Content Include="File\mp3-mp4\637226638853125373.mp3" />
+    <Content Include="File\mp3-mp4\637226722192792173Em không thể.mp3" />
+    <Content Include="File\mp3-mp4\637226723062527824Em không thể.mp3" />
+    <Content Include="File\mp3-mp4\637227306618059411Có em bên đời bỗng vui.mp3" />
+    <Content Include="File\mp3-mp4\637228247104433143100 Years love.mp3" />
+    <Content Include="File\mp3-mp4\637228247866470752100 Years love.mp3" />
+    <Content Include="File\mp3-mp4\6372282482688537182 phút hơn.mp3" />
+    <Content Include="File\mp3-mp4\6372282483489361092 phút hơn.mp3" />
+    <Content Include="File\mp3-mp4\637228249973220132Anh Thanh Niên.mp3" />
+    <Content Include="File\mp3-mp4\637228250040974894Anh Thanh Niên.mp3" />
+    <Content Include="File\mp3-mp4\637228250245015465Con gái rượu.mp3" />
+    <Content Include="File\mp3-mp4\637228250320058045Con gái rượu.mp3" />
+    <Content Include="File\mp3-mp4\637228250632701386Cách Ly.mp4" />
+    <Content Include="File\mp3-mp4\637228250751468332Cách Ly.mp4" />
+    <Content Include="File\mp3-mp4\637228251083191213Do for love.mp4" />
+    <Content Include="File\mp3-mp4\637228251150313643Do for love.mp4" />
+    <Content Include="File\mp3-mp4\637228251367043854Em có nghe.mp3" />
+    <Content Include="File\mp3-mp4\637228251424939229Em có nghe.mp3" />
+    <Content Include="File\mp3-mp4\637228251698494709Girlie.mp4" />
+    <Content Include="File\mp3-mp4\637228251763323147Girlie.mp4" />
+    <Content Include="File\mp3-mp4\637228252172109814LaCintura.mp4" />
+    <Content Include="File\mp3-mp4\637228252264012202LaCintura.mp4" />
+    <Content Include="File\mp3-mp4\637228252678359999Lets Fight Covid.mp4" />
+    <Content Include="File\mp3-mp4\637228252760171430Lets Fight Covid.mp4" />
+    <Content Include="File\mp3-mp4\637228253234638347Loca.mp4" />
+    <Content Include="File\mp3-mp4\637228253302932782Loca.mp4" />
+    <Content Include="File\mp3-mp4\637228253733383103Làm vì yêu.mp4" />
+    <Content Include="File\mp3-mp4\637228253807823202Làm vì yêu.mp4" />
+    <Content Include="File\mp3-mp4\637228254151205518Nhớ lắm đấy.mp3" />
+    <Content Include="File\mp3-mp4\637228254218140279Nhớ lắm đấy.mp3" />
+    <Content Include="File\mp3-mp4\637228254464284281Pleader.mp4" />
+    <Content Include="File\mp3-mp4\637228254552863256Pleader.mp4" />
+    <Content Include="File\mp3-mp4\637228255670928773Sợ rằng em biết anh còn yêu em.mp3" />
+    <Content Include="File\mp3-mp4\637228255734578582Sợ rằng em biết anh còn yêu em.mp3" />
+    <Content Include="File\mp3-mp4\637228255930894152Tell Me.mp4" />
+    <Content Include="File\mp3-mp4\637228256146650391Tell Me.mp4" />
+    <Content Include="File\mp3-mp4\637228256409529643Thiệp hồng người dưng.mp3" />
+    <Content Include="File\mp3-mp4\637228256465324948Thiệp hồng người dưng.mp3" />
+    <Content Include="File\mp3-mp4\637228256668273918Từng yêu.mp3" />
+    <Content Include="File\mp3-mp4\637228256732779173Từng yêu.mp3" />
+    <Content Include="File\mp3-mp4\637228256930571776Yêu vì điên hay điên vì yêu.mp3" />
+    <Content Include="File\mp3-mp4\637228257007733124Yêu vì điên hay điên vì yêu.mp3" />
+    <Content Include="File\mp3-mp4\637228258505257978Để đó anh lo.mp3" />
+    <Content Include="File\mp3-mp4\637228258581897882Để đó anh lo.mp3" />
+    <Content Include="File\mp3-mp4\637229051961012766Trứng rán cần mỡ.mp3" />
+    <Content Include="File\mp3-mp4\637229052503735493Nếu  mai gặp lại.mp4" />
+    <Content Include="File\mp3-mp4\637229052728110119Nếu  mai gặp lại.mp4" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Scripts\alertify.js" />
+    <Content Include="Scripts\alertify.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Content\Dashio\lib\advanced-datatable\images\Sorting icons.psd" />
@@ -315,6 +691,42 @@
     <Content Include="Content\Dashio\lib\font-awesome\fonts\fontawesome-webfont.woff" />
     <Content Include="Content\Dashio\lib\font-awesome\fonts\fontawesome-webfont.woff2" />
     <Content Include="Content\Dashio\lib\font-awesome\fonts\FontAwesome.otf" />
+    <Content Include="Content\ClientMusic\fonts\fontawesome-webfont.eot" />
+    <Content Include="Content\ClientMusic\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Content\ClientMusic\fonts\fontawesome-webfont.woff" />
+    <Content Include="Content\ClientMusic\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Content\ClientMusic\fonts\FontAwesome.otf" />
+    <Content Include="Content\ClientMusic\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\ClientMusic\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Content\ClientMusic\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Content\ClientMusic\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="Content\ClientMusic\fonts\notika-icon.eot" />
+    <Content Include="Content\ClientMusic\fonts\notika-icon.ttf" />
+    <Content Include="Content\ClientMusic\fonts\notika-icon.woff" />
+    <Content Include="Areas\Client\Views\web.config" />
+    <Content Include="Areas\Client\Views\Shared\_LayoutClient.cshtml" />
+    <Content Include="Areas\Client\Views\Home\Index.cshtml" />
+    <Content Include="Areas\Client\Views\Shared\NavigationMenu.cshtml" />
+    <Content Include="Areas\Client\Views\Login\Login.cshtml" />
+    <Content Include="Areas\Client\Views\playMusic\Index.cshtml" />
+    <Content Include="Areas\Client\Views\Login\ResetPassword.cshtml" />
+    <Content Include="Areas\Client\Views\listPlaylistByCate\Index.cshtml" />
+    <Content Include="Areas\Client\Views\playPlaylist\Index.cshtml" />
+    <Content Include="Areas\Client\Views\listMusicByIdCate\Index.cshtml" />
+    <Content Include="Areas\Client\Views\RankMusic\Index.cshtml" />
+    <Content Include="Areas\Client\Views\Home\RankMusicThisWeek.cshtml" />
+    <Content Include="Areas\Client\Views\Home\SearchPage.cshtml" />
+    <Content Include="Areas\Client\Views\Singer\Index.cshtml" />
+    <Content Include="Areas\Client\Views\Payment\Index.cshtml" />
+    <Content Include="Areas\Client\Views\Payment\Payment.cshtml" />
+    <Content Include="Areas\Client\Views\Payment\Success.cshtml" />
+    <Content Include="Areas\Client\Views\EditPlaylist\EditPLaylist.cshtml" />
+    <Content Include="Areas\Client\Views\PersonalUser\PersonalUser.cshtml" />
+    <Content Include="Areas\Client\Views\UploadFile\UploadFile.cshtml" />
+    <Content Include="Areas\Client\Views\AccountUser\AccountUser.cshtml" />
+    <Content Include="Areas\Client\Views\AccountUser\HistoryUser.cshtml" />
+    <Content Include="Areas\Client\Views\Error\NotFound.cshtml" />
+    <Content Include="Areas\Client\Views\listMusicByIdCate\IndexMV.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -339,13 +751,58 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\NavigateMenu.cshtml" />
+    <Content Include="Views\Music\Index.cshtml" />
+    <Content Include="Views\Music\Create.cshtml" />
+    <Content Include="Views\PackageVip\Index.cshtml" />
+    <Content Include="Views\PackageVip\CreatePayment.cshtml" />
+    <Content Include="Views\PackageVip\CreatePackageVip.cshtml" />
+    <Content Include="Views\PackageVip\EditPackageVip.cshtml" />
+    <Content Include="Views\Music\Edit.cshtml" />
+    <Content Include="Views\Quality\Index.cshtml" />
+    <Content Include="Views\User\Edit.cshtml" />
+    <Content Include="Views\User\Index.cshtml" />
+    <Content Include="Views\User\ListSinger.cshtml" />
+    <Content Include="Views\User\ListUser.cshtml" />
+    <Content Include="Views\User\ViewDetails.cshtml" />
+    <Content Include="Views\Playlist\Index.cshtml" />
+    <Content Include="Views\Playlist\Edit.cshtml" />
+    <Content Include="Views\Partner\Index.cshtml" />
+    <Content Include="Views\Partner\Edit.cshtml" />
+    <Content Include="Views\LyricsMusic\Index.cshtml" />
+    <Content Include="Views\LyricsMusic\NullView.cshtml" />
+    <Content Include="Views\LyricsMusic\ViewCreate.cshtml" />
+    <Content Include="Views\LyricsMusic\Edit.cshtml" />
+    <Content Include="Views\QualityMusic\ViewCreate.cshtml" />
+    <Content Include="Views\QualityMusic\Edit.cshtml" />
+    <Content Include="Views\QualityMusic\ListFile.cshtml" />
+    <Content Include="Views\QualityMusic\EditFile.cshtml" />
+    <Content Include="Views\Music\SingerOfMusic.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home\ViewCreateCate.cshtml" />
+    <Content Include="Views\Playlist\AddMusicForPlaylist.cshtml" />
+    <Content Include="Views\User\ListFile.cshtml" />
+    <Content Include="Views\Home\EditCate.cshtml" />
+    <Content Include="Views\Home\EditCateIdRoot.cshtml" />
+    <Content Include="Views\Home\ViewCateIdRoot.cshtml" />
+    <Content Include="Views\Home\ViewCreateCate.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\MusicRank\Index.cshtml" />
+    <Content Include="Views\MusicRank\CreateRank.cshtml" />
+    <Content Include="Views\MusicRank\ListRanks.cshtml" />
+    <Content Include="Views\MusicRank\EditRank.cshtml" />
+    <Content Include="Views\MusicRank\GetOldRank.cshtml" />
+    <Content Include="Views\OrderVip\Index.cshtml" />
+    <Content Include="Views\User\MusicOfSinger.cshtml" />
+    <Content Include="Views\Playlist\ViewAddPlaylist.cshtml" />
+    <Content Include="Views\Playlist\EditPlAdmin.cshtml" />
+    <Content Include="Views\Home\GetMusicByIdCate.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
-    <Folder Include="Services\" />
+    <Folder Include="Areas\Client\Views\Base\" />
+    <Folder Include="Areas\Client\Views\PayPal\" />
+    <Folder Include="Content\DataTable\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -362,6 +819,16 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ModelViews\ModelViews.csproj">
+      <Project>{b858e174-1730-496b-b610-22753df96436}</Project>
+      <Name>ModelViews</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MomoGateWay\MomoGateWay.csproj">
+      <Project>{89e40819-40f0-4acd-8731-3ddf8df2d898}</Project>
+      <Name>MomoGateWay</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

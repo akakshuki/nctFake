@@ -1,0 +1,198 @@
+﻿@using ModelViews.DTOs
+
+@{
+    ViewBag.Title = "ListRanks";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    List<RankDTO> listRankSongs = ViewBag.ListRankSongs;
+    List<RankDTO> listRankMvs = ViewBag.ListRankMvs;
+}
+
+@section js
+{
+    <script type="text/javascript" src="~/Content/Dashio/lib/bootstrap-fileupload/bootstrap-fileupload.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+    <script>
+        $('#RMusicStart').val(new Date());
+        $('#RMusicEnd').val(new Date());
+        $('#songOrMusic').change(function () {
+            if (this.checked)
+                $('#songOrMusic').val(true);
+            else
+                $('#songOrMusic').val(false);
+        });
+
+    </script>
+    <script type="text/javascript" language="javascript" src="~/Content/Dashio/lib/advanced-datatable/js/jquery.dataTables.js"></script>
+    <script type="text/javascript" src="~/Content/Dashio/lib/advanced-datatable/js/DT_bootstrap.js"></script>
+
+    <!--script for this page-->
+    <script type="text/javascript">
+        /* Formating function for row details */
+
+        $(document).ready(function () {
+
+
+            /*
+             * Initialse DataTables, with no sorting on the 'details' column
+             */
+            var oTable = $('#hidden-table-info').dataTable({
+                "aoColumnDefs": [{
+                    "bSortable": false,
+                    "aTargets": [0]
+                }],
+                "aaSorting": [
+                    [1, 'asc']
+                ]
+            });
+
+            /* Add event listener for opening and closing details
+             * Note that the indicator for showing which row is open is not controlled by DataTables,
+             * rather it is done here
+             */
+            $('#hidden-table-info tbody td img').live('click', function () {
+                var nTr = $(this).parents('tr')[0];
+                if (oTable.fnIsOpen(nTr)) {
+                    /* This row is already open - close it */
+                    this.src = "/Content/Dashio/lib/advanced-datatable/media/images/details_open.png";
+                    oTable.fnClose(nTr);
+                } else {
+                    /* Open this row */
+                    this.src = "/Content/Dashio/lib/advanced-datatable/images/details_close.png";
+                    oTable.fnOpen(nTr, fnFormatDetails(oTable, nTr), 'details');
+                }
+            }); var oTable = $('#hidden-datatable-info').dataTable({
+                "aoColumnDefs": [{
+                    "bSortable": false,
+                    "aTargets": [0]
+                }],
+                "aaSorting": [
+                    [1, 'asc']
+                ]
+            });
+
+            /* Add event listener for opening and closing details
+             * Note that the indicator for showing which row is open is not controlled by DataTables,
+             * rather it is done here
+             */
+            $('#hidden-datatable-info tbody td img').live('click', function () {
+                var nTr = $(this).parents('tr')[0];
+                if (oTable.fnIsOpen(nTr)) {
+                    /* This row is already open - close it */
+                    this.src = "/Content/Dashio/lib/advanced-datatable/media/images/details_open.png";
+                    oTable.fnClose(nTr);
+                } else {
+                    /* Open this row */
+                    this.src = "/Content/Dashio/lib/advanced-datatable/images/details_close.png";
+                    oTable.fnOpen(nTr, fnFormatDetails(oTable, nTr), 'details');
+                }
+            });
+        });
+
+
+    </script>
+}
+<h3 class="text-center">List All Ranks</h3>
+<div class="form-panel">
+    <a href="@Url.Action("CreateRank")" class="btn btn-success">Create rank</a>
+    <div class="container row">
+        <div class="col-md-6">
+            <h4>
+                List Rank Songs
+            </h4>
+            <div class="adv-table">
+                <table cellpadding="0" cellspacing="0" border="0" class="display table table-bordered" id="hidden-table-info">
+                    <thead>
+                        <tr>
+                            <th>Rank</th>
+                            <th>Start</th>
+                            <th>End</th>
+                            <th>Category Name</th>
+                            <th>Song/Mv</th>
+                            <th>#</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in listRankSongs)
+                        {
+                            <tr class="dataRank" data-id="@item.ID">
+                                <td>@item.RMusicName</td>
+                                <td>@item.RMusicStart</td>
+                                <td>
+                                    @item.RMusicEnd
+                                </td>
+                                <td>@item.CategoryDto.CateName</td>
+                                <td>
+                                    @{if (item.SongOrMusic)
+                                        {
+                                            <p>Songs</p>}
+                                        else
+                                        {
+                                            <p>MV</p>
+                                        }
+                                    }
+
+                                </td>
+                                <td>
+                                    <a href="@Url.Action("EditRank","MusicRank", new {id = @item.ID})" class="btn  btn-success">Edit</a>
+                                    @*<a href="@Url.Action("DeleteRank", "MusicRank", new {id = @item.ID})" class="btn  btn-danger">
+                                        Delete
+                                    </a>*@
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <h4>
+                List Rank MVs
+            </h4>
+            <div class="adv-table">
+                <table cellpadding="0" cellspacing="0" border="0" class="display table table-bordered" id="hidden-datatable-info">
+                    <thead>
+                        <tr>
+                            <th>Rank</th>
+                            <th>Start</th>
+                            <th>End</th>
+                            <th>Category Name</th>
+                            <th>Song/Mv</th>
+                            <th>#</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in listRankMvs)
+                        {
+                            <tr class="dataRank" data-id="@item.ID">
+                                <td>@item.RMusicName</td>
+                                <td>@item.RMusicStart</td>
+                                <td>
+                                    @item.RMusicEnd
+                                </td>
+                                <td>@item.CategoryDto.CateName</td>
+                                <td>
+                                    @{if (item.SongOrMusic)
+                                        {
+                                            <p>Songs</p>}
+                                        else
+                                        {
+                                            <p>MV</p>
+                                        }
+                                    }
+
+                                </td>
+                                <td>
+                                    <a href="@Url.Action("EditRank","MusicRank", new {id = @item.ID})" class="btn  btn-success my-1">Edit</a>
+                                    @*<a href="@Url.Action("DeleteRank", "MusicRank", new {id = @item.ID})" class="btn  btn-danger">
+                                        Delete
+                                    </a>*@
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div><a href="@Url.Action("Index")" class="btn btn-primary">Ranks</a>
+</div>

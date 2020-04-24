@@ -1,0 +1,182 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Client/Views/Shared/_LayoutClient.cshtml";
+}
+
+<div id="content" class="container">
+    <div id="topicBxh">
+        <span>Bảng xếp hạng âm nhạc việt nam</span>
+        <div>
+            <div class="activeTopicBxh" data-music="1">Bài hát</div>
+            <div data-music="0">Video</div>
+        </div>
+    </div>
+    <p style="margin-left: 40px;">
+        Bảng xếp hạng được thống kê và thay đổi và lúc 23h30 chủ nhật hàng tuần.
+    </p>
+    <div id="listBxh">
+        <div>
+            <span>Tuần 13 (23/03/2020 - 29/03/2020)</span>
+            <span style="float: right;">
+                <a href="" style="color: white;font-weight: 700;">
+                    <i class="far fa-play-circle"></i> Nghe toàn bộ
+                </a>
+            </span>
+        </div>
+        <div id="songBxh" style="display: block;">
+            <div class="itemBxh" data-grade="1">
+                <span>1</span>
+                <img src="img/avt.png" alt="">
+                <span>
+                    <a href="" style="font-size: 20px;">Tên bài hát</a><br>
+                    <span>
+                        <a href="">Ca sĩ 1</a>,
+                        <a href="">Ca sĩ 2</a>
+                    </span>
+                </span>
+                <span style="left: 265px;top: -15px;">
+                    <span><i class="fas fa-headphones"></i> 300.000</span>
+                    <span class="addPlaylist" style="cursor: pointer;">
+                        <i class="fas fa-plus-circle"></i> Thêm vào
+                        <ul>
+                            <li><a href="">Bài hát yêu thích</a> </li>
+                            <li><a href="">Test1</a></li>
+                            <li><a href="">Test2</a></li>
+                        </ul>
+                    </span>
+                </span>
+            </div>
+            <div class="itemBxh" data-grade="2">
+                <span>2</span>
+                <img src="img/avt.png" alt="">
+                <span>
+                    <a href="" style="font-size: 20px;">Tên bài hát</a><br>
+                    <span>
+                        <a href="">Ca sĩ 1</a>,
+                        <a href="">Ca sĩ 2</a>
+                    </span>
+                </span>
+                <span style="left: 265px;top: -15px;">
+                    <span><i class="fas fa-headphones"></i> 300.000</span>
+                    <span class="addPlaylist" style="cursor: pointer;">
+                        <i class="fas fa-plus-circle"></i> Thêm vào
+                        <ul>
+                            <li><a href="">Bài hát yêu thích</a> </li>
+                            <li><a href="">Test1</a></li>
+                            <li><a href="">Test2</a></li>
+                        </ul>
+                    </span>
+                </span>
+            </div>
+            <div class="itemBxh" data-grade="3">
+                <span>3</span>
+                <img src="img/avt.png" alt="">
+                <span>
+                    <a href="" style="font-size: 20px;">Tên bài hát</a><br>
+                    <span>
+                        <a href="">Ca sĩ 1</a>,
+                        <a href="">Ca sĩ 2</a>
+                    </span>
+                </span>
+                <span style="left: 265px;top: -15px;">
+                    <span><i class="fas fa-headphones"></i> 300.000</span>
+                    <span class="addPlaylist" style="cursor: pointer;">
+                        <i class="fas fa-plus-circle"></i> Thêm vào
+                        <ul>
+                            <li><a href="">Bài hát yêu thích</a> </li>
+                            <li><a href="">Test1</a></li>
+                            <li><a href="">Test2</a></li>
+                        </ul>
+                    </span>
+                </span>
+            </div>
+            <div class="itemBxh" data-grade="4">
+                <span>4</span>
+                <img src="img/avt.png" alt="">
+                <span>
+                    <a href="" style="font-size: 20px;">Tên bài hát</a><br>
+                    <span>
+                        <a href="">Ca sĩ 1</a>,
+                        <a href="">Ca sĩ 2</a>
+                    </span>
+                </span>
+                <span style="left: 265px;top: -15px;">
+                    <span><i class="fas fa-headphones"></i> 300.000</span>
+                    <span class="addPlaylist" style="cursor: pointer;">
+                        <i class="fas fa-plus-circle"></i> Thêm vào
+                        <ul>
+                            <li><a href="">Bài hát yêu thích</a> </li>
+                            <li><a href="">Test1</a></li>
+                            <li><a href="">Test2</a></li>
+                        </ul>
+                    </span>
+                </span>
+            </div>
+
+        </div>
+        <div id="mvBxh" style="display: none;">
+            <div class="itemBxh" data-grade="1">
+                <span>1</span>
+                <img src="img/avt.png" alt="">
+                <span>
+                    <a href="" style="font-size: 20px;">Tên Video</a><br>
+                    <span>
+                        <a href="">Ca sĩ 1</a>,
+                        <a href="">Ca sĩ 2</a>
+                    </span>
+                </span>
+                <span style="left: 265px;top: -15px;">
+                    <span><i class="fas fa-headphones"></i> 300.000</span>
+                    <span><i class="fas fa-plus-circle"></i> Thêm vào</span>
+                </span>
+            </div>
+            <div class="itemBxh" data-grade="2">
+                <span>2</span>
+                <img src="img/avt.png" alt="">
+                <span>
+                    <a href="" style="font-size: 20px;">Tên Video</a><br>
+                    <span>
+                        <a href="">Ca sĩ 1</a>,
+                        <a href="">Ca sĩ 2</a>
+                    </span>
+                </span>
+                <span style="left: 265px;top: -15px;">
+                    <span><i class="fas fa-headphones"></i> 300.000</span>
+                    <span style="cursor: pointer;"><i class="fas fa-plus-circle"></i> Thêm vào</span>
+                </span>
+            </div>
+            <div class="itemBxh" data-grade="3">
+                <span>3</span>
+                <img src="img/avt.png" alt="">
+                <span>
+                    <a href="" style="font-size: 20px;">Tên Video</a><br>
+                    <span>
+                        <a href="">Ca sĩ 1</a>,
+                        <a href="">Ca sĩ 2</a>
+                    </span>
+                </span>
+                <span style="left: 265px;top: -15px;">
+                    <span><i class="fas fa-headphones"></i> 300.000</span>
+                    <span style="cursor: pointer;"><i class="fas fa-plus-circle"></i> Thêm vào</span>
+                </span>
+            </div>
+            <div class="itemBxh" data-grade="4">
+                <span>4</span>
+                <img src="img/avt.png" alt="">
+                <span>
+                    <a href="" style="font-size: 20px;">Tên Video</a><br>
+                    <span>
+                        <a href="">Ca sĩ 1</a>,
+                        <a href="">Ca sĩ 2</a>
+                    </span>
+                </span>
+                <span style="left: 265px;top: -15px;">
+                    <span><i class="fas fa-headphones"></i> 300.000</span>
+                    <span style="cursor: pointer;"><i class="fas fa-plus-circle"></i> Thêm vào</span>
+                </span>
+            </div>
+
+        </div>
+    </div>
+</div>

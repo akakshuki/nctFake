@@ -1,0 +1,125 @@
+﻿@using ModelViews.DTOs
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Client/Views/Shared/_LayoutClient.cshtml";
+    List<MusicDTO> listSong = ViewBag.GetTop10SongNew;
+    List<MusicDTO> listMV = ViewBag.GetTop10MVNew;
+    List<MusicDTO> SingerMusic = ViewBag.GetSinger;
+    List<PartnerDTO> listPartner = ViewBag.GetPartner;
+    List<CategoryDTO> randomCate = ViewBag.RandomTheoChuDe;
+
+}
+
+<div class="gridMusic">
+    <div class="gridLeft">
+        <!--New Song-->
+        <div>
+            <label for="" class="lblMusic">Mới phát hành</label>
+            <div class="listMusic">
+                @foreach (var item in listSong)
+                {
+                    <div class="itemMusic">
+                        <span class="viewMusic">
+                            <i class="fas fa-headphones"></i> @item.MusicView
+                        </span>
+                        <a href="@Url.Action("Index","playMusic", new { id = item.ID})" style="font-size: 18px;"><img src="@item.LinkImage" alt="" class="imgMusic">@item.MusicName</a>
+                        <div class="nameSinger">
+                            <a href="PersonalSinger.html"></a>
+                            @foreach (var itemSinger in SingerMusic)
+                            {
+                                if (itemSinger.ID == item.ID)
+                                {
+                                    foreach (var singers in itemSinger.SingerMusicDtOs)
+                                    {
+                                       
+                                        if (itemSinger.SingerMusicDtOs.IndexOf(singers)+1 == itemSinger.SingerMusicDtOs.Count)
+                                        { 
+                                            <a href="@Url.Action("Index","Singer", new { id = singers.UserDto.ID })" >@singers.UserDto.UserName.</a>
+                                        }
+                                        else
+                                        {
+                                            <a href="@Url.Action("Index","Singer", new { id = singers.UserDto.ID })">@singers.UserDto.UserName,</a>
+                                        }
+                                    }
+                                }
+
+                            }
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+        <!--New Song-->
+        <!--New MV-->
+        <div style="margin-top: 10px;">
+            <label for="" class="lblMusic">MV mới</label>
+            <div class="listMusic">
+                @foreach (var item in listMV)
+                {
+                    <div class="itemMusic">
+                        <span class="viewMusic">
+                            <i class="fas fa-headphones"></i> @item.MusicView
+                        </span>
+                        <a href="@Url.Action("Index","playMusic", new { id = item.ID})" style="font-size: 18px;"><img src="@item.LinkImage" alt="" class="imgMusic">@item.MusicName</a>
+                        <div class="nameSinger">
+                            <a href=""></a>
+                            @foreach (var itemSinger in SingerMusic)
+                            {
+                                if (itemSinger.ID == item.ID)
+                                {
+                                    foreach (var singers in itemSinger.SingerMusicDtOs)
+                                    {
+                                        if (itemSinger.SingerMusicDtOs.IndexOf(singers) + 1 == itemSinger.SingerMusicDtOs.Count)
+                                        {
+                                            <a href="@Url.Action("Index","Singer", new { id = singers.UserDto.ID })">@singers.UserDto.UserName.</a>
+                                        }
+                                        else
+                                        {
+                                            <a href="@Url.Action("Index","Singer", new { id = singers.UserDto.ID })">@singers.UserDto.UserName,</a>
+                                        }
+                                    }
+                                }
+
+                            }
+                        </div>
+
+
+                    </div>
+                }
+            </div>
+        </div>
+        <!--New MV-->
+    </div>
+    <div class="gridRight">
+        <label for="" class="lblMusic">Chủ đề HOT</label>
+        <div id="cateList">
+            <ul>
+                @foreach (var item in randomCate)
+                {
+                    <li><a href="@Url.Action("Index","listPlaylistByCate", new { id = item.ID})">@item.CateName</a></li>
+                }
+            </ul>
+        </div>
+    </div>
+</div>
+<!--Partner-->
+<div id="partner">
+    <label for="" style="font-size: 18px;text-transform: uppercase;">Liên kết và hợp tác</label>
+    <div id="slideImg">
+        <div id="owl-wrapper">
+            @foreach (var item in listPartner)
+            {
+                <a href="@item.PartnerLink" class="imgItem" target="_blank"> <img src="@item.LinkImage"></a>
+            }
+        </div>
+        <div id="controlImg">
+            <div id="btnPrev">
+                <i class="fas fa-caret-left"></i>
+            </div>
+            <div id="btnNext">
+                <i class="fas fa-caret-right"></i>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Partner-->

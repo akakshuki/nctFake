@@ -17,13 +17,13 @@ namespace Api.Models.EF
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Payment()
         {
-            this.PackageVips = new HashSet<PackageVip>();
+            this.OrderVips = new HashSet<OrderVip>();
         }
     
         public int ID { get; set; }
         public string PaymentName { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PackageVip> PackageVips { get; set; }
+        public virtual ICollection<OrderVip> OrderVips { get; set; }
     }
 }

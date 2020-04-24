@@ -57,6 +57,10 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.4.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="Glimpse.AspNet, Version=1.9.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Bin\Glimpse.AspNet.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Owin, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Owin.3.1.0\lib\net45\Microsoft.Owin.dll</HintPath>
@@ -98,6 +102,7 @@
     <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.ValueTuple.4.5.0\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
     </Reference>
+    <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -180,7 +185,22 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\LyricsMusicController.cs" />
+    <Compile Include="Areas\Admin\Controllers\MusicController.cs" />
+    <Compile Include="Areas\Admin\Controllers\OrderVipController.cs" />
+    <Compile Include="Areas\Admin\Controllers\PackageVipController.cs" />
+    <Compile Include="Areas\Admin\Controllers\PaymentController.cs" />
+    <Compile Include="Areas\Admin\Controllers\PlaylistMusicController.cs" />
+    <Compile Include="Areas\Admin\Controllers\QualityController.cs" />
+    <Compile Include="Areas\Admin\Controllers\QualityMusicController.cs" />
+    <Compile Include="Areas\Admin\Controllers\RankController.cs" />
     <Compile Include="Areas\Client\ClientAreaRegistration.cs" />
+    <Compile Include="Areas\Client\Controllers\ClientPaymentController.cs" />
+    <Compile Include="Areas\Client\Controllers\MusicClientController.cs" />
+    <Compile Include="Areas\Client\Controllers\PlaylistClientController.cs" />
+    <Compile Include="Areas\Client\Controllers\QualityMusicClientController.cs" />
+    <Compile Include="Areas\Client\Controllers\RankMusicClientController.cs" />
+    <Compile Include="Areas\Client\Controllers\UserClientController.cs" />
     <Compile Include="Areas\HelpPage\ApiDescriptionExtensions.cs" />
     <Compile Include="Areas\HelpPage\App_Start\HelpPageConfig.cs" />
     <Compile Include="Areas\HelpPage\Controllers\HelpController.cs" />
@@ -209,18 +229,51 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Common\TokenGenerator.cs" />
     <Compile Include="Configure\ConfigAutoFact.cs" />
+    <Compile Include="Areas\Admin\Controllers\CategoryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\RolesController.cs" />
+    <Compile Include="Areas\Admin\Controllers\PartnerController.cs" />
+    <Compile Include="Areas\Admin\Controllers\PlaylistController.cs" />
+    <Compile Include="Areas\Admin\Controllers\RolesController.cs" />
     <Compile Include="Areas\Admin\Controllers\ValuesController.cs" />
+    <Compile Include="Areas\Admin\Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Bus\CategoryBus.cs" />
+    <Compile Include="Models\Bus\LyricsMusicBus.cs" />
     <Compile Include="Models\Bus\MusicBus.cs" />
+    <Compile Include="Models\Bus\OrderVipBus.cs" />
+    <Compile Include="Models\Bus\PackageVipBus.cs" />
+    <Compile Include="Models\Bus\PartnerBus.cs" />
+    <Compile Include="Models\Bus\PaymentBus.cs" />
+    <Compile Include="Models\Bus\PlaylistBus.cs" />
+    <Compile Include="Models\Bus\PlaylistMusicBus.cs" />
+    <Compile Include="Models\Bus\QualityBus.cs" />
+    <Compile Include="Models\Bus\QualityMusicBus.cs" />
+    <Compile Include="Models\Bus\RankBus.cs" />
+    <Compile Include="Models\Bus\RoleBus.cs" />
+    <Compile Include="Models\Bus\UserBus.cs" />
+    <Compile Include="Models\CommonConstants.cs" />
+    <Compile Include="Models\Common\ConvertString.cs" />
+    <Compile Include="Models\Dao\CategoryDao.cs" />
+    <Compile Include="Models\Dao\HistoryUserDao.cs" />
+    <Compile Include="Models\Dao\LyricsMusicDao.cs" />
     <Compile Include="Models\Dao\MusicDao.cs" />
+    <Compile Include="Models\Dao\OrderVipDao.cs" />
+    <Compile Include="Models\Dao\PackageVipDao.cs" />
+    <Compile Include="Models\Dao\PartnerDao.cs" />
+    <Compile Include="Models\Dao\PaymentDao.cs" />
+    <Compile Include="Models\Dao\PlaylistDao.cs" />
+    <Compile Include="Models\Dao\PlaylistMusicDao.cs" />
     <Compile Include="Models\Dao\QualityMusicDao.cs" />
     <Compile Include="Models\Dao\QualityDao.cs" />
-    <Compile Include="Models\Dao\RolesDao.cs" />
+    <Compile Include="Models\Dao\RankDao.cs" />
+    <Compile Include="Models\Dao\RankMusicDao.cs" />
+    <Compile Include="Models\Dao\RoleDao.cs" />
+    <Compile Include="Models\Dao\SingerMusicDao.cs" />
+    <Compile Include="Models\Dao\UserDao.cs" />
     <Compile Include="Models\EF\Category.cs">
       <DependentUpon>NCTModel.tt</DependentUpon>
     </Compile>
@@ -272,6 +325,9 @@
     <Compile Include="Models\EF\QualityMusic.cs">
       <DependentUpon>NCTModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\EF\Rank.cs">
+      <DependentUpon>NCTModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\EF\RankMusic.cs">
       <DependentUpon>NCTModel.tt</DependentUpon>
     </Compile>
@@ -281,13 +337,15 @@
     <Compile Include="Models\EF\SingerMusic.cs">
       <DependentUpon>NCTModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\EF\sysdiagram.cs">
+      <DependentUpon>NCTModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\EF\User.cs">
       <DependentUpon>NCTModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\EF\ViewMusic.cs">
       <DependentUpon>NCTModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Mappers\MapperConfig.cs" />
     <Compile Include="Models\Repositories.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -320,7 +378,6 @@
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\CollectionModelDescription.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ApiGroup.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
-    <Content Include="Areas\Client\Views\web.config" />
     <Content Include="Models\EF\NCTModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>NCTModel.edmx</DependentUpon>
@@ -354,6 +411,7 @@
     <Content Include="Scripts\esm\popper.js.map" />
     <Content Include="Scripts\esm\popper-utils.min.js.map" />
     <Content Include="Scripts\esm\popper-utils.js.map" />
+    <Content Include="Areas\Client\Views\web.config" />
     <EntityDeploy Include="Models\EF\NCTModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>NCTModel.Designer.cs</LastGenOutput>
@@ -466,9 +524,12 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Data\" />
-    <Folder Include="Areas\Client\Controllers\" />
+    <Folder Include="Areas\Admin\Views\Rank\" />
     <Folder Include="Areas\Client\Data\" />
     <Folder Include="Areas\Client\Views\Shared\" />
+    <Folder Include="File\ImageMusic\" />
+    <Folder Include="File\ImageUser\" />
+    <Folder Include="Models\Mappers\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -484,7 +545,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ModelViews\ModelViews.csproj">
-      <Project>{B858E174-1730-496B-B610-22753DF96436}</Project>
+      <Project>{b858e174-1730-496b-b610-22753df96436}</Project>
       <Name>ModelViews</Name>
     </ProjectReference>
   </ItemGroup>

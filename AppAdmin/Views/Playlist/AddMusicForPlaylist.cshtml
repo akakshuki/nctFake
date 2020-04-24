@@ -1,0 +1,158 @@
+﻿@using ModelViews.DTOs
+@model PlaylistMusicDTO
+@{
+    ViewBag.Title = "List Singer Of Music";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    List<PlaylistMusicDTO> list = ViewBag.getMuiscInPlaylist;
+    List<MusicDTO> listMusic = ViewBag.listMusic;
+    PlaylistDto playlist = ViewBag.Playlist;
+
+}
+
+@section js{
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+
+    <script>
+        $('.select2').select2();
+    </script>
+    <script type="text/javascript" language="javascript" src="~/Content/Dashio/lib/advanced-datatable/js/jquery.dataTables.js"></script>
+    <script type="text/javascript" src="~/Content/Dashio/lib/advanced-datatable/js/DT_bootstrap.js"></script>
+    <script type="text/javascript">
+        /* Formating function for row details */
+        function fnFormatDetails(oTable, nTr) {
+            var aData = oTable.fnGetData(nTr);
+            var sOut = '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">';
+            sOut += '<tr><td>Rendering engine:</td><td>' + aData[1] + ' ' + aData[4] + '</td></tr>';
+            sOut += '<tr><td>Link to source:</td><td>Could provide a link here</td></tr>';
+            sOut += '<tr><td>Extra info:</td><td>And any further details here (images etc)</td></tr>';
+            sOut += '</table>';
+            return sOut;
+        }
+
+        $(document).ready(function () {
+            /*
+             * Insert a 'details' column to the table
+             */
+            var nCloneTh = document.createElement('th');
+            var nCloneTd = document.createElement('td');
+            nCloneTd.innerHTML = '';
+            nCloneTd.className = "center";
+
+            $('#hidden-table-info thead tr').each(function () {
+                this.insertBefore(nCloneTh, this.childNodes[0]);
+            });
+
+            $('#hidden-table-info tbody tr').each(function () {
+                this.insertBefore(nCloneTd.cloneNode(true), this.childNodes[0]);
+            });
+
+            /*
+             * Initialse DataTables, with no sorting on the 'details' column
+             */
+            var oTable = $('#hidden-table-info').dataTable({
+                "aoColumnDefs": [{
+                    "bSortable": false,
+                    "aTargets": [0]
+                }],
+                "aaSorting": [
+                    [1, 'asc']
+                ]
+            });
+
+            /* Add event listener for opening and closing details
+             * Note that the indicator for showing which row is open is not controlled by DataTables,
+             * rather it is done here
+             */
+            $('#hidden-table-info tbody td img').live('click', function () {
+                var nTr = $(this).parents('tr')[0];
+                if (oTable.fnIsOpen(nTr)) {
+                    /* This row is already open - close it */
+                    this.src = "/Content/Dashio/lib/advanced-datatable/media/images/details_open.png";
+                    oTable.fnClose(nTr);
+                } else {
+                    /* Open this row */
+                    this.src = "/Content/Dashio/lib/advanced-datatable/images/details_close.png";
+                    oTable.fnOpen(nTr, fnFormatDetails(oTable, nTr), 'details');
+                }
+            });
+        });
+    </script>
+}
+<div class="row mt">
+    <div class="col-lg-6">
+        <div class="content-panel" style="height: 300px;">
+            <h4><i class="fa fa-angle-right"></i> Playlist : @playlist.PlaylistName</h4>
+            <div class="panel-body">
+                @using (Html.BeginForm("CreateMusicForPlaylist", "Playlist", FormMethod.Post, new { @class = "mt-5" }))
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-horizontal">
+                        <hr />
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <input type="hidden" name="PlaylistID" value="@playlist.ID" />
+
+                        <div class="form-group">
+                            <label class="control-label col-md-2">Singer</label>
+                            <div class="col-md-10">
+                                <div>
+                                    <select name="MusicID" id="UserId" class="form-control select2">
+                                        @foreach (var item in listMusic)
+                                        {
+                                            <option value="@item.ID">@item.MusicName </option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-lg-offset-2 col-lg-10">
+                                <button style="margin-top: 30px;" class="btn btn-theme" type="submit"><i class="fa fa-heart"></i> Add</button>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="content-panel">
+            <h4><i class="fa fa-angle-right"></i> Add Music</h4>
+            <div class="panel-body">
+                <div class="adv-table">
+                    <table cellpadding="0" cellspacing="0" border="0" class="display table table-bordered " id="hidden-table-info">
+                        <thead>
+                            <tr>
+                                <th scope="col">Music Name</th>
+                                <th scope="col">#</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in list)
+                            {
+                                <tr data-id="@item.ID" class="qualityrow">
+                                    <th>@item.MusicDto.MusicName</th>
+                                    <td>
+                                        <a href="@Url.Action("DeletePlaylistMusic","Playlist",new { id = item.ID})">
+                                            <button type="button" class="btn btn-round btn-danger">Delete</button>
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div>
+    <div>
+        <a href="@Url.Action("ListSinger","User")"> Back to list Singer</a>
+    </div>
+    <div>
+        <a href="@Url.Action("ViewAddPlaylist","Playlist")"> Back to list Playlist</a>
+    </div>
+</div>

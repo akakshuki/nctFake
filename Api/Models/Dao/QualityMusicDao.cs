@@ -1,11 +1,8 @@
-﻿using System;
+﻿using Api.Models.EF;
+using ModelViews.DTOs;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Web;
-
-using Api.Models.EF;
-using ModelViews.DTOs;
 
 namespace Api.Models.Dao
 {
@@ -17,8 +14,31 @@ namespace Api.Models.Dao
         {
             db = new ProjectNCTEntities();
         }
-
-        //create 
+        //getFileByIdMusic
+        public List<QualityMusic> GetFileByIdMusic(int id)
+        {
+            var data = db.QualityMusics.Where(s => s.MusicID == id).ToList();
+            return data;
+        }
+        //lay song file 120kbps
+        public QualityMusic GetQualityMusicByIdMusic(int id)
+        {
+            var data = db.QualityMusics.SingleOrDefault(s => s.MusicID == id && s.QualityID == 1 ) ?? null;
+            return data;
+        }
+        //lay mv file 360mp
+        public QualityMusic GetQualityMusicByIdMusicMV(int id)
+        {
+            var data = db.QualityMusics.SingleOrDefault(s => s.MusicID == id && s.QualityID == 3) ?? null;
+            return data;
+        }
+        //getFileByIdMusic
+        public QualityMusic GetLinkFileByIdMusic(int id)
+        {
+            var data = db.QualityMusics.SingleOrDefault(s => s.MusicID == id);
+            return data;
+        }
+        //create
         public QualityMusic Create(QualityMusic qualityMusic)
         {
             db.QualityMusics.Add(qualityMusic);
@@ -27,8 +47,8 @@ namespace Api.Models.Dao
                 return qualityMusic;
             };
             return null;
-
         }
+
         //delete
         public void Delete(int id)
         {
@@ -42,7 +62,31 @@ namespace Api.Models.Dao
 
         public void Unactive(int id)
         {
-
+        }
+        //update Approved
+        public bool UpdateFile(int id)
+        {
+            var data = db.QualityMusics.SingleOrDefault(s => s.ID == id);
+            data.NewFile = false;
+            data.QMusicApproved = true;
+            if (db.SaveChanges() > 0)
+            {
+                return true;
+            }
+            return false;
+        }
+        //Delete lien quan
+        public bool DelFileAndTableRelated(int id)
+        {
+            var item = db.QualityMusics.Find(id);
+            var lsSinger = new SingerMusicDao().GetSMByID(item.MusicID);
+            foreach (var singer in lsSinger)
+            {
+                db.SingerMusics.Remove(db.SingerMusics.Find(singer.ID));
+                db.SaveChanges();
+            }
+            Delete(id);
+            return new MusicDao().DeleteLQ(item.MusicID) == true ? true : false;
         }
         //update
         public void Update(QualityMusic qualityMusic)
@@ -62,12 +106,12 @@ namespace Api.Models.Dao
         {
             return db.QualityMusics.ToList();
         }
-        //get paging 
+
+        //get paging
         public IEnumerable<QualityMusic> GetPageQuality(Pagination page)
         {
             var data = db.QualityMusics.ToList().Skip(page.Index * page.Size).Take(page.Size);
             return data;
         }
-
     }
 }

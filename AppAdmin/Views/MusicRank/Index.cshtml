@@ -1,0 +1,115 @@
+﻿@using ModelViews.DTOs
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    List<RankDTO> listRank = ViewBag.ListRankThisWeek;
+}
+
+<div class="form-panel">
+    <h3 class="text-center">List nhạc tuần này</h3>
+    <div class="container row">
+        @foreach (var item in listRank.Where(x => x.SongOrMusic))
+        {
+            <div class="col-md-4 text-center">
+                <h5>
+                    Top 10 nhạc @item.CategoryDto.CateName @item.RMusicName
+                </h5>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Rank</th>
+                            <th>Name Song</th>
+                            <th>Singer Name</th>
+                            <th>View</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var data in item.MusicDtos)
+                        {
+                            <tr>
+                                <td>
+                                    @if (@data.GradeRank == 1)
+                                    {
+                                        <p class="font-weight-bold text-danger">@data.GradeRank</p>
+                                    }
+                                    else if (@data.GradeRank == 2)
+                                    {
+                                        <p class="font-weight-bold text-warning">@data.GradeRank</p>
+                                    }
+                                    else if (@data.GradeRank == 3)
+                                    {
+                                        <p class="text-success">@data.GradeRank</p>
+                                    }
+                                    else
+                                    {
+                                        <p>@data.GradeRank</p>
+                                    }
+                                </td>
+                                <td>@data.MusicName</td>
+                                <td>
+                                    @foreach (var singer in data.SingerMusicDtOs)
+                                    {
+                                        <p>
+                                            @singer.UserDto.UserName
+                                        </p>
+                                    }
+                                </td>
+                                <td>@data.MusicView</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                @if (item.OldWeekRankId != 0)
+                {
+                    <a href="@Url.Action("GetOldRank","MusicRank",new {id = @item.OldWeekRankId})" class="btn btn-success">CheckLastWeek</a>
+                }
+            </div>
+
+        }
+    </div>
+    <div class="container row" mt-5>
+        @foreach (var item in listRank.Where(x => !x.SongOrMusic))
+        {
+            <div class="col-md-4 text-center">
+                <h5>
+                    Top 10 nhạc @item.CategoryDto.CateName
+                </h5>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Rank</th>
+                            <th>Name Song</th>
+                            <th>Singer Name</th>
+                            <th>View</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var data in item.MusicDtos)
+                        {
+                            <tr>
+                                <td>@data.GradeRank</td>
+                                <td>@data.MusicName</td>
+                                <td>
+                                    @foreach (var singer in data.SingerMusicDtOs)
+                                    {
+                                        <p>
+                                            @singer.UserDto.UserName
+                                        </p>
+                                    }
+                                </td>
+                                <td>@data.MusicView</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                @if (item.OldWeekRankId != 0)
+                {
+                    <a href="@Url.Action("GetOldRank","MusicRank",new {id = @item.OldWeekRankId})" class="btn btn-success">CheckLastWeek</a>
+                }
+            </div>
+        }
+    </div>
+    <a href="@Url.Action("ListRanks")" class="text-center btn btn-primary">Manage Ranks</a>
+</div>
+

@@ -1,0 +1,73 @@
+﻿@using ModelViews.DTOs
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    List<PaymentDTO> payment = ViewBag.Payment;
+    List<PackageVipDTO> packageVip = ViewBag.PackageVip;
+}
+
+<h2>Package Vip</h2>
+<div class="row">
+    <div class="col-md-6">
+        <h4>Payment</h4>
+        <a href="@Url.Action("CreatePayment")">Create new</a>
+        <table class="table mx-1">
+            <thead>
+                <tr>
+                    <th scope="col">Name</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in payment)
+                {
+                    <tr>
+                        <td>@item.PaymentName</td>
+                        <td>
+                            <a href="@Url.Action("DeletePayment", "PackageVip", new {id = @item.ID})" class="btn btn-danger">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
+    <div class="col-md-6">
+        <h4>Package vip</h4>
+        <a href="@Url.Action("CreatePackageVip")">Create new</a>
+        <table class="table mx-1">
+            <thead>
+            <tr>
+                <th scope="col">Package</th>
+                <th scope="col">Months</th>
+                <th scope="col">Price</th>
+                <th>
+
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in packageVip)
+                {
+                    <tr>
+                        <th scope="row">@item.PVipName</th>
+                        <td>@item.PVipMonths</td>
+                        <td>@item.PVipPrice</td>
+                        <td>
+                            <a href="@Url.Action("EditPackageVip","PackageVip", new {id = item.ID})" class="btn btn-success">
+                                Edit
+                            </a>
+                            @*<a href="@Url.Action("DeletePackageVip","PackageVip", new {id = item.ID})" class="btn btn-danger">
+                                Delete
+                            </a>*@
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
+</div>
+

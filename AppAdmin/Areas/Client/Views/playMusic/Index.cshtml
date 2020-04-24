@@ -1,0 +1,790 @@
+﻿@using ModelViews.DTOs
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Client/Views/Shared/_LayoutClient.cshtml";
+    QualityMusicDTO qualityMusicDTO = ViewBag.getQualityMusicByIdMusic;
+    QualityMusicDTO qualityMusicDTOMV = ViewBag.getQualityMusicByIdMusicMv;
+    MusicDTO getMusic = ViewBag.getMusicById;
+    LyricsMusicDTO getLyrics = ViewBag.getLyrics;
+    List<PlaylistDto> getPlaylistByIdUser = ViewBag.getPlaylistByIdUser;
+    List<MusicDTO> randomMusic = ViewBag.getMusicRandom;
+    List<MusicDTO> randomMV = ViewBag.getMvRandom;
+    List<MusicDTO> GetAllMusic = ViewBag.GetAllMusic;
+    List<QualityMusicDTO> listQuality = ViewBag.getListQualityMusic;
+    //List<PlaylistMusicDTO> getAllPlaylistMusic = ViewBag.getAllPlaylistMusic;
+}
+@section js {
+    <script>
+           $(document).ready(function () {
+            var valueAuto = true;
+            var userVip = "False";
+            if ('@Session["UserVip"]' != null) {
+                userVip = '@Session["UserVip"]';
+            }
+            var mainAudio = $("#myAudio");
+            var mvFav = true;
+            //alert
+            var msg1 = '@TempData["success"]'
+            if (msg1 != '') {
+                alertify.success(msg1); //display notify
+            }
+            var msg2 = '@TempData["error"]'
+            if (msg2 != '') {
+                alertify.error(msg2); //display notify
+            }
+            //repeat
+            $('#checkAuto').change(function () {
+                if ($('#checkAuto').prop('checked') == true) {
+                    valueAuto = true;
+                } else {
+                    valueAuto = false;
+                }
+            });
+            $("#myAudio").on("ended", function () {
+                if (valueAuto == true) {
+                    window.open($('.musicRandom>div>a:first-child').attr("href"), "_self");
+                } else {
+                    var idMusic = parseInt('@getMusic.ID');
+                    $.ajax({
+                        url: '/playMusic/UpdateView',
+                        type: 'GET',
+                        dataType: 'json',
+                        contentType: "application/json",
+                        data: { idMusic },
+                        success: function (res) {
+                            var view = res.data;
+                            alert(view);
+                            $('#valueView').text(view);
+                            document.getElementById("myAudio").play();
+                        }
+                    });
+                }
+            });
+            //check vip
+            $('#selectQuality').change(function (e) {
+                var optionSelected = $("#selectQuality option:selected");
+                if (optionSelected.attr("data-vip") == userVip || (optionSelected.attr("data-vip") == "False" && userVip == "True")) {
+                    mainAudio.attr("src", optionSelected.val());
+                } else {
+                    e.preventDefault();
+                    alertify.error("Chỉ có tài khoản VIP mới dược nghe/xem chất lượng cao");
+                }
+            })
+            //add music playlist
+            $('.addPlaylist li').click(function () {
+                var idplist = parseInt($(this).attr("data-id"));
+                var idmusic = parseInt('@getMusic.ID');
+                $.post("/playMusic/AddMusicPlaylist", { PlaylistID: idplist, MusicID: idmusic }).done(function (res) {
+                    var stt = res.status;
+                    if (stt == true) {
+                        alertify.success("Thêm bài hát vào playlist thành công.");
+                    } else {
+                        alertify.error("Lỗi khi thêm bài hát vào playlist. Mời thử lại.");
+                    }
+                });
+            });
+            //add favorite video
+            if (mvFav == true) {
+                $('#addFav').css('display', 'none');
+            } else {
+                $('#removeFav').css('display', 'none');
+            }
+            $('#removeFav').click(function () {
+                $('#removeFav').css('display', 'none');
+                $('#addFav').css('display', 'block');
+            });
+            $('#addFav').click(function () {
+                $('#addFav').css('display', 'none');
+                $('#removeFav').css('display', 'block');
+            });
+            //Edit lyrics
+            $('#editLyrics').click(function () {
+                if ($('#editLyrics').attr("data-hide") == "0") {
+                    $('#containLyrics').text($('#lyrics').text());
+                    $('#lyrics').hide();
+                    $('#editLyrics').attr("data-hide", "1")
+                } else {
+                    $('#lyrics').show();
+                    $('#editLyrics').attr("data-hide", "0")
+                }
+            });
+            //Download file
+            $('#downFile>a').click(function () {
+                var downAccept = $(this).attr("data-vip");
+                if (downAccept == "true" && userVip == "false") {
+                    alert("not allow");
+                }
+            });
+
+            //Download file
+            $('.buttondownload').on('click',
+                function () {
+                    const id = $(this).attr('data-id');
+
+                    $.ajax({
+                        url: 'https://localhost:44315/Client/playMusic/DownLoadFile',
+                        type: 'GET',
+                        dataType: 'json',
+                        data: {
+                            qualityId: id
+                        },
+                        success: function (res) {
+
+                            saveAs(res.data);
+                        }, error: function (err) {
+                            alertify.error(err.message);
+                        }
+                    });
+                });
+        });
+        function saveAs(url) {
+            var filename = url.substring(url.lastIndexOf("/") + 1).split("?")[0];
+            var xhr = new XMLHttpRequest();
+            xhr.responseType = 'blob';
+            xhr.onload = function () {
+                var a = document.createElement('a');
+                a.href = window.URL.createObjectURL(xhr.response);
+                a.download = filename;
+                a.style.display = 'none';
+                document.body.appendChild(a);
+                a.click();
+                delete a;
+            };
+            xhr.open('GET', url);
+            xhr.send();
+        }
+
+    </script>
+    <!-- jquery
+      ============================================ -->
+    <!-- Input Mask JS
+            ============================================ -->
+    <script src="@Url.Content("~/Content/ClientMusic/")js/jasny-bootstrap.min.js"></script>
+    <!-- icheck JS
+            ============================================ -->
+    <script src="@Url.Content("~/Content/ClientMusic/")js/icheck/icheck.min.js"></script>
+    <script src="@Url.Content("~/Content/ClientMusic/")js/icheck/icheck-active.js"></script>
+    <!-- rangle-slider JS
+            ============================================ -->
+    <script src="@Url.Content("~/Content/ClientMusic/")js/rangle-slider/jquery-ui-1.10.4.custom.min.js"></script>
+    <script src="@Url.Content("~/Content/ClientMusic/")js/rangle-slider/jquery-ui-touch-punch.min.js"></script>
+    <script src="@Url.Content("~/Content/ClientMusic/")js/rangle-slider/rangle-active.js"></script>
+    <!-- datapicker JS
+            ============================================ -->
+    <script src="@Url.Content("~/Content/ClientMusic/")js/datapicker/bootstrap-datepicker.js"></script>
+    <script src="@Url.Content("~/Content/ClientMusic/")js/datapicker/datepicker-active.js"></script>
+    <!-- bootstrap select JS
+            ============================================ -->
+    <script src="@Url.Content("~/Content/ClientMusic/")js/bootstrap-select/bootstrap-select.js"></script>
+    <!--  color-picker JS
+            ============================================ -->
+    <script src="@Url.Content("~/Content/ClientMusic/")js/color-picker/farbtastic.min.js"></script>
+    <script src="@Url.Content("~/Content/ClientMusic/")js/color-picker/color-picker.js"></script>
+    <!--  notification JS
+            ============================================ -->
+    <script src="@Url.Content("~/Content/ClientMusic/")js/notification/bootstrap-growl.min.js"></script>
+    <script src="@Url.Content("~/Content/ClientMusic/")js/notification/notification-active.js"></script>
+    <!--  summernote JS
+            ============================================ -->
+    <script src="@Url.Content("~/Content/ClientMusic/")js/summernote/summernote-updated.min.js"></script>
+    <script src="@Url.Content("~/Content/ClientMusic/")js/summernote/summernote-active.js"></script>
+    <!-- dropzone JS
+            ============================================ -->
+    <script src="@Url.Content("~/Content/ClientMusic/")js/dropzone/dropzone.js"></script>
+    <!--  wave JS
+            ============================================ -->
+    <script src="@Url.Content("~/Content/ClientMusic/")js/wave/waves.min.js"></script>
+    <script src="@Url.Content("~/Content/ClientMusic/")js/wave/wave-active.js"></script>
+    <!--  chosen JS
+            ============================================ -->
+    <script src="@Url.Content("~/Content/ClientMusic/")js/chosen/chosen.jquery.js"></script>
+    <!--  Chat JS
+            ============================================ -->
+    <script src="@Url.Content("~/Content/ClientMusic/")js/chat/jquery.chat.js"></script>
+    <!-- tawk chat JS
+            ============================================ -->
+    <script src="@Url.Content("~/Content/ClientMusic/")js/tawk-chat.js"></script>
+}
+<!--[if lt IE 8]>
+        <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+<!--Start Content-->
+<div id="content" class="container">
+    <div class="gridMusic">
+        <div class="gridLeft">
+            <div class="name-view-music">
+                <span>
+                    @getMusic.MusicName
+                    @if (qualityMusicDTO != null)
+                    {
+
+                        @(qualityMusicDTO.QMusicApproved == false ? "(Đang chờ duyệt)" : "")
+
+                    }
+                    else
+                    {
+                        @(qualityMusicDTOMV.QMusicApproved == false ? "(Đang chờ duyệt)" : "")
+                    }
+                </span>
+                @if (getMusic.SongOrMV == true && getMusic.MusicRelated != null)
+                {
+                    <!--song-->
+                    <a href="@Url.Action("Index","playMusic", new { id = getMusic.MusicRelated })"><i class="fas fa-music"></i></a>
+                    <!--song-->
+                }
+                else
+                {
+                    <!--mv-->
+                    <a href="@Url.Action("Index","playMusic", new { id = getMusic.MusicRelated })"><i class="fas fa-video"></i></a>
+                    <!--mv-->
+                }
+
+
+                <span style="position: absolute;left: 730px;top:86px;font-size: 18px;">
+                    <i class="fas fa-headphones"></i> @getMusic.MusicView
+                </span>
+            </div>
+            <div class="playMusic">
+                @if (getMusic.SongOrMV == true)
+                {
+                    if (qualityMusicDTO.QMusicApproved == true)
+                    {
+                        //song
+                        <img src="@getMusic.LinkImage" alt="">
+
+                        <audio autoplay controls id="myAudio">
+                            <source src="@qualityMusicDTO.LinkFile" type="audio/mpeg">
+                        </audio>
+                        //song
+                    }
+                    else
+                    {
+                        //song
+                        <img src="@getMusic.LinkImage" alt="">
+
+                        <audio autoplay controls id="myAudio">
+                            <source src="" type="audio/mpeg">
+                        </audio>
+                        //song
+                    }
+
+                }
+                else
+                {
+                    if (qualityMusicDTOMV.QMusicApproved == true)
+                    {
+                        <!--mv-->
+                        <video autoplay controls id="myAudio">
+                            <source src="@qualityMusicDTOMV.LinkFile" type="audio/mpeg">
+                        </video>
+                        <!--mv-->
+                    }
+                    else
+                    {
+                        <!--mv-->
+                        <video autoplay controls id="myAudio">
+                            <source src="" type="audio/mpeg">
+                        </video>
+                        <!--mv-->
+                    }
+
+                }
+                <!--song-->
+                <!-- <img src="img/avt.png" alt="">
+                <audio autoplay controls id="myAudio">
+                    <source src="nhac-demo.mp3" type="audio/mpeg">
+                </audio> -->
+                <!--song-->
+                <!--mv-->
+                <!--mv-->
+                <div class="menuMusic">
+                    <img src="@Url.Content("~/Content/ClientMusic/")img/avt.png" alt="">
+                    <div>
+                        <span>Cung cấp bởi:</span><br>
+                        <span style="color: #00c292;font-weight: 700;">Nhaccuateoo</span>
+                    </div>
+                    <div>
+                        <span>Tự động chuyển bài:</span>
+                        <input type="checkbox" name="" id="checkAuto" checked><br>
+                        @if (getMusic.SongOrMV == true)
+                        {
+                            <!--song-->
+                            <span class="addPlaylist" style="cursor: pointer;">
+                                <i class="fas fa-plus-circle"></i> Thêm
+                                vào
+
+                                <ul>
+                                    @if (Session["SessionUser"] == null)
+                                    {
+                                        <a href="@Url.Action("Login", "Login")">Mời bạn đăng nhập</a>
+                                    }
+                                    else
+                                    {
+                                        if (qualityMusicDTO.QMusicApproved == true)
+                                        {
+                                            if (getPlaylistByIdUser != null)
+                                            {
+                                                foreach (var item in getPlaylistByIdUser)
+                                                {
+                                                    <a href=""><li data-id="@item.ID">@item.PlaylistName</li></a>
+
+                                                }
+
+                                            }
+                                            else
+                                            {
+
+                                                <span>Bạn chưa có playlist nào. <a href="@Url.Action("","", new { id = Session["UserId"]})">TẠO</a></span>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <span>Bài hát này chưa được duyệt. Không thể thêm vào playlist</span>
+                                        }
+
+                                    }
+
+                                </ul>
+                            </span>
+                            <!--song-->
+                        }
+
+                        <!--mv-->
+                        @*<span style="cursor: pointer;" id="removeFav">
+                                <i class="fas fa-heart"></i> Bỏ Yêu
+                                thích
+                            </span>
+                            <span style="cursor: pointer;" id="addFav"><i class="far fa-heart"></i> Yêu thích</span>*@
+                        <!--mv-->
+                    </div>
+                    <div>
+                        @if (qualityMusicDTO != null)
+                        {
+                            if (qualityMusicDTO.QMusicApproved == true)
+                            {
+
+                                <span>Chất lượng: </span>
+                                <select name="" id="selectQuality">
+                                    @if (getMusic.SongOrMV == true)
+                                    {
+                                        <!--song-->
+                                        <option value="@qualityMusicDTO.LinkFile" data-vip="@qualityMusicDTO.QualityDto.QualityVip">@qualityMusicDTO.QualityDto.QualityName</option>
+                                        if (listQuality != null)
+                                        {
+                                            foreach (var item in listQuality)
+                                            {
+                                                if (item.LinkFile != qualityMusicDTO.LinkFile)
+                                                {
+                                                    <option value="@item.LinkFile" data-vip="@item.QualityDto.QualityVip">@item.QualityDto.QualityName</option>
+                                                }
+
+                                            }
+
+                                        }
+                                        <!--song-->
+                                    }
+                                    else
+                                    {
+
+                                        <option value="@qualityMusicDTO.LinkFile" data-vip="@qualityMusicDTO.QualityDto.QualityVip">@qualityMusicDTO.QualityDto.QualityName</option>
+                                        if (listQuality != null)
+                                        {
+                                            foreach (var item in listQuality)
+                                            {
+                                                if (item.LinkFile != qualityMusicDTO.LinkFile)
+                                                {
+                                                    <option value="@item.LinkFile" data-vip="@item.QualityDto.QualityVip">@item.QualityDto.QualityName</option>
+                                                }
+                                            }
+                                        }
+
+                                    }
+
+                                </select><br>
+                                if (getMusic.MusicDownloadAllowed == true)
+                                {
+                                    <a data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false"
+                                       aria-controls="multiCollapseExample1" style="color: black;">
+                                        <i class="fa fa-download"></i>
+                                        Tải về
+                                    </a>
+                                }
+
+                            }
+                        }
+                        else
+                        {
+                            if (qualityMusicDTOMV != null)
+                            {
+                                if (qualityMusicDTOMV.QMusicApproved == true)
+                                {
+
+                                    <span>Chất lượng: </span>
+                                    <select name="" id="selectQuality">
+                                        @if (getMusic.SongOrMV == true)
+                                        {
+                                            <!--song-->
+                                            <option value="@qualityMusicDTOMV.LinkFile" data-vip="@qualityMusicDTOMV.QualityDto.QualityVip">@qualityMusicDTOMV.QualityDto.QualityName</option>
+                                            if (listQuality != null)
+                                            {
+                                                foreach (var item in listQuality)
+                                                {
+                                                    if (item.LinkFile != qualityMusicDTOMV.LinkFile)
+                                                    {
+                                                        <option value="@item.LinkFile" data-vip="@item.QualityDto.QualityVip">@item.QualityDto.QualityName</option>
+                                                    }
+
+                                                }
+
+                                            }
+                                            <!--song-->
+                                        }
+                                        else
+                                        {
+                                            <!--mv-->
+                                            <option value="@qualityMusicDTOMV.LinkFile" data-vip="@qualityMusicDTOMV.QualityDto.QualityVip">@qualityMusicDTOMV.QualityDto.QualityName</option>
+                                            if (listQuality != null)
+                                            {
+                                                foreach (var item in listQuality)
+                                                {
+                                                    if (item.LinkFile != qualityMusicDTOMV.LinkFile)
+                                                    {
+                                                        <option value="@item.LinkFile" data-vip="@item.QualityDto.QualityVip">@item.QualityDto.QualityName</option>
+                                                    }
+
+                                                }
+                                            }
+                                            <!--mv-->
+                                        }
+
+                                    </select><br>
+
+
+                                }
+                            }
+                            if (getMusic.MusicDownloadAllowed == true)
+                            {
+                                <a data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false"
+                                   aria-controls="multiCollapseExample1" style="color: black;">
+                                    <i class="fa fa-download"></i>
+                                    Tải về
+                                </a>
+                            }
+                        }
+
+
+
+
+                    </div>
+                    <div>
+                        <a href=""><img src="@Url.Content("~/Content/ClientMusic/")img/share_fb.png" alt=""></a>
+                    </div>
+                </div>
+                <div class="collapse multi-collapse" id="multiCollapseExample1">
+                    <div class="card card-body" id="downFile">
+                        @if (listQuality != null)
+                        {
+                            foreach (var quality in listQuality)
+                            {
+                                // so sanh user vip o day uservip == quality.qualitydto.vip
+
+                                if ((Session["UserVip"]) == null)
+                                {
+                                    if (quality.QualityDto.QualityVip)
+                                    {
+                                        <button disabled="disabled" class="buttondownload btn btn-default" data-id="@quality.ID">
+                                            @quality.QualityDto.QualityName
+                                            @if (quality.QualityDto.QualityVip)
+                                            {
+                                                <i class="fas fa-crown"></i>
+                                            }
+                                        </button>
+                                    }
+                                    else
+                                    {
+                                        <button class="buttondownload btn btn-default" data-id="@quality.ID">
+                                            @quality.QualityDto.QualityName
+                                            @if (quality.QualityDto.QualityVip)
+                                            {
+                                                <i class="fas fa-crown"></i>
+                                            }
+                                        </button>
+                                    }
+
+                                }
+                                else
+                                {
+                                    if ((bool)(Session["UserVip"]) == true)
+                                    {
+                                        <button class="buttondownload btn btn-default" data-id="@quality.ID">
+                                            @quality.QualityDto.QualityName
+                                            @if (quality.QualityDto.QualityVip)
+                                            {
+                                                <i class="fas fa-crown"></i>
+                                            }
+                                        </button>
+                                    }
+                                    else
+                                    {
+                                        if (quality.QualityDto.QualityVip)
+                                        {
+                                            <button disabled="disabled" class="buttondownload btn btn-default" data-id="@quality.ID">
+                                                @quality.QualityDto.QualityName
+                                                @if (quality.QualityDto.QualityVip)
+                                                {
+                                                    <i class="fas fa-crown"></i>
+                                                }
+                                            </button>
+                                        }
+                                        else
+                                        {
+                                            <button class="buttondownload btn btn-default" data-id="@quality.ID">
+                                                @quality.QualityDto.QualityName
+                                                @if (quality.QualityDto.QualityVip)
+                                                {
+                                                    <i class="fas fa-crown"></i>
+                                                }
+                                            </button>
+                                        }
+                                    }
+
+                                }
+                            }
+                        }
+                        else
+                        {
+                            <p>Chua co file</p>
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="lyrics">
+                <span style="font-size: 18px;font-weight: 700;">Lời Bài Hát: @getMusic.MusicName</span><br>
+                <span>
+                    <span>
+                        Trình bày bởi:
+                        <a href="">
+                            @foreach (var itemSinger in GetAllMusic)
+                            {
+                                if (itemSinger.ID == getMusic.ID)
+                                {
+                                    foreach (var singers in itemSinger.SingerMusicDtOs)
+                                    {
+                                        <a href="@Url.Action("Index","Singer", new { id = singers.UserDto.ID})">@singers.UserDto.UserName,</a>
+                                    }
+                                }
+
+                            }
+                        </a>
+                    </span>
+
+                </span><br>
+                <span>
+                    Lời đăng bởi:
+                    @if (getLyrics != null)
+                    {
+                        <a href=""> @getLyrics.UserDto.UserName</a>
+                        <div style="border: 1px solid #00c292;margin-top: 10px;margin-bottom: 20px;"></div>
+                        <!--Lyrics-->
+                        <p>
+                            @getLyrics.LMusicDetail
+                        </p>
+                        <!--Lyrics-->
+                        if (getLyrics.UserID == Convert.ToInt32(Session["UserId"]))
+                        {
+                            <a data-toggle="collapse" href="#multiCollapseExample3" role="button" aria-expanded="false"
+                               aria-controls="multiCollapseExample3" id="editLyrics" data-hide="0">
+
+                                <i class="fas fa-edit"></i>
+
+                                Chỉnh sửa lời bài hát
+
+                            </a>
+                        }
+
+
+                    }
+                    else
+                    {
+                        <span>
+
+                            Hiện tại chưa có lời bài hát, cập nhật lời bài hát <a data-toggle="collapse"
+                                                                                  href="#multiCollapseExample2" role="button" aria-expanded="false"
+                                                                                  aria-controls="multiCollapseExample2"><h6>Tại đây</h6></a>
+
+                        </span>
+                    }
+
+
+
+                </span>
+
+
+
+
+
+                <!--Post Lyrics-->
+
+                <div class="collapse multi-collapse" id="multiCollapseExample2">
+                    <div class="card card-body" style="width: 70%;">
+                        @if (Session["UserId"] == null)
+                        {
+                            <span>Mời bạn đăng nhập để đăng lời bài hát</span>
+                        }
+                        else
+                        {
+                            if (getMusic.SongOrMV == true)
+                            {
+                                if (qualityMusicDTO.QMusicApproved == true)
+                                {
+                                    <form action="@Url.Action("CreateLyrics","playMusic")" method="POST">
+                                        <div class="input-group">
+                                            <input type="hidden" name="UserID" value="@Session["UserID"]" />
+
+                                            <input type="hidden" name="MusicID" value="@getMusic.ID" />
+                                            <textarea name="LMusicDetail" type="text"
+                                                      style="width: 500px;height: 300px;margin-bottom: 10px;">
+
+                                                </textarea>
+                                            <input type="submit" id="btnLyrics" value="Gửi lời">
+                                        </div>
+                                    </form>
+                                }
+                                else
+                                {
+                                    <span>Vui lòng chờ bài hát được duyệt để gửi lời!</span>
+                                }
+                            }
+                            else
+                            {
+                                if (qualityMusicDTOMV.QMusicApproved == true)
+                                {
+                                    <form action="@Url.Action("CreateLyrics","playMusic")" method="POST">
+                                        <div class="input-group">
+                                            <input type="hidden" name="UserID" value="@Session["UserID"]" />
+
+                                            <input type="hidden" name="MusicID" value="@getMusic.ID" />
+                                            <textarea name="LMusicDetail" type="text"
+                                                      style="width: 500px;height: 300px;margin-bottom: 10px;">
+
+                                                </textarea>
+                                            <input type="submit" id="btnLyrics" value="Gửi lời">
+                                        </div>
+                                    </form>
+                                }
+                                else
+                                {
+                                    <span>Vui lòng chờ bài hát được duyệt để gửi lời!</span>
+                                }
+                            }
+
+                        }
+
+                    </div>
+                </div>
+                <!--Post Lyrics-->
+                <!--Edit Lyrics-->
+                @*<a data-toggle="collapse" href="#multiCollapseExample3" role="button" aria-expanded="false"
+                       aria-controls="multiCollapseExample3" id="editLyrics" data-hide="0">
+                        <i class="fas fa-edit"></i>
+                        Chỉnh sửa lời bài hát
+                    </a>*@
+                @if (Session["UserId"] != null)
+                {
+                    if (getLyrics != null)
+                    {
+                        <div class="collapse multi-collapse" id="multiCollapseExample3">
+                            <div class="card card-body" style="width: 70%;">
+                                <form action="@Url.Action("UpdateLyrics","playMusic")" method="POST">
+                                    <div class="input-group">
+                                        <input type="hidden" name="UserID" value="@Session["UserID"]" />
+                                        <input type="hidden" name="MusicID" value="@getMusic.ID" />
+                                        <input type="hidden" name="ID" value="@getLyrics.ID" />
+                                        <textarea name="LMusicDetail" type="text" id="containLyrics"
+                                                  style="width: 500px;height: 300px;margin-bottom: 10px;">
+
+                                        </textarea>
+                                        <input type="submit" id="btnEditLyrics" value="Cập nhật">
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <label>Chưa có lời không thể cập nhật</label>
+                    }
+                }
+
+                <!--Edit Lyrics-->
+            </div>
+        </div>
+        <div class="gridRight">
+            <span class="lblMusic">Nghe tiếp</span>
+            @if (getMusic.SongOrMV == true)
+            {
+                foreach (var item in randomMusic)
+                {
+                    if (item.ID != getMusic.ID)
+                    {
+
+                        <div class="itemSongRandom musicRandom">
+                            <div>
+                                <a href="@Url.Action("Index","playMusic",new { id = item.ID})"><img src="@item.LinkImage" alt=""> @item.MusicName</a><br>
+                                <span>
+                                    <a href=""></a>
+                                    @foreach (var itemSinger in GetAllMusic)
+                                    {
+                                        if (itemSinger.ID == item.ID)
+                                        {
+                                            foreach (var singers in itemSinger.SingerMusicDtOs)
+                                            {
+                                                <a href="@Url.Action("Index","Singer", new { id = singers.UserDto.ID })">@singers.UserDto.UserName,</a>
+                                            }
+                                        }
+
+                                    }
+                                </span>
+                            </div>
+                        </div>
+
+
+                    }
+
+                }
+            }
+            else
+            {
+                foreach (var item in randomMV)
+                {
+                    if (item.ID != getMusic.ID)
+                    {
+
+                        <div class="itemSongRandom musicRandom">
+                            <div>
+                                <a href="@Url.Action("Index","playMusic",new { id = item.ID})"><img src="@item.LinkImage" alt=""> @item.MusicName</a><br>
+                                <span>
+                                    <a href=""></a>
+                                    @foreach (var itemSinger in GetAllMusic)
+                                    {
+                                        if (itemSinger.ID == item.ID)
+                                        {
+                                            foreach (var singers in itemSinger.SingerMusicDtOs)
+                                            {
+                                                <a href="@Url.Action("Index","Singer", new { id = singers.UserDto.ID })">@singers.UserDto.UserName,</a>
+                                            }
+                                        }
+
+                                    }
+                                </span>
+                            </div>
+                        </div>
+                    }
+
+                }
+            }
+        </div>
+    </div>
+
+</div>
+<!--End content-->

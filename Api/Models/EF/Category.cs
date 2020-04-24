@@ -17,7 +17,7 @@ namespace Api.Models.EF
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Category()
         {
-            this.RankMusics = new HashSet<RankMusic>();
+            this.Ranks = new HashSet<Rank>();
         }
     
         public int ID { get; set; }
@@ -25,6 +25,6 @@ namespace Api.Models.EF
         public Nullable<int> ID_root { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<RankMusic> RankMusics { get; set; }
+        public virtual ICollection<Rank> Ranks { get; set; }
     }
 }

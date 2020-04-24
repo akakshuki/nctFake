@@ -18,9 +18,6 @@ namespace Api.Models.EF
         public string LMusicDetail { get; set; }
         public int MusicID { get; set; }
         public int UserID { get; set; }
-        public bool WaitApproval { get; set; }
-        public bool NotApproved { get; set; }
-        public bool NewNotice { get; set; }
         public System.DateTime LMusicDayCreate { get; set; }
     
         public virtual Music Music { get; set; }
