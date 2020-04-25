@@ -197,7 +197,7 @@ namespace AppAdmin.Areas.Client.Controllers
                     userSession.UserName = user.UserName;
                     userSession.UserEmail = user.UserEmail;
                     Session.Add(CommonConstants.USER_SESSION, userSession);
-                    return RedirectToAction("Index","Music");
+                    return Redirect("https://localhost:44315/Home/Index");
                 }
                 else if (result == -3)
                 {

@@ -17,15 +17,15 @@ namespace AppAdmin.Controllers
         #region Category
         public ActionResult ViewCreateCate()
         {
-            ViewBag.IdRoot = ApiService.GetAllCate();
-            ViewBag.GetAllCate = ApiService.GetAllCate();
+            ViewBag.IdRoot = ApiService.GetAllCate().Where(s => s.ID_root == null).ToList();
+            ViewBag.GetAllCate = ApiService.GetAllCate().Where(s=>s.ID_root==null).ToList();
             return View();
         }
         public ActionResult ViewCateIdRoot(int id)
         {
             Session["idRoot"] = id;
             ViewBag.GetCateByIdRoot = ApiService.GetCateByIdRoot(id);
-            ViewBag.IdRoot = ApiService.GetAllCate();
+            ViewBag.IdRoot = ApiService.GetAllCate().Where(s => s.ID_root == null).ToList();
             return View();
         }
         public ActionResult EditCate(int id)
