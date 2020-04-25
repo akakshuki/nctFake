@@ -134,6 +134,7 @@ namespace AppAdmin.Models.Service
             return null;
         }
 
+      
         public static UserDTO GetUserById(int id)
         {
             var settings = new JsonSerializerSettings
@@ -1926,5 +1927,33 @@ namespace AppAdmin.Models.Service
             return response.StatusCode == System.Net.HttpStatusCode.OK;
 
         }
+
+        public static List<MusicDTO> GetMusicByName(string name)
+        {
+            using var client = new HttpClient();
+            client.BaseAddress = new Uri("https://localhost:44384/api/MusicClient/GetMusicByName/" + name + "/");
+            var responseTask = client.GetAsync(client.BaseAddress);
+            responseTask.Wait();
+            var result = responseTask.Result;
+            if (!result.IsSuccessStatusCode) return null;
+            var readTask =
+                JsonConvert.DeserializeObject<List<MusicDTO>>(result.Content.ReadAsStringAsync().Result);
+            return readTask.ToList();
+        }
+
+
+        internal static List<UserDTO> GetSingerByName(string name)
+        {
+            using var client = new HttpClient();
+            client.BaseAddress = new Uri("https://localhost:44384/api/MusicClient/GetSingerByName/" + name + "/");
+            var responseTask = client.GetAsync(client.BaseAddress);
+            responseTask.Wait();
+            var result = responseTask.Result;
+            if (!result.IsSuccessStatusCode) return null;
+            var readTask =
+                JsonConvert.DeserializeObject<List<UserDTO>>(result.Content.ReadAsStringAsync().Result);
+            return readTask.ToList();
+        }
+
     }
 }

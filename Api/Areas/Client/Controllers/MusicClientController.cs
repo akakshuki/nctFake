@@ -1,11 +1,8 @@
 ﻿using Api.Models;
 using Api.Models.EF;
 using ModelViews.DTOs;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 
 namespace Api.Areas.Client.Controllers
@@ -64,5 +61,23 @@ namespace Api.Areas.Client.Controllers
             }
             return InternalServerError();
         }
+        [HttpGet, Route("GetMusicByName/{name}")]
+        public List<MusicDTO> GetMusicByName(string name)
+        {
+            return new Repositories().GetAllMusic().Where(x => x.MusicName.ToLower().ToString().Contains(name.ToLower()) || x.MusicNameUnsigned.ToLower().Contains(name.ToLower()))
+                .Take(10)
+                .Where(x => x.SongOrMV == true)
+                .ToList();
+
+        }
+        [HttpGet, Route("GetSingerByName/{name}")]
+        public List<User> GetSingerByName(string name)
+        {
+            return new Repositories().GetAllSinger().Where(x =>
+                x.UserName.ToLower().ToString().Contains(name.ToLower()) ||
+                x.UserNameUnsigned.ToLower().Contains(name.ToLower())).Take(5).ToList();
+
+        }
+
     }
 }

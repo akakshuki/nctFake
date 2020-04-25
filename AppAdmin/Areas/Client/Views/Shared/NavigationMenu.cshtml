@@ -178,17 +178,7 @@
 
                 <span>Video</span>
                 <div id="viewMV">
-                    <div class="itemSongRandom">
-                        <div>
-                            <a href="nhac-demo.mp3">
-                                <img src="@Url.Content("~/Content/ClientMusic/")img/avt.png" alt="" style="border-radius: 0%;"> Tên
-                                Playlist
-                            </a><br>
-                            <span>
-                                <a href="">Người tạo</a>
-                            </span>
-                        </div>
-                    </div>
+
                 </div>
                 <script id="data-video-template" type="x-tmpl-mustache">
                     <div class="itemSongRandom">
@@ -209,7 +199,7 @@
                 <script id="data-singer-template" type="x-tmpl-mustache">
                     <div class="itemSongRandom">
                         <div>
-                            <a href="/Client/Singer/{{id}}"><img src="@Url.Content("~/File/ImageUser/"){{linkFile}}" alt="" style="border-radius: 0%;"> {{userName}}</a><br>
+                            <a href="/Client/Singer?id={{id}}"><img src="@Url.Content("~/File/ImageUser/"){{linkFile}}" alt="" style="border-radius: 0%;"> {{userName}}</a><br>
                         </div>
                     </div>
                 </script>

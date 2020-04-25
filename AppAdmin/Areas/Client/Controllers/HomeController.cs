@@ -75,7 +75,7 @@ namespace AppAdmin.Areas.Client.Controllers
         [HttpGet]
         public JsonResult SearchMusicByKey(string name)
         {
-            var list = ApiService.GetAllMusic()
+            var list = ApiService.GetMusicByName(name)
                 .Where(x => x.MusicName.ToLower().ToString().Contains(name.ToLower()) || x.MusicNameUnsigned.ToLower().Contains(name.ToLower()))
                 .Take(5)
                 .Where(x => x.SongOrMV == true)
@@ -90,7 +90,7 @@ namespace AppAdmin.Areas.Client.Controllers
         [HttpGet]
         public JsonResult SearchVideoByKey(string name)
         {
-            var list = ApiService.GetAllMusic()
+            var list = ApiService.GetMusicByName(name)
                 .Where(x => x.MusicName.ToLower().ToString().Contains(name.ToLower()) || x.MusicNameUnsigned.ToLower().Contains(name.ToLower()))
                 .Take(5)
                 .Where(x => x.SongOrMV == false)
@@ -103,7 +103,7 @@ namespace AppAdmin.Areas.Client.Controllers
         [HttpGet]
         public JsonResult SearchSingerByKey(string name)
         {
-            var list = ApiService.GetAllSinger().Where(x => x.UserName.ToLower().ToString().Contains(name.ToLower()) || x.UserNameUnsigned.ToLower().Contains(name.ToLower())).Take(5).ToList();
+            var list = ApiService.GetSingerByName(name).Where(x => x.UserName.ToLower().ToString().Contains(name.ToLower()) || x.UserNameUnsigned.ToLower().Contains(name.ToLower())).Take(5).ToList();
 
             return Json(new
             {

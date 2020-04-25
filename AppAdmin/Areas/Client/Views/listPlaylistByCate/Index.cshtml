@@ -1,44 +1,52 @@
 ﻿@using ModelViews.DTOs
 @{
-    ViewBag.Title = "Index";
+   
     Layout = "~/Areas/Client/Views/Shared/_LayoutClient.cshtml";
     List<PlaylistDto> listPlaylist = ViewBag.getListPlaylist;
-    var Cate = listPlaylist.FirstOrDefault().CategoryDto.CateName;
 
 }
-<!--Start Content-->
-<div id="content" class="container">
-    <div class="gridMusic">
-        <div class="gridLeft">
-            <label for="" class="lblMusic">
-                Chủ đề: @if (listPlaylist != null)
-                {
-                    @Cate
-                }
-                else
-                {
-                    <label></label>
-                }
-            </label>
-      
-            <div class="listMusic">
-                @foreach (var item in listPlaylist)
-                {
 
-                    <div class="itemMusic">
-                        <a href="@Url.Action("Index","playPlaylist", new { id = item.ID })" style="font-size: 18px;">
-                            <img src="@item.LinkImage" alt="" class="imgMusic">@item.PlaylistName
-                        </a>
-                        <div class="nameSinger">
-                            <a href=""> @item.UserDto.UserName</a>
+@if (listPlaylist.Count != 0)
+{
+
+    <!--Start Content-->
+    <div id="content" class="container">
+        <div class="gridMusic">
+            <div class="gridLeft">
+                <label for="" class="lblMusic">
+                    Chủ đề: @if (listPlaylist.FirstOrDefault() != null)
+                            {
+                                @listPlaylist.FirstOrDefault().CategoryDto.CateName
+                            }
+                            else
+                            {
+                                <label></label>
+                            }
+                </label>
+
+                <div class="listMusic">
+                    @foreach (var item in listPlaylist)
+                    {
+
+                        <div class="itemMusic">
+                            <a href="@Url.Action("Index","playPlaylist", new { id = item.ID })" style="font-size: 18px;">
+                                <img src="@item.LinkImage" alt="" class="imgMusic">@item.PlaylistName
+                            </a>
+                            <div class="nameSinger">
+                                <a href=""> @item.UserDto.UserName</a>
+                            </div>
                         </div>
-                    </div>
 
-                }
+                    }
+                </div>
+            </div>
+            <div class="gridRight">
             </div>
         </div>
-        <div class="gridRight">
-        </div>
     </div>
-</div>
-<!--End content-->
+    <!--End content-->
+}
+else
+{
+    <h1 class="text-center">Chưa có play list nào</h1>
+}
