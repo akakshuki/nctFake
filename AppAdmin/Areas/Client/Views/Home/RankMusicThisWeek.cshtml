@@ -111,21 +111,32 @@
                 {
                     foreach (var item in mvs.MusicDtos)
                     {
-                        <div class="itemBxh" data-grade="@item.GradeRank">
-                            <span>1</span>
-                            <img src="@item.LinkImage" alt="">
-                            <span>
-                                <a href="@Url.Action("Index","playMusic",new {id = @item.ID})" style="font-size: 20px;">@item.MusicName</a><br>
-                                <span><i class="fas fa-headphones"></i> @item.MusicView</span>
-                                @foreach (var singer in item.SingerMusicDtOs)
-                                {
-                                    <a href="@Url.Action("Index","Singer", new { id = singer.UserDto.ID})">@singer.UserDto.UserName</a>
-                                }
-                            </span>
-                            @*<span style="left: 265px;top: -15px;">
-                        <span><i class="fas fa-plus-circle"></i> Thêm vào</span>
-                            </span>*@
-                        </div>
+                <div class="itemBxh" data-grade="@item.GradeRank">
+                    <span>@item.GradeRank</span>
+                    <img src="@item.LinkImage" alt="">
+                    <span>
+                        <a href="@Url.Action("Index","playMusic",new {id = @item.ID})" style="font-size: 20px;">@item.MusicName</a><br>
+                        <span><i class="fas fa-headphones"></i> @item.MusicView</span>
+                        <span>
+                            @foreach (var singer in item.SingerMusicDtOs)
+                            {
+                                <a href="@Url.Action("Index","Singer", new { id = singer.UserDto.ID})">@singer.UserDto.UserName</a>
+                            }
+                        </span>
+
+                    </span>
+                    <span style="left: 265px;top: -15px;">
+
+                        @*<span class="addPlaylist" style="cursor: pointer;">
+                <i class="fas fa-plus-circle"></i> Thêm vào
+                <ul>
+                    <li><a href="">Bài hát yêu thích</a> </li>
+                    <li><a href="">Test1</a></li>
+                    <li><a href="">Test2</a></li>
+                </ul>
+            </span>*@
+                    </span>
+                </div>
                     }
                 }
             </div>

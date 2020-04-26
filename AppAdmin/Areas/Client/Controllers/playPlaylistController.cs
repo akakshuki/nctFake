@@ -14,25 +14,36 @@ namespace AppAdmin.Areas.Client.Controllers
         // GET: Client/playPlaylist
         public ActionResult Index(int id)
         {
-            ViewBag.getPlaylistById = ApiService.GetPlaylistById(id);
             var data = ApiService.GetPlaylistById(id);
+            ViewBag.getPlaylistById = data;
             ViewBag.getListPlaylist = ApiService.GetPlaylistByIdCate(data.CateID??0).Distinct().OrderBy(s => Guid.NewGuid()).Take(3).ToList();
             ViewBag.getPlaylistMusic = ApiService.GetMusicByIdPlaylist(id);
             ViewBag.GetAllMusic = ApiService.GetAllMusic();
-            var getIdMusic = ApiService.GetPlaylistById(id);
+            var getIdMusic = data;
           
             ViewBag.getFile = ApiService.GetAllQM().Where(s=>s.QualityID==1).ToList();
             var UserId = (UserDTO)Session[CommonConstants.USER_SESSION];
-            Session["UserIdPl"] = UserId.ID;
-            Session["UserSession"] = (UserDTO)Session[CommonConstants.USER_SESSION];           
-            if (Session["UserSession"] != null)
+            if (UserId != null)
             {
-                data.UserID = UserId.ID;
-                if (ApiService.GetPlaylistByIdUser(data.UserID).Count() > 0)
+                Session["UserIdPl"] = UserId.ID;
+            }
+            else
+            {
+                Session["UserIdPl"] = null;
+            }
+          
+            Session["UserSession"] = (UserDTO)Session[CommonConstants.USER_SESSION];           
+            if (UserId != null)
+            {
+                var playlistByIdUser = ApiService.GetPlaylistByIdUser(UserId.ID);
+                if (playlistByIdUser.Count() > 0)
                 {
-                    ViewBag.getPlaylistByIdUser = ApiService.GetPlaylistByIdUser(data.UserID);
+                    ViewBag.getPlaylistByIdUser = playlistByIdUser;
                 }
-                ViewBag.getPlaylistByIdUser = null;
+                else
+                {
+                    ViewBag.getPlaylistByIdUser = null;
+                }
             }
             else
             {

@@ -176,7 +176,7 @@
                                 {
                                     if (getPlatlistByIdUser == null)
                                     {
-                                        <span>Bạn chưa có playlist nào. <a href="#">TẠO</a></span>
+                                        <span>Bạn chưa có playlist nào. <a href="@Url.Action("PersonalUser","PersonalUser", new { id = Session["UserId"]})">TẠO</a></span>
                                     }
                                     else
                                     {

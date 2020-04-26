@@ -155,7 +155,11 @@ namespace AppAdmin.Controllers
         public ActionResult UpdateFile(int id)
         {
             var data = ApiService.UpdateFile(id);
-            return RedirectToAction("ListFile", "QualityMusic");
+            if (data != null)
+            {
+                return RedirectToAction("ListFile");
+            }
+            return RedirectToAction("ListFile");
         }
 
         public ActionResult DelFileAndTableRelated(int id)

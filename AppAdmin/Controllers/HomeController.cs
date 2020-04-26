@@ -86,5 +86,14 @@ namespace AppAdmin.Controllers
             return View(data);
         }
         #endregion
+        public ActionResult ViewLogout()
+        {
+            return PartialView();
+        }
+        public ActionResult LogOutAdmin()
+        {
+            Session[Common.CommonConstants.USER_SESSION] = null;
+            return Redirect("https://localhost:44315/Client/Login/Login");
+        }
     }
 }

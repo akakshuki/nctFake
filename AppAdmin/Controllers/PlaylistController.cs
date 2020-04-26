@@ -1,4 +1,5 @@
-﻿using AppAdmin.Models.Service;
+﻿using AppAdmin.Common;
+using AppAdmin.Models.Service;
 using ModelViews.DTOs;
 using System;
 using System.Collections.Generic;
@@ -32,7 +33,9 @@ namespace AppAdmin.Controllers
         {
             try
             {
-                playlistDTO.UserID = 31;
+                var UserId = (UserDTO)Session[CommonConstants.USER_SESSION];
+                playlistDTO.UserID = UserId.ID;
+                //playlistDTO.UserID = 31;
                 if (playlistDTO.FileImage != null)
                 {
                     playlistDTO.PlaylistImage = DateTime.Now.Ticks + playlistDTO.PlaylistImage + ".png";
@@ -62,7 +65,9 @@ namespace AppAdmin.Controllers
         {
             try
             {
-                playlistDTO.UserID = 31;
+                var UserId = (UserDTO)Session[CommonConstants.USER_SESSION];
+                playlistDTO.UserID = UserId.ID;
+                //playlistDTO.UserID = 31;
                 //get Image have exist
                 var currentFileName = ApiService.GetPlaylistById(playlistDTO.ID).PlaylistImage;
                 //check name have deafault if exist ==> dont delete

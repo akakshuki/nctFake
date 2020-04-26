@@ -48,7 +48,7 @@ namespace Api.Areas.Admin.Controllers
             return InternalServerError();
         }
         // PUT api/<controller>/5
-        [Route("UpdateFile")]
+        [HttpGet,Route("UpdateFile/{id}")]
         public IHttpActionResult UpdateFile(int id)
         {
             if (new Repositories().UpdateFile(id))

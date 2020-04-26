@@ -106,29 +106,31 @@
     <div class="hoverSearch" data-id="1">Bài hát</div>
     <div data-id="2">Video</div>
 </div>
-<div id="songSearch" class="musicSearch">
+<div id="songSearch" class="musicSearch" style="width:63%;">
     @if (list != null)
     {
         foreach (var historyUserDto in list.Where(x => x.MusicDto.SongOrMV))
         {
-            <div class="itemBxh" data-id="1">
-                <img src="@historyUserDto.MusicDto.LinkImage" alt="">
-                <span>
-                    <a href="@Url.Action("Index","playMusic", new {id = historyUserDto.MusicID})" style="font-size: 20px;">@historyUserDto.MusicDto.MusicName</a><br>
-                    <span style="left: 80px;">
+    <div class="itemBxh" data-id="1">
+        <img src="@historyUserDto.MusicDto.LinkImage" alt="">
+        <span>
+            <a href="@Url.Action("Index","playMusic", new {id = historyUserDto.MusicID})" style="font-size: 20px;">@historyUserDto.MusicDto.MusicName</a><br>
+            <span style="left: 80px;">
 
-                        @foreach (var singer in @historyUserDto.MusicDto.SingerMusicDtOs)
-                        {
-                            <a href="@Url.Action("Index","Singer",new {id= @singer.SingerID})">@singer.UserDto.UserName</a>
-                        }
+                @foreach (var singer in @historyUserDto.MusicDto.SingerMusicDtOs)
+                {
+                    <a href="@Url.Action("Index","Singer",new {id= @singer.SingerID})">@singer.UserDto.UserName</a>
+                }
 
-                    </span>
-                </span>
-                <span>
-                    <span> <a href="@Url.Action("DeleteHistoryUser","AccountUser", new {id = historyUserDto.MusicID})" class="delItem"> <i class="fas fa-trash"></i> Xóa</a></span>
-                    <span><a href=""><i class="fas fa-share-alt"></i> Chia sẽ</a></span>
-                </span>
-            </div>
+            </span>
+            <span> <a href="@Url.Action("DeleteHistoryUser","AccountUser", new {id = historyUserDto.MusicID})" class="delItem"> <i class="fas fa-trash"></i> Xóa</a></span>
+        </span>
+        
+
+        <span>
+            @*<span><a href=""><i class="fas fa-share-alt"></i> Chia sẽ</a></span>*@
+        </span>
+    </div>
         }
     }
     else
@@ -147,28 +149,31 @@
             <span class="lastPage"><i class="fas fa-angle-double-right"></i></span>
         </div>*@
 </div>
-<div id="videoSearch" class="musicSearch">
+<div id="videoSearch" class="musicSearch" style="width:63%;">
     @if (list != null)
     {
         foreach (var historyUserDto in list.Where(x => !x.MusicDto.SongOrMV))
         {
-            <div class="itemBxh" data-id="1">
-                <img src="@historyUserDto.MusicDto.LinkImage" alt="">
-                <span>
-                    <a href="@Url.Action("Index","playMusic", new {id = historyUserDto.MusicID})" style="font-size: 20px;">@historyUserDto.MusicDto.MusicName</a><br>
-                    <span style="left: 80px;">
+    <div class="itemBxh" data-id="1">
+        <img src="@historyUserDto.MusicDto.LinkImage" alt="">
+        <span>
+            <a href="@Url.Action("Index","playMusic", new {id = historyUserDto.MusicID})" style="font-size: 20px;">@historyUserDto.MusicDto.MusicName</a><br>
+            <span style="left: 80px;">
 
-                        @foreach (var singer in @historyUserDto.MusicDto.SingerMusicDtOs)
-                        {
-                            <a href="@Url.Action("Index","Singer",new {id= @singer.SingerID})">@singer.UserDto.UserName</a>
-                        }
-                    </span>
-                </span>
-                <span>
-                    <a href=""> <span class="delItem"><i class="fas fa-trash"></i> Xóa</span></a>
-                    <span><a href=""><i class="fas fa-share-alt"></i> Chia sẽ</a></span>
-                </span>
-            </div>
+                @foreach (var singer in @historyUserDto.MusicDto.SingerMusicDtOs)
+                {
+                    <a href="@Url.Action("Index","Singer",new {id= @singer.SingerID})">@singer.UserDto.UserName</a>
+                }
+            </span>
+            <span> <a href="@Url.Action("DeleteHistoryUser","AccountUser", new {id = historyUserDto.MusicID})" class="delItem"> <i class="fas fa-trash"></i> Xóa</a></span>
+
+
+        </span>
+
+        <span>
+            @*<span><a href=""><i class="fas fa-share-alt"></i> Chia sẽ</a></span>*@
+        </span>
+    </div>
         }
     }
     else

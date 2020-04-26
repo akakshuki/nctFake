@@ -53,8 +53,8 @@
                         data: { idMusic },
                         success: function (res) {
                             var view = res.data;
-                            alert(view);
-                            $('#valueView').text(view);
+                            //alert(view);
+                            $('#view').text(view);
                             document.getElementById("myAudio").play();
                         }
                     });
@@ -232,7 +232,7 @@
                     <a href="@Url.Action("Index","playMusic", new { id = getMusic.MusicRelated })"><i class="fas fa-music"></i></a>
                     <!--song-->
                 }
-                else
+                else if(getMusic.SongOrMV == false && getMusic.MusicRelated != null)
                 {
                     <!--mv-->
                     <a href="@Url.Action("Index","playMusic", new { id = getMusic.MusicRelated })"><i class="fas fa-video"></i></a>
@@ -240,7 +240,7 @@
                 }
 
 
-                <span style="position: absolute;left: 730px;top:86px;font-size: 18px;">
+                <span id="view" style="position: absolute;left: 730px;top:86px;font-size: 18px;">
                     <i class="fas fa-headphones"></i> @getMusic.MusicView
                 </span>
             </div>
@@ -334,7 +334,7 @@
                                             else
                                             {
 
-                                                <span>Bạn chưa có playlist nào. <a href="@Url.Action("","", new { id = Session["UserId"]})">TẠO</a></span>
+                                                <span>Bạn chưa có playlist nào. <a href="@Url.Action("PersonalUser","PersonalUser", new { id = Session["UserId"]})">TẠO</a></span>
                                             }
                                         }
                                         else
@@ -476,9 +476,9 @@
 
 
                     </div>
-                    <div>
+                    @*<div>
                         <a href=""><img src="@Url.Content("~/Content/ClientMusic/")img/share_fb.png" alt=""></a>
-                    </div>
+                    </div>*@
                 </div>
                 <div class="collapse multi-collapse" id="multiCollapseExample1">
                     <div class="card card-body" id="downFile">

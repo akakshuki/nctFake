@@ -184,13 +184,13 @@
                         <div class="form-group">
                             <div class="nk-int-st">
                                 <input type="hidden" name="ID" value="@getInfoUser.ID" />
-                                <input name="AccountPwd" type="password" class="form-control input-sm" style="font-size: 18px;"
+                                <input required name="AccountPwd" type="password" class="form-control input-sm" style="font-size: 18px;"
                                        placeholder="Mật khẩu cũ">
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="nk-int-st">
-                                <input name="UserPwd" type="password" class="form-control input-sm" style="font-size: 18px;"
+                                <input pattern=".{6,}" title="Six or more characters" name="UserPwd" type="password" class="form-control input-sm" style="font-size: 18px;"
                                        placeholder="Mật khẩu mới">
                             </div>
                         </div>

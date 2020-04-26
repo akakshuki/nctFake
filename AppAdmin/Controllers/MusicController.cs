@@ -58,9 +58,9 @@ namespace AppAdmin.Controllers
         {
             try
             {
-                //var UserId = (UserDTO)Session[CommonConstants.USER_SESSION];
-                //music.UserID = UserId.ID;
-                music.UserID = 31;
+                var UserId = (UserDTO)Session[CommonConstants.USER_SESSION];
+                music.UserID = UserId.ID;
+                //music.UserID = 31;
                 if (music.FileImage != null)
                 {
                     music.MusicImage = DateTime.Now.Ticks + music.MusicName + ".png";

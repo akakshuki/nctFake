@@ -240,11 +240,7 @@
                 </ul>
                 <!--  notification end -->
             </div>
-            <div class="top-menu">
-                <ul class="nav pull-right top-menu">
-                    <li><a class="logout" href="login.html">Logout</a></li>
-                </ul>
-            </div>
+            @{ Html.RenderAction("ViewLogout", "Home"); }
         </header>
         <!--header end-->
         <!-- **********************************************************************************************************************************************************
