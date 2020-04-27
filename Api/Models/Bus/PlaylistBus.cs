@@ -75,8 +75,8 @@ namespace Api.Models.Bus
                 PlaylistImage = s.PlaylistImage,
                 LinkImage = baseUrl + s.PlaylistImage,
                 CateID = s.CateID,
-                UserID = s.UserID,  
-                //UserDto = new UserBus().GetUserById(s.UserID),
+                UserID = s.UserID,
+                UserDto = new UserBus().GetUserById(s.UserID),
             });
             return data;
         }

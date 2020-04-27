@@ -9,7 +9,86 @@
     List<CategoryDTO> randomCate = ViewBag.RandomTheoChuDe;
 
 }
+@section js{
 
+    <script>
+        $(document).ready(function () {
+            var msg1 = '@TempData["success"]'
+            if (msg1 != '') {
+                alertify.success(msg1); //display notify
+            }
+            var msg2 = '@TempData["error"]'
+            if (msg2 != '') {
+                alertify.error(msg2); //display notify
+            }
+            window.onload = function () {
+                var itv = window.setInterval(function () { prevImages() }, 3000);
+                var next = document.getElementById("btnNext");
+                var prev = document.getElementById("btnPrev");
+                if (next != null && prev != null) {
+                    next.addEventListener("click", function () {
+                        nextImages();
+                    });
+                    prev.addEventListener("click", function () {
+                        prevImages();
+                    });
+                }
+            };
+            function nextImage(item) {
+                item.style.left = parseInt(item.style.left) + item.offsetWidth + 10 + "px";
+            }
+            function nextImages() {
+                var lsImg = document.getElementsByClassName("imgItem");
+                for (var i = 0; i < lsImg.length; i++) {
+                    nextImage(lsImg[i]);
+                }
+                createImgFirst();
+            }
+            function prevImage(item) {
+                item.style.left = parseInt(item.style.left) - item.offsetWidth - 10 + "px";
+            }
+            function prevImages() {
+                var lsImg = document.getElementsByClassName("imgItem");
+                for (var i = 0; i < lsImg.length; i++) {
+                    prevImage(lsImg[i]);
+                }
+                createImgLast();
+            }
+            function createImgFirst() {
+                var containImg = document.getElementById("owl-wrapper");
+                var lastA = $(".imgItem:last-child");
+                var lastImg = $(".imgItem:last-child>img");
+                var newA = document.createElement("a");
+                newA.className = "imgItem";
+                newA.target = "_blank";
+                newA.href = lastA.attr("href");
+                var newImg = document.createElement("img");
+                newImg.src = lastImg.attr("src");
+                newA.append(newImg);
+                newA.style.left = parseInt(containImg.firstElementChild.style.left) - containImg.firstElementChild.offsetWidth - 10 + "px";
+                lastA.remove();
+                containImg.insertBefore(newA, containImg.firstElementChild);
+            }
+            function createImgLast() {
+                var containImg = document.getElementById("owl-wrapper");
+                if (containImg != null) {
+                    var firstA = $(".imgItem:first-child");
+                    var firstImg = $(".imgItem:first-child>img");
+                    var newA = document.createElement("a");
+                    newA.className = "imgItem";
+                    newA.target = "_blank";
+                    newA.href = firstA.attr("href");
+                    var newImg = document.createElement("img");
+                    newImg.src = firstImg.attr("src");
+                    newA.append(newImg);
+                    newA.style.left = parseInt(containImg.lastElementChild.style.left) + containImg.lastElementChild.offsetWidth + 10 + "px";
+                    firstA.remove();
+                    containImg.appendChild(newA);
+                }
+            }
+        });
+    </script>
+}
 <div class="gridMusic">
     <div class="gridLeft">
         <!--New Song-->
@@ -31,10 +110,10 @@
                                 {
                                     foreach (var singers in itemSinger.SingerMusicDtOs)
                                     {
-                                       
-                                        if (itemSinger.SingerMusicDtOs.IndexOf(singers)+1 == itemSinger.SingerMusicDtOs.Count)
-                                        { 
-                                            <a href="@Url.Action("Index","Singer", new { id = singers.UserDto.ID })" >@singers.UserDto.UserName.</a>
+
+                                        if (itemSinger.SingerMusicDtOs.IndexOf(singers) + 1 == itemSinger.SingerMusicDtOs.Count)
+                                        {
+                                            <a href="@Url.Action("Index","Singer", new { id = singers.UserDto.ID })">@singers.UserDto.UserName.</a>
                                         }
                                         else
                                         {
@@ -109,7 +188,8 @@
         <div id="owl-wrapper">
             @foreach (var item in listPartner)
             {
-                <a href="@item.PartnerLink" class="imgItem" target="_blank"> <img src="@item.LinkImage"></a>
+                @*<a href="@item.PartnerLink" class="imgItem" target="_blank"> <img src="@item.LinkImage"></a>*@
+                <img src="@item.LinkImage">
             }
         </div>
         <div id="controlImg">
